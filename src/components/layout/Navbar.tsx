@@ -1,482 +1,103 @@
-import React, { useState, useRef, useEffect } from 'react';
+
+import React, { useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import {
-  ArrowRight,
-  Menu,
-  X,
-  ChevronDown,
-  Layers,
-  Video,
-  TrendingUp,
-  Heart,
-  GraduationCap,
-  Briefcase,
-  Sparkles,
-  Radio,
-  FileText,
-  CheckCircle2,
-  Building2,
-  UserCheck,
-  Compass
-} from 'lucide-react';
+import { Menu, X, ChevronDown } from 'lucide-react';
+import { motion, AnimatePresence } from 'framer-motion';
 
-interface SubNavItem {
-  title: string;
-  subtitle: string;
-  href: string;
-  icon: React.ComponentType<{ size?: number; className?: string; color?: string }>;
-  badge?: string;
-}
-
-interface NavItem {
-  label: string;
-  href: string;
-  dropdown?: SubNavItem[];
-  featuredLink?: {
-    label: string;
-    href: string;
-  };
-}
-
-interface NavbarProps {
-  onOpenConsultation: () => void;
-}
-
-export const Navbar: React.FC<NavbarProps> = ({ onOpenConsultation }) => {
+export const Navbar: React.FC = () => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const [activeDropdown, setActiveDropdown] = useState<string | null>(null);
-  const [mobileExpanded, setMobileExpanded] = useState<string | null>(null);
+  const [dropdownOpen, setDropdownOpen] = useState(false);
   const location = useLocation();
-  const navRef = useRef<HTMLElement>(null);
-  const timeoutRef = useRef<number | null>(null);
 
-  const navItems: NavItem[] = [
-    {
-      label: 'Home',
-      href: '/'
-    },
-    {
-      label: 'Services',
-      href: '/services',
-      dropdown: [
-        {
-          title: '01. BUILD',
-          subtitle: 'Web architecture, SEO & search visibility foundation',
-          href: '/services#build',
-          icon: Layers,
-          badge: 'Foundation'
-        },
-        {
-          title: '02. CREATE',
-          subtitle: 'Studio video shoots, audio mastering & explainers',
-          href: '/services#create',
-          icon: Video,
-          badge: 'Production'
-        },
-        {
-          title: '03. PROMOTE',
-          subtitle: 'Targeted paid distribution & practice scaling',
-          href: '/services#promote',
-          icon: TrendingUp,
-          badge: 'Growth'
-        }
-      ],
-      featuredLink: {
-        label: 'View All Service Pillars →',
-        href: '/services'
-      }
-    },
-    {
-      label: 'Industries',
-      href: '/industries',
-      dropdown: [
-        {
-          title: 'Healthcare Sector',
-          subtitle: 'Practice growth, clinics & patient trust',
-          href: '/industries/healthcare',
-          icon: Heart
-        },
-        {
-          title: 'Education Sector',
-          subtitle: 'Faculty reach, academic institutes & student intake',
-          href: '/industries/education',
-          icon: GraduationCap
-        },
-        {
-          title: 'Consulting Sector',
-          subtitle: 'Senior advisory authority & executive practice growth',
-          href: '/industries/consulting',
-          icon: Briefcase
-        }
-      ],
-      featuredLink: {
-        label: 'Compare All Industry Models →',
-        href: '/industries'
-      }
-    },
-    {
-      label: 'Creative Workspace',
-      href: '/creative-workspace',
-      dropdown: [
-        {
-          title: 'Partner Overview',
-          subtitle: 'Collaborate with high-trust clients and curated briefs',
-          href: '/creative-workspace',
-          icon: Sparkles
-        },
-        {
-          title: 'Production Workflow',
-          subtitle: 'Storyboards, quality gates & collaborative milestones',
-          href: '/creative-workspace#workflow',
-          icon: FileText
-        },
-        {
-          title: 'Open Partner Roles',
-          subtitle: 'Video editors, audio engineers & motion artists',
-          href: '/creative-workspace#roles',
-          icon: Layers,
-          badge: 'Openings'
-        },
-        {
-          title: 'Apply as Technical Partner',
-          subtitle: 'Submit your portfolio and join our creator network',
-          href: '/creative-workspace/apply',
-          icon: ArrowRight,
-          badge: 'Apply'
-        }
-      ],
-      featuredLink: {
-        label: 'Join Our Workspace Network →',
-        href: '/creative-workspace'
-      }
-    },
-    {
-      label: 'About',
-      href: '/about'
-    },
-    {
-      label: 'Contact',
-      href: '/contact'
-    }
+  const handleMobileClick = () => {
+    setMobileMenuOpen(false);
+    setDropdownOpen(false);
+  };
+
+  const industries = [
+    { name: 'Education', desc: 'Digital growth for education institutions', href: '/industries/education' },
+    { name: 'Healthcare', desc: 'Digital growth for healthcare organizations', href: '/industries/healthcare' },
+    { name: 'Consulting & Professional Services', desc: 'Digital growth for professional firms', href: '/industries/professional-services' }
   ];
 
-  // Check if link or any child is active
-  const isActive = (item: NavItem) => {
-    if (item.href === '/') {
-      return location.pathname === '/';
-    }
-    return location.pathname.startsWith(item.href);
-  };
-
-  // Close dropdown on outside click or escape
-  useEffect(() => {
-    const handleKeyDown = (e: KeyboardEvent) => {
-      if (e.key === 'Escape') {
-        setActiveDropdown(null);
-        setMobileMenuOpen(false);
-      }
-    };
-
-    const handleClickOutside = (e: MouseEvent) => {
-      if (navRef.current && !navRef.current.contains(e.target as Node)) {
-        setActiveDropdown(null);
-      }
-    };
-
-    document.addEventListener('keydown', handleKeyDown);
-    document.addEventListener('mousedown', handleClickOutside);
-    return () => {
-      document.removeEventListener('keydown', handleKeyDown);
-      document.removeEventListener('mousedown', handleClickOutside);
-    };
-  }, []);
-
-  // Handle desktop mouse enter with anti-flicker
-  const handleMouseEnter = (label: string) => {
-    if (timeoutRef.current) {
-      window.clearTimeout(timeoutRef.current);
-      timeoutRef.current = null;
-    }
-    setActiveDropdown(label);
-  };
-
-  // Handle desktop mouse leave with smooth grace delay
-  const handleMouseLeave = () => {
-    timeoutRef.current = window.setTimeout(() => {
-      setActiveDropdown(null);
-    }, 140);
-  };
-
-  // Handle anchor link click with smooth header offset
-  const handleLinkClick = (href: string) => {
-    setActiveDropdown(null);
-    setMobileMenuOpen(false);
-
-    if (href.includes('#')) {
-      const [pathPart, hashPart] = href.split('#');
-      const isCurrentPage =
-        pathPart === '' ||
-        location.pathname === pathPart ||
-        (pathPart === '/' && location.pathname === '/');
-
-      if (isCurrentPage) {
-        setTimeout(() => {
-          const element = document.getElementById(hashPart);
-          if (element) {
-            const headerOffset = 84;
-            const elementPosition = element.getBoundingClientRect().top;
-            const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
-            window.scrollTo({
-              top: offsetPosition,
-              behavior: 'smooth'
-            });
-          }
-        }, 40);
-      }
-    }
-  };
-
   return (
-    <>
-      {/* Main Global Header */}
-      <header className="site-header" ref={navRef}>
-        <div className="nav-container">
-          {/* Logo */}
-          <Link to="/" className="brand-logo-wrap" aria-label="sBLOOM Home" onClick={() => handleLinkClick('/')}>
-            <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
-              <div style={{ width: '36px', height: '36px', borderRadius: '50%', background: 'var(--color-indigo)', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#FFF' }}>
-                <Sparkles size={20} />
-              </div>
-              <span style={{ fontSize: '1.5rem', fontWeight: 800, color: 'var(--color-indigo)', letterSpacing: '-0.5px' }}>sBLOOM</span>
-            </div>
-          </Link>
-
-          {/* Desktop Navigation Links with Dropdown Panels */}
-          <nav aria-label="Main Navigation">
-            <ul className="nav-links">
-              {navItems.map((item) => {
-                const hasDropdown = Boolean(item.dropdown && item.dropdown.length > 0);
-                const isOpen = activeDropdown === item.label;
-                const active = isActive(item);
-
-                return (
-                  <li
-                    key={item.label}
-                    className={`nav-item-wrap ${hasDropdown ? 'has-dropdown' : ''}`}
-                    onMouseEnter={() => hasDropdown && handleMouseEnter(item.label)}
-                    onMouseLeave={handleMouseLeave}
+    <header className="navbar">
+      <div className="container nav-container">
+        <Link to="/" className="logo-container" aria-label="sBLOOM Home" onClick={handleMobileClick}>
+          <img src="/sbloom-logo.png" alt="sBLOOM Logo" className="logo-img" />
+        </Link>
+        <nav>
+          <ul className={`nav-links ${mobileMenuOpen ? 'mobile-open' : ''}`}>
+            <li>
+              <Link to="/" className={`nav-link ${location.pathname === '/' ? 'active' : ''}`} aria-current={location.pathname === '/' ? 'page' : undefined} onClick={handleMobileClick}>Home</Link>
+            </li>
+            
+            <li 
+              className="nav-dropdown-wrapper" 
+              onMouseEnter={() => !mobileMenuOpen && setDropdownOpen(true)}
+              onMouseLeave={() => !mobileMenuOpen && setDropdownOpen(false)}
+            >
+              <button 
+                className={`nav-link nav-dropdown-btn ${location.pathname.includes('/industries') ? 'active' : ''}`}
+                onClick={() => mobileMenuOpen && setDropdownOpen(!dropdownOpen)}
+              >
+                Industries <ChevronDown size={16} className={`dropdown-chevron ${dropdownOpen ? 'rotated' : ''}`} />
+              </button>
+              
+              <AnimatePresence>
+                {dropdownOpen && (
+                  <motion.div 
+                    initial={{ opacity: 0, y: 10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: 5 }}
+                    transition={{ duration: 0.2 }}
+                    className="nav-dropdown"
+                    style={mobileMenuOpen ? { transform: 'none', left: 0 } : { transform: 'translateX(-50%)', left: '50%' }}
                   >
-                    {hasDropdown ? (
-                      <div className="nav-dropdown-trigger-group">
-                        <Link
-                          to={item.href}
-                          className={`nav-link ${active ? 'active' : ''} ${isOpen ? 'menu-open' : ''}`}
-                          onClick={(e) => {
-                            if (item.href === '/industries') {
-                              e.preventDefault();
-                              setActiveDropdown(isOpen ? null : item.label);
-                            } else {
-                              handleLinkClick(item.href);
-                            }
-                          }}
-                        >
-                          <span>{item.label}</span>
-                        </Link>
-                        <button
-                          type="button"
-                          className="nav-chevron-btn"
-                          onClick={(e) => {
-                            e.preventDefault();
-                            e.stopPropagation();
-                            setActiveDropdown(isOpen ? null : item.label);
-                          }}
-                          aria-label={`Toggle ${item.label} dropdown`}
-                          aria-expanded={isOpen}
-                        >
-                          <ChevronDown
-                            size={14}
-                            className={`nav-chevron ${isOpen ? 'rotate' : ''}`}
-                            aria-hidden="true"
-                          />
-                        </button>
-                      </div>
-                    ) : (
-                      <Link
-                        to={item.href}
-                        className={`nav-link ${active ? 'active' : ''}`}
-                        onClick={() => handleLinkClick(item.href)}
+                    {industries.map((ind) => (
+                      <Link 
+                        key={ind.name} 
+                        to={ind.href} 
+                        className={`dropdown-item ${location.pathname === ind.href ? 'active' : ''}`}
+                        aria-current={location.pathname === ind.href ? 'page' : undefined}
+                        onClick={handleMobileClick}
                       >
-                        {item.label}
-                      </Link>
-                    )}
-
-                    {/* Desktop Dropdown Popover */}
-                    {hasDropdown && isOpen && (
-                      <div
-                        className="nav-dropdown-popover"
-                        onMouseEnter={() => handleMouseEnter(item.label)}
-                        onMouseLeave={handleMouseLeave}
-                      >
-                        <div className="nav-dropdown-grid">
-                          {item.dropdown!.map((sub) => {
-                            const IconComponent = sub.icon;
-                            return (
-                              <Link
-                                key={sub.title}
-                                to={sub.href}
-                                className="nav-dropdown-item"
-                                onClick={() => handleLinkClick(sub.href)}
-                              >
-                                <div className="nav-dropdown-icon-box">
-                                  <IconComponent size={18} color="var(--color-coral)" />
-                                </div>
-                                <div className="nav-dropdown-content">
-                                  <div className="nav-dropdown-header-line">
-                                    <span className="nav-dropdown-title">{sub.title}</span>
-                                    {sub.badge && (
-                                      <span className="nav-dropdown-badge">{sub.badge}</span>
-                                    )}
-                                  </div>
-                                </div>
-                                <ArrowRight size={14} className="nav-dropdown-arrow" />
-                              </Link>
-                            );
-                          })}
+                        <div className="dropdown-item-content">
+                          <span className="dropdown-item-title">{ind.name}</span>
+                          <span className="dropdown-item-desc">{ind.desc}</span>
                         </div>
-
-                        {item.featuredLink && (
-                          <div className="nav-dropdown-footer">
-                            <Link
-                              to={item.featuredLink.href}
-                              className="nav-dropdown-featured-btn"
-                              onClick={() => handleLinkClick(item.featuredLink!.href)}
-                            >
-                              <span>{item.featuredLink.label}</span>
-                            </Link>
-                          </div>
-                        )}
-                      </div>
-                    )}
-                  </li>
-                );
-              })}
-            </ul>
-          </nav>
-
-          {/* Header Action Button & Mobile Toggle */}
-          <div className="nav-actions">
-            <button
-              onClick={onOpenConsultation}
-              className="btn"
-              id="header-cta-talk"
-              style={{ borderRadius: '9999px', padding: '10px 24px', backgroundColor: 'var(--color-indigo)', color: '#FFF', textTransform: 'uppercase', letterSpacing: '0.02em', fontSize: '0.85rem' }}
-            >
-              <span>GET STARTED</span>
-            </button>
-
-            <button
-              className="mobile-toggle"
-              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              aria-label="Toggle navigation menu"
-              aria-expanded={mobileMenuOpen}
-            >
-              {mobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
-            </button>
-          </div>
-        </div>
-
-        {/* Mobile Navigation Drawer with Accordions */}
-        {mobileMenuOpen && (
-          <div className="mobile-drawer">
-            <div className="mobile-drawer-content">
-              {navItems.map((item) => {
-                const hasDropdown = Boolean(item.dropdown && item.dropdown.length > 0);
-                const isExpanded = mobileExpanded === item.label;
-
-                return (
-                  <div key={item.label} className="mobile-nav-item">
-                    {hasDropdown ? (
-                      <div>
-                        <div className="mobile-nav-header-row">
-                          <Link
-                            to={item.href}
-                            className="mobile-direct-link-flex"
-                            onClick={(e) => {
-                              if (item.href === '/industries') {
-                                e.preventDefault();
-                                setMobileExpanded(isExpanded ? null : item.label);
-                              } else {
-                                handleLinkClick(item.href);
-                              }
-                            }}
-                          >
-                            <span>{item.label}</span>
-                          </Link>
-                          <button
-                            type="button"
-                            className="mobile-accordion-toggle-btn"
-                            onClick={() => setMobileExpanded(isExpanded ? null : item.label)}
-                            aria-label={`Toggle ${item.label} sub-items`}
-                          >
-                            <ChevronDown
-                              size={18}
-                              className={`mobile-chevron ${isExpanded ? 'rotate' : ''}`}
-                            />
-                          </button>
-                        </div>
-
-                        {isExpanded && (
-                          <div className="mobile-accordion-body">
-                            {item.dropdown!.map((sub) => {
-                              const IconComponent = sub.icon;
-                              return (
-                                <Link
-                                  key={sub.title}
-                                  to={sub.href}
-                                  className="mobile-sub-link"
-                                  onClick={() => handleLinkClick(sub.href)}
-                                >
-                                  <div className="mobile-sub-icon">
-                                    <IconComponent size={16} color="var(--color-coral)" />
-                                  </div>
-                                  <div>
-                                    <div className="mobile-sub-title">{sub.title}</div>
-                                  </div>
-                                </Link>
-                              );
-                            })}
-                          </div>
-                        )}
-                      </div>
-                    ) : (
-                      <Link
-                        to={item.href}
-                        className="mobile-direct-link"
-                        onClick={() => handleLinkClick(item.href)}
-                      >
-                        {item.label}
+                        <span className="dropdown-item-arrow">→</span>
                       </Link>
-                    )}
-                  </div>
-                );
-              })}
-
-              <div className="mobile-drawer-footer">
-                <button
-                  onClick={() => {
-                    setMobileMenuOpen(false);
-                    onOpenConsultation();
-                  }}
-                  className="btn btn-indigo"
-                  style={{ width: '100%', justifyContent: 'center', borderRadius: '9999px', padding: '12px 24px', backgroundColor: 'var(--color-indigo)', color: '#FFF', textTransform: 'uppercase' }}
-                >
-                  <span>GET STARTED</span>
-                </button>
-              </div>
-            </div>
-          </div>
-        )}
-      </header>
-    </>
+                    ))}
+                  </motion.div>
+                )}
+              </AnimatePresence>
+            </li>
+            
+            <li>
+              <Link to="/solutions" className={`nav-link ${location.pathname.includes('/solutions') ? 'active' : ''}`} aria-current={location.pathname === '/solutions' ? 'page' : undefined} onClick={handleMobileClick}>Solutions</Link>
+            </li>
+            
+            <li>
+              <Link to="/how-it-works" className={`nav-link ${location.pathname === '/how-it-works' ? 'active' : ''}`} aria-current={location.pathname === '/how-it-works' ? 'page' : undefined} onClick={handleMobileClick}>How It Works</Link>
+            </li>
+            
+            <li>
+              <Link to="/about" className={`nav-link ${location.pathname === '/about' ? 'active' : ''}`} aria-current={location.pathname === '/about' ? 'page' : undefined} onClick={handleMobileClick}>About</Link>
+            </li>
+            <li className="nav-cta-item">
+              <Link to="/contact" className="btn btn-primary btn-nav" onClick={handleMobileClick}>Get Started</Link>
+            </li>
+          </ul>
+        </nav>
+        <button
+          className="mobile-toggle"
+          onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+          aria-label="Toggle navigation menu"
+        >
+          {mobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
+        </button>
+      </div>
+    </header>
   );
 };

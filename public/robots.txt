@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /
+
+# Sitemap placeholder - replace with actual domain before deployment
+Sitemap: https://[YOUR_DOMAIN]/sitemap.xml

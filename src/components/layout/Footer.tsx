@@ -1,90 +1,112 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { GenerateButton } from '../common/GenerateButton';
-import SocialFlipButton from '../common/SocialFlipButton';
-import { ArrowRight } from 'lucide-react';
+import { Camera, MessageCircle, Briefcase, Mail, Phone, ArrowRight } from 'lucide-react';
+import { motion } from 'framer-motion';
 
-interface FooterProps {
-  onOpenConsultation: () => void;
-}
-
-export const Footer: React.FC<FooterProps> = ({ onOpenConsultation }) => {
+export const Footer: React.FC = () => {
   return (
-    <footer className="site-footer">
+    <motion.footer 
+      className="footer-premium"
+      initial={{ opacity: 0, y: 20 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, amount: 0.1 }}
+      transition={{ duration: 0.6, ease: "easeOut" }}
+    >
       <div className="container">
-        <div className="footer-top-grid">
-          {/* Brand Col */}
-          <div>
-            <Link to="/" className="brand-logo-wrap" aria-label="sBLOOM Home" style={{ color: '#FFFFFF' }}>
-              <img
-                src="/sbloom-logo.png"
-                alt="sBLOOM"
-                className="brand-logo-img footer-logo-img"
-              />
+        <div className="footer-main">
+          {/* LEFT: Branding */}
+          <div className="footer-brand">
+            <Link to="/" aria-label="sBLOOM Home" className="footer-logo-link">
+              <img src="/sbloom-logo.png" alt="sBLOOM Logo" className="footer-logo" />
             </Link>
-            <p className="footer-brand-bio">
-              Industry-specific marketing and growth partner for Healthcare, Education and Consulting. We help businesses get found, tell their story, and reach the right people.
+            <p className="footer-desc">
+              S-Bloom is a specialized digital growth partner for expertise-led organizations in healthcare, education, and professional services.
             </p>
-            <div style={{ marginTop: '20px', display: 'flex', flexDirection: 'column', alignItems: 'flex-start', gap: '24px' }}>
-              <GenerateButton
-                onClick={onOpenConsultation}
-                palette="indigo"
-                className="btn-sm"
-                text="Start a Conversation"
-                icon={<ArrowRight size={14} />}
-              />
+            <Link to="/contact" className="footer-cta-link">
+              Talk to Sbloom <span className="arrow">→</span>
+            </Link>
+          </div>
+
+          {/* MIDDLE: Links */}
+          <div className="footer-links-grid">
+            <div className="footer-nav-col">
+              <h4 className="footer-nav-title">INDUSTRIES</h4>
+              <Link to="/industries/education" className="footer-nav-link">Education</Link>
+              <Link to="/industries/healthcare" className="footer-nav-link">Healthcare</Link>
+              <Link to="/industries/professional-services" className="footer-nav-link">Consulting & Professional Services</Link>
             </div>
-          </div>
-
-          {/* Client Pathways */}
-          <div>
-            <h4 className="footer-col-title">Industries</h4>
-            <ul className="footer-links">
-              <li><Link to="/industries/healthcare">Healthcare Growth</Link></li>
-              <li><Link to="/industries/education">Education & Academies</Link></li>
-              <li><Link to="/industries/consulting">Strategic Consulting</Link></li>
-              <li><Link to="/">All Industry Gateways</Link></li>
-            </ul>
-          </div>
-
-          {/* Practice Models */}
-          <div>
-            <h4 className="footer-col-title">Client Models</h4>
-            <ul className="footer-links">
-              <li><Link to="/industries/healthcare/expert">Doctor & Specialist Branding</Link></li>
-              <li><Link to="/industries/healthcare/institution">Hospital & Clinic Systems</Link></li>
-              <li><Link to="/industries/education/expert">Faculty & Scholar Reach</Link></li>
-              <li><Link to="/industries/consulting/expert">Senior Advisor Authority</Link></li>
-            </ul>
-          </div>
-
-          {/* Creative Network */}
-          <div>
-            <h4 className="footer-col-title">Creative Workspace</h4>
-            <ul className="footer-links">
-              <li><Link to="/creative-workspace">Join Our Workspace</Link></li>
-              <li><Link to="/creative-workspace/apply">Apply as Technical Partner</Link></li>
-              <li><Link to="/creative-workspace#roles">Open Partner Roles</Link></li>
-              <li><Link to="/creative-workspace#workflow">How sBLOOM Works</Link></li>
-            </ul>
+            
+            <div className="footer-nav-col">
+              <h4 className="footer-nav-title">SOLUTIONS</h4>
+              <Link to="/solutions/build" className="footer-nav-link">Build</Link>
+              <Link to="/solutions/create" className="footer-nav-link">Create</Link>
+              <Link to="/solutions/promote" className="footer-nav-link">Promote</Link>
+            </div>
+            
+            <div className="footer-nav-col">
+              <h4 className="footer-nav-title">COMPANY</h4>
+              <Link to="/about" className="footer-nav-link">About</Link>
+              <Link to="/how-it-works" className="footer-nav-link">How It Works</Link>
+              <Link to="/contact" className="footer-nav-link">Contact</Link>
+              <Link to="/creative-workspace" className="footer-nav-link">Creative Workspace</Link>
+            </div>
           </div>
         </div>
 
-        {/* Bottom Bar */}
+        {/* BOTTOM: Bar & Interactive Contact */}
         <div className="footer-bottom-bar">
-          <p>&copy; {new Date().getFullYear()} sBLOOM Marketing Partner. All rights reserved.</p>
-          <div style={{ display: 'flex', alignItems: 'center', gap: '32px' }}>
-            <div style={{ display: 'flex', gap: '16px' }}>
-              <span>Healthcare</span>
-              <span>&bull;</span>
-              <span>Education</span>
-              <span>&bull;</span>
-              <span>Consulting</span>
+          <div className="footer-bottom-left">
+            <p>&copy; {new Date().getFullYear()} S-Bloom. All rights reserved.</p>
+          </div>
+          
+          <div className="footer-bottom-center">
+            <Link to="/industries/healthcare">Healthcare</Link>
+            <span className="dot">•</span>
+            <Link to="/industries/education">Education</Link>
+            <span className="dot">•</span>
+            <Link to="/industries/professional-services">Consulting</Link>
+          </div>
+
+          <div className="footer-bottom-right">
+            <div className="contact-tiles-wrapper">
+              <ContactTile letter="C" label="Instagram" icon={<Camera size={16} />} href="https://instagram.com" external />
+              <ContactTile letter="O" label="WhatsApp" icon={<MessageCircle size={16} />} href="https://wa.me/" external />
+              <ContactTile letter="N" label="LinkedIn" icon={<Briefcase size={16} />} href="https://linkedin.com" external />
+              <ContactTile letter="T" label="Email" icon={<Mail size={16} />} href="mailto:hello@s-bloom.com" external />
+              <ContactTile letter="A" label="Phone" icon={<Phone size={16} />} href="tel:+1234567890" external />
+              <ContactTile letter="C" label="Contact" icon={<ArrowRight size={16} />} href="/contact" external={false} />
             </div>
-            <SocialFlipButton className="!p-0" />
           </div>
         </div>
       </div>
-    </footer>
+    </motion.footer>
+  );
+};
+
+const ContactTile: React.FC<{ letter: string; label: string; icon: React.ReactNode; href: string; external: boolean }> = ({ letter, label, icon, href, external }) => {
+  const isInternal = !external;
+
+  const content = (
+    <>
+      <div className="tile-letter">{letter}</div>
+      <div className="tile-reveal">
+        <span className="tile-icon">{icon}</span>
+        <span className="tile-label">{label}</span>
+      </div>
+    </>
+  );
+
+  if (isInternal) {
+    return (
+      <Link to={href} className="contact-tile">
+        {content}
+      </Link>
+    );
+  }
+
+  return (
+    <a href={href} target="_blank" rel="noopener noreferrer" className="contact-tile">
+      {content}
+    </a>
   );
 };

@@ -1,320 +1,198 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Link } from 'react-router-dom';
-import {
-  ArrowRight,
-  User,
-  Users,
-  Sparkles,
-  Camera,
-  TrendingUp,
-  Home,
-  Layers,
-  CheckCircle2,
-  FileText,
-  Briefcase,
-  Send,
-  Play,
-  X,
-  HeartPulse,
-  GraduationCap
-} from 'lucide-react';
-import { SERVICE_PILLARS, INDUSTRIES_DATA } from '../data/contentData';
-import { GenerateButton } from '../components/common/GenerateButton';
 import { ScrollReveal } from '../components/ScrollReveal';
+import { DigitalGrowthSystem } from '../components/home/DigitalGrowthSystem';
+import { AudienceDecisionJourney } from '../components/home/AudienceDecisionJourney';
 
-interface HomePageProps {
-  onOpenConsultation: (
-    industry?: 'healthcare' | 'education' | 'consulting',
-    entity?: 'expert' | 'institution'
-  ) => void;
-}
-
-export const HomePage: React.FC<HomePageProps> = ({ onOpenConsultation }) => {
-  const industries = Object.values(INDUSTRIES_DATA);
-  const [isReelOpen, setIsReelOpen] = useState(false);
-
-  const handleCardMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
-    const rect = e.currentTarget.getBoundingClientRect();
-    const x = e.clientX - rect.left;
-    const y = e.clientY - rect.top;
-    e.currentTarget.style.setProperty('--mouse-x', `${x}px`);
-    e.currentTarget.style.setProperty('--mouse-y', `${y}px`);
-  };
-
+export const HomePage: React.FC = () => {
   return (
     <div className="home-page">
-      {/* 01: REDESIGNED HERO SECTION (Screen 01 Reference) */}
-      <section className="hero-editorial bg-hero-gradient organic-blob-wrapper" id="hero" style={{ position: 'relative', overflow: 'hidden', minHeight: '100vh', paddingTop: '80px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-        {/* Soft Organic Atmospheric Glows */}
-        <div className="organic-shape-glow glow-peach" style={{ width: '460px', height: '460px', top: '-8%', right: '5%' }} />
-        <div className="organic-shape-glow glow-lavender" style={{ width: '420px', height: '420px', bottom: '2%', left: '4%' }} />
+      {/* 1. HERO */}
+      <section className="hero">
+        <div className="hero-background-grid"></div>
+        <div className="hero-radial-glow"></div>
+        
+        <div className="container hero-container">
+          <ScrollReveal delay={0}>
+            <span className="hero-label">SBLOOM — DIGITAL GROWTH PARTNER</span>
+          </ScrollReveal>
+          
+          <ScrollReveal delay={150}>
+            <h1>
+              You have the expertise.<br/>
+              <span className="gold-text">We make it easier to discover, understand, and choose.</span>
+            </h1>
+          </ScrollReveal>
+          
+          <ScrollReveal delay={300}>
+            <p style={{ maxWidth: '650px' }}>
+              We help expertise-led organizations close the gap between the excellent work they do and what their audiences understand about them. Our digital strategies are built around how people discover, evaluate, trust, and choose an organization.
+            </p>
+          </ScrollReveal>
+          
+          <ScrollReveal delay={450}>
+            <div className="hero-buttons">
+              <Link to="/contact" className="btn btn-primary">Talk to S-Bloom</Link>
+              <Link to="/how-it-works" className="btn btn-secondary">Explore Our Approach</Link>
+            </div>
+          </ScrollReveal>
+        </div>
+      </section>
 
-        <div className="container" style={{ position: 'relative', zIndex: 1, width: '100%' }}>
-          {/* Centered Editorial Copy */}
-          <div style={{ maxWidth: '800px', margin: '0 auto', textAlign: 'center', padding: '40px 0' }}>
-            <ScrollReveal delay={0}>
-              <div className="hero-left-content" style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-
-                <span className="eyebrow" style={{ marginBottom: '16px', display: 'inline-block' }}>INDUSTRY-SPECIFIC MARKETING & GROWTH PARTNER</span>
-                <h1 className="hero-headline editorial-title" style={{ textAlign: 'center' }}>
-                  At every step of your growth,<br />
-                  we're here to help you BLOOM.
-                </h1>
-
-                <p className="hero-description" style={{ textAlign: 'center', margin: '0 auto 40px auto' }}>
-                  From building your digital presence to creating content and promoting it to the right audience — we bring every step together around your business.
-                </p>
-
-                <div className="hero-actions-group" style={{ justifyContent: 'center' }}>
-                  <GenerateButton
-                    onClick={() => onOpenConsultation()}
-                    palette="indigo"
-                    id="hero-primary-cta"
-                    style={{ padding: '13px 28px', fontSize: '0.98rem' }}
-                    text="Let's Talk"
-                    icon={<ArrowRight size={17} />}
-                  />
-
-                  <button
-                    type="button"
-                    onClick={() => setIsReelOpen(true)}
-                    className="btn btn-outline studio-reel-btn"
-                    id="hero-watch-reel-btn"
-                  >
-                    <span className="reel-play-icon">
-                      <Play size={14} fill="var(--color-coral)" color="var(--color-coral)" />
-                    </span>
-                    <span>See Our Work</span>
-                  </button>
-                </div>
-              </div>
+      
+      {/* 2. SHARED CHALLENGE */}
+      <section className="what-is-sbloom">
+        <div className="subtle-line-connector"></div>
+        <div className="container">
+          <div className="what-is-sbloom-grid">
+            <ScrollReveal delay={100}>
+              <h2 className="what-is-heading">
+                The quality of your work isn't always reflected in <span className="gold-highlight">what the outside world sees.</span>
+              </h2>
             </ScrollReveal>
-          </div>
-
-          {/* DUAL GATEWAY CARDS: Redesigned Wide Cards matching User's Reference */}
-          <div className="gateway-cards-redesign-row">
-            {/* Gateway 1: Client Journey */}
             <ScrollReveal delay={250}>
-              <Link
-                to="/"
-                className="gateway-redesign-card gateway-card-expert"
-              id="gateway-client-card"
-            >
-              <div className="gateway-card-main">
-                <div className="gateway-icon-badge">
-                  <User size={22} color="#FFFFFF" />
-                </div>
-                <div className="gateway-content-wrap">
-                  <h3 className="gateway-card-heading">
-                    I'm an Expert / Institution looking to grow
-                  </h3>
-                  <p className="gateway-card-subtext">
-                    Build your presence, share expertise, or showcase your team.
-                  </p>
+              <div className="what-is-content">
+                <p>
+                  Educational institutions, healthcare providers, and professional consultancies all share a common problem: their marketing is high-consideration and trust-dependent. Instead of generic marketing packages, you need a digital approach built entirely around your audience's decision process.
+                </p>
+                <div className="what-is-transition" style={{ marginTop: '24px' }}>
+                  Bridging the gap between your expertise and your audience.
                 </div>
               </div>
-                <div className="btn-circle btn-circle-white gateway-action-btn">
-                  <ArrowRight size={18} />
-                </div>
-              </Link>
-            </ScrollReveal>
-
-            {/* Gateway 2: Partner Workspace */}
-            <ScrollReveal delay={400}>
-              <Link
-                to="/creative-workspace"
-                className="gateway-redesign-card gateway-card-workspace"
-              id="gateway-partner-card"
-            >
-              <div className="gateway-card-main">
-                <div className="gateway-icon-badge">
-                  <Sparkles size={22} color="var(--color-indigo)" />
-                </div>
-                <div className="gateway-content-wrap">
-                  <h3 className="gateway-card-heading">
-                    Join our Creative Workspace
-                  </h3>
-                  <p className="gateway-card-subtext">
-                    Access curated client briefs and collaborate as a creative partner.
-                  </p>
-                </div>
-              </div>
-                <div className="btn-circle btn-circle-outline gateway-action-btn">
-                  <ArrowRight size={18} />
-                </div>
-              </Link>
             </ScrollReveal>
           </div>
         </div>
       </section>
 
-      {/* VIDEO MODAL FOR "WATCH STUDIO REEL" */}
-      {isReelOpen && (
-        <div className="modal-overlay" onClick={() => setIsReelOpen(false)}>
-          <div
-            className="modal-dialog"
-            style={{ maxWidth: '820px', padding: '24px', background: '#121922' }}
-            onClick={(e) => e.stopPropagation()}
-          >
-            <button
-              className="modal-close-btn"
-              onClick={() => setIsReelOpen(false)}
-              aria-label="Close studio reel"
-              style={{ color: '#FFFFFF' }}
-            >
-              <X size={22} />
-            </button>
-            <div style={{ borderRadius: '12px', overflow: 'hidden', marginTop: '12px' }}>
-              <video
-                src="/workspace-bg-video.mp4"
-                controls
-                autoPlay
-                playsInline
-                style={{ width: '100%', height: 'auto', maxHeight: '70vh', display: 'block' }}
-              />
-            </div>
-            <div style={{ marginTop: '16px', display: 'flex', justifyContent: 'space-between', alignItems: 'center', color: '#FFFFFF' }}>
-              <div>
-                <h4 style={{ fontSize: '1.1rem', color: '#FFFFFF' }}>sBLOOM Studio Production Reel</h4>
-                <p style={{ fontSize: '0.88rem', color: 'rgba(255, 255, 255, 0.7)', marginTop: '2px' }}>
-                  Behind the scenes of our video editing, audio mastering, and studio production workflows.
-                </p>
-              </div>
-              <button onClick={() => { setIsReelOpen(false); onOpenConsultation(); }} className="btn btn-indigo btn-sm">
-                <span>Book a Session</span>
-                <ArrowRight size={14} />
-              </button>
-            </div>
-          </div>
-        </div>
-      )}
+      {/* 3. AUDIENCE DECISION JOURNEY */}
+      <AudienceDecisionJourney />
 
-      {/* HOW WE HELP YOU GROW: PRESENCE · STORYTELLING · AMPLIFY */}
-      <section className="bcp-section" id="services">
+      {/* 4. S-BLOOM METHODOLOGY */}
+      <section className="how-it-works-section" style={{ paddingTop: '100px' }}>
         <div className="container">
           <ScrollReveal delay={0}>
-            <div className="section-header-centered">
-              <span className="eyebrow">HOW WE HELP YOU BLOOM</span>
-              <h2 className="heading-serif" style={{ fontSize: '2.4rem', marginTop: '6px' }}>
-                Everything your business needs to BLOOM.
-              </h2>
+            <div className="hiw-header">
+              <span className="hiw-label">OUR METHODOLOGY</span>
+              <h2>Diagnose before prescribing.</h2>
+              <p>We do not prescribe a fixed sequence of services. We diagnose your communication gaps and build a strategy around your actual objectives.</p>
             </div>
           </ScrollReveal>
 
-          <div className="bcp-grid">
-            {SERVICE_PILLARS.map((pillar, index) => {
-              const iconClass =
-                pillar.num === '01'
-                  ? 'bcp-icon-build'
-                  : pillar.num === '02'
-                  ? 'bcp-icon-create'
-                  : 'bcp-icon-promote';
+          <ScrollReveal delay={100}>
+            <div className="hiw-process">
+              <div className="hiw-line-bg"></div>
+              
+              <div className="hiw-step">
+                <div className="hiw-indicator"></div>
+                <div className="hiw-step-line"></div>
+                <div className="hiw-step-num">01</div>
+                <h3>UNDERSTAND</h3>
+                <p>We learn your business goals, target audiences, and current digital presence.</p>
+              </div>
 
-              const cardThemeClass =
-                pillar.num === '01'
-                  ? 'bcp-card-build'
-                  : pillar.num === '02'
-                  ? 'bcp-card-create'
-                  : 'bcp-card-promote';
+              <div className="hiw-step">
+                <div className="hiw-indicator"></div>
+                <div className="hiw-step-line"></div>
+                <div className="hiw-step-num">02</div>
+                <h3>DIAGNOSE</h3>
+                <p>We identify the gaps preventing your audience from discovering or trusting you.</p>
+              </div>
 
-              return (
-                <ScrollReveal key={pillar.title} delay={index * 150}>
-                  <div
-                    className={`bcp-card card-spotlight ${cardThemeClass}`}
-                    onMouseMove={handleCardMouseMove}
-                  >
-                    <div className="bcp-card-header">
-                    <span className="bcp-num">{pillar.num}</span>
-                    <div className={`bcp-icon-circle ${iconClass}`}>
-                      {pillar.num === '01' && <Sparkles size={24} />}
-                      {pillar.num === '02' && <Camera size={24} />}
-                      {pillar.num === '03' && <TrendingUp size={24} />}
-                    </div>
-                  </div>
+              <div className="hiw-step">
+                <div className="hiw-indicator"></div>
+                <div className="hiw-step-line"></div>
+                <div className="hiw-step-num">03</div>
+                <h3>STRATEGIZE</h3>
+                <p>We define priorities, audience-specific messaging, and measurable objectives.</p>
+              </div>
 
-                  <h3 className="bcp-card-title">{pillar.title}</h3>
-                  <p className="bcp-card-desc">{pillar.subtitle}</p>
+              <div className="hiw-step">
+                <div className="hiw-indicator"></div>
+                <div className="hiw-step-line"></div>
+                <div className="hiw-step-num">04</div>
+                <h3>EXECUTE</h3>
+                <p>We deploy the exact mix of building, creating, and promoting required to succeed.</p>
+              </div>
 
-                  <ul className="bcp-list">
-                    {pillar.deliverables.map((item) => (
-                      <li key={item} className="bcp-list-item">
-                        <span className="bcp-list-bullet" />
-                        <span>{item}</span>
-                      </li>
-                    ))}
-                    </ul>
-                  </div>
-                </ScrollReveal>
-              );
-            })}
-          </div>
-        </div>
-      </section>
-
-      {/* INDUSTRIES WE FOCUS ON (Screen 01 Bottom) */}
-      <section className="industries-strip-section" id="industries" style={{ padding: '100px 0', display: 'flex', alignItems: 'center', minHeight: 'calc(100vh - 80px)' }}>
-        <div className="container" style={{ width: '100%' }}>
-          <ScrollReveal delay={0}>
-            <div className="industries-strip-header">
-              <div>
-                <h2 style={{ fontSize: '2.4rem', lineHeight: '1.2', fontWeight: 800, marginBottom: '12px', letterSpacing: '-0.02em' }}>
-                  Every industry has a story.<br/>
-                  <span style={{ color: 'var(--color-coral)' }}>We help you tell yours, the right way.</span>
-                </h2>
-                <p style={{ color: 'var(--text-secondary)', marginTop: '8px', maxWidth: '600px' }}>
-                  Select your industry below to see tailored solutions for your brand.
-                </p>
+              <div className="hiw-step">
+                <div className="hiw-indicator"></div>
+                <div className="hiw-step-num">05</div>
+                <h3>MEASURE AND IMPROVE</h3>
+                <p>We review performance, identify what is working, and refine the approach.</p>
               </div>
             </div>
           </ScrollReveal>
-
-          <div className="industry-selection-grid">
-            {industries.map((ind, index) => {
-              const Icon = ind.id === 'healthcare' ? HeartPulse : ind.id === 'education' ? GraduationCap : Briefcase;
-              const iconBg = ind.id === 'healthcare' ? 'var(--accent-pale-blue)' : ind.id === 'education' ? 'var(--bg-lavender)' : 'var(--bg-peach)';
-              const iconColor = ind.id === 'healthcare' ? 'var(--color-indigo)' : ind.id === 'education' ? 'var(--color-indigo)' : 'var(--color-coral)';
-
-              return (
-                <ScrollReveal key={ind.id} delay={index * 150}>
-                  <Link
-                    to={`/industries/${ind.id}`}
-                    className="industry-tall-card"
-                    id={`card-industry-${ind.id}`}
-                  >
-                    <div className="industry-tall-img-wrap">
-                      <img
-                        src={ind.imageUrl}
-                        alt={ind.title}
-                        className="industry-tall-img"
-                      />
-                    </div>
-
-                    <div className="industry-tall-content">
-                      <div
-                        className="industry-tall-icon-badge"
-                        style={{ backgroundColor: iconBg, color: iconColor }}
-                      >
-                        <Icon size={24} />
-                      </div>
-
-                      <h3 className="industry-tall-title">{ind.title}</h3>
-                      <p className="industry-tall-subtitle">{ind.tagline}</p>
-
-                      <div className="btn-circle btn-circle-indigo">
-                        <ArrowRight size={20} />
-                      </div>
-                    </div>
-                  </Link>
-                </ScrollReveal>
-              );
-            })}
-          </div>
-
-
         </div>
       </section>
 
+      {/* 5. INDUSTRIES SERVED */}
+      <section className="ind-grid-section">
+        <div className="container">
+          <ScrollReveal delay={0}>
+            <div className="ind-grid-header">
+              <span className="ind-grid-label">INDUSTRIES SERVED</span>
+              <h2>Expertise-led organizations.</h2>
+              <p>We work with organizations in Education, Healthcare, and Professional Services, developing digital strategies around their unique audiences and decision-making processes.</p>
+            </div>
+          </ScrollReveal>
 
+          <div className="ind-grid">
+            <ScrollReveal delay={100} className="h-full">
+              <Link to="/industries/education" className="ind-card">
+                <div className="ind-card-num">01</div>
+                <h3 className="ind-card-title">Education</h3>
+                <p className="ind-card-desc">Build a stronger digital presence for schools, colleges, training institutes and education brands.</p>
+                <div className="ind-card-cta">
+                  <span>Explore Education</span>
+                  <span className="ind-card-arrow">→</span>
+                </div>
+              </Link>
+            </ScrollReveal>
+
+            <ScrollReveal delay={200} className="h-full">
+              <Link to="/industries/healthcare" className="ind-card">
+                <div className="ind-card-num">02</div>
+                <h3 className="ind-card-title">Healthcare</h3>
+                <p className="ind-card-desc">Build trust and visibility for hospitals, clinics, doctors, diagnostic centers and healthcare brands.</p>
+                <div className="ind-card-cta">
+                  <span>Explore Healthcare</span>
+                  <span className="ind-card-arrow">→</span>
+                </div>
+              </Link>
+            </ScrollReveal>
+
+            <ScrollReveal delay={300} className="h-full">
+              <Link to="/industries/professional-services" className="ind-card">
+                <div className="ind-card-num">03</div>
+                <h3 className="ind-card-title">Consulting & IT</h3>
+                <p className="ind-card-desc">Build a digital presence that communicates expertise, builds credibility and reaches the right B2B audience.</p>
+                <div className="ind-card-cta">
+                  <span>Explore Professional Services</span>
+                  <span className="ind-card-arrow">→</span>
+                </div>
+              </Link>
+            </ScrollReveal>
+          </div>
+        </div>
+      </section>
+
+      {/* 6. BUILD, CREATE, PROMOTE */}
+      <DigitalGrowthSystem />
+
+      {/* 7. FINAL CTA */}
+      <section className="final-cta">
+        <div className="container text-center">
+          <ScrollReveal delay={0}>
+            <h2>Ready to grow your digital presence?</h2>
+            <p style={{ marginBottom: '32px' }}>Let's discuss your organization and find the right strategic starting point.</p>
+            <div className="hero-buttons" style={{ justifyContent: 'center' }}>
+              <Link to="/contact" className="btn btn-primary">Talk to S-Bloom</Link>
+            </div>
+          </ScrollReveal>
+        </div>
+      </section>
     </div>
   );
 };
+
+export default HomePage;
