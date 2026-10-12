@@ -18,8 +18,8 @@ export const DigitalGrowthSystem: React.FC = () => {
       id: 'build',
       num: '01',
       label: 'BUILD',
-      headline: 'Make your expertise discoverable.',
-      desc: 'We build the digital infrastructure required to make your organization\'s expertise and services easier to discover and navigate.',
+      headline: 'Be easier to find.',
+      desc: 'Establish a strong digital foundation with websites, local SEO, and business profiles.',
       services: ['Website Design & Development', 'SEO', 'Google Business Profile'],
       link: '/solutions/build',
       linkText: 'Explore Build →'
@@ -28,8 +28,8 @@ export const DigitalGrowthSystem: React.FC = () => {
       id: 'create',
       num: '02',
       label: 'CREATE',
-      headline: 'Help audiences understand.',
-      desc: 'We produce the materials required to help audiences understand your expertise, value, and approach.',
+      headline: 'Be easier to understand.',
+      desc: 'Communicate expertise and value through meaningful content, video, and creative work.',
       services: ['Social Media Management', 'Social Media Posts', 'Reels and Videos', 'Digital Content'],
       link: '/solutions/create',
       linkText: 'Explore Create →'
@@ -38,11 +38,21 @@ export const DigitalGrowthSystem: React.FC = () => {
       id: 'promote',
       num: '03',
       label: 'PROMOTE',
-      headline: 'Reach relevant audiences.',
-      desc: 'We amplify your message, putting your organization directly in front of relevant audiences through appropriate campaigns.',
+      headline: 'Reach the people who matter.',
+      desc: 'Reach relevant audiences through targeted campaigns and distribution.',
       services: ['Meta Ads', 'Google Ads', 'Performance Marketing', 'Campaign Management'],
       link: '/solutions/promote',
       linkText: 'Explore Promote →'
+    },
+    {
+      id: 'grow',
+      num: '04',
+      label: 'GROW',
+      headline: 'Drive sustainable growth.',
+      desc: 'The intended business outcome, turning a stronger digital presence into a foundation for business growth.',
+      services: ['Increased Visibility', 'Qualified Leads', 'Brand Trust'],
+      link: '/solutions',
+      linkText: 'Explore Solutions →'
     }
   ];
 
@@ -52,9 +62,8 @@ export const DigitalGrowthSystem: React.FC = () => {
         <div className="container">
           <ScrollReveal delay={0}>
             <div className="dgs-intro">
-              <span className="dgs-label">THE S-BLOOM SYSTEM</span>
-              <h2 className="dgs-main-heading">Everything your digital presence needs to move forward.</h2>
-              <p className="dgs-supporting">A coordinated delivery framework applied dynamically based on your diagnosed needs.</p>
+              <span className="dgs-label">WHAT SBLOOM CHANGES</span>
+              <h2 className="dgs-main-heading">We turn what you do well into something people can see, understand and act on.</h2>
             </div>
           </ScrollReveal>
 
@@ -95,9 +104,8 @@ export const DigitalGrowthSystem: React.FC = () => {
       <div className="container">
         <ScrollReveal delay={0}>
           <div className="dgs-intro">
-            <span className="dgs-label">THE S-BLOOM SYSTEM</span>
-            <h2 className="dgs-main-heading">Everything your digital presence needs to move forward.</h2>
-            <p className="dgs-supporting">A coordinated delivery framework applied dynamically based on your diagnosed needs.</p>
+            <span className="dgs-label">WHAT SBLOOM CHANGES</span>
+            <h2 className="dgs-main-heading">We turn what you do well into something people can see, understand and act on.</h2>
           </div>
         </ScrollReveal>
 
@@ -126,7 +134,7 @@ export const DigitalGrowthSystem: React.FC = () => {
               <div 
                 className="dgs-horizontal-line-highlight"
                 style={{
-                  width: hoveredStage === 'build' ? '16.66%' : hoveredStage === 'create' ? '50%' : hoveredStage === 'promote' ? '83.33%' : '0%',
+                  width: hoveredStage === 'build' ? '12.5%' : hoveredStage === 'create' ? '37.5%' : hoveredStage === 'promote' ? '62.5%' : hoveredStage === 'grow' ? '87.5%' : '0%',
                   opacity: hoveredStage ? 1 : 0
                 }}
               />
@@ -135,6 +143,7 @@ export const DigitalGrowthSystem: React.FC = () => {
               <div className={`dgs-v-drop ${hoveredStage === 'build' ? 'active' : ''}`}></div>
               <div className={`dgs-v-drop ${hoveredStage === 'create' ? 'active' : ''}`}></div>
               <div className={`dgs-v-drop ${hoveredStage === 'promote' ? 'active' : ''}`}></div>
+              <div className={`dgs-v-drop ${hoveredStage === 'grow' ? 'active' : ''}`}></div>
             </div>
           </div>
 

@@ -25,17 +25,25 @@ export const ScrollReveal: React.FC<ScrollRevealProps> = ({
       return;
     }
 
+    // If already in viewport on mount, reveal immediately
+    if (domRef.current) {
+      const rect = domRef.current.getBoundingClientRect();
+      if (rect.top <= window.innerHeight) {
+        setIsVisible(true);
+        return;
+      }
+    }
+
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
             setIsVisible(true);
-            // Once revealed, we don't need to observe it anymore
             if (domRef.current) observer.unobserve(domRef.current);
           }
         });
       },
-      { threshold, rootMargin: '0px 0px -40px 0px' }
+      { threshold, rootMargin: '0px 0px 20px 0px' }
     );
 
     const currentRef = domRef.current;

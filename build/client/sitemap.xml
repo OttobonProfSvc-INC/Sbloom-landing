@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <!-- Replace https://[YOUR_DOMAIN] with the actual production domain before deployment -->
+  <url>
+    <loc>https://[YOUR_DOMAIN]/</loc>
+  </url>
+  <url>
+    <loc>https://[YOUR_DOMAIN]/about</loc>
+  </url>
+  <url>
+    <loc>https://[YOUR_DOMAIN]/how-it-works</loc>
+  </url>
+  <url>
+    <loc>https://[YOUR_DOMAIN]/contact</loc>
+  </url>
+  <url>
+    <loc>https://[YOUR_DOMAIN]/creative-workspace</loc>
+  </url>
+  <url>
+    <loc>https://[YOUR_DOMAIN]/industries/education</loc>
+  </url>
+  <url>
+    <loc>https://[YOUR_DOMAIN]/industries/healthcare</loc>
+  </url>
+  <url>
+    <loc>https://[YOUR_DOMAIN]/industries/professional-services</loc>
+  </url>
+  <url>
+    <loc>https://[YOUR_DOMAIN]/solutions</loc>
+  </url>
+  <url>
+    <loc>https://[YOUR_DOMAIN]/solutions/build</loc>
+  </url>
+  <url>
+    <loc>https://[YOUR_DOMAIN]/solutions/create</loc>
+  </url>
+  <url>
+    <loc>https://[YOUR_DOMAIN]/solutions/promote</loc>
+  </url>
+</urlset>

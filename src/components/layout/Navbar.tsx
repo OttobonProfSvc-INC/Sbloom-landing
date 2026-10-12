@@ -1,6 +1,6 @@
 
 import React, { useState } from 'react';
-import { Link, useLocation } from 'react-router-dom';
+import { Link, useLocation } from 'react-router';
 import { Menu, X, ChevronDown } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 
@@ -17,14 +17,15 @@ export const Navbar: React.FC = () => {
   const industries = [
     { name: 'Education', desc: 'Digital growth for education institutions', href: '/industries/education' },
     { name: 'Healthcare', desc: 'Digital growth for healthcare organizations', href: '/industries/healthcare' },
-    { name: 'Consulting & Professional Services', desc: 'Digital growth for professional firms', href: '/industries/professional-services' }
+    { name: 'Technology & IT', desc: 'Digital growth for tech organizations', href: '/industries/technology' },
+    { name: 'Professional Services', desc: 'Digital growth for professional firms', href: '/industries/professional-services' }
   ];
 
   return (
     <header className="navbar">
       <div className="container nav-container">
         <Link to="/" className="logo-container" aria-label="sBLOOM Home" onClick={handleMobileClick}>
-          <img src="/sbloom-logo.png" alt="sBLOOM Logo" className="logo-img" />
+          <img src="/sbloom-logo-transparent.png" alt="sBLOOM Logo" className="logo-img" />
         </Link>
         <nav>
           <ul className={`nav-links ${mobileMenuOpen ? 'mobile-open' : ''}`}>
@@ -85,8 +86,11 @@ export const Navbar: React.FC = () => {
             <li>
               <Link to="/about" className={`nav-link ${location.pathname === '/about' ? 'active' : ''}`} aria-current={location.pathname === '/about' ? 'page' : undefined} onClick={handleMobileClick}>About</Link>
             </li>
+            <li className="nav-workspace-item" style={{ marginLeft: '16px', borderLeft: '1px solid var(--border-subtle)', paddingLeft: '24px' }}>
+              <Link to="/creative-workspace" className={`nav-link ${location.pathname === '/creative-workspace' ? 'active' : ''}`} style={{ fontSize: '0.8rem', textTransform: 'uppercase', letterSpacing: '1px' }} onClick={handleMobileClick}>Creative Workspace</Link>
+            </li>
             <li className="nav-cta-item">
-              <Link to="/contact" className="btn btn-primary btn-nav" onClick={handleMobileClick}>Get Started</Link>
+              <Link to="/contact" className="btn btn-primary btn-nav" onClick={handleMobileClick}>Talk to sBLOOM</Link>
             </li>
           </ul>
         </nav>

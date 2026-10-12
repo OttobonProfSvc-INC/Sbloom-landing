@@ -59,7 +59,7 @@ export const ContactPage = () => {
                   <textarea id="goals" rows={4} required></textarea>
                 </div>
                 <button type="submit" className="btn btn-primary submit-btn" disabled style={{ opacity: 0.5, cursor: 'not-allowed' }}>Request Strategy Consultation</button>
-                <div className="form-note" style={{ color: '#d32f2f', fontWeight: 'bold' }}>
+                <div className="form-note" style={{ color: 'var(--text-secondary)', fontStyle: 'italic', marginTop: '16px', textAlign: 'center' }}>
                   Submission is currently disabled. We are waiting on configuration for a secure backend endpoint to receive these requests.
                 </div>
               </form>

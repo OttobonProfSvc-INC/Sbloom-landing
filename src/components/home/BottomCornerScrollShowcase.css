@@ -1,0 +1,390 @@
+/* ==========================================================
+   S-Bloom Small Circular Floating Scroll Pipeline Widget
+   Round, compact lens in bottom right corner:
+   Camera ➔ Reel ➔ Post ➔ Ad ➔ Website ➔ Video
+   Clean white aesthetic & minimal single-word labeling
+   ========================================================== */
+
+.corner-circle-widget-wrapper {
+  position: fixed;
+  bottom: 28px;
+  right: 28px;
+  z-index: 995;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  pointer-events: auto;
+  user-select: none;
+}
+
+/* Clean White Floating Stage Badge Pill above the circle */
+.corner-circle-label-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: #FFFFFF;
+  border: 1px solid rgba(36, 33, 42, 0.1);
+  color: #24212A;
+  padding: 5px 14px;
+  border-radius: 9999px;
+  font-size: 0.76rem;
+  font-weight: 600;
+  letter-spacing: 0.2px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08), 0 1px 3px rgba(0, 0, 0, 0.04);
+  white-space: nowrap;
+  transition: all 0.25s ease;
+}
+
+.circle-rec-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background-color: #EF4444;
+  box-shadow: 0 0 6px #EF4444;
+  animation: circleRecBlink 1.4s infinite ease-in-out;
+}
+
+@keyframes circleRecBlink {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.35; transform: scale(0.8); }
+}
+
+/* The Small Circular Lens Container */
+.corner-circle-orb {
+  position: relative;
+  width: 88px;
+  height: 88px;
+  border-radius: 50%;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.3s ease;
+  box-shadow: 
+    0 10px 25px rgba(0, 0, 0, 0.15),
+    0 0 18px rgba(217, 165, 46, 0.25);
+}
+
+.corner-circle-orb:hover {
+  transform: scale(1.08);
+  box-shadow: 
+    0 14px 30px rgba(0, 0, 0, 0.22),
+    0 0 25px rgba(217, 165, 46, 0.4);
+}
+
+/* SVG Circular Progress Ring */
+.corner-circle-svg-ring {
+  position: absolute;
+  inset: -4px;
+  width: 96px;
+  height: 96px;
+  transform: rotate(-90deg);
+  pointer-events: none;
+  z-index: 10;
+}
+
+.circle-ring-bg {
+  fill: none;
+  stroke: rgba(36, 33, 42, 0.08);
+  stroke-width: 3;
+}
+
+.circle-ring-progress {
+  fill: none;
+  stroke: url(#goldRingGradient);
+  stroke-width: 3.2;
+  stroke-linecap: round;
+  transition: stroke-dashoffset 0.15s ease-out;
+}
+
+/* Inner Round Clipping Mask */
+.corner-circle-lens-frame {
+  position: relative;
+  width: 82px;
+  height: 82px;
+  border-radius: 50%;
+  overflow: hidden;
+  background: #FFFFFF;
+  border: 2px solid #FFFFFF;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Glass Reflection Sheen on Lens */
+.corner-circle-lens-glare {
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.4) 0%, rgba(255, 255, 255, 0.05) 45%, transparent 60%);
+  pointer-events: none;
+  z-index: 8;
+}
+
+/* Content Canvas inside circle */
+.circle-content-canvas {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* 1. Camera View inside Circle */
+.circle-view-camera {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+.circle-camera-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: 38% 50%; /* Center on the glowing lens aperture */
+  transform: scale(1.3);
+}
+
+.circle-camera-hud-badge {
+  position: absolute;
+  top: 6px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: rgba(10, 8, 14, 0.85);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 9999px;
+  padding: 1px 6px;
+  font-family: monospace;
+  font-size: 0.52rem;
+  letter-spacing: 0.5px;
+  color: #EF4444;
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+/* 2. Reel View inside Circle */
+.circle-view-reel {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  background: #18121F;
+}
+
+.circle-reel-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0.7;
+}
+
+.circle-reel-center-icon {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 2px;
+  background: rgba(0, 0, 0, 0.35);
+}
+
+.circle-reel-glyph {
+  width: 32px;
+  height: 32px;
+  border-radius: 8px;
+  background: linear-gradient(45deg, #F58529, #DD2A7B, #8134AF);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #FFFFFF;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
+}
+
+.circle-reel-sub {
+  font-size: 0.55rem;
+  font-weight: 700;
+  color: #FFDF9E;
+  letter-spacing: 0.5px;
+}
+
+/* 3. Post View inside Circle */
+.circle-view-post {
+  width: 100%;
+  height: 100%;
+  background: radial-gradient(circle, #2C2234 0%, #15101C 100%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 3px;
+  color: #FFFEFC;
+}
+
+.circle-post-avatar {
+  font-size: 1.4rem;
+  line-height: 1;
+}
+
+.circle-post-text {
+  font-size: 0.58rem;
+  font-weight: 700;
+  color: #FFE0A3;
+  letter-spacing: 0.5px;
+}
+
+.circle-post-likes {
+  font-size: 0.5rem;
+  color: rgba(255, 254, 252, 0.65);
+}
+
+/* 4. Ad View inside Circle */
+.circle-view-ad {
+  width: 100%;
+  height: 100%;
+  background: radial-gradient(circle, #3D2619 0%, #181112 100%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 3px;
+}
+
+.circle-ad-icon-box {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  background: rgba(217, 165, 46, 0.2);
+  border: 1px solid rgba(217, 165, 46, 0.4);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #D9A52E;
+}
+
+.circle-ad-tag {
+  font-size: 0.58rem;
+  font-weight: 800;
+  color: #E5A93C;
+  letter-spacing: 1px;
+}
+
+/* 5. Website View inside Circle */
+.circle-view-web {
+  width: 100%;
+  height: 100%;
+  background: radial-gradient(circle, #1B2335 0%, #0F121C 100%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 3px;
+}
+
+.circle-web-icon-box {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  background: rgba(16, 185, 129, 0.15);
+  border: 1px solid rgba(16, 185, 129, 0.35);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #10B981;
+}
+
+.circle-web-url {
+  font-size: 0.55rem;
+  font-weight: 700;
+  color: #A7F3D0;
+  letter-spacing: 0.5px;
+}
+
+/* 6. Video View inside Circle */
+.circle-view-video {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  background: #000000;
+}
+
+.circle-playing-video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.circle-video-badge-overlay {
+  position: absolute;
+  bottom: 6px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: rgba(18, 14, 22, 0.85);
+  border: 1px solid rgba(217, 165, 46, 0.5);
+  border-radius: 9999px;
+  padding: 1px 6px;
+  font-size: 0.52rem;
+  font-weight: 700;
+  color: #D9A52E;
+  white-space: nowrap;
+  letter-spacing: 0.5px;
+}
+
+/* Tiny Audio Toggle Control */
+.circle-sound-toggle-btn {
+  position: absolute;
+  top: -6px;
+  right: -6px;
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  background: #FFFFFF;
+  color: #24212A;
+  border: 1.5px solid rgba(217, 165, 46, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+  z-index: 20;
+  transition: transform 0.2s ease, background 0.2s ease;
+}
+
+.circle-sound-toggle-btn:hover {
+  transform: scale(1.15);
+  background: #FDF9F2;
+  border-color: #D9A52E;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .corner-circle-widget-wrapper {
+    bottom: 20px;
+    right: 20px;
+  }
+
+  .corner-circle-orb {
+    width: 76px;
+    height: 76px;
+  }
+
+  .corner-circle-svg-ring {
+    width: 84px;
+    height: 84px;
+    inset: -4px;
+  }
+
+  .corner-circle-lens-frame {
+    width: 70px;
+    height: 70px;
+  }
+
+  .corner-circle-label-pill {
+    font-size: 0.7rem;
+    padding: 4px 12px;
+  }
+}

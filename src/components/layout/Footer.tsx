@@ -1,6 +1,6 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
-import { Camera, MessageCircle, Briefcase, Mail, Phone, ArrowRight } from 'lucide-react';
+import { Link } from 'react-router';
+import { Camera, MessageCircle, Briefcase, Mail, Phone, ArrowRight, Globe } from 'lucide-react';
 import { motion } from 'framer-motion';
 
 export const Footer: React.FC = () => {
@@ -17,13 +17,13 @@ export const Footer: React.FC = () => {
           {/* LEFT: Branding */}
           <div className="footer-brand">
             <Link to="/" aria-label="sBLOOM Home" className="footer-logo-link">
-              <img src="/sbloom-logo.png" alt="sBLOOM Logo" className="footer-logo" />
+              <img src="/sbloom-logo-v2.jpg" alt="sBLOOM Logo" className="footer-logo" />
             </Link>
             <p className="footer-desc">
               S-Bloom is a specialized digital growth partner for expertise-led organizations in healthcare, education, and professional services.
             </p>
             <Link to="/contact" className="footer-cta-link">
-              Talk to Sbloom <span className="arrow">→</span>
+              Talk to sBLOOM <span className="arrow">→</span>
             </Link>
           </div>
 
@@ -74,7 +74,8 @@ export const Footer: React.FC = () => {
               <ContactTile letter="N" label="LinkedIn" icon={<Briefcase size={16} />} href="https://linkedin.com" external />
               <ContactTile letter="T" label="Email" icon={<Mail size={16} />} href="mailto:hello@s-bloom.com" external />
               <ContactTile letter="A" label="Phone" icon={<Phone size={16} />} href="tel:+1234567890" external />
-              <ContactTile letter="C" label="Contact" icon={<ArrowRight size={16} />} href="/contact" external={false} />
+              <ContactTile letter="C" label="Website" icon={<Globe size={16} />} href="/" external={false} />
+              <ContactTile letter="T" label="Contact" icon={<ArrowRight size={16} />} href="/contact" external={false} />
             </div>
           </div>
         </div>

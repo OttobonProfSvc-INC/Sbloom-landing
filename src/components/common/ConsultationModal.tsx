@@ -56,8 +56,8 @@ export const ConsultationModal: React.FC<ConsultationModalProps> = ({
               width: '56px',
               height: '56px',
               borderRadius: '50%',
-              backgroundColor: 'var(--accent-coral-light)',
-              color: 'var(--accent-coral)',
+              backgroundColor: 'var(--bg-secondary)',
+              color: 'var(--gold-primary)',
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
@@ -65,13 +65,13 @@ export const ConsultationModal: React.FC<ConsultationModalProps> = ({
             }}>
               <CheckCircle2 size={32} />
             </div>
-            <h3 style={{ fontSize: '1.5rem', marginBottom: '8px', color: 'var(--color-indigo)' }}>
+            <h3 style={{ fontSize: '1.5rem', marginBottom: '8px', color: 'var(--text-primary)' }}>
               Request Received
             </h3>
             <p style={{ color: 'var(--text-secondary)', marginBottom: '24px', lineHeight: 1.5, fontSize: '0.92rem' }}>
               Thank you, <strong>{fullName}</strong>. Our {industry} strategy team will review your profile and connect within 24 business hours.
             </p>
-            <button onClick={onClose} className="btn btn-indigo" style={{ width: '100%' }}>
+            <button onClick={onClose} className="btn btn-primary" style={{ width: '100%' }}>
               <span>Done</span>
             </button>
           </div>
@@ -81,7 +81,7 @@ export const ConsultationModal: React.FC<ConsultationModalProps> = ({
               <span className="eyebrow" style={{ fontSize: '0.75rem', marginBottom: '2px' }}>
                 TAILORED STRATEGY
               </span>
-              <h3 style={{ fontSize: '1.45rem', fontWeight: 600, color: 'var(--color-indigo)', margin: '2px 0 4px' }}>
+              <h3 style={{ fontSize: '1.45rem', fontWeight: 600, color: 'var(--text-primary)', margin: '2px 0 4px' }}>
                 Let's Build Your Growth Plan
               </h3>
               <p style={{ fontSize: '0.88rem', color: 'var(--text-secondary)', margin: 0, lineHeight: 1.4 }}>
@@ -166,7 +166,7 @@ export const ConsultationModal: React.FC<ConsultationModalProps> = ({
                 />
               </div>
 
-              <button type="submit" className="btn btn-indigo" style={{ width: '100%', padding: '11px 20px', marginTop: '4px' }}>
+              <button type="submit" className="btn btn-primary" style={{ width: '100%', padding: '11px 20px', marginTop: '4px' }}>
                 <span>Submit Strategy Request</span>
                 <ArrowRight size={16} />
               </button>

@@ -1,196 +1,180 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link } from 'react-router';
 import { ScrollReveal } from '../components/ScrollReveal';
 import { DigitalGrowthSystem } from '../components/home/DigitalGrowthSystem';
-import { AudienceDecisionJourney } from '../components/home/AudienceDecisionJourney';
+import { HeroFloatingIcons } from '../components/home/HeroFloatingIcons';
+import { HeroSubtleCurves } from '../components/home/HeroSubtleCurves';
+import { DualPathCards } from '../components/home/DualPathCards';
+import { BottomCornerScrollShowcase } from '../components/home/BottomCornerScrollShowcase';
 
 export const HomePage: React.FC = () => {
   return (
     <div className="home-page">
-      {/* 1. HERO */}
-      <section className="hero">
-        <div className="hero-background-grid"></div>
-        <div className="hero-radial-glow"></div>
-        
-        <div className="container hero-container">
-          <ScrollReveal delay={0}>
-            <span className="hero-label">SBLOOM — DIGITAL GROWTH PARTNER</span>
-          </ScrollReveal>
-          
-          <ScrollReveal delay={150}>
-            <h1>
-              You have the expertise.<br/>
-              <span className="gold-text">We make it easier to discover, understand, and choose.</span>
+      {/* SECTION 1 - Hero (Final Master Implementation) */}
+      <section className="hero-final-section">
+        {/* Elegant, Seamless Vector Silk Wave Layer at the Bottom */}
+        <div className="hero-bottom-silk-wrapper" aria-hidden="true">
+          <svg
+            viewBox="0 0 1440 180"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+            preserveAspectRatio="none"
+            className="hero-bottom-silk-svg"
+          >
+            <defs>
+              <linearGradient id="silkFlow1" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" stopColor="#F5ECE0" stopOpacity="0.45" />
+                <stop offset="35%" stopColor="#EADBCC" stopOpacity="0.75" />
+                <stop offset="70%" stopColor="#F8F3EC" stopOpacity="0.55" />
+                <stop offset="100%" stopColor="#E6D5C3" stopOpacity="0.8" />
+              </linearGradient>
+              <linearGradient id="silkFlow2" x1="100%" y1="0%" x2="0%" y2="100%">
+                <stop offset="0%" stopColor="#EDE2D3" stopOpacity="0.4" />
+                <stop offset="50%" stopColor="#FBF8F2" stopOpacity="0.85" />
+                <stop offset="100%" stopColor="#DFCDB8" stopOpacity="0.7" />
+              </linearGradient>
+              <linearGradient id="silkSheen" x1="0%" y1="0%" x2="100%" y2="0%">
+                <stop offset="0%" stopColor="#FFFFFF" stopOpacity="0" />
+                <stop offset="45%" stopColor="#FFFFFF" stopOpacity="0.6" />
+                <stop offset="55%" stopColor="#FFFFFF" stopOpacity="0.6" />
+                <stop offset="100%" stopColor="#FFFFFF" stopOpacity="0" />
+              </linearGradient>
+            </defs>
+            {/* Deep Silk Flow Layer */}
+            <path
+              d="M 0,60 Q 360,140 720,70 T 1440,90 L 1440,180 L 0,180 Z"
+              fill="url(#silkFlow1)"
+            />
+            {/* Sheen Highlight Fold */}
+            <path
+              d="M 0,95 Q 380,40 760,110 T 1440,65 L 1440,180 L 0,180 Z"
+              fill="url(#silkFlow2)"
+            />
+            {/* Silky Edge Sheen Line */}
+            <path
+              d="M 0,95 Q 380,40 760,110 T 1440,65"
+              stroke="url(#silkSheen)"
+              strokeWidth="2"
+              fill="none"
+            />
+          </svg>
+        </div>
+
+        {/* Delicate Golden Orbital Curves & Tiny Gliding Sparkles (Behind Icons) */}
+        <HeroSubtleCurves />
+
+        <div className="hero-final-container">
+          {/* Left Column: Typography & CTAs */}
+          <div className="hero-final-content">
+            <div className="hero-final-eyebrow">
+              <span className="eyebrow-text">DIGITAL GROWTH PARTNER</span>
+              <span className="eyebrow-line" />
+            </div>
+
+            <h1 className="hero-final-title">
+              We will help you<br />
+              <span className="hero-mocha-gold">bloom socially.</span>
             </h1>
-          </ScrollReveal>
-          
-          <ScrollReveal delay={300}>
-            <p style={{ maxWidth: '650px' }}>
-              We help expertise-led organizations close the gap between the excellent work they do and what their audiences understand about them. Our digital strategies are built around how people discover, evaluate, trust, and choose an organization.
+
+            <p className="hero-final-desc">
+              Build digital authority, trust, and growth for a growing community of expertise-led businesses.
             </p>
-          </ScrollReveal>
-          
-          <ScrollReveal delay={450}>
-            <div className="hero-buttons">
-              <Link to="/contact" className="btn btn-primary">Talk to S-Bloom</Link>
-              <Link to="/how-it-works" className="btn btn-secondary">Explore Our Approach</Link>
-            </div>
-          </ScrollReveal>
-        </div>
-      </section>
 
-      
-      {/* 2. SHARED CHALLENGE */}
-      <section className="what-is-sbloom">
-        <div className="subtle-line-connector"></div>
-        <div className="container">
-          <div className="what-is-sbloom-grid">
-            <ScrollReveal delay={100}>
-              <h2 className="what-is-heading">
-                The quality of your work isn't always reflected in <span className="gold-highlight">what the outside world sees.</span>
-              </h2>
-            </ScrollReveal>
-            <ScrollReveal delay={250}>
-              <div className="what-is-content">
-                <p>
-                  Educational institutions, healthcare providers, and professional consultancies all share a common problem: their marketing is high-consideration and trust-dependent. Instead of generic marketing packages, you need a digital approach built entirely around your audience's decision process.
-                </p>
-                <div className="what-is-transition" style={{ marginTop: '24px' }}>
-                  Bridging the gap between your expertise and your audience.
-                </div>
-              </div>
-            </ScrollReveal>
+            <div className="hero-final-buttons">
+              <Link to="/contact" className="btn-final-primary">
+                <span>Talk to sBLOOM</span>
+                <svg className="btn-arrow-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round">
+                  <path d="M5 12h14M12 5l7 7-7 7" />
+                </svg>
+              </Link>
+              <Link to="/solutions" className="btn-final-secondary">
+                See How We Help
+              </Link>
+            </div>
+          </div>
+
+          {/* Right Column: Freely Floating Symbols (No Square Containers, Independent Motions) */}
+          <div className="hero-final-showcase">
+            <HeroFloatingIcons />
           </div>
         </div>
       </section>
 
-      {/* 3. AUDIENCE DECISION JOURNEY */}
-      <AudienceDecisionJourney />
+      {/* SECTION 2 - Dual Paths */}
+      <DualPathCards />
 
-      {/* 4. S-BLOOM METHODOLOGY */}
-      <section className="how-it-works-section" style={{ paddingTop: '100px' }}>
-        <div className="container">
-          <ScrollReveal delay={0}>
-            <div className="hiw-header">
-              <span className="hiw-label">OUR METHODOLOGY</span>
-              <h2>Diagnose before prescribing.</h2>
-              <p>We do not prescribe a fixed sequence of services. We diagnose your communication gaps and build a strategy around your actual objectives.</p>
-            </div>
-          </ScrollReveal>
-
-          <ScrollReveal delay={100}>
-            <div className="hiw-process">
-              <div className="hiw-line-bg"></div>
-              
-              <div className="hiw-step">
-                <div className="hiw-indicator"></div>
-                <div className="hiw-step-line"></div>
-                <div className="hiw-step-num">01</div>
-                <h3>UNDERSTAND</h3>
-                <p>We learn your business goals, target audiences, and current digital presence.</p>
-              </div>
-
-              <div className="hiw-step">
-                <div className="hiw-indicator"></div>
-                <div className="hiw-step-line"></div>
-                <div className="hiw-step-num">02</div>
-                <h3>DIAGNOSE</h3>
-                <p>We identify the gaps preventing your audience from discovering or trusting you.</p>
-              </div>
-
-              <div className="hiw-step">
-                <div className="hiw-indicator"></div>
-                <div className="hiw-step-line"></div>
-                <div className="hiw-step-num">03</div>
-                <h3>STRATEGIZE</h3>
-                <p>We define priorities, audience-specific messaging, and measurable objectives.</p>
-              </div>
-
-              <div className="hiw-step">
-                <div className="hiw-indicator"></div>
-                <div className="hiw-step-line"></div>
-                <div className="hiw-step-num">04</div>
-                <h3>EXECUTE</h3>
-                <p>We deploy the exact mix of building, creating, and promoting required to succeed.</p>
-              </div>
-
-              <div className="hiw-step">
-                <div className="hiw-indicator"></div>
-                <div className="hiw-step-num">05</div>
-                <h3>MEASURE AND IMPROVE</h3>
-                <p>We review performance, identify what is working, and refine the approach.</p>
-              </div>
-            </div>
-          </ScrollReveal>
-        </div>
-      </section>
-
-      {/* 5. INDUSTRIES SERVED */}
-      <section className="ind-grid-section">
-        <div className="container">
-          <ScrollReveal delay={0}>
-            <div className="ind-grid-header">
-              <span className="ind-grid-label">INDUSTRIES SERVED</span>
-              <h2>Expertise-led organizations.</h2>
-              <p>We work with organizations in Education, Healthcare, and Professional Services, developing digital strategies around their unique audiences and decision-making processes.</p>
-            </div>
-          </ScrollReveal>
-
-          <div className="ind-grid">
-            <ScrollReveal delay={100} className="h-full">
-              <Link to="/industries/education" className="ind-card">
-                <div className="ind-card-num">01</div>
-                <h3 className="ind-card-title">Education</h3>
-                <p className="ind-card-desc">Build a stronger digital presence for schools, colleges, training institutes and education brands.</p>
-                <div className="ind-card-cta">
-                  <span>Explore Education</span>
-                  <span className="ind-card-arrow">→</span>
-                </div>
-              </Link>
-            </ScrollReveal>
-
-            <ScrollReveal delay={200} className="h-full">
-              <Link to="/industries/healthcare" className="ind-card">
-                <div className="ind-card-num">02</div>
-                <h3 className="ind-card-title">Healthcare</h3>
-                <p className="ind-card-desc">Build trust and visibility for hospitals, clinics, doctors, diagnostic centers and healthcare brands.</p>
-                <div className="ind-card-cta">
-                  <span>Explore Healthcare</span>
-                  <span className="ind-card-arrow">→</span>
-                </div>
-              </Link>
-            </ScrollReveal>
-
-            <ScrollReveal delay={300} className="h-full">
-              <Link to="/industries/professional-services" className="ind-card">
-                <div className="ind-card-num">03</div>
-                <h3 className="ind-card-title">Consulting & IT</h3>
-                <p className="ind-card-desc">Build a digital presence that communicates expertise, builds credibility and reaches the right B2B audience.</p>
-                <div className="ind-card-cta">
-                  <span>Explore Professional Services</span>
-                  <span className="ind-card-arrow">→</span>
-                </div>
-              </Link>
-            </ScrollReveal>
-          </div>
-        </div>
-      </section>
-
-      {/* 6. BUILD, CREATE, PROMOTE */}
+      {/* SECTION 4 - What sBLOOM Changes */}
       <DigitalGrowthSystem />
 
-      {/* 7. FINAL CTA */}
-      <section className="final-cta">
-        <div className="container text-center">
+
+
+      {/* SECTION 6 - Why sBLOOM */}
+      <section style={{ padding: '100px 0', backgroundColor: 'var(--dark-bg)', color: 'var(--bg-primary)' }}>
+        <div className="container" style={{ display: 'flex', flexWrap: 'wrap', gap: '60px', alignItems: 'center' }}>
+          <div style={{ flex: '1', minWidth: '300px' }}>
+            <ScrollReveal delay={0}>
+              <h2 style={{ fontSize: '2.5rem', marginBottom: '20px' }}>We start with your business. Then bring the right capabilities together.</h2>
+            </ScrollReveal>
+          </div>
+          <div style={{ flex: '1', minWidth: '300px' }}>
+            <ScrollReveal delay={150}>
+              <ul style={{ listStyle: 'none', padding: 0 }}>
+                {['Strategy before execution.', 'An approach shaped around the business.', 'The right capabilities for the work.', 'One connected approach to digital growth.'].map((item, i) => (
+                  <li key={i} style={{ marginBottom: '15px', paddingBottom: '15px', borderBottom: '1px solid var(--dark-border)' }}>
+                    {item}
+                  </li>
+                ))}
+              </ul>
+            </ScrollReveal>
+          </div>
+        </div>
+      </section>
+
+      {/* SECTION 7 - How We Work */}
+      <section style={{ padding: '100px 0', backgroundColor: 'var(--bg-primary)' }}>
+        <div className="container">
           <ScrollReveal delay={0}>
-            <h2>Ready to grow your digital presence?</h2>
-            <p style={{ marginBottom: '32px' }}>Let's discuss your organization and find the right strategic starting point.</p>
-            <div className="hero-buttons" style={{ justifyContent: 'center' }}>
-              <Link to="/contact" className="btn btn-primary">Talk to S-Bloom</Link>
+            <h2 style={{ fontSize: '2.5rem', textAlign: 'center', marginBottom: '60px' }}>A clear plan. The right people. Work that moves you forward.</h2>
+          </ScrollReveal>
+          <div style={{ display: 'flex', justifyContent: 'center', flexWrap: 'wrap', gap: '40px' }}>
+            {['Understand', 'Plan', 'Assemble', 'Deliver', 'Improve'].map((step, i) => (
+              <ScrollReveal delay={100 * i} key={step} style={{ textAlign: 'center' }}>
+                <div style={{ width: '40px', height: '40px', borderRadius: '50%', backgroundColor: 'var(--gold-primary)', color: 'var(--dark-bg)', display: 'flex', alignItems: 'center', justifyContent: 'center', margin: '0 auto 15px', fontWeight: 'bold' }}>
+                  {i + 1}
+                </div>
+                <h3 style={{ fontSize: '1.2rem' }}>{step}</h3>
+              </ScrollReveal>
+            ))}
+          </div>
+        </div>
+      </section>
+
+
+
+      {/* SECTION 9 - Brand Philosophy */}
+      <section style={{ padding: '120px 0', backgroundColor: 'var(--dark-bg-secondary)', color: 'var(--gold-primary)', textAlign: 'center' }}>
+        <div className="container">
+          <ScrollReveal delay={0}>
+            <h2 style={{ fontSize: '3rem', letterSpacing: '4px', textTransform: 'uppercase' }}>Believe <span style={{ color: 'var(--bg-primary)' }}>→</span> Begin <span style={{ color: 'var(--bg-primary)' }}>→</span> Become</h2>
+          </ScrollReveal>
+        </div>
+      </section>
+
+
+      {/* SECTION 10 - Final CTA */}
+      <section style={{ padding: '120px 0', backgroundColor: 'var(--bg-primary)', textAlign: 'center' }}>
+        <div className="container">
+          <ScrollReveal delay={0}>
+            <h2 style={{ fontSize: '2.5rem', marginBottom: '20px' }}>Your business has potential. Let’s help the right people see it.</h2>
+            <div style={{ marginTop: '40px' }}>
+              <Link to="/contact" className="btn btn-primary" style={{ padding: '15px 40px', fontSize: '1.1rem' }}>Talk to sBLOOM</Link>
             </div>
           </ScrollReveal>
         </div>
       </section>
+
+      {/* Interactive Bottom-Right Corner Scroll Pipeline: Camera ➔ Reel ➔ Post ➔ Ad ➔ Website ➔ Video */}
+      <BottomCornerScrollShowcase />
     </div>
   );
 };

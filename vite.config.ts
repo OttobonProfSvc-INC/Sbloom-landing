@@ -1,17 +1,22 @@
-import react from '@vitejs/plugin-react'
-import { defineConfig } from 'vite'
-import path from 'path'
+import { reactRouter } from '@react-router/dev/vite';
+import { defineConfig } from 'vite';
+import path from 'path';
 
-// https://vite.dev/config/
 export default defineConfig({
-  plugins: [react()],
+  plugins: [reactRouter()],
+  build: {
+    target: 'es2015'
+  },
   server: {
     host: true,
+    watch: {
+      ignored: ['**/build/**', '**/rendered_page.html', '**/*.cjs']
+    }
   },
   resolve: {
     alias: {
       '@': path.resolve(import.meta.dirname, './src'),
     },
   },
-})
+});
 
