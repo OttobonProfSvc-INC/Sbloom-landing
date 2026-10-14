@@ -1,9 +1,14 @@
 import React from 'react';
-import { Link } from 'react-router';
+import { Link, useLocation } from 'react-router';
 import { Camera, MessageCircle, Briefcase, Mail, Phone, ArrowRight, Globe } from 'lucide-react';
 import { motion } from 'framer-motion';
 
 export const Footer: React.FC = () => {
+  const location = useLocation();
+  if (location.pathname === '/contact') {
+    return null;
+  }
+
   return (
     <motion.footer 
       className="footer-premium"

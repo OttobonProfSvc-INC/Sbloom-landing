@@ -103,75 +103,26 @@ export const HomePage: React.FC = () => {
       {/* SECTION 2 - Dual Paths */}
       <DualPathCards />
 
-      {/* SECTION 4 - What sBLOOM Changes */}
-      <DigitalGrowthSystem />
+      {/* LOWER LUXURY SILK WRAPPER - Continuous Uninterrupted Background Canvas */}
+      <div className="home-lower-silk-wrapper">
+        {/* SECTION 4 - What sBLOOM Changes */}
+        <DigitalGrowthSystem />
 
-
-
-      {/* SECTION 6 - Why sBLOOM */}
-      <section style={{ padding: '100px 0', backgroundColor: 'var(--dark-bg)', color: 'var(--bg-primary)' }}>
-        <div className="container" style={{ display: 'flex', flexWrap: 'wrap', gap: '60px', alignItems: 'center' }}>
-          <div style={{ flex: '1', minWidth: '300px' }}>
+        {/* SECTION 10 - Final CTA */}
+        <section className="home-final-cta-section">
+          <div className="container">
             <ScrollReveal delay={0}>
-              <h2 style={{ fontSize: '2.5rem', marginBottom: '20px' }}>We start with your business. Then bring the right capabilities together.</h2>
+              <h2 className="home-final-cta-title">Your business has potential. Let’s help the right people see it.</h2>
+              <div className="home-final-cta-btn-wrap">
+                <Link to="/contact" className="home-final-cta-btn">
+                  <span>Talk to sBLOOM</span>
+                  <span className="cta-arrow">→</span>
+                </Link>
+              </div>
             </ScrollReveal>
           </div>
-          <div style={{ flex: '1', minWidth: '300px' }}>
-            <ScrollReveal delay={150}>
-              <ul style={{ listStyle: 'none', padding: 0 }}>
-                {['Strategy before execution.', 'An approach shaped around the business.', 'The right capabilities for the work.', 'One connected approach to digital growth.'].map((item, i) => (
-                  <li key={i} style={{ marginBottom: '15px', paddingBottom: '15px', borderBottom: '1px solid var(--dark-border)' }}>
-                    {item}
-                  </li>
-                ))}
-              </ul>
-            </ScrollReveal>
-          </div>
-        </div>
-      </section>
-
-      {/* SECTION 7 - How We Work */}
-      <section style={{ padding: '100px 0', backgroundColor: 'var(--bg-primary)' }}>
-        <div className="container">
-          <ScrollReveal delay={0}>
-            <h2 style={{ fontSize: '2.5rem', textAlign: 'center', marginBottom: '60px' }}>A clear plan. The right people. Work that moves you forward.</h2>
-          </ScrollReveal>
-          <div style={{ display: 'flex', justifyContent: 'center', flexWrap: 'wrap', gap: '40px' }}>
-            {['Understand', 'Plan', 'Assemble', 'Deliver', 'Improve'].map((step, i) => (
-              <ScrollReveal delay={100 * i} key={step} style={{ textAlign: 'center' }}>
-                <div style={{ width: '40px', height: '40px', borderRadius: '50%', backgroundColor: 'var(--gold-primary)', color: 'var(--dark-bg)', display: 'flex', alignItems: 'center', justifyContent: 'center', margin: '0 auto 15px', fontWeight: 'bold' }}>
-                  {i + 1}
-                </div>
-                <h3 style={{ fontSize: '1.2rem' }}>{step}</h3>
-              </ScrollReveal>
-            ))}
-          </div>
-        </div>
-      </section>
-
-
-
-      {/* SECTION 9 - Brand Philosophy */}
-      <section style={{ padding: '120px 0', backgroundColor: 'var(--dark-bg-secondary)', color: 'var(--gold-primary)', textAlign: 'center' }}>
-        <div className="container">
-          <ScrollReveal delay={0}>
-            <h2 style={{ fontSize: '3rem', letterSpacing: '4px', textTransform: 'uppercase' }}>Believe <span style={{ color: 'var(--bg-primary)' }}>→</span> Begin <span style={{ color: 'var(--bg-primary)' }}>→</span> Become</h2>
-          </ScrollReveal>
-        </div>
-      </section>
-
-
-      {/* SECTION 10 - Final CTA */}
-      <section style={{ padding: '120px 0', backgroundColor: 'var(--bg-primary)', textAlign: 'center' }}>
-        <div className="container">
-          <ScrollReveal delay={0}>
-            <h2 style={{ fontSize: '2.5rem', marginBottom: '20px' }}>Your business has potential. Let’s help the right people see it.</h2>
-            <div style={{ marginTop: '40px' }}>
-              <Link to="/contact" className="btn btn-primary" style={{ padding: '15px 40px', fontSize: '1.1rem' }}>Talk to sBLOOM</Link>
-            </div>
-          </ScrollReveal>
-        </div>
-      </section>
+        </section>
+      </div>
 
       {/* Interactive Bottom-Right Corner Scroll Pipeline: Camera ➔ Reel ➔ Post ➔ Ad ➔ Website ➔ Video */}
       <BottomCornerScrollShowcase />
