@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router';
-import { BookOpen, Pencil, Check, ArrowRight } from 'lucide-react';
+import { BookOpen, Users, CheckCircle2, ArrowRight } from 'lucide-react';
 import { ScrollReveal } from '../ScrollReveal';
 import './DualPathCards.css';
 
@@ -76,40 +76,45 @@ export const DualPathCards: React.FC = () => {
         {/* Dual Path Choice Cards Grid */}
         <div className="dual-path-grid">
           {/* Card 1: sBLOOM for Business */}
-          <ScrollReveal delay={100} style={{ height: '100%' }}>
+          <ScrollReveal delay={100} className="dual-path-reveal-wrap" style={{ height: '100%', display: 'flex', flexDirection: 'column' }}>
             <div className="dual-path-card dual-path-card-business">
-              <div>
-                {/* Header: Icon + Title */}
+              <div className="dual-path-card-body">
+                {/* Header: Icon + Title & Tagline */}
                 <div className="dual-path-card-header">
                   <div className="dual-path-icon-box dual-path-icon-business">
-                    <BookOpen size={21} strokeWidth={2} />
+                    <BookOpen size={20} strokeWidth={2} />
                   </div>
-                  <h3 className="dual-path-card-title">sBLOOM for Business</h3>
+                  <div className="dual-path-header-text">
+                    <h3 className="dual-path-card-title">sBLOOM for Business</h3>
+                    <p className="dual-path-card-tagline">For organizations & brands</p>
+                  </div>
                 </div>
+
+                {/* Headline */}
+                <h4 className="dual-path-card-headline">
+                  Grow your business. Build your brand.
+                </h4>
 
                 {/* Description */}
                 <p className="dual-path-card-desc">
-                  Build your online presence, strengthen credibility, and reach the right audience.
+                  Build your online presence, strengthen credibility, and reach the right audience with strategic digital solutions.
                 </p>
+
+                {/* Divider Line */}
+                <hr className="dual-path-card-divider" />
 
                 {/* Feature Points */}
                 <ul className="dual-path-feature-list">
                   <li className="dual-path-feature-item">
-                    <span className="dual-path-check-badge dual-path-check-business">
-                      <Check size={13} strokeWidth={3} />
-                    </span>
+                    <CheckCircle2 size={19} strokeWidth={1.8} className="dual-path-check-icon-business" />
                     <span className="dual-path-feature-text">SEO and Google visibility</span>
                   </li>
                   <li className="dual-path-feature-item">
-                    <span className="dual-path-check-badge dual-path-check-business">
-                      <Check size={13} strokeWidth={3} />
-                    </span>
+                    <CheckCircle2 size={19} strokeWidth={1.8} className="dual-path-check-icon-business" />
                     <span className="dual-path-feature-text">Websites and social media</span>
                   </li>
                   <li className="dual-path-feature-item">
-                    <span className="dual-path-check-badge dual-path-check-business">
-                      <Check size={13} strokeWidth={3} />
-                    </span>
+                    <CheckCircle2 size={19} strokeWidth={1.8} className="dual-path-check-icon-business" />
                     <span className="dual-path-feature-text">Digital marketing and ads</span>
                   </li>
                 </ul>
@@ -117,56 +122,59 @@ export const DualPathCards: React.FC = () => {
 
               {/* Bottom Button */}
               <Link to="/contact" className="dual-path-card-btn">
-                <span>Grow Your Business</span>
-                <ArrowRight size={16} strokeWidth={2.2} className="btn-arrow" />
+                <span>Grow Your Business →</span>
               </Link>
             </div>
           </ScrollReveal>
 
           {/* Card 2: Creative Workspace */}
-          <ScrollReveal delay={200} style={{ height: '100%' }}>
+          <ScrollReveal delay={200} className="dual-path-reveal-wrap" style={{ height: '100%', display: 'flex', flexDirection: 'column' }}>
             <div className="dual-path-card dual-path-card-creative">
-              <div>
-                {/* Header: Icon + Title */}
+              <div className="dual-path-card-body">
+                {/* Header: Icon + Title & Subtitle */}
                 <div className="dual-path-card-header">
                   <div className="dual-path-icon-box dual-path-icon-creative">
-                    <Pencil size={21} strokeWidth={2} />
+                    <Users size={20} strokeWidth={2} />
                   </div>
-                  <h3 className="dual-path-card-title">Creative Workspace</h3>
+                  <div className="dual-path-header-text">
+                    <h3 className="dual-path-card-title">Creative Workspace</h3>
+                    <p className="dual-path-card-tagline">Join our creative network</p>
+                  </div>
                 </div>
+
+                {/* Main Headline */}
+                <h4 className="dual-path-card-headline">
+                  Create with S-Bloom. Grow with us.
+                </h4>
 
                 {/* Description */}
                 <p className="dual-path-card-desc">
-                  Build your personal brand, showcase your work, and attract better opportunities.
+                  Work with S-Bloom on creative projects, digital content, and ideas that help businesses grow. We're looking to connect with talented people who want to create meaningful work together.
                 </p>
+
+                {/* Divider Line */}
+                <hr className="dual-path-card-divider" />
 
                 {/* Feature Points */}
                 <ul className="dual-path-feature-list">
                   <li className="dual-path-feature-item">
-                    <span className="dual-path-check-badge dual-path-check-creative">
-                      <Check size={13} strokeWidth={3} />
-                    </span>
-                    <span className="dual-path-feature-text">Personal branding</span>
+                    <CheckCircle2 size={19} strokeWidth={1.8} className="dual-path-check-icon-creative" />
+                    <span className="dual-path-feature-text">Creative projects and collaboration</span>
                   </li>
                   <li className="dual-path-feature-item">
-                    <span className="dual-path-check-badge dual-path-check-creative">
-                      <Check size={13} strokeWidth={3} />
-                    </span>
-                    <span className="dual-path-feature-text">Portfolio and online presence</span>
+                    <CheckCircle2 size={19} strokeWidth={1.8} className="dual-path-check-icon-creative" />
+                    <span className="dual-path-feature-text">Opportunities to work with our team</span>
                   </li>
                   <li className="dual-path-feature-item">
-                    <span className="dual-path-check-badge dual-path-check-creative">
-                      <Check size={13} strokeWidth={3} />
-                    </span>
-                    <span className="dual-path-feature-text">Content and audience growth</span>
+                    <CheckCircle2 size={19} strokeWidth={1.8} className="dual-path-check-icon-creative" />
+                    <span className="dual-path-feature-text">Share your skills and portfolio</span>
                   </li>
                 </ul>
               </div>
 
               {/* Bottom Button */}
               <Link to="/creative-workspace" className="dual-path-card-btn">
-                <span>Build Your Presence</span>
-                <ArrowRight size={16} strokeWidth={2.2} className="btn-arrow" />
+                <span>Explore Opportunities →</span>
               </Link>
             </div>
           </ScrollReveal>

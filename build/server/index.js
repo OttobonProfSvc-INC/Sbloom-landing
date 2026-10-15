@@ -1,13 +1,12 @@
 import { PassThrough } from "node:stream";
 import { createReadableStreamFromReadable } from "@react-router/node";
-import { Link, Links, Meta, Outlet, Scripts, ScrollRestoration, ServerRouter, UNSAFE_withComponentProps, useLocation } from "react-router";
+import { Link, Links, Meta, Navigate, Outlet, Scripts, ServerRouter, UNSAFE_withComponentProps, useLocation, useNavigate, useSearchParams } from "react-router";
 import { isbot } from "isbot";
 import { renderToPipeableStream } from "react-dom/server";
 import { Fragment, jsx, jsxs } from "react/jsx-runtime";
-import { useEffect, useRef, useState } from "react";
-import { ArrowRight, Award, BarChart3, BookOpen, Briefcase, Building2, Calendar, Camera, Check, CheckCircle2, ChevronDown, ChevronRight, FileText, Film, Globe, GraduationCap, Laptop, LayoutGrid, Lightbulb, Mail, Megaphone, Menu, MessageCircle, MessageSquare, MonitorSmartphone, PenTool, Pencil, Phone, Play, PlayCircle, Rocket, ShieldCheck, Sparkles, Target, TrendingUp, User, UserCheck, Users, Volume2, VolumeX, X } from "lucide-react";
+import React, { useEffect, useRef, useState } from "react";
+import { ArrowLeft, ArrowRight, Award, BarChart3, BookOpen, Bot, Briefcase, Building2, Camera, Check, CheckCircle2, ChevronDown, Eye, FileEdit, FileText, Film, Gift, Globe, GraduationCap, Heart, Layers, LayoutGrid, Lightbulb, LineChart, Link2, Mail, MapPin, Megaphone, Menu, MessageCircle, MessageSquare, Monitor, MonitorSmartphone, PenTool, Phone, PhoneCall, Play, PlayCircle, Rocket, Search, Share2, ShieldCheck, Sparkles, Target, TrendingUp, User, Users, Video, Volume2, VolumeX, Wallet, X, Zap } from "lucide-react";
 import { AnimatePresence, motion } from "framer-motion";
-import { Link as Link$1 } from "react-router-dom";
 //#region \0rolldown/runtime.js
 var __defProp = Object.defineProperty;
 var __exportAll = (all, no_symbols) => {
@@ -137,42 +136,25 @@ var Navbar = () => {
 								children: [
 									{
 										name: "Education",
-										desc: "Digital growth for education institutions",
 										href: "/industries/education"
 									},
 									{
 										name: "Healthcare",
-										desc: "Digital growth for healthcare organizations",
 										href: "/industries/healthcare"
 									},
 									{
-										name: "Technology & IT",
-										desc: "Digital growth for tech organizations",
-										href: "/industries/technology"
-									},
-									{
 										name: "Professional Services",
-										desc: "Digital growth for professional firms",
 										href: "/industries/professional-services"
 									}
-								].map((ind) => /* @__PURE__ */ jsxs(Link, {
+								].map((ind) => /* @__PURE__ */ jsx(Link, {
 									to: ind.href,
 									className: `dropdown-item ${location.pathname === ind.href ? "active" : ""}`,
 									"aria-current": location.pathname === ind.href ? "page" : void 0,
 									onClick: handleMobileClick,
-									children: [/* @__PURE__ */ jsxs("div", {
-										className: "dropdown-item-content",
-										children: [/* @__PURE__ */ jsx("span", {
-											className: "dropdown-item-title",
-											children: ind.name
-										}), /* @__PURE__ */ jsx("span", {
-											className: "dropdown-item-desc",
-											children: ind.desc
-										})]
-									}), /* @__PURE__ */ jsx("span", {
-										className: "dropdown-item-arrow",
-										children: "→"
-									})]
+									children: /* @__PURE__ */ jsx("span", {
+										className: "dropdown-item-title",
+										children: ind.name
+									})
 								}, ind.name))
 							}) })]
 						}),
@@ -197,20 +179,27 @@ var Navbar = () => {
 							onClick: handleMobileClick,
 							children: "About"
 						}) }),
+						/* @__PURE__ */ jsx("li", { children: /* @__PURE__ */ jsx(Link, {
+							to: "/proof-of-work",
+							className: `nav-link ${location.pathname === "/proof-of-work" ? "active" : ""}`,
+							"aria-current": location.pathname === "/proof-of-work" ? "page" : void 0,
+							onClick: handleMobileClick,
+							children: "Proof of Work"
+						}) }),
 						/* @__PURE__ */ jsx("li", {
 							className: "nav-workspace-item",
 							style: {
-								marginLeft: "16px",
-								borderLeft: "1px solid var(--border-subtle)",
-								paddingLeft: "24px"
+								marginLeft: "10px",
+								borderLeft: "1px solid rgba(229, 169, 60, 0.25)",
+								paddingLeft: "16px"
 							},
 							children: /* @__PURE__ */ jsx(Link, {
 								to: "/creative-workspace",
 								className: `nav-link ${location.pathname === "/creative-workspace" ? "active" : ""}`,
 								style: {
-									fontSize: "0.8rem",
+									fontSize: "0.78rem",
 									textTransform: "uppercase",
-									letterSpacing: "1px"
+									letterSpacing: "0.8px"
 								},
 								onClick: handleMobileClick,
 								children: "Creative Workspace"
@@ -503,6 +492,13 @@ var root_exports = /* @__PURE__ */ __exportAll({
 	Layout: () => Layout,
 	default: () => root_default
 });
+function ScrollToTop() {
+	const { pathname } = useLocation();
+	useEffect(() => {
+		window.scrollTo(0, 0);
+	}, [pathname]);
+	return null;
+}
 function Layout({ children }) {
 	return /* @__PURE__ */ jsxs("html", {
 		lang: "en",
@@ -515,6 +511,7 @@ function Layout({ children }) {
 			/* @__PURE__ */ jsx(Meta, {}),
 			/* @__PURE__ */ jsx(Links, {})
 		] }), /* @__PURE__ */ jsxs("body", { children: [
+			/* @__PURE__ */ jsx(ScrollToTop, {}),
 			/* @__PURE__ */ jsxs("div", {
 				className: "app-layout",
 				children: [
@@ -526,7 +523,6 @@ function Layout({ children }) {
 					/* @__PURE__ */ jsx(Footer, {})
 				]
 			}),
-			/* @__PURE__ */ jsx(ScrollRestoration, {}),
 			/* @__PURE__ */ jsx(Scripts, {})
 		] })]
 	});
@@ -535,8 +531,69 @@ var root_default = UNSAFE_withComponentProps(function App() {
 	return /* @__PURE__ */ jsx(Outlet, {});
 });
 //#endregion
+//#region \0@oxc-project+runtime@0.150.0/helpers/esm/typeof.js
+function _typeof(o) {
+	"@babel/helpers - typeof";
+	return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function(o) {
+		return typeof o;
+	} : function(o) {
+		return o && "function" == typeof Symbol && o.constructor === Symbol && o !== Symbol.prototype ? "symbol" : typeof o;
+	}, _typeof(o);
+}
+//#endregion
+//#region \0@oxc-project+runtime@0.150.0/helpers/esm/toPrimitive.js
+function toPrimitive(t, r) {
+	if ("object" != _typeof(t) || !t) return t;
+	var e = t[Symbol.toPrimitive];
+	if (void 0 !== e) {
+		var i = e.call(t, r || "default");
+		if ("object" != _typeof(i)) return i;
+		throw new TypeError("@@toPrimitive must return a primitive value.");
+	}
+	return ("string" === r ? String : Number)(t);
+}
+//#endregion
+//#region \0@oxc-project+runtime@0.150.0/helpers/esm/toPropertyKey.js
+function toPropertyKey(t) {
+	var i = toPrimitive(t, "string");
+	return "symbol" == _typeof(i) ? i : i + "";
+}
+//#endregion
+//#region \0@oxc-project+runtime@0.150.0/helpers/esm/defineProperty.js
+function _defineProperty(e, r, t) {
+	return (r = toPropertyKey(r)) in e ? Object.defineProperty(e, r, {
+		value: t,
+		enumerable: !0,
+		configurable: !0,
+		writable: !0
+	}) : e[r] = t, e;
+}
+//#endregion
+//#region \0@oxc-project+runtime@0.150.0/helpers/esm/objectSpread2.js
+function ownKeys(e, r) {
+	var t = Object.keys(e);
+	if (Object.getOwnPropertySymbols) {
+		var o = Object.getOwnPropertySymbols(e);
+		r && (o = o.filter(function(r) {
+			return Object.getOwnPropertyDescriptor(e, r).enumerable;
+		})), t.push.apply(t, o);
+	}
+	return t;
+}
+function _objectSpread2(e) {
+	for (var r = 1; r < arguments.length; r++) {
+		var t = null != arguments[r] ? arguments[r] : {};
+		r % 2 ? ownKeys(Object(t), !0).forEach(function(r) {
+			_defineProperty(e, r, t[r]);
+		}) : Object.getOwnPropertyDescriptors ? Object.defineProperties(e, Object.getOwnPropertyDescriptors(t)) : ownKeys(Object(t)).forEach(function(r) {
+			Object.defineProperty(e, r, Object.getOwnPropertyDescriptor(t, r));
+		});
+	}
+	return e;
+}
+//#endregion
 //#region src/components/ScrollReveal.tsx
-var ScrollReveal = ({ children, delay = 0, className = "", threshold = .1 }) => {
+var ScrollReveal = ({ children, delay = 0, className = "", threshold = .1, style: userStyle = {} }) => {
 	const [isVisible, setIsVisible] = useState(false);
 	const domRef = useRef(null);
 	useEffect(() => {
@@ -567,7 +624,7 @@ var ScrollReveal = ({ children, delay = 0, className = "", threshold = .1 }) => 
 			if (currentRef) observer.unobserve(currentRef);
 		};
 	}, [threshold]);
-	const style = { transitionDelay: `${delay}ms` };
+	const style = _objectSpread2({ transitionDelay: `${delay}ms` }, userStyle);
 	return /* @__PURE__ */ jsx("div", {
 		ref: domRef,
 		className: `reveal-wrapper ${isVisible ? "reveal-visible" : "reveal-hidden"} ${className}`,
@@ -580,6 +637,7 @@ var ScrollReveal = ({ children, delay = 0, className = "", threshold = .1 }) => 
 var DigitalGrowthSystem = () => {
 	const [hoveredStage, setHoveredStage] = useState(null);
 	const [isMobile, setIsMobile] = useState(false);
+	const navigate = useNavigate();
 	useEffect(() => {
 		const handleResize = () => setIsMobile(window.innerWidth < 1024);
 		handleResize();
@@ -598,7 +656,7 @@ var DigitalGrowthSystem = () => {
 				"SEO",
 				"Google Business Profile"
 			],
-			link: "/solutions/build",
+			link: "/solutions#build",
 			linkText: "Explore Build →"
 		},
 		{
@@ -613,7 +671,7 @@ var DigitalGrowthSystem = () => {
 				"Reels and Videos",
 				"Digital Content"
 			],
-			link: "/solutions/create",
+			link: "/solutions#create",
 			linkText: "Explore Create →"
 		},
 		{
@@ -628,7 +686,7 @@ var DigitalGrowthSystem = () => {
 				"Performance Marketing",
 				"Campaign Management"
 			],
-			link: "/solutions/promote",
+			link: "/solutions#promote",
 			linkText: "Explore Promote →"
 		},
 		{
@@ -642,7 +700,7 @@ var DigitalGrowthSystem = () => {
 				"Qualified Leads",
 				"Brand Trust"
 			],
-			link: "/solutions",
+			link: "/solutions#grow",
 			linkText: "Explore Solutions →"
 		}
 	];
@@ -668,6 +726,8 @@ var DigitalGrowthSystem = () => {
 					delay: idx * 100,
 					children: /* @__PURE__ */ jsxs("div", {
 						className: "dgs-mobile-stage",
+						onClick: () => navigate(stage.link),
+						style: { cursor: "pointer" },
 						children: [
 							/* @__PURE__ */ jsxs("div", {
 								className: "dgs-mobile-num-label",
@@ -694,9 +754,10 @@ var DigitalGrowthSystem = () => {
 									children: service
 								}, i))
 							}),
-							/* @__PURE__ */ jsx(Link$1, {
+							/* @__PURE__ */ jsx(Link, {
 								to: stage.link,
 								className: "dgs-m-link",
+								onClick: (e) => e.stopPropagation(),
 								children: stage.linkText
 							}),
 							idx < stages.length - 1 && /* @__PURE__ */ jsx("div", { className: "dgs-m-line" })
@@ -770,6 +831,8 @@ var DigitalGrowthSystem = () => {
 							return /* @__PURE__ */ jsxs("div", {
 								className: `dgs-col ${isActive ? "active" : ""} ${hoveredStage !== null && !isActive ? "dimmed" : ""}`,
 								onMouseEnter: () => setHoveredStage(stage.id),
+								onClick: () => navigate(stage.link),
+								style: { cursor: "pointer" },
 								children: [
 									/* @__PURE__ */ jsx("h3", {
 										className: "dgs-col-headline",
@@ -786,9 +849,10 @@ var DigitalGrowthSystem = () => {
 											children: service
 										}, i))
 									}),
-									/* @__PURE__ */ jsx(Link$1, {
+									/* @__PURE__ */ jsx(Link, {
 										to: stage.link,
 										className: "dgs-explore-link",
+										onClick: (e) => e.stopPropagation(),
 										children: stage.linkText
 									})
 								]
@@ -2259,156 +2323,174 @@ var DualPathCards = () => {
 					className: "dual-path-grid",
 					children: [/* @__PURE__ */ jsx(ScrollReveal, {
 						delay: 100,
-						style: { height: "100%" },
+						className: "dual-path-reveal-wrap",
+						style: {
+							height: "100%",
+							display: "flex",
+							flexDirection: "column"
+						},
 						children: /* @__PURE__ */ jsxs("div", {
 							className: "dual-path-card dual-path-card-business",
-							children: [/* @__PURE__ */ jsxs("div", { children: [
-								/* @__PURE__ */ jsxs("div", {
-									className: "dual-path-card-header",
-									children: [/* @__PURE__ */ jsx("div", {
-										className: "dual-path-icon-box dual-path-icon-business",
-										children: /* @__PURE__ */ jsx(BookOpen, {
-											size: 21,
-											strokeWidth: 2
-										})
-									}), /* @__PURE__ */ jsx("h3", {
-										className: "dual-path-card-title",
-										children: "sBLOOM for Business"
-									})]
-								}),
-								/* @__PURE__ */ jsx("p", {
-									className: "dual-path-card-desc",
-									children: "Build your online presence, strengthen credibility, and reach the right audience."
-								}),
-								/* @__PURE__ */ jsxs("ul", {
-									className: "dual-path-feature-list",
-									children: [
-										/* @__PURE__ */ jsxs("li", {
-											className: "dual-path-feature-item",
-											children: [/* @__PURE__ */ jsx("span", {
-												className: "dual-path-check-badge dual-path-check-business",
-												children: /* @__PURE__ */ jsx(Check, {
-													size: 13,
-													strokeWidth: 3
-												})
-											}), /* @__PURE__ */ jsx("span", {
-												className: "dual-path-feature-text",
-												children: "SEO and Google visibility"
+							children: [/* @__PURE__ */ jsxs("div", {
+								className: "dual-path-card-body",
+								children: [
+									/* @__PURE__ */ jsxs("div", {
+										className: "dual-path-card-header",
+										children: [/* @__PURE__ */ jsx("div", {
+											className: "dual-path-icon-box dual-path-icon-business",
+											children: /* @__PURE__ */ jsx(BookOpen, {
+												size: 20,
+												strokeWidth: 2
+											})
+										}), /* @__PURE__ */ jsxs("div", {
+											className: "dual-path-header-text",
+											children: [/* @__PURE__ */ jsx("h3", {
+												className: "dual-path-card-title",
+												children: "sBLOOM for Business"
+											}), /* @__PURE__ */ jsx("p", {
+												className: "dual-path-card-tagline",
+												children: "For organizations & brands"
 											})]
-										}),
-										/* @__PURE__ */ jsxs("li", {
-											className: "dual-path-feature-item",
-											children: [/* @__PURE__ */ jsx("span", {
-												className: "dual-path-check-badge dual-path-check-business",
-												children: /* @__PURE__ */ jsx(Check, {
-													size: 13,
-													strokeWidth: 3
-												})
-											}), /* @__PURE__ */ jsx("span", {
-												className: "dual-path-feature-text",
-												children: "Websites and social media"
-											})]
-										}),
-										/* @__PURE__ */ jsxs("li", {
-											className: "dual-path-feature-item",
-											children: [/* @__PURE__ */ jsx("span", {
-												className: "dual-path-check-badge dual-path-check-business",
-												children: /* @__PURE__ */ jsx(Check, {
-													size: 13,
-													strokeWidth: 3
-												})
-											}), /* @__PURE__ */ jsx("span", {
-												className: "dual-path-feature-text",
-												children: "Digital marketing and ads"
-											})]
-										})
-									]
-								})
-							] }), /* @__PURE__ */ jsxs(Link, {
+										})]
+									}),
+									/* @__PURE__ */ jsx("h4", {
+										className: "dual-path-card-headline",
+										children: "Grow your business. Build your brand."
+									}),
+									/* @__PURE__ */ jsx("p", {
+										className: "dual-path-card-desc",
+										children: "Build your online presence, strengthen credibility, and reach the right audience with strategic digital solutions."
+									}),
+									/* @__PURE__ */ jsx("hr", { className: "dual-path-card-divider" }),
+									/* @__PURE__ */ jsxs("ul", {
+										className: "dual-path-feature-list",
+										children: [
+											/* @__PURE__ */ jsxs("li", {
+												className: "dual-path-feature-item",
+												children: [/* @__PURE__ */ jsx(CheckCircle2, {
+													size: 19,
+													strokeWidth: 1.8,
+													className: "dual-path-check-icon-business"
+												}), /* @__PURE__ */ jsx("span", {
+													className: "dual-path-feature-text",
+													children: "SEO and Google visibility"
+												})]
+											}),
+											/* @__PURE__ */ jsxs("li", {
+												className: "dual-path-feature-item",
+												children: [/* @__PURE__ */ jsx(CheckCircle2, {
+													size: 19,
+													strokeWidth: 1.8,
+													className: "dual-path-check-icon-business"
+												}), /* @__PURE__ */ jsx("span", {
+													className: "dual-path-feature-text",
+													children: "Websites and social media"
+												})]
+											}),
+											/* @__PURE__ */ jsxs("li", {
+												className: "dual-path-feature-item",
+												children: [/* @__PURE__ */ jsx(CheckCircle2, {
+													size: 19,
+													strokeWidth: 1.8,
+													className: "dual-path-check-icon-business"
+												}), /* @__PURE__ */ jsx("span", {
+													className: "dual-path-feature-text",
+													children: "Digital marketing and ads"
+												})]
+											})
+										]
+									})
+								]
+							}), /* @__PURE__ */ jsx(Link, {
 								to: "/contact",
 								className: "dual-path-card-btn",
-								children: [/* @__PURE__ */ jsx("span", { children: "Grow Your Business" }), /* @__PURE__ */ jsx(ArrowRight, {
-									size: 16,
-									strokeWidth: 2.2,
-									className: "btn-arrow"
-								})]
+								children: /* @__PURE__ */ jsx("span", { children: "Grow Your Business →" })
 							})]
 						})
 					}), /* @__PURE__ */ jsx(ScrollReveal, {
 						delay: 200,
-						style: { height: "100%" },
+						className: "dual-path-reveal-wrap",
+						style: {
+							height: "100%",
+							display: "flex",
+							flexDirection: "column"
+						},
 						children: /* @__PURE__ */ jsxs("div", {
 							className: "dual-path-card dual-path-card-creative",
-							children: [/* @__PURE__ */ jsxs("div", { children: [
-								/* @__PURE__ */ jsxs("div", {
-									className: "dual-path-card-header",
-									children: [/* @__PURE__ */ jsx("div", {
-										className: "dual-path-icon-box dual-path-icon-creative",
-										children: /* @__PURE__ */ jsx(Pencil, {
-											size: 21,
-											strokeWidth: 2
-										})
-									}), /* @__PURE__ */ jsx("h3", {
-										className: "dual-path-card-title",
-										children: "Creative Workspace"
-									})]
-								}),
-								/* @__PURE__ */ jsx("p", {
-									className: "dual-path-card-desc",
-									children: "Build your personal brand, showcase your work, and attract better opportunities."
-								}),
-								/* @__PURE__ */ jsxs("ul", {
-									className: "dual-path-feature-list",
-									children: [
-										/* @__PURE__ */ jsxs("li", {
-											className: "dual-path-feature-item",
-											children: [/* @__PURE__ */ jsx("span", {
-												className: "dual-path-check-badge dual-path-check-creative",
-												children: /* @__PURE__ */ jsx(Check, {
-													size: 13,
-													strokeWidth: 3
-												})
-											}), /* @__PURE__ */ jsx("span", {
-												className: "dual-path-feature-text",
-												children: "Personal branding"
+							children: [/* @__PURE__ */ jsxs("div", {
+								className: "dual-path-card-body",
+								children: [
+									/* @__PURE__ */ jsxs("div", {
+										className: "dual-path-card-header",
+										children: [/* @__PURE__ */ jsx("div", {
+											className: "dual-path-icon-box dual-path-icon-creative",
+											children: /* @__PURE__ */ jsx(Users, {
+												size: 20,
+												strokeWidth: 2
+											})
+										}), /* @__PURE__ */ jsxs("div", {
+											className: "dual-path-header-text",
+											children: [/* @__PURE__ */ jsx("h3", {
+												className: "dual-path-card-title",
+												children: "Creative Workspace"
+											}), /* @__PURE__ */ jsx("p", {
+												className: "dual-path-card-tagline",
+												children: "Join our creative network"
 											})]
-										}),
-										/* @__PURE__ */ jsxs("li", {
-											className: "dual-path-feature-item",
-											children: [/* @__PURE__ */ jsx("span", {
-												className: "dual-path-check-badge dual-path-check-creative",
-												children: /* @__PURE__ */ jsx(Check, {
-													size: 13,
-													strokeWidth: 3
-												})
-											}), /* @__PURE__ */ jsx("span", {
-												className: "dual-path-feature-text",
-												children: "Portfolio and online presence"
-											})]
-										}),
-										/* @__PURE__ */ jsxs("li", {
-											className: "dual-path-feature-item",
-											children: [/* @__PURE__ */ jsx("span", {
-												className: "dual-path-check-badge dual-path-check-creative",
-												children: /* @__PURE__ */ jsx(Check, {
-													size: 13,
-													strokeWidth: 3
-												})
-											}), /* @__PURE__ */ jsx("span", {
-												className: "dual-path-feature-text",
-												children: "Content and audience growth"
-											})]
-										})
-									]
-								})
-							] }), /* @__PURE__ */ jsxs(Link, {
+										})]
+									}),
+									/* @__PURE__ */ jsx("h4", {
+										className: "dual-path-card-headline",
+										children: "Create with S-Bloom. Grow with us."
+									}),
+									/* @__PURE__ */ jsx("p", {
+										className: "dual-path-card-desc",
+										children: "Work with S-Bloom on creative projects, digital content, and ideas that help businesses grow. We're looking to connect with talented people who want to create meaningful work together."
+									}),
+									/* @__PURE__ */ jsx("hr", { className: "dual-path-card-divider" }),
+									/* @__PURE__ */ jsxs("ul", {
+										className: "dual-path-feature-list",
+										children: [
+											/* @__PURE__ */ jsxs("li", {
+												className: "dual-path-feature-item",
+												children: [/* @__PURE__ */ jsx(CheckCircle2, {
+													size: 19,
+													strokeWidth: 1.8,
+													className: "dual-path-check-icon-creative"
+												}), /* @__PURE__ */ jsx("span", {
+													className: "dual-path-feature-text",
+													children: "Creative projects and collaboration"
+												})]
+											}),
+											/* @__PURE__ */ jsxs("li", {
+												className: "dual-path-feature-item",
+												children: [/* @__PURE__ */ jsx(CheckCircle2, {
+													size: 19,
+													strokeWidth: 1.8,
+													className: "dual-path-check-icon-creative"
+												}), /* @__PURE__ */ jsx("span", {
+													className: "dual-path-feature-text",
+													children: "Opportunities to work with our team"
+												})]
+											}),
+											/* @__PURE__ */ jsxs("li", {
+												className: "dual-path-feature-item",
+												children: [/* @__PURE__ */ jsx(CheckCircle2, {
+													size: 19,
+													strokeWidth: 1.8,
+													className: "dual-path-check-icon-creative"
+												}), /* @__PURE__ */ jsx("span", {
+													className: "dual-path-feature-text",
+													children: "Share your skills and portfolio"
+												})]
+											})
+										]
+									})
+								]
+							}), /* @__PURE__ */ jsx(Link, {
 								to: "/creative-workspace",
 								className: "dual-path-card-btn",
-								children: [/* @__PURE__ */ jsx("span", { children: "Build Your Presence" }), /* @__PURE__ */ jsx(ArrowRight, {
-									size: 16,
-									strokeWidth: 2.2,
-									className: "btn-arrow"
-								})]
+								children: /* @__PURE__ */ jsx("span", { children: "Explore Opportunities →" })
 							})]
 						})
 					})]
@@ -2418,8 +2500,571 @@ var DualPathCards = () => {
 	});
 };
 //#endregion
+//#region src/components/home/HomePricingSection.tsx
+var SocialMediaIcon = () => /* @__PURE__ */ jsxs("svg", {
+	width: "23",
+	height: "23",
+	viewBox: "0 0 24 24",
+	fill: "none",
+	stroke: "#BA7C3D",
+	strokeWidth: "2",
+	strokeLinecap: "round",
+	strokeLinejoin: "round",
+	children: [
+		/* @__PURE__ */ jsx("rect", {
+			x: "2",
+			y: "2",
+			width: "20",
+			height: "20",
+			rx: "5",
+			ry: "5"
+		}),
+		/* @__PURE__ */ jsx("path", { d: "M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z" }),
+		/* @__PURE__ */ jsx("circle", {
+			cx: "17.5",
+			cy: "6.5",
+			r: "1.5",
+			fill: "#BA7C3D"
+		})
+	]
+});
+var GbpIcon = () => /* @__PURE__ */ jsxs("svg", {
+	width: "24",
+	height: "24",
+	viewBox: "0 0 24 24",
+	fill: "none",
+	xmlns: "http://www.w3.org/2000/svg",
+	children: [/* @__PURE__ */ jsx("path", {
+		d: "M12 2C8.13 2 5 5.13 5 9C5 14.25 12 22 12 22C12 22 19 14.25 19 9C19 5.13 15.87 2 12 2Z",
+		stroke: "#BA7C3D",
+		strokeWidth: "2",
+		strokeLinecap: "round",
+		strokeLinejoin: "round"
+	}), /* @__PURE__ */ jsx("path", {
+		d: "M12 11.5C13.3807 11.5 14.5 10.3807 14.5 9C14.5 7.61929 13.3807 6.5 12 6.5C10.6193 6.5 9.5 7.61929 9.5 9C9.5 10.3807 10.6193 11.5 12 11.5Z",
+		fill: "#BA7C3D"
+	})]
+});
+var CurvedArrowSvg = () => /* @__PURE__ */ jsxs("svg", {
+	className: "home-pricing-promo-arrow",
+	width: "54",
+	height: "32",
+	viewBox: "0 0 54 32",
+	fill: "none",
+	xmlns: "http://www.w3.org/2000/svg",
+	children: [/* @__PURE__ */ jsx("path", {
+		d: "M4 28C14 28 28 24 46 8",
+		stroke: "#BA7C3D",
+		strokeWidth: "2.2",
+		strokeLinecap: "round"
+	}), /* @__PURE__ */ jsx("path", {
+		d: "M36 6L47 7.5L46 18",
+		stroke: "#BA7C3D",
+		strokeWidth: "2.2",
+		strokeLinecap: "round",
+		strokeLinejoin: "round"
+	})]
+});
+var SunburstSparks = () => /* @__PURE__ */ jsxs("svg", {
+	width: "20",
+	height: "20",
+	viewBox: "0 0 20 20",
+	fill: "none",
+	xmlns: "http://www.w3.org/2000/svg",
+	children: [
+		/* @__PURE__ */ jsx("line", {
+			x1: "10",
+			y1: "2",
+			x2: "10",
+			y2: "7",
+			stroke: "#BA7C3D",
+			strokeWidth: "2",
+			strokeLinecap: "round"
+		}),
+		/* @__PURE__ */ jsx("line", {
+			x1: "3.5",
+			y1: "4.5",
+			x2: "7.5",
+			y2: "8.5",
+			stroke: "#BA7C3D",
+			strokeWidth: "2",
+			strokeLinecap: "round"
+		}),
+		/* @__PURE__ */ jsx("line", {
+			x1: "16.5",
+			y1: "4.5",
+			x2: "12.5",
+			y2: "8.5",
+			stroke: "#BA7C3D",
+			strokeWidth: "2",
+			strokeLinecap: "round"
+		})
+	]
+});
+var HomePricingSection = () => {
+	return /* @__PURE__ */ jsx("section", {
+		className: "home-pricing-section",
+		id: "pricing",
+		children: /* @__PURE__ */ jsxs("div", {
+			className: "home-pricing-container",
+			children: [
+				/* @__PURE__ */ jsxs("div", {
+					className: "home-pricing-hero-row",
+					children: [/* @__PURE__ */ jsx("div", {
+						className: "home-pricing-hero-text",
+						children: /* @__PURE__ */ jsxs(ScrollReveal, {
+							delay: 0,
+							children: [
+								/* @__PURE__ */ jsxs("div", {
+									className: "home-pricing-eyebrow-row",
+									children: [/* @__PURE__ */ jsx("span", {
+										className: "home-pricing-eyebrow",
+										children: "BUDGET-FRIENDLY & AI-POWERED"
+									}), /* @__PURE__ */ jsxs(Link, {
+										to: "/proof-of-work",
+										className: "home-pricing-proof-pill",
+										children: [
+											/* @__PURE__ */ jsx(Sparkles, { size: 13 }),
+											/* @__PURE__ */ jsx("span", { children: "See Verified Proof of Work" }),
+											/* @__PURE__ */ jsx(ArrowRight, { size: 13 })
+										]
+									})]
+								}),
+								/* @__PURE__ */ jsxs("h2", {
+									className: "home-pricing-title",
+									children: [
+										"Simple Plans.",
+										/* @__PURE__ */ jsx("br", {}),
+										/* @__PURE__ */ jsx("span", {
+											className: "home-pricing-title-italic",
+											children: "Real "
+										}),
+										/* @__PURE__ */ jsx("span", {
+											className: "home-pricing-title-serif",
+											children: "Business Growth."
+										})
+									]
+								}),
+								/* @__PURE__ */ jsx("p", {
+									className: "home-pricing-desc",
+									children: "High-performance digital growth built for Healthcare, Education, and Professional Services. Powered by AI to cut your agency costs in half while delivering more patients, admissions, and clients."
+								})
+							]
+						})
+					}), /* @__PURE__ */ jsx("div", {
+						className: "home-pricing-visual-wrap",
+						children: /* @__PURE__ */ jsx(ScrollReveal, {
+							delay: 150,
+							children: /* @__PURE__ */ jsx("div", {
+								className: "home-pricing-visual-card",
+								children: /* @__PURE__ */ jsx("img", {
+									src: "/pricing-laptop-growth.jpg",
+									alt: "Business Growth Dashboard and Strategy",
+									className: "home-pricing-hero-img"
+								})
+							})
+						})
+					})]
+				}),
+				/* @__PURE__ */ jsx("div", {
+					className: "home-pricing-cards-grid",
+					children: [
+						{
+							id: "gbp",
+							name: "Google Business Profile (GBP)",
+							badge: "✦ Automation",
+							icon: /* @__PURE__ */ jsx(GbpIcon, {}),
+							isDualPrice: false,
+							startsLabel: "Starts at",
+							price: "₹2,000",
+							period: "/month",
+							features: [
+								"Profile setup & complete local verification",
+								"Weekly updates (geo-tagged photos, posts, offers)",
+								"Local SEO ranking to reach Top 3 on Google Maps",
+								"Direct phone calls, directions & local patient/student inquiries"
+							],
+							footnote: null,
+							proofLink: "/proof-of-work?service=gbp",
+							actionLabel: "View Proof of Work"
+						},
+						{
+							id: "website-seo",
+							name: "Website + SEO",
+							badge: "✦ AI-Powered",
+							icon: /* @__PURE__ */ jsx(Monitor, {
+								size: 22,
+								strokeWidth: 2.2
+							}),
+							isDualPrice: false,
+							startsLabel: "Starts at",
+							price: "₹5,000",
+							period: "/month",
+							features: [
+								"AI-native high speed website design & architecture",
+								"End-to-end technical & local SEO keyword optimization",
+								"Mobile-first sub-1s loading for higher conversions",
+								"Predictable inbound inquiries for clinics, schools & firms"
+							],
+							footnote: null,
+							proofLink: "/proof-of-work?service=website",
+							actionLabel: "View Proof of Work"
+						},
+						{
+							id: "social-media",
+							name: "Social Media Management",
+							badge: "Meta Business Suite",
+							icon: /* @__PURE__ */ jsx(SocialMediaIcon, {}),
+							isDualPrice: false,
+							startsLabel: "Starts at",
+							price: "₹10,000",
+							period: "/month",
+							features: [
+								"8 High-Impact Reels + 20 Branded Posts monthly",
+								"Managed directly via Meta Business Suite (Instagram & Facebook)",
+								"Content strategy, scriptwriting, hooks & caption optimization",
+								"Targeted community engagement & direct lead pipeline"
+							],
+							footnote: "* Note: Motion post pricing may vary based on animation scope",
+							proofLink: "/proof-of-work?service=social",
+							actionLabel: "View Proof of Work"
+						},
+						{
+							id: "ads",
+							name: "Meta & Google Ads",
+							badge: "High-Intent Leads",
+							icon: /* @__PURE__ */ jsx(Megaphone, {
+								size: 22,
+								strokeWidth: 2.2
+							}),
+							isDualPrice: true,
+							startsLabel: "Starts at",
+							tier1Price: "₹2,000",
+							tier1Note: "Management (If ad account exists)",
+							tier2Price: "₹3,000",
+							tier2Note: "One-time setup (If no ad account)",
+							features: [
+								"Hyper-targeted Meta (Insta/FB) & Google Search campaigns",
+								"Custom lead-filtering funnels for patients, admissions & clients",
+								"Continuous conversion rate & negative keyword optimization",
+								"Transparent weekly analytics & ROAS tracking dashboard"
+							],
+							footnote: "* Note: Ad spend funds vary from client to client based on goals",
+							proofLink: "/proof-of-work?service=ads",
+							actionLabel: "View Proof of Work"
+						}
+					].map((plan, idx) => /* @__PURE__ */ jsx(ScrollReveal, {
+						delay: 100 + idx * 80,
+						className: "home-pricing-card-reveal",
+						children: /* @__PURE__ */ jsxs("div", {
+							className: "home-pricing-card",
+							children: [
+								plan.badge && /* @__PURE__ */ jsx("div", {
+									className: "home-pricing-card-top-badge",
+									children: plan.badge
+								}),
+								/* @__PURE__ */ jsxs("div", {
+									className: "home-pricing-card-header",
+									children: [/* @__PURE__ */ jsx("div", {
+										className: "home-pricing-icon-box",
+										children: plan.icon
+									}), /* @__PURE__ */ jsx("h3", {
+										className: "home-pricing-card-title",
+										children: plan.name
+									})]
+								}),
+								plan.isDualPrice ? /* @__PURE__ */ jsxs("div", {
+									className: "home-pricing-dual-container",
+									children: [/* @__PURE__ */ jsx("div", {
+										className: "home-pricing-starts-label",
+										children: plan.startsLabel
+									}), /* @__PURE__ */ jsxs("div", {
+										className: "home-pricing-dual-wrap",
+										children: [/* @__PURE__ */ jsxs("div", {
+											className: "home-pricing-dual-pill",
+											children: [/* @__PURE__ */ jsx("div", {
+												className: "home-pricing-dual-amount",
+												children: plan.tier1Price
+											}), /* @__PURE__ */ jsx("div", {
+												className: "home-pricing-dual-note",
+												children: plan.tier1Note
+											})]
+										}), /* @__PURE__ */ jsxs("div", {
+											className: "home-pricing-dual-pill",
+											children: [/* @__PURE__ */ jsx("div", {
+												className: "home-pricing-dual-amount",
+												children: plan.tier2Price
+											}), /* @__PURE__ */ jsx("div", {
+												className: "home-pricing-dual-note",
+												children: plan.tier2Note
+											})]
+										})]
+									})]
+								}) : /* @__PURE__ */ jsxs("div", {
+									className: "home-pricing-price-wrap",
+									children: [/* @__PURE__ */ jsx("div", {
+										className: "home-pricing-starts-label",
+										children: plan.startsLabel
+									}), /* @__PURE__ */ jsxs("div", {
+										className: "home-pricing-amount-row",
+										children: [/* @__PURE__ */ jsx("span", {
+											className: "home-pricing-amount",
+											children: plan.price
+										}), /* @__PURE__ */ jsx("span", {
+											className: "home-pricing-period",
+											children: plan.period
+										})]
+									})]
+								}),
+								/* @__PURE__ */ jsx("ul", {
+									className: "home-pricing-features-list",
+									children: plan.features.map((feat, fIdx) => /* @__PURE__ */ jsxs("li", {
+										className: "home-pricing-feature-item",
+										children: [/* @__PURE__ */ jsx(Check, {
+											className: "home-pricing-check-icon",
+											size: 16,
+											strokeWidth: 2.8
+										}), /* @__PURE__ */ jsx("span", { children: feat })]
+									}, fIdx))
+								}),
+								plan.footnote && /* @__PURE__ */ jsx("div", {
+									className: "home-pricing-card-footnote",
+									children: plan.footnote
+								}),
+								/* @__PURE__ */ jsx("div", {
+									className: "home-pricing-card-footer",
+									children: /* @__PURE__ */ jsxs(Link, {
+										to: plan.proofLink,
+										className: "home-pricing-action-btn",
+										"aria-label": `Open proof of work for ${plan.name}`,
+										children: [/* @__PURE__ */ jsx("span", { children: plan.actionLabel }), /* @__PURE__ */ jsx(ArrowRight, {
+											size: 16,
+											strokeWidth: 2.4
+										})]
+									})
+								})
+							]
+						})
+					}, plan.id))
+				}),
+				/* @__PURE__ */ jsx("div", {
+					className: "home-pricing-transparency-note",
+					children: /* @__PURE__ */ jsxs("span", { children: [
+						"💡 ",
+						/* @__PURE__ */ jsx("strong", { children: "Full Transparency:" }),
+						" All ad campaign spends and creative motion requirements are customized to your exact admission or patient targets. No hidden retainers or surprises."
+					] })
+				}),
+				/* @__PURE__ */ jsx(ScrollReveal, {
+					delay: 350,
+					children: /* @__PURE__ */ jsxs("div", {
+						className: "home-pricing-promo-banner",
+						children: [/* @__PURE__ */ jsxs("div", {
+							className: "home-pricing-promo-left",
+							children: [
+								/* @__PURE__ */ jsx("div", {
+									className: "home-pricing-gift-box",
+									children: /* @__PURE__ */ jsx(Gift, {
+										size: 28,
+										strokeWidth: 2.1
+									})
+								}),
+								/* @__PURE__ */ jsx("div", {
+									className: "home-pricing-promo-divider",
+									"aria-hidden": "true"
+								}),
+								/* @__PURE__ */ jsxs("p", {
+									className: "home-pricing-promo-text",
+									children: [
+										"Google Business Profile (GBP) is",
+										" ",
+										/* @__PURE__ */ jsx("span", {
+											className: "home-pricing-promo-free",
+											children: "FREE"
+										}),
+										" when Social Media Management is chosen."
+									]
+								})
+							]
+						}), /* @__PURE__ */ jsxs("div", {
+							className: "home-pricing-promo-right",
+							children: [/* @__PURE__ */ jsx(CurvedArrowSvg, {}), /* @__PURE__ */ jsxs("div", {
+								className: "home-pricing-promo-note-wrap",
+								children: [/* @__PURE__ */ jsx("span", {
+									className: "home-pricing-promo-note",
+									children: "More visibility at no extra cost!"
+								}), /* @__PURE__ */ jsx("span", {
+									className: "home-pricing-promo-sparks",
+									"aria-hidden": "true",
+									children: /* @__PURE__ */ jsx(SunburstSparks, {})
+								})]
+							})]
+						})]
+					})
+				})
+			]
+		})
+	});
+};
+//#endregion
+//#region src/components/home/WhyBetter.tsx
+var WhyBetter = () => {
+	return /* @__PURE__ */ jsx("section", {
+		className: "why-better-section",
+		id: "why-sbloom",
+		children: /* @__PURE__ */ jsxs("div", {
+			className: "container why-better-container",
+			children: [
+				/* @__PURE__ */ jsx("div", {
+					className: "why-better-header",
+					children: /* @__PURE__ */ jsxs(ScrollReveal, {
+						delay: 0,
+						children: [
+							/* @__PURE__ */ jsxs("div", {
+								className: "why-better-eyebrow",
+								children: [/* @__PURE__ */ jsx("span", {
+									className: "why-badge-glow",
+									children: "✦ THE S-BLOOM ADVANTAGE"
+								}), /* @__PURE__ */ jsx("span", {
+									className: "why-eyebrow-sub",
+									children: "WHY OUR WORK IS BEST"
+								})]
+							}),
+							/* @__PURE__ */ jsxs("h2", {
+								className: "why-better-title",
+								children: [
+									"Why We Beat Every Other ",
+									/* @__PURE__ */ jsx("br", {}),
+									/* @__PURE__ */ jsx("span", {
+										className: "why-title-serif",
+										children: "Digital Marketing Agency."
+									})
+								]
+							}),
+							/* @__PURE__ */ jsx("p", {
+								className: "why-better-lead",
+								children: "You don't need vanity metrics. You need real patients walking through your clinic doors, parents enrolling their children in your classrooms, and high-value clients seeking your professional counsel."
+							})
+						]
+					})
+				}),
+				/* @__PURE__ */ jsx("div", {
+					className: "why-better-grid",
+					children: [
+						{
+							id: "ai-native",
+							icon: /* @__PURE__ */ jsx(Bot, { size: 26 }),
+							tag: "TECH INNOVATION",
+							title: "AI-Native Efficiency, Zero Agency Bloat",
+							desc: "Traditional agencies bill you for 10-person overheads and slow manual delivery. We leverage modern AI tools to build high-converting websites, conduct medical & institutional SEO, and edit retention-hooked Reels in half the time.",
+							bullets: [
+								"Websites that load in under 1 second",
+								"AI-driven keyword analysis for local dominance",
+								"Automated lead qualification funnels"
+							],
+							badge: "Up to 70% Less Cost"
+						},
+						{
+							id: "targeted-industries",
+							icon: /* @__PURE__ */ jsx(Target, { size: 26 }),
+							tag: "LASER FOCUS",
+							title: "Built Exclusively for 3 High-Trust Sectors",
+							desc: "We do not market e-commerce clothes or fast food. We specialize strictly in Healthcare, Education, and Professional Services — solving the exact crises you face: empty appointment books, declining student admissions, and invisible professional authority.",
+							bullets: [
+								"Healthcare: More local clinic & hospital patients",
+								"Education: Predictable admission inquiries every season",
+								"Professional Services: High-value corporate clients"
+							],
+							badge: "Domain Expertise"
+						},
+						{
+							id: "budget-friendly",
+							icon: /* @__PURE__ */ jsx(Wallet, { size: 26 }),
+							tag: "RADICAL AFFORDABILITY",
+							title: "Genuinely Budget-Friendly & Transparent",
+							desc: "Starting from just ₹2,000/month, every plan delivers measurable business outcomes rather than vanity follower counts. Complete transparency on ad spend with zero hidden retainers or surprise agency invoices.",
+							bullets: [
+								"Full GBP optimization from ₹2,000/month",
+								"AI Website + SEO from ₹5,000/month",
+								"8 Reels + 20 Posts via Meta Suite from ₹10,000/mo"
+							],
+							badge: "Starts at ₹2,000/mo"
+						}
+					].map((pillar, index) => /* @__PURE__ */ jsx(ScrollReveal, {
+						delay: 120 + index * 90,
+						className: "why-better-card-reveal",
+						children: /* @__PURE__ */ jsxs("div", {
+							className: "why-better-card",
+							children: [
+								/* @__PURE__ */ jsxs("div", {
+									className: "why-card-top",
+									children: [/* @__PURE__ */ jsx("div", {
+										className: "why-card-icon-wrap",
+										children: pillar.icon
+									}), /* @__PURE__ */ jsx("span", {
+										className: "why-card-badge",
+										children: pillar.badge
+									})]
+								}),
+								/* @__PURE__ */ jsx("div", {
+									className: "why-card-tag",
+									children: pillar.tag
+								}),
+								/* @__PURE__ */ jsx("h3", {
+									className: "why-card-title",
+									children: pillar.title
+								}),
+								/* @__PURE__ */ jsx("p", {
+									className: "why-card-desc",
+									children: pillar.desc
+								}),
+								/* @__PURE__ */ jsx("div", {
+									className: "why-card-bullets",
+									children: pillar.bullets.map((bullet, bIdx) => /* @__PURE__ */ jsxs("div", {
+										className: "why-bullet-item",
+										children: [/* @__PURE__ */ jsx(CheckCircle2, {
+											size: 15,
+											className: "why-bullet-icon"
+										}), /* @__PURE__ */ jsx("span", { children: bullet })]
+									}, bIdx))
+								})
+							]
+						})
+					}, pillar.id))
+				}),
+				/* @__PURE__ */ jsx(ScrollReveal, {
+					delay: 280,
+					children: /* @__PURE__ */ jsxs("div", {
+						className: "why-better-proof-banner",
+						children: [/* @__PURE__ */ jsxs("div", {
+							className: "why-proof-banner-left",
+							children: [/* @__PURE__ */ jsx("div", {
+								className: "why-proof-icon-box",
+								children: /* @__PURE__ */ jsx(ShieldCheck, { size: 26 })
+							}), /* @__PURE__ */ jsxs("div", { children: [/* @__PURE__ */ jsx("h4", {
+								className: "why-proof-banner-title",
+								children: "Don't take our word for it. Inspect our real client dashboards."
+							}), /* @__PURE__ */ jsx("p", {
+								className: "why-proof-banner-desc",
+								children: "Browse before-and-after performance metrics for Google Business Profile, websites, and Meta Business Suite campaigns."
+							})] })]
+						}), /* @__PURE__ */ jsx("div", {
+							className: "why-proof-banner-right",
+							children: /* @__PURE__ */ jsxs(Link, {
+								to: "/proof-of-work",
+								className: "why-proof-cta-btn",
+								children: [/* @__PURE__ */ jsx("span", { children: "Explore Proof of Work" }), /* @__PURE__ */ jsx(ArrowRight, { size: 17 })]
+							})
+						})]
+					})
+				})
+			]
+		})
+	});
+};
+//#endregion
 //#region src/components/home/BottomCornerScrollShowcase.tsx
-var STAGES = [
+var STAGES$1 = [
 	{
 		id: 0,
 		key: "camera",
@@ -2491,7 +3136,7 @@ var BottomCornerScrollShowcase = () => {
 		else if (videoRef.current) videoRef.current.pause();
 	}, [activeStage]);
 	const handleCircleClick = () => {
-		const nextStage = (activeStage + 1) % STAGES.length;
+		const nextStage = (activeStage + 1) % STAGES$1.length;
 		setActiveStage(nextStage);
 		setManualOverride(true);
 		if (overrideTimerRef.current) clearTimeout(overrideTimerRef.current);
@@ -2506,7 +3151,7 @@ var BottomCornerScrollShowcase = () => {
 			setIsMuted(videoRef.current.muted);
 		}
 	};
-	const currentStageInfo = STAGES[activeStage];
+	const currentStageInfo = STAGES$1[activeStage];
 	const IconComponent = currentStageInfo.icon;
 	return /* @__PURE__ */ jsxs("div", {
 		className: "corner-circle-widget-wrapper",
@@ -2875,7 +3520,7 @@ var HomePage = () => {
 									className: "hero-final-eyebrow",
 									children: [/* @__PURE__ */ jsx("span", {
 										className: "eyebrow-text",
-										children: "DIGITAL GROWTH PARTNER"
+										children: "AI DIGITAL GROWTH PARTNER"
 									}), /* @__PURE__ */ jsx("span", { className: "eyebrow-line" })]
 								}),
 								/* @__PURE__ */ jsxs("h1", {
@@ -2925,130 +3570,36 @@ var HomePage = () => {
 				]
 			}),
 			/* @__PURE__ */ jsx(DualPathCards, {}),
-			/* @__PURE__ */ jsx(DigitalGrowthSystem, {}),
-			/* @__PURE__ */ jsx("section", {
-				style: {
-					padding: "100px 0",
-					backgroundColor: "var(--dark-bg)",
-					color: "var(--bg-primary)"
-				},
-				children: /* @__PURE__ */ jsxs("div", {
-					className: "container",
-					style: {
-						display: "flex",
-						flexWrap: "wrap",
-						gap: "60px",
-						alignItems: "center"
-					},
-					children: [/* @__PURE__ */ jsx("div", {
-						style: {
-							flex: "1",
-							minWidth: "300px"
-						},
-						children: /* @__PURE__ */ jsx(ScrollReveal, {
-							delay: 0,
-							children: /* @__PURE__ */ jsx("h2", {
-								style: {
-									fontSize: "2.5rem",
-									marginBottom: "20px"
-								},
-								children: "We start with your business. Then bring the right capabilities together."
+			/* @__PURE__ */ jsxs("div", {
+				className: "home-lower-silk-wrapper",
+				children: [
+					/* @__PURE__ */ jsx(DigitalGrowthSystem, {}),
+					/* @__PURE__ */ jsx(WhyBetter, {}),
+					/* @__PURE__ */ jsx(HomePricingSection, {}),
+					/* @__PURE__ */ jsx("section", {
+						className: "home-final-cta-section",
+						children: /* @__PURE__ */ jsx("div", {
+							className: "container",
+							children: /* @__PURE__ */ jsxs(ScrollReveal, {
+								delay: 0,
+								children: [/* @__PURE__ */ jsx("h2", {
+									className: "home-final-cta-title",
+									children: "Your business has potential. Let’s help the right people see it."
+								}), /* @__PURE__ */ jsx("div", {
+									className: "home-final-cta-btn-wrap",
+									children: /* @__PURE__ */ jsxs(Link, {
+										to: "/contact",
+										className: "home-final-cta-btn",
+										children: [/* @__PURE__ */ jsx("span", { children: "Talk to sBLOOM" }), /* @__PURE__ */ jsx("span", {
+											className: "cta-arrow",
+											children: "→"
+										})]
+									})
+								})]
 							})
-						})
-					}), /* @__PURE__ */ jsx("div", {
-						style: {
-							flex: "1",
-							minWidth: "300px"
-						},
-						children: /* @__PURE__ */ jsx(ScrollReveal, {
-							delay: 150,
-							children: /* @__PURE__ */ jsx("ul", {
-								style: {
-									listStyle: "none",
-									padding: 0
-								},
-								children: [
-									"Strategy before execution.",
-									"An approach shaped around the business.",
-									"The right capabilities for the work.",
-									"One connected approach to digital growth."
-								].map((item, i) => /* @__PURE__ */ jsx("li", {
-									style: {
-										marginBottom: "15px",
-										paddingBottom: "15px",
-										borderBottom: "1px solid var(--dark-border)"
-									},
-									children: item
-								}, i))
-							})
-						})
-					})]
-				})
-			}),
-			/* @__PURE__ */ jsx("section", {
-				style: {
-					padding: "120px 0",
-					backgroundColor: "var(--dark-bg-secondary)",
-					color: "var(--gold-primary)",
-					textAlign: "center"
-				},
-				children: /* @__PURE__ */ jsx("div", {
-					className: "container",
-					children: /* @__PURE__ */ jsx(ScrollReveal, {
-						delay: 0,
-						children: /* @__PURE__ */ jsxs("h2", {
-							style: {
-								fontSize: "3rem",
-								letterSpacing: "4px",
-								textTransform: "uppercase"
-							},
-							children: [
-								"Believe ",
-								/* @__PURE__ */ jsx("span", {
-									style: { color: "var(--bg-primary)" },
-									children: "→"
-								}),
-								" Begin ",
-								/* @__PURE__ */ jsx("span", {
-									style: { color: "var(--bg-primary)" },
-									children: "→"
-								}),
-								" Become"
-							]
 						})
 					})
-				})
-			}),
-			/* @__PURE__ */ jsx("section", {
-				style: {
-					padding: "120px 0",
-					backgroundColor: "var(--bg-primary)",
-					textAlign: "center"
-				},
-				children: /* @__PURE__ */ jsx("div", {
-					className: "container",
-					children: /* @__PURE__ */ jsxs(ScrollReveal, {
-						delay: 0,
-						children: [/* @__PURE__ */ jsx("h2", {
-							style: {
-								fontSize: "2.5rem",
-								marginBottom: "20px"
-							},
-							children: "Your business has potential. Let’s help the right people see it."
-						}), /* @__PURE__ */ jsx("div", {
-							style: { marginTop: "40px" },
-							children: /* @__PURE__ */ jsx(Link, {
-								to: "/contact",
-								className: "btn btn-primary",
-								style: {
-									padding: "15px 40px",
-									fontSize: "1.1rem"
-								},
-								children: "Talk to sBLOOM"
-							})
-						})]
-					})
-				})
+				]
 			}),
 			/* @__PURE__ */ jsx(BottomCornerScrollShowcase, {})
 		]
@@ -3058,22 +3609,22 @@ var HomePage = () => {
 //#region src/routes/home.tsx
 var home_exports = /* @__PURE__ */ __exportAll({
 	default: () => home_default,
-	meta: () => meta$11
+	meta: () => meta$12
 });
-var meta$11 = () => {
+var meta$12 = () => {
 	return [
-		{ title: "sBLOOM | Digital Growth Partner" },
+		{ title: "sBLOOM | AI Digital Growth Partner" },
 		{
 			name: "description",
-			content: "S-Bloom is a specialized digital growth partner for expertise-led organizations."
+			content: "S-Bloom is a specialized AI digital growth partner for expertise-led organizations."
 		},
 		{
 			property: "og:title",
-			content: "sBLOOM | Digital Growth Partner"
+			content: "sBLOOM | AI Digital Growth Partner"
 		},
 		{
 			property: "og:description",
-			content: "S-Bloom is a specialized digital growth partner for expertise-led organizations."
+			content: "S-Bloom is a specialized AI digital growth partner for expertise-led organizations."
 		}
 	];
 };
@@ -3082,673 +3633,257 @@ var home_default = UNSAFE_withComponentProps(function Route() {
 });
 //#endregion
 //#region src/pages/industries/EducationPage.tsx
+var EDUCATION_SERVICES = [
+	{
+		id: "web-dev",
+		title: "Website Development",
+		description: "Showcase your courses, facilities, achievements, and admission details clearly.",
+		icon: Monitor
+	},
+	{
+		id: "gbp",
+		title: "Google Business Profile",
+		description: "Help students and parents find your institution on Google Search and Maps.",
+		icon: MapPin
+	},
+	{
+		id: "seo",
+		title: "SEO",
+		description: "Improve your visibility when people search for educational institutions and courses.",
+		icon: TrendingUp
+	},
+	{
+		id: "smm",
+		title: "Social Media Management",
+		description: "Share campus activities, achievements, events, and educational content.",
+		icon: Users
+	},
+	{
+		id: "ads",
+		title: "Digital Advertising",
+		description: "Promote courses and admissions to relevant students and parents.",
+		icon: Megaphone
+	}
+];
 var EducationPage = () => {
 	return /* @__PURE__ */ jsxs("div", {
-		className: "edu-page",
-		children: [
-			/* @__PURE__ */ jsxs("section", {
-				className: "edu-hero",
-				children: [/* @__PURE__ */ jsx("div", {
-					className: "edu-hero-ambient",
-					"aria-hidden": "true"
-				}), /* @__PURE__ */ jsx("div", {
-					className: "container",
-					children: /* @__PURE__ */ jsxs("div", {
-						className: "edu-hero-grid",
-						children: [/* @__PURE__ */ jsxs(ScrollReveal, {
-							delay: 0,
-							children: [
-								/* @__PURE__ */ jsxs("span", {
-									className: "edu-hero-badge",
-									children: [/* @__PURE__ */ jsx(GraduationCap, { size: 16 }), " SBLOOM · EDUCATION & ACADEMIA"]
-								}),
-								/* @__PURE__ */ jsxs("h1", {
-									className: "edu-hero-title",
-									children: [
-										"Where Academic Excellence Meets ",
-										/* @__PURE__ */ jsx("br", {}),
-										/* @__PURE__ */ jsx("span", {
-											className: "edu-hero-highlight",
-											children: "Inspiring Digital Authority."
-										})
-									]
-								}),
-								/* @__PURE__ */ jsx("p", {
-									className: "edu-hero-desc",
-									children: "Choosing an education is one of life’s most aspirational decisions. We help visionary universities, schools, training institutes, and educators close the gap between their academic quality and what students and parents understand about them."
-								}),
-								/* @__PURE__ */ jsxs("div", {
-									className: "edu-hero-actions",
-									children: [/* @__PURE__ */ jsxs(Link, {
-										to: "/contact",
-										className: "edu-btn-primary",
-										children: [/* @__PURE__ */ jsx("span", { children: "Request Education Strategy" }), /* @__PURE__ */ jsx(ArrowRight, { size: 18 })]
-									}), /* @__PURE__ */ jsxs("a", {
-										href: "#approach",
-										className: "edu-btn-secondary",
-										children: [/* @__PURE__ */ jsx("span", { children: "Explore Our Approach" }), /* @__PURE__ */ jsx(ChevronRight, { size: 18 })]
-									})]
-								}),
-								/* @__PURE__ */ jsxs("div", {
-									className: "edu-hero-proof",
-									children: [
-										/* @__PURE__ */ jsxs("div", {
-											className: "edu-proof-item",
-											children: [/* @__PURE__ */ jsx(CheckCircle2, {
-												size: 18,
-												className: "edu-proof-icon"
-											}), /* @__PURE__ */ jsx("span", { children: "Predictable Intake Cycles" })]
-										}),
-										/* @__PURE__ */ jsxs("div", {
-											className: "edu-proof-item",
-											children: [/* @__PURE__ */ jsx(CheckCircle2, {
-												size: 18,
-												className: "edu-proof-icon"
-											}), /* @__PURE__ */ jsx("span", { children: "Cinema-Grade Storytelling" })]
-										}),
-										/* @__PURE__ */ jsxs("div", {
-											className: "edu-proof-item",
-											children: [/* @__PURE__ */ jsx(CheckCircle2, {
-												size: 18,
-												className: "edu-proof-icon"
-											}), /* @__PURE__ */ jsx("span", { children: "Academic Compliance" })]
-										})
-									]
-								})
-							]
-						}), /* @__PURE__ */ jsx(ScrollReveal, {
-							delay: 150,
-							className: "edu-hero-visual-card",
-							children: /* @__PURE__ */ jsxs("div", {
-								className: "edu-hero-img-frame",
-								children: [
-									/* @__PURE__ */ jsx("img", {
-										src: "/institute_image.png",
-										alt: "S-Bloom Education Campus and Students",
-										className: "edu-hero-img"
-									}),
-									/* @__PURE__ */ jsxs("div", {
-										className: "edu-float-badge badge-top-right",
-										children: [/* @__PURE__ */ jsx("div", {
-											className: "float-badge-icon",
-											children: /* @__PURE__ */ jsx(TrendingUp, { size: 22 })
-										}), /* @__PURE__ */ jsxs("div", {
-											className: "float-badge-text",
-											children: [/* @__PURE__ */ jsx("strong", { children: "+94% Tour-to-Enrollment" }), /* @__PURE__ */ jsx("span", { children: "High-Intent Prospective Families" })]
-										})]
-									}),
-									/* @__PURE__ */ jsxs("div", {
-										className: "edu-float-badge badge-bottom-left",
-										children: [/* @__PURE__ */ jsx("div", {
-											className: "float-badge-icon",
-											children: /* @__PURE__ */ jsx(Sparkles, { size: 22 })
-										}), /* @__PURE__ */ jsxs("div", {
-											className: "float-badge-text",
-											children: [/* @__PURE__ */ jsx("strong", { children: "Authentic Campus Life" }), /* @__PURE__ */ jsx("span", { children: "Cinema-Grade Student Stories" })]
-										})]
-									})
-								]
-							})
-						})]
-					})
+		className: "industry-page edu-page-container",
+		children: [/* @__PURE__ */ jsx("div", {
+			className: "industry-bg-curve",
+			"aria-hidden": "true",
+			children: /* @__PURE__ */ jsxs("svg", {
+				viewBox: "0 0 1440 640",
+				fill: "none",
+				preserveAspectRatio: "none",
+				children: [/* @__PURE__ */ jsx("path", {
+					d: "M-40,80 C260,180 420,-30 840,40 C1180,100 1340,30 1520,70 L1520,0 L-40,0 Z",
+					fill: "#F6EFE5",
+					opacity: "0.6"
+				}), /* @__PURE__ */ jsx("path", {
+					d: "M-20,240 C340,320 620,110 1020,180 C1280,225 1420,130 1500,160",
+					stroke: "#EFE3D3",
+					strokeWidth: "38",
+					strokeLinecap: "round",
+					fill: "none",
+					opacity: "0.5"
 				})]
-			}),
-			/* @__PURE__ */ jsx("section", {
-				className: "edu-metrics-strip",
-				children: /* @__PURE__ */ jsx("div", {
-					className: "container",
+			})
+		}), /* @__PURE__ */ jsxs("div", {
+			className: "industry-container",
+			children: [
+				/* @__PURE__ */ jsx("section", {
+					className: "industry-hero-section",
 					children: /* @__PURE__ */ jsxs("div", {
-						className: "edu-metrics-grid",
-						children: [
-							/* @__PURE__ */ jsxs(ScrollReveal, {
-								delay: 50,
-								className: "edu-metric-card",
-								children: [/* @__PURE__ */ jsx("div", {
-									className: "edu-metric-num",
-									children: "3.4x"
-								}), /* @__PURE__ */ jsx("div", {
-									className: "edu-metric-label",
-									children: "Increase in Qualified Student Applications"
-								})]
-							}),
-							/* @__PURE__ */ jsxs(ScrollReveal, {
-								delay: 100,
-								className: "edu-metric-card",
-								children: [/* @__PURE__ */ jsx("div", {
-									className: "edu-metric-num",
-									children: "62%"
-								}), /* @__PURE__ */ jsx("div", {
-									className: "edu-metric-label",
-									children: "Reduction in Prospective Student Drop-Off"
-								})]
-							}),
-							/* @__PURE__ */ jsxs(ScrollReveal, {
-								delay: 150,
-								className: "edu-metric-card",
-								children: [/* @__PURE__ */ jsx("div", {
-									className: "edu-metric-num",
-									children: "8.5M+"
-								}), /* @__PURE__ */ jsx("div", {
-									className: "edu-metric-label",
-									children: "Verified Video Views for Campus Stories"
-								})]
-							}),
-							/* @__PURE__ */ jsxs(ScrollReveal, {
-								delay: 200,
-								className: "edu-metric-card",
-								children: [/* @__PURE__ */ jsx("div", {
-									className: "edu-metric-num",
-									children: "100%"
-								}), /* @__PURE__ */ jsx("div", {
-									className: "edu-metric-label",
-									children: "Academic Integrity & Regulatory Compliance"
-								})]
-							})
-						]
-					})
-				})
-			}),
-			/* @__PURE__ */ jsx("section", {
-				className: "edu-dilemma-section",
-				children: /* @__PURE__ */ jsxs("div", {
-					className: "container",
-					children: [/* @__PURE__ */ jsx("div", {
-						className: "edu-section-header",
-						children: /* @__PURE__ */ jsxs(ScrollReveal, {
-							delay: 0,
-							children: [
-								/* @__PURE__ */ jsx("span", {
-									className: "edu-section-badge",
-									children: "THE MODERN ENROLLMENT LANDSCAPE"
-								}),
-								/* @__PURE__ */ jsx("h2", {
-									className: "edu-section-title",
-									children: "The Enrollment Decision Has Evolved. Has Your Marketing?"
-								}),
-								/* @__PURE__ */ jsx("p", {
-									className: "edu-section-subtitle",
-									children: "Families no longer make life-defining decisions based on transactional admission banners. They look for genuine community proof, transparent academic outcomes, and unmistakable institutional authority."
-								})
-							]
-						})
-					}), /* @__PURE__ */ jsxs("div", {
-						className: "edu-dilemma-grid",
-						children: [/* @__PURE__ */ jsx(ScrollReveal, {
-							delay: 100,
-							children: /* @__PURE__ */ jsxs("div", {
-								className: "edu-dilemma-card dilemma-old",
-								children: [
-									/* @__PURE__ */ jsx("span", {
-										className: "dilemma-tag",
-										children: "The Traditional Way"
-									}),
-									/* @__PURE__ */ jsx("h3", { children: "Transactional Enrollment Banners" }),
-									/* @__PURE__ */ jsx("p", { children: "Seasonal panic ad-bursts when admission deadlines loom, pushing generic prospectus downloads that erode long-term institutional prestige." }),
-									/* @__PURE__ */ jsxs("ul", {
-										className: "dilemma-points-list",
-										children: [
-											/* @__PURE__ */ jsxs("li", { children: [/* @__PURE__ */ jsx("span", {
-												className: "point-cross",
-												children: "✕"
-											}), /* @__PURE__ */ jsx("span", { children: "Last-minute ad rushes targeting disengaged audiences" })] }),
-											/* @__PURE__ */ jsxs("li", { children: [/* @__PURE__ */ jsx("span", {
-												className: "point-cross",
-												children: "✕"
-											}), /* @__PURE__ */ jsx("span", { children: "Dry stock photography that fails to convey real campus spirit" })] }),
-											/* @__PURE__ */ jsxs("li", { children: [/* @__PURE__ */ jsx("span", {
-												className: "point-cross",
-												children: "✕"
-											}), /* @__PURE__ */ jsx("span", { children: "Confusing program pages leading to high inquiry drop-offs" })] }),
-											/* @__PURE__ */ jsxs("li", { children: [/* @__PURE__ */ jsx("span", {
-												className: "point-cross",
-												children: "✕"
-											}), /* @__PURE__ */ jsx("span", { children: "Invisible faculty credentials and silent academic leadership" })] })
-										]
-									})
-								]
-							})
-						}), /* @__PURE__ */ jsx(ScrollReveal, {
-							delay: 200,
-							children: /* @__PURE__ */ jsxs("div", {
-								className: "edu-dilemma-card dilemma-new",
-								children: [
-									/* @__PURE__ */ jsx("span", {
-										className: "dilemma-tag",
-										children: "The S-Bloom System"
-									}),
-									/* @__PURE__ */ jsx("h3", { children: "Connected Digital Authority" }),
-									/* @__PURE__ */ jsx("p", { children: "A year-round ecosystem of authentic student stories, faculty authority, and frictionless digital portals that make your institution the natural top choice." }),
-									/* @__PURE__ */ jsxs("ul", {
-										className: "dilemma-points-list",
-										children: [
-											/* @__PURE__ */ jsxs("li", { children: [/* @__PURE__ */ jsx("span", {
-												className: "point-check",
-												children: "✓"
-											}), /* @__PURE__ */ jsx("span", { children: "Continuous authority building synchronized with the academic cycle" })] }),
-											/* @__PURE__ */ jsxs("li", { children: [/* @__PURE__ */ jsx("span", {
-												className: "point-check",
-												children: "✓"
-											}), /* @__PURE__ */ jsx("span", { children: "Cinema-grade campus documentaries & student ambassador reels" })] }),
-											/* @__PURE__ */ jsxs("li", { children: [/* @__PURE__ */ jsx("span", {
-												className: "point-check",
-												children: "✓"
-											}), /* @__PURE__ */ jsx("span", { children: "Frictionless, mobile-optimized course discovery and visit booking" })] }),
-											/* @__PURE__ */ jsxs("li", { children: [/* @__PURE__ */ jsx("span", {
-												className: "point-check",
-												children: "✓"
-											}), /* @__PURE__ */ jsx("span", { children: "Empowered faculty thought leadership that parents respect and trust" })] })
-										]
-									})
-								]
-							})
-						})]
-					})]
-				})
-			}),
-			/* @__PURE__ */ jsx("section", {
-				className: "edu-audiences-section",
-				children: /* @__PURE__ */ jsxs("div", {
-					className: "container",
-					children: [
-						/* @__PURE__ */ jsx("div", {
-							className: "edu-section-header",
+						className: "industry-hero-grid",
+						children: [/* @__PURE__ */ jsx("div", {
+							className: "industry-hero-left",
 							children: /* @__PURE__ */ jsxs(ScrollReveal, {
 								delay: 0,
 								children: [
 									/* @__PURE__ */ jsx("span", {
-										className: "edu-section-badge",
-										children: "TAILORED EDUCATION SOLUTIONS"
+										className: "industry-eyebrow",
+										children: "S-BLOOM — EDUCATION"
 									}),
-									/* @__PURE__ */ jsx("h2", {
-										className: "edu-section-title",
-										children: "A Specialized Strategy for Every Academic Leader"
+									/* @__PURE__ */ jsxs("h1", {
+										className: "industry-hero-title",
+										children: [
+											"Help More Students",
+											/* @__PURE__ */ jsx("br", {}),
+											/* @__PURE__ */ jsx("span", {
+												className: "industry-gold-title",
+												children: "Discover Your"
+											}),
+											/* @__PURE__ */ jsx("br", {}),
+											"Institution."
+										]
 									}),
 									/* @__PURE__ */ jsx("p", {
-										className: "edu-section-subtitle",
-										children: "Whether you lead an established university campus or build a modern educational brand, we craft solutions attuned to your unique stakeholders."
-									})
-								]
-							})
-						}),
-						/* @__PURE__ */ jsxs("div", {
-							className: "edu-audience-row",
-							children: [/* @__PURE__ */ jsxs(ScrollReveal, {
-								delay: 100,
-								className: "edu-audience-text",
-								children: [
-									/* @__PURE__ */ jsxs("span", {
-										className: "aud-pill",
-										children: [/* @__PURE__ */ jsx(Building2, { size: 15 }), " FOR INSTITUTIONS & UNIVERSITIES"]
-									}),
-									/* @__PURE__ */ jsx("h3", { children: "Turn Your Campus Culture Into Your Strongest Enrollment Asset" }),
-									/* @__PURE__ */ jsx("p", { children: "Prospective students want to picture themselves thriving in your classrooms, labs, and student communities. We capture authentic campus vitality and transform it into high-intent admissions pipelines." }),
-									/* @__PURE__ */ jsxs("div", {
-										className: "edu-benefit-grid",
-										children: [
-											/* @__PURE__ */ jsxs("div", {
-												className: "edu-benefit-box",
-												children: [/* @__PURE__ */ jsx("strong", { children: "Predictable Influx" }), /* @__PURE__ */ jsx("span", { children: "Sustainable lead volume across every intake session." })]
-											}),
-											/* @__PURE__ */ jsxs("div", {
-												className: "edu-benefit-box",
-												children: [/* @__PURE__ */ jsx("strong", { children: "Campus Life in 4K" }), /* @__PURE__ */ jsx("span", { children: "Reels and shorts reflecting real student experiences." })]
-											}),
-											/* @__PURE__ */ jsxs("div", {
-												className: "edu-benefit-box",
-												children: [/* @__PURE__ */ jsx("strong", { children: "Parent Trust Funnels" }), /* @__PURE__ */ jsx("span", { children: "Dedicated content addressing safety, career outcomes, and ROI." })]
-											}),
-											/* @__PURE__ */ jsxs("div", {
-												className: "edu-benefit-box",
-												children: [/* @__PURE__ */ jsx("strong", { children: "Hyper-Local Dominance" }), /* @__PURE__ */ jsx("span", { children: "Optimized rankings for regional searches and program queries." })]
-											})
-										]
+										className: "industry-hero-desc",
+										children: "We help schools, colleges, coaching centres, and training institutes improve their online presence, reach students and parents, and generate more admission enquiries."
 									}),
 									/* @__PURE__ */ jsxs(Link, {
 										to: "/contact",
-										className: "edu-btn-primary",
-										style: {
-											padding: "12px 26px",
-											fontSize: "0.95rem"
-										},
-										children: [/* @__PURE__ */ jsx("span", { children: "Partner for Institutional Growth" }), /* @__PURE__ */ jsx(ArrowRight, { size: 16 })]
+										className: "industry-hero-cta-btn",
+										children: [/* @__PURE__ */ jsx("span", { children: "Talk to S-BLOOM" }), /* @__PURE__ */ jsx(ArrowRight, {
+											size: 17,
+											strokeWidth: 2.4
+										})]
 									})
 								]
-							}), /* @__PURE__ */ jsx(ScrollReveal, {
-								delay: 200,
-								className: "edu-audience-media",
-								children: /* @__PURE__ */ jsxs("div", {
-									className: "edu-audience-img-wrapper",
-									children: [/* @__PURE__ */ jsx("img", {
-										src: "/institute_image.png",
-										alt: "University Campus Students and Life",
-										className: "edu-audience-img"
-									}), /* @__PURE__ */ jsxs("div", {
-										className: "edu-img-overlay-caption",
-										children: [/* @__PURE__ */ jsx("span", { children: "🏛️ Campus Tour & Community Showcase" }), /* @__PURE__ */ jsx("span", { children: "94% Attendance Rate" })]
-									})]
-								})
-							})]
-						}),
-						/* @__PURE__ */ jsxs("div", {
-							className: "edu-audience-row reverse",
-							children: [/* @__PURE__ */ jsxs(ScrollReveal, {
-								delay: 100,
-								className: "edu-audience-text",
-								children: [
-									/* @__PURE__ */ jsxs("span", {
-										className: "aud-pill",
-										children: [/* @__PURE__ */ jsx(UserCheck, { size: 15 }), " FOR EDUCATORS, PROFESSORS & EXPERTS"]
-									}),
-									/* @__PURE__ */ jsx("h3", { children: "Elevate Your Intellectual Capital Into Recognized Digital Leadership" }),
-									/* @__PURE__ */ jsx("p", { children: "Great educators deserve a stage beyond the lecture hall. We help faculty members, authors, and EdTech founders translate deep expertise into engaged global followings, published authority, and high-demand executive programs." }),
-									/* @__PURE__ */ jsxs("div", {
-										className: "edu-benefit-grid",
-										children: [
-											/* @__PURE__ */ jsxs("div", {
-												className: "edu-benefit-box",
-												children: [/* @__PURE__ */ jsx("strong", { children: "Thought Leadership" }), /* @__PURE__ */ jsx("span", { children: "Authoritative long-form analysis, articles, and whitepapers." })]
-											}),
-											/* @__PURE__ */ jsxs("div", {
-												className: "edu-benefit-box",
-												children: [/* @__PURE__ */ jsx("strong", { children: "Global Masterclasses" }), /* @__PURE__ */ jsx("span", { children: "High-production studio lectures that attract international learners." })]
-											}),
-											/* @__PURE__ */ jsxs("div", {
-												className: "edu-benefit-box",
-												children: [/* @__PURE__ */ jsx("strong", { children: "Media-Ready Persona" }), /* @__PURE__ */ jsx("span", { children: "Optimized video reels and LinkedIn positioning for keynote speaking." })]
-											}),
-											/* @__PURE__ */ jsxs("div", {
-												className: "edu-benefit-box",
-												children: [/* @__PURE__ */ jsx("strong", { children: "Community Trust" }), /* @__PURE__ */ jsx("span", { children: "Direct learner loyalty and continuous mentorship engagement." })]
-											})
-										]
-									}),
-									/* @__PURE__ */ jsxs(Link, {
-										to: "/contact",
-										className: "edu-btn-primary",
-										style: {
-											padding: "12px 26px",
-											fontSize: "0.95rem"
-										},
-										children: [/* @__PURE__ */ jsx("span", { children: "Build Your Personal Brand" }), /* @__PURE__ */ jsx(ArrowRight, { size: 16 })]
-									})
-								]
-							}), /* @__PURE__ */ jsx(ScrollReveal, {
-								delay: 200,
-								className: "edu-audience-media",
-								children: /* @__PURE__ */ jsxs("div", {
-									className: "edu-audience-img-wrapper",
-									children: [/* @__PURE__ */ jsx("img", {
-										src: "/edu_expert.png",
-										alt: "Educator and Professor Thought Leadership",
-										className: "edu-audience-img"
-									}), /* @__PURE__ */ jsxs("div", {
-										className: "edu-img-overlay-caption",
-										children: [/* @__PURE__ */ jsx("span", { children: "🎙️ Global Classroom & Executive Impact" }), /* @__PURE__ */ jsx("span", { children: "Direct Learner Inbound" })]
-									})]
-								})
-							})]
-						})
-					]
-				})
-			}),
-			/* @__PURE__ */ jsx("section", {
-				className: "edu-approach-section",
-				id: "approach",
-				children: /* @__PURE__ */ jsxs("div", {
-					className: "container",
-					children: [/* @__PURE__ */ jsx("div", {
-						className: "edu-section-header",
-						children: /* @__PURE__ */ jsxs(ScrollReveal, {
-							delay: 0,
-							children: [
-								/* @__PURE__ */ jsx("span", {
-									className: "edu-section-badge",
-									children: "OUR SYSTEMATIC METHODOLOGY"
-								}),
-								/* @__PURE__ */ jsx("h2", {
-									className: "edu-section-title",
-									children: "The Three-Pillar S-Bloom Education Framework"
-								}),
-								/* @__PURE__ */ jsx("p", {
-									className: "edu-section-subtitle",
-									children: "A connected approach engineered specifically around academic decision psychology and intake cycles."
-								})
-							]
-						})
-					}), /* @__PURE__ */ jsxs("div", {
-						className: "edu-approach-cards-grid",
-						children: [
-							/* @__PURE__ */ jsx(ScrollReveal, {
-								delay: 100,
-								children: /* @__PURE__ */ jsxs("div", {
-									className: "edu-approach-card-v2",
-									children: [
-										/* @__PURE__ */ jsx("div", {
-											className: "edu-card-step-badge",
-											children: "01"
-										}),
-										/* @__PURE__ */ jsx("span", {
-											className: "edu-card-phase",
-											children: "FOUNDATION & PLATFORMS"
-										}),
-										/* @__PURE__ */ jsx("h3", { children: "BUILD: The Digital Campus" }),
-										/* @__PURE__ */ jsx("p", { children: "We engineer frictionless program discovery, virtual campus pathways, and seamless application portals that convert curious visitors into enrolled students." }),
-										/* @__PURE__ */ jsxs("ul", {
-											className: "edu-deliverables-list",
-											children: [
-												/* @__PURE__ */ jsxs("li", { children: [/* @__PURE__ */ jsx(Check, { size: 16 }), /* @__PURE__ */ jsx("span", { children: "Intuitive program architecture & prerequisites" })] }),
-												/* @__PURE__ */ jsxs("li", { children: [/* @__PURE__ */ jsx(Check, { size: 16 }), /* @__PURE__ */ jsx("span", { children: "Mobile-first application & tour booking forms" })] }),
-												/* @__PURE__ */ jsxs("li", { children: [/* @__PURE__ */ jsx(Check, { size: 16 }), /* @__PURE__ */ jsx("span", { children: "Academic SEO and local map ranking dominance" })] }),
-												/* @__PURE__ */ jsxs("li", { children: [/* @__PURE__ */ jsx(Check, { size: 16 }), /* @__PURE__ */ jsx("span", { children: "Frictionless parent and student user experience" })] })
-											]
-										})
-									]
-								})
-							}),
-							/* @__PURE__ */ jsx(ScrollReveal, {
-								delay: 200,
-								children: /* @__PURE__ */ jsxs("div", {
-									className: "edu-approach-card-v2",
-									children: [
-										/* @__PURE__ */ jsx("div", {
-											className: "edu-card-step-badge",
-											children: "02"
-										}),
-										/* @__PURE__ */ jsx("span", {
-											className: "edu-card-phase",
-											children: "CONTENT & AUTHORITY"
-										}),
-										/* @__PURE__ */ jsx("h3", { children: "CREATE: Cinema-Grade Stories" }),
-										/* @__PURE__ */ jsx("p", { children: "We capture the pulse of your institution with cinema-grade cameras, producing authentic student-life reels, faculty spotlights, and alumni proof." }),
-										/* @__PURE__ */ jsxs("ul", {
-											className: "edu-deliverables-list",
-											children: [
-												/* @__PURE__ */ jsxs("li", { children: [/* @__PURE__ */ jsx(Check, { size: 16 }), /* @__PURE__ */ jsx("span", { children: "Dynamic student life reels and Day-in-the-Life shorts" })] }),
-												/* @__PURE__ */ jsxs("li", { children: [/* @__PURE__ */ jsx(Check, { size: 16 }), /* @__PURE__ */ jsx("span", { children: "Faculty research showcases & Dean interviews" })] }),
-												/* @__PURE__ */ jsxs("li", { children: [/* @__PURE__ */ jsx(Check, { size: 16 }), /* @__PURE__ */ jsx("span", { children: "Inspiring alumni career milestone documentaries" })] }),
-												/* @__PURE__ */ jsxs("li", { children: [/* @__PURE__ */ jsx(Check, { size: 16 }), /* @__PURE__ */ jsx("span", { children: "Lab, library, and campus facility highlights" })] })
-											]
-										})
-									]
-								})
-							}),
-							/* @__PURE__ */ jsx(ScrollReveal, {
-								delay: 300,
-								children: /* @__PURE__ */ jsxs("div", {
-									className: "edu-approach-card-v2",
-									children: [
-										/* @__PURE__ */ jsx("div", {
-											className: "edu-card-step-badge",
-											children: "03"
-										}),
-										/* @__PURE__ */ jsx("span", {
-											className: "edu-card-phase",
-											children: "REACH & CONVERSION"
-										}),
-										/* @__PURE__ */ jsx("h3", { children: "PROMOTE: Timed Campaigns" }),
-										/* @__PURE__ */ jsx("p", { children: "We deploy hyper-targeted Meta Ads and search campaigns synchronized precisely with key admission deadlines and open house schedules." }),
-										/* @__PURE__ */ jsxs("ul", {
-											className: "edu-deliverables-list",
-											children: [
-												/* @__PURE__ */ jsxs("li", { children: [/* @__PURE__ */ jsx(Check, { size: 16 }), /* @__PURE__ */ jsx("span", { children: "Targeting synchronized with academic intake calendars" })] }),
-												/* @__PURE__ */ jsxs("li", { children: [/* @__PURE__ */ jsx(Check, { size: 16 }), /* @__PURE__ */ jsx("span", { children: "Segmented parent vs. student messaging workflows" })] }),
-												/* @__PURE__ */ jsxs("li", { children: [/* @__PURE__ */ jsx(Check, { size: 16 }), /* @__PURE__ */ jsx("span", { children: "High-attendance virtual webinars & open-day drives" })] }),
-												/* @__PURE__ */ jsxs("li", { children: [/* @__PURE__ */ jsx(Check, { size: 16 }), /* @__PURE__ */ jsx("span", { children: "Retargeting to assist undecided applicant families" })] })
-											]
-										})
-									]
-								})
 							})
-						]
-					})]
-				})
-			}),
-			/* @__PURE__ */ jsx("section", {
-				className: "edu-roadmap-section",
-				children: /* @__PURE__ */ jsxs("div", {
-					className: "container",
-					children: [/* @__PURE__ */ jsx("div", {
-						className: "edu-section-header",
-						children: /* @__PURE__ */ jsxs(ScrollReveal, {
-							delay: 0,
-							children: [
-								/* @__PURE__ */ jsx("span", {
-									className: "edu-section-badge",
-									children: "LIFECYCLE PARTNERSHIP"
-								}),
-								/* @__PURE__ */ jsx("h2", {
-									className: "edu-section-title",
-									children: "Harmonized with Your Admissions Calendar"
-								}),
-								/* @__PURE__ */ jsx("p", {
-									className: "edu-section-subtitle",
-									children: "Education marketing requires precision timing. We align our initiatives with your academic deadlines throughout the entire annual cycle."
-								})
-							]
-						})
-					}), /* @__PURE__ */ jsxs("div", {
-						className: "edu-timeline-grid",
-						children: [
-							/* @__PURE__ */ jsxs(ScrollReveal, {
-								delay: 50,
-								className: "edu-timeline-step",
-								children: [
-									/* @__PURE__ */ jsx("span", {
-										className: "edu-quarter-pill",
-										children: "PHASE 1 · PRE-CYCLE"
-									}),
-									/* @__PURE__ */ jsx("h4", { children: "Authority & Awareness" }),
-									/* @__PURE__ */ jsx("p", { children: "Establish institutional prestige through faculty spotlights, campus storytelling, and research achievements before admissions open." })
-								]
-							}),
-							/* @__PURE__ */ jsxs(ScrollReveal, {
-								delay: 100,
-								className: "edu-timeline-step",
-								children: [
-									/* @__PURE__ */ jsx("span", {
-										className: "edu-quarter-pill",
-										children: "PHASE 2 · OPEN ADMISSIONS"
-									}),
-									/* @__PURE__ */ jsx("h4", { children: "Inquiry Generation" }),
-									/* @__PURE__ */ jsx("p", { children: "Deploy high-intent search and social campaigns to drive prospectus downloads, campus tours, and open house registrations." })
-								]
-							}),
-							/* @__PURE__ */ jsxs(ScrollReveal, {
+						}), /* @__PURE__ */ jsx("div", {
+							className: "industry-hero-right",
+							children: /* @__PURE__ */ jsxs(ScrollReveal, {
 								delay: 150,
-								className: "edu-timeline-step",
-								children: [
-									/* @__PURE__ */ jsx("span", {
-										className: "edu-quarter-pill",
-										children: "PHASE 3 · DEADLINE ACCELERATION"
-									}),
-									/* @__PURE__ */ jsx("h4", { children: "Application Conversion" }),
-									/* @__PURE__ */ jsx("p", { children: "Targeted counseling nurture sequences, parent reassurance webinars, and scholarship guidance to maximize completed submissions." })
-								]
-							}),
-							/* @__PURE__ */ jsxs(ScrollReveal, {
-								delay: 200,
-								className: "edu-timeline-step",
-								children: [
-									/* @__PURE__ */ jsx("span", {
-										className: "edu-quarter-pill",
-										children: "PHASE 4 · POST-CYCLE"
-									}),
-									/* @__PURE__ */ jsx("h4", { children: "Advocacy & Onboarding" }),
-									/* @__PURE__ */ jsx("p", { children: "Celebrate accepted cohorts, activate alumni advocacy networks, and prepare organic momentum for the next enrollment intake." })
-								]
-							})
-						]
-					})]
-				})
-			}),
-			/* @__PURE__ */ jsxs("section", {
-				className: "edu-final-cta-section",
-				children: [/* @__PURE__ */ jsx("div", {
-					className: "edu-cta-ambient",
-					"aria-hidden": "true"
-				}), /* @__PURE__ */ jsx("div", {
-					className: "container",
-					children: /* @__PURE__ */ jsx("div", {
-						className: "edu-cta-inner",
-						children: /* @__PURE__ */ jsxs(ScrollReveal, {
-							delay: 0,
-							children: [
-								/* @__PURE__ */ jsxs("span", {
-									className: "edu-cta-badge",
-									children: [/* @__PURE__ */ jsx(Sparkles, { size: 16 }), " TAKE THE NEXT STEP"]
-								}),
-								/* @__PURE__ */ jsxs("h2", {
-									className: "edu-cta-title",
+								style: {
+									position: "relative",
+									width: "100%",
+									maxWidth: "610px"
+								},
+								children: [/* @__PURE__ */ jsxs("div", {
+									className: "industry-floating-script",
+									"aria-hidden": "true",
 									children: [
-										"Your Institution Inspires Minds. ",
-										/* @__PURE__ */ jsx("br", {}),
-										"Let’s Help More Students Discover It."
+										/* @__PURE__ */ jsx("span", {
+											className: "script-text",
+											children: "More Students."
+										}),
+										/* @__PURE__ */ jsx("span", {
+											className: "script-subtext",
+											children: "Brighter Futures."
+										}),
+										/* @__PURE__ */ jsx("svg", {
+											className: "script-accent-arc",
+											viewBox: "0 0 100 20",
+											fill: "none",
+											children: /* @__PURE__ */ jsx("path", {
+												d: "M 5,14 Q 50,4 95,16",
+												stroke: "#B87B2E",
+												strokeWidth: "2.5",
+												strokeLinecap: "round"
+											})
+										})
+									]
+								}), /* @__PURE__ */ jsx("div", {
+									className: "industry-photo-wrapper",
+									children: /* @__PURE__ */ jsx("img", {
+										src: "/edu-hero-students.jpg",
+										alt: "Students collaborating on campus with laptop",
+										className: "industry-photo-img"
+									})
+								})]
+							})
+						})]
+					})
+				}),
+				/* @__PURE__ */ jsx("section", {
+					className: "industry-problem-solution-section",
+					children: /* @__PURE__ */ jsx(ScrollReveal, {
+						delay: 50,
+						children: /* @__PURE__ */ jsxs("div", {
+							className: "industry-prob-sol-card",
+							children: [
+								/* @__PURE__ */ jsxs("div", {
+									className: "industry-prob-col",
+									children: [
+										/* @__PURE__ */ jsx("span", {
+											className: "industry-prob-tag",
+											children: "THE PROBLEM YOU FACE"
+										}),
+										/* @__PURE__ */ jsx("h3", {
+											className: "industry-prob-title",
+											children: "Declining Student Admission Enquiries"
+										}),
+										/* @__PURE__ */ jsx("p", {
+											className: "industry-prob-desc",
+											children: "Schools and colleges face intense competition every academic cycle. When parents and students cannot discover your campus, courses, and fee structure quickly on mobile, they enroll with competitors."
+										})
 									]
 								}),
-								/* @__PURE__ */ jsx("p", {
-									className: "edu-cta-desc",
-									children: "Book a 30-minute strategic education consultation with S-Bloom. We will evaluate your current enrollment funnel and present a customized digital authority blueprint tailored to your upcoming intake."
-								}),
-								/* @__PURE__ */ jsx("div", {
-									className: "edu-cta-buttons",
-									children: /* @__PURE__ */ jsxs(Link, {
-										to: "/contact",
-										className: "edu-cta-primary-btn",
-										children: [/* @__PURE__ */ jsx("span", { children: "Schedule Strategy Consultation" }), /* @__PURE__ */ jsx(ArrowRight, { size: 18 })]
-									})
-								}),
+								/* @__PURE__ */ jsx("div", { className: "industry-prob-divider" }),
 								/* @__PURE__ */ jsxs("div", {
-									className: "edu-cta-perks",
+									className: "industry-sol-col",
 									children: [
-										/* @__PURE__ */ jsxs("span", { children: [/* @__PURE__ */ jsx(ShieldCheck, {
-											size: 16,
-											color: "#D9A52E"
-										}), " Complimentary 30-min intake diagnostic"] }),
-										/* @__PURE__ */ jsxs("span", { children: [/* @__PURE__ */ jsx(Calendar, {
-											size: 16,
-											color: "#D9A52E"
-										}), " Aligned to your academic calendar"] }),
-										/* @__PURE__ */ jsxs("span", { children: [/* @__PURE__ */ jsx(Award, {
-											size: 16,
-											color: "#D9A52E"
-										}), " 100% compliant with educational standards"] })
+										/* @__PURE__ */ jsx("span", {
+											className: "industry-sol-tag",
+											children: "✦ THE S-BLOOM AI SOLUTION"
+										}),
+										/* @__PURE__ */ jsx("h3", {
+											className: "industry-sol-title",
+											children: "AI-Optimized Portals & Meta Reels Campaigns"
+										}),
+										/* @__PURE__ */ jsx("p", {
+											className: "industry-sol-desc",
+											children: "Sub-1s mobile admission pages, high-retention student showcase Reels via Meta Business Suite, and local SEO dominance. Result: 3.4x surge in admission inquiries without expensive agency retainers."
+										}),
+										/* @__PURE__ */ jsxs(Link, {
+											to: "/proof-of-work?service=website",
+											className: "industry-sol-proof-btn",
+											children: [/* @__PURE__ */ jsx("span", { children: "See Education Proof of Work" }), /* @__PURE__ */ jsx(ArrowRight, { size: 15 })]
+										})
 									]
 								})
 							]
 						})
 					})
-				})]
-			})
-		]
+				}),
+				/* @__PURE__ */ jsx("section", {
+					className: "industry-services-section",
+					children: /* @__PURE__ */ jsx("div", {
+						className: "industry-services-grid",
+						children: EDUCATION_SERVICES.map((service, idx) => {
+							const IconComp = service.icon;
+							return /* @__PURE__ */ jsx(ScrollReveal, {
+								delay: 100 + idx * 70,
+								children: /* @__PURE__ */ jsxs("div", {
+									className: "industry-service-card",
+									children: [/* @__PURE__ */ jsxs("div", {
+										className: "service-card-top",
+										children: [
+											/* @__PURE__ */ jsx("div", {
+												className: "service-card-badge",
+												children: /* @__PURE__ */ jsx(IconComp, {
+													size: 24,
+													strokeWidth: 1.9
+												})
+											}),
+											/* @__PURE__ */ jsx("h3", {
+												className: "service-card-title",
+												children: service.title
+											}),
+											/* @__PURE__ */ jsx("p", {
+												className: "service-card-desc",
+												children: service.description
+											})
+										]
+									}), /* @__PURE__ */ jsx("div", {
+										className: "service-card-bottom",
+										children: /* @__PURE__ */ jsx(Link, {
+											to: "/contact",
+											className: "service-card-btn",
+											"aria-label": `Get started with ${service.title}`,
+											children: /* @__PURE__ */ jsx(ArrowRight, {
+												size: 16,
+												strokeWidth: 2.4
+											})
+										})
+									})]
+								})
+							}, service.id);
+						})
+					})
+				})
+			]
+		})]
 	});
 };
 //#endregion
 //#region src/routes/education.tsx
 var education_exports = /* @__PURE__ */ __exportAll({
 	default: () => education_default,
-	meta: () => meta$10
+	meta: () => meta$11
 });
-var meta$10 = () => {
+var meta$11 = () => {
 	return [
 		{ title: "Education Industry Digital Growth | sBLOOM" },
 		{
@@ -3770,156 +3905,255 @@ var education_default = UNSAFE_withComponentProps(function Route() {
 });
 //#endregion
 //#region src/pages/industries/HealthcarePage.tsx
+var HEALTHCARE_SERVICES = [
+	{
+		id: "web-dev",
+		title: "Website Development",
+		description: "Showcase your doctors, services, facilities, and expertise through a professional, easy-to-use website.",
+		icon: Monitor
+	},
+	{
+		id: "gbp",
+		title: "Google Business Profile",
+		description: "Help patients find your hospital or clinic on Google Search and Maps with accurate details, timings, and updates.",
+		icon: MapPin
+	},
+	{
+		id: "seo",
+		title: "SEO",
+		description: "Improve your visibility when people search for relevant healthcare services in your area.",
+		icon: TrendingUp
+	},
+	{
+		id: "smm",
+		title: "Social Media Management",
+		description: "Share useful health information, introduce your services, and build trust with your community.",
+		icon: Users
+	},
+	{
+		id: "ads",
+		title: "Digital Advertising",
+		description: "Reach people looking for your healthcare services and generate more patient enquiries.",
+		icon: Megaphone
+	}
+];
 var HealthcarePage = () => {
 	return /* @__PURE__ */ jsxs("div", {
-		className: "page health-page-wrapper",
-		children: [
-			/* @__PURE__ */ jsx("section", {
-				className: "ind-hero health-hero-visual",
-				children: /* @__PURE__ */ jsx("div", {
-					className: "container text-center",
-					children: /* @__PURE__ */ jsxs(ScrollReveal, {
-						delay: 0,
-						children: [
-							/* @__PURE__ */ jsx("span", {
-								className: "ind-hero-label",
-								children: "SBLOOM — HEALTHCARE"
-							}),
-							/* @__PURE__ */ jsx("h1", {
-								className: "ind-hero-title mx-auto",
-								children: "Digital growth for healthcare."
-							}),
-							/* @__PURE__ */ jsx("p", {
-								className: "ind-hero-desc mx-auto",
-								children: "We help expertise-led hospitals, clinics, doctors, and wellness brands close the gap between their clinical excellence and what patients understand about them."
+		className: "industry-page health-page-container",
+		children: [/* @__PURE__ */ jsx("div", {
+			className: "industry-bg-curve",
+			"aria-hidden": "true",
+			children: /* @__PURE__ */ jsxs("svg", {
+				viewBox: "0 0 1440 640",
+				fill: "none",
+				preserveAspectRatio: "none",
+				children: [/* @__PURE__ */ jsx("path", {
+					d: "M-40,80 C260,180 420,-30 840,40 C1180,100 1340,30 1520,70 L1520,0 L-40,0 Z",
+					fill: "#F6EFE5",
+					opacity: "0.6"
+				}), /* @__PURE__ */ jsx("path", {
+					d: "M-20,240 C340,320 620,110 1020,180 C1280,225 1420,130 1500,160",
+					stroke: "#EFE3D3",
+					strokeWidth: "38",
+					strokeLinecap: "round",
+					fill: "none",
+					opacity: "0.5"
+				})]
+			})
+		}), /* @__PURE__ */ jsxs("div", {
+			className: "industry-container",
+			children: [
+				/* @__PURE__ */ jsx("section", {
+					className: "industry-hero-section",
+					children: /* @__PURE__ */ jsxs("div", {
+						className: "industry-hero-grid",
+						children: [/* @__PURE__ */ jsx("div", {
+							className: "industry-hero-left",
+							children: /* @__PURE__ */ jsxs(ScrollReveal, {
+								delay: 0,
+								children: [
+									/* @__PURE__ */ jsx("span", {
+										className: "industry-eyebrow",
+										children: "S-BLOOM — HEALTHCARE"
+									}),
+									/* @__PURE__ */ jsxs("h1", {
+										className: "industry-hero-title",
+										children: [
+											"Help More Patients",
+											/* @__PURE__ */ jsx("br", {}),
+											/* @__PURE__ */ jsx("span", {
+												className: "industry-gold-title",
+												children: "Find and Choose You."
+											})
+										]
+									}),
+									/* @__PURE__ */ jsx("p", {
+										className: "industry-hero-desc",
+										children: "We help hospitals, clinics, and healthcare professionals build a strong online presence, clearly communicate their services, and receive more relevant patient enquiries to increase patient flow."
+									}),
+									/* @__PURE__ */ jsxs(Link, {
+										to: "/contact",
+										className: "industry-hero-cta-btn",
+										children: [/* @__PURE__ */ jsx("span", { children: "Talk to S-BLOOM" }), /* @__PURE__ */ jsx(ArrowRight, {
+											size: 17,
+											strokeWidth: 2.4
+										})]
+									})
+								]
 							})
-						]
+						}), /* @__PURE__ */ jsx("div", {
+							className: "industry-hero-right",
+							children: /* @__PURE__ */ jsxs(ScrollReveal, {
+								delay: 150,
+								style: {
+									position: "relative",
+									width: "100%",
+									maxWidth: "610px"
+								},
+								children: [/* @__PURE__ */ jsxs("div", {
+									className: "industry-floating-script",
+									"aria-hidden": "true",
+									children: [
+										/* @__PURE__ */ jsx("span", {
+											className: "script-text",
+											children: "More Patients."
+										}),
+										/* @__PURE__ */ jsx("span", {
+											className: "script-subtext",
+											children: "Healthier Communities."
+										}),
+										/* @__PURE__ */ jsx("svg", {
+											className: "script-accent-arc",
+											viewBox: "0 0 100 20",
+											fill: "none",
+											children: /* @__PURE__ */ jsx("path", {
+												d: "M 5,14 Q 50,4 95,16",
+												stroke: "#B87B2E",
+												strokeWidth: "2.5",
+												strokeLinecap: "round"
+											})
+										})
+									]
+								}), /* @__PURE__ */ jsx("div", {
+									className: "industry-photo-wrapper",
+									children: /* @__PURE__ */ jsx("img", {
+										src: "/health-hero-doctor.jpg",
+										alt: "Doctor smiling warmly in clinic reception lobby",
+										className: "industry-photo-img"
+									})
+								})]
+							})
+						})]
 					})
-				})
-			}),
-			/* @__PURE__ */ jsx("section", {
-				className: "ind-journey health-journey",
-				children: /* @__PURE__ */ jsx("div", {
-					className: "container",
+				}),
+				/* @__PURE__ */ jsx("section", {
+					className: "industry-problem-solution-section",
 					children: /* @__PURE__ */ jsx(ScrollReveal, {
-						delay: 100,
+						delay: 50,
 						children: /* @__PURE__ */ jsxs("div", {
-							className: "health-trust-badge-layout",
+							className: "industry-prob-sol-card",
 							children: [
-								/* @__PURE__ */ jsx("div", {
-									className: "health-badge-icon",
-									children: "⚕"
+								/* @__PURE__ */ jsxs("div", {
+									className: "industry-prob-col",
+									children: [
+										/* @__PURE__ */ jsx("span", {
+											className: "industry-prob-tag",
+											children: "THE PROBLEM YOU FACE"
+										}),
+										/* @__PURE__ */ jsx("h3", {
+											className: "industry-prob-title",
+											children: "Losing Patients to Competitors Online"
+										}),
+										/* @__PURE__ */ jsx("p", {
+											className: "industry-prob-desc",
+											children: "Clinics and hospitals frequently face empty consultation slots and invisible search rankings. Nearby patients search on Google Maps and choose competing clinics simply because those clinics appear first."
+										})
+									]
 								}),
-								/* @__PURE__ */ jsx("h2", { children: "Healthcare decisions are built on trust and urgency." }),
-								/* @__PURE__ */ jsx("p", { children: "When patients seek medical care, they are often anxious or in urgent need. They evaluate your organization based on the qualifications of your doctors, clear explanations of treatments, and the perceived safety of your facilities. Our marketing approach respects this journey by prioritizing trust, empathy, and easy access to information." })
+								/* @__PURE__ */ jsx("div", { className: "industry-prob-divider" }),
+								/* @__PURE__ */ jsxs("div", {
+									className: "industry-sol-col",
+									children: [
+										/* @__PURE__ */ jsx("span", {
+											className: "industry-sol-tag",
+											children: "✦ THE S-BLOOM AI SOLUTION"
+										}),
+										/* @__PURE__ */ jsx("h3", {
+											className: "industry-sol-title",
+											children: "AI-Native Website, SEO & Top 3 Maps Ranking"
+										}),
+										/* @__PURE__ */ jsx("p", {
+											className: "industry-sol-desc",
+											children: "We deploy lightning-fast AI medical websites, automated review capture, and localized patient acquisition funnels. Result: +284% organic patient calls and reliable appointment bookings at budget-friendly rates."
+										}),
+										/* @__PURE__ */ jsxs(Link, {
+											to: "/proof-of-work?service=gbp",
+											className: "industry-sol-proof-btn",
+											children: [/* @__PURE__ */ jsx("span", { children: "See Healthcare Proof of Work" }), /* @__PURE__ */ jsx(ArrowRight, { size: 15 })]
+										})
+									]
+								})
 							]
 						})
 					})
-				})
-			}),
-			/* @__PURE__ */ jsx("section", {
-				className: "ind-challenge health-challenge",
-				children: /* @__PURE__ */ jsx("div", {
-					className: "container",
-					children: /* @__PURE__ */ jsxs("div", {
-						className: "health-challenge-grid",
-						children: [/* @__PURE__ */ jsx(ScrollReveal, {
-							delay: 100,
-							children: /* @__PURE__ */ jsx("h2", { children: "Balancing clinical authority with approachability." })
-						}), /* @__PURE__ */ jsx(ScrollReveal, {
-							delay: 200,
-							children: /* @__PURE__ */ jsx("p", { children: "Healthcare organizations face strict compliance regulations and the challenge of managing local reputation. Flashy, transactional ads can damage a clinic's credibility. We ensure your digital presence is professional, compliant, and highly visible to those actively seeking care." })
-						})]
-					})
-				})
-			}),
-			/* @__PURE__ */ jsx("section", {
-				className: "ind-approach health-approach",
-				children: /* @__PURE__ */ jsxs("div", {
-					className: "container",
-					children: [/* @__PURE__ */ jsx(ScrollReveal, {
-						delay: 0,
-						children: /* @__PURE__ */ jsx("div", {
-							className: "ind-approach-header",
-							children: /* @__PURE__ */ jsx("h2", { children: "Our Approach applied to Healthcare" })
+				}),
+				/* @__PURE__ */ jsx("section", {
+					className: "industry-services-section",
+					children: /* @__PURE__ */ jsx("div", {
+						className: "industry-services-grid",
+						children: HEALTHCARE_SERVICES.map((service, idx) => {
+							const IconComp = service.icon;
+							return /* @__PURE__ */ jsx(ScrollReveal, {
+								delay: 100 + idx * 70,
+								children: /* @__PURE__ */ jsxs("div", {
+									className: "industry-service-card",
+									children: [/* @__PURE__ */ jsxs("div", {
+										className: "service-card-top",
+										children: [
+											/* @__PURE__ */ jsx("div", {
+												className: "service-card-badge",
+												children: /* @__PURE__ */ jsx(IconComp, {
+													size: 24,
+													strokeWidth: 1.9
+												})
+											}),
+											/* @__PURE__ */ jsx("h3", {
+												className: "service-card-title",
+												children: service.title
+											}),
+											/* @__PURE__ */ jsx("p", {
+												className: "service-card-desc",
+												children: service.description
+											})
+										]
+									}), /* @__PURE__ */ jsx("div", {
+										className: "service-card-bottom",
+										children: /* @__PURE__ */ jsx(Link, {
+											to: "/contact",
+											className: "service-card-btn",
+											"aria-label": `Get started with ${service.title}`,
+											children: /* @__PURE__ */ jsx(ArrowRight, {
+												size: 16,
+												strokeWidth: 2.4
+											})
+										})
+									})]
+								})
+							}, service.id);
 						})
-					}), /* @__PURE__ */ jsxs("div", {
-						className: "health-approach-list",
-						children: [
-							/* @__PURE__ */ jsx(ScrollReveal, {
-								delay: 100,
-								children: /* @__PURE__ */ jsxs("div", {
-									className: "health-approach-item",
-									children: [/* @__PURE__ */ jsx("div", {
-										className: "health-approach-label",
-										children: "BUILD"
-									}), /* @__PURE__ */ jsx("div", {
-										className: "health-approach-text",
-										children: "We focus heavily on hyper-local SEO and Google Business Profile optimization so patients find you exactly when they search for care \"near me.\""
-									})]
-								})
-							}),
-							/* @__PURE__ */ jsx(ScrollReveal, {
-								delay: 200,
-								children: /* @__PURE__ */ jsxs("div", {
-									className: "health-approach-item",
-									children: [/* @__PURE__ */ jsx("div", {
-										className: "health-approach-label",
-										children: "CREATE"
-									}), /* @__PURE__ */ jsx("div", {
-										className: "health-approach-text",
-										children: "We develop patient education content and physician Q&As that build clinical authority while remaining empathetic and easy to understand."
-									})]
-								})
-							}),
-							/* @__PURE__ */ jsx(ScrollReveal, {
-								delay: 300,
-								children: /* @__PURE__ */ jsxs("div", {
-									className: "health-approach-item",
-									children: [/* @__PURE__ */ jsx("div", {
-										className: "health-approach-label",
-										children: "PROMOTE"
-									}), /* @__PURE__ */ jsx("div", {
-										className: "health-approach-text",
-										children: "We deploy high-intent Google Search Ads capturing patients actively seeking specific treatments or urgent care."
-									})]
-								})
-							})
-						]
-					})]
-				})
-			}),
-			/* @__PURE__ */ jsx("section", {
-				className: "final-cta",
-				children: /* @__PURE__ */ jsx("div", {
-					className: "container text-center",
-					children: /* @__PURE__ */ jsxs(ScrollReveal, {
-						delay: 0,
-						children: [/* @__PURE__ */ jsx("h2", { children: "Ready to grow your digital presence?" }), /* @__PURE__ */ jsx("div", {
-							className: "hero-buttons",
-							style: {
-								marginTop: "40px",
-								justifyContent: "center"
-							},
-							children: /* @__PURE__ */ jsx(Link$1, {
-								to: "/contact",
-								className: "btn btn-primary",
-								children: "Request a Healthcare Strategy Consultation"
-							})
-						})]
 					})
 				})
-			})
-		]
+			]
+		})]
 	});
 };
 //#endregion
 //#region src/routes/healthcare.tsx
 var healthcare_exports = /* @__PURE__ */ __exportAll({
 	default: () => healthcare_default,
-	meta: () => meta$9
+	meta: () => meta$10
 });
-var meta$9 = () => {
+var meta$10 = () => {
 	return [
 		{ title: "Healthcare Digital Growth | sBLOOM" },
 		{
@@ -4052,7 +4286,7 @@ var ConsultingProfessionalServicesPage = () => {
 								marginTop: "40px",
 								justifyContent: "center"
 							},
-							children: /* @__PURE__ */ jsx(Link$1, {
+							children: /* @__PURE__ */ jsx(Link, {
 								to: "/contact",
 								className: "btn btn-primary",
 								children: "Request a Professional Services Strategy Consultation"
@@ -4068,9 +4302,9 @@ var ConsultingProfessionalServicesPage = () => {
 //#region src/routes/professional-services.tsx
 var professional_services_exports = /* @__PURE__ */ __exportAll({
 	default: () => professional_services_default,
-	meta: () => meta$8
+	meta: () => meta$9
 });
-var meta$8 = () => {
+var meta$9 = () => {
 	return [
 		{ title: "Consulting & IT Digital Growth | sBLOOM" },
 		{
@@ -4092,108 +4326,687 @@ var professional_services_default = UNSAFE_withComponentProps(function Route() {
 });
 //#endregion
 //#region src/pages/solutions/SolutionsOverviewPage.tsx
-var SolutionsOverviewPage = () => {
+var STAGES = [
+	{
+		id: "build",
+		num: "01",
+		label: "BUILD",
+		headline: "Help people find your business",
+		lead: "We create a strong online foundation so people can find your business, understand your services, and contact you.",
+		ctaText: "Start Building Your Foundation",
+		ctaLink: "/contact?interest=build",
+		services: [
+			{
+				title: "Website Design & Development",
+				desc: "Create a professional, mobile-friendly website that explains your services clearly.",
+				icon: Globe
+			},
+			{
+				title: "Google Business Profile",
+				desc: "Set up and improve your profile so local customers can find your business on Google Search and Maps.",
+				icon: MapPin
+			},
+			{
+				title: "SEO & Search Visibility",
+				desc: "Help your website appear when people search for services like yours.",
+				icon: Search
+			},
+			{
+				title: "Brand Presence",
+				desc: "Keep your business information and branding consistent across relevant online platforms.",
+				icon: ShieldCheck
+			}
+		]
+	},
+	{
+		id: "create",
+		num: "02",
+		label: "CREATE",
+		headline: "Help people understand your value",
+		lead: "We create useful, engaging content that explains what makes your business valuable and helps people build trust in your brand.",
+		ctaText: "Create Meaningful Content",
+		ctaLink: "/contact?interest=create",
+		services: [
+			{
+				title: "Social Media Management & Posts",
+				desc: "Consistent, professional posting that keeps your audience informed, engaged, and connected.",
+				icon: Share2
+			},
+			{
+				title: "Photo & Video Content",
+				desc: "High-quality visual production including reels, short-form video, and expert photography.",
+				icon: Camera
+			},
+			{
+				title: "Captions, Copy & Digital Content",
+				desc: "Clear, compelling messaging that communicates your expertise and value in everyday language.",
+				icon: FileText
+			}
+		]
+	},
+	{
+		id: "promote",
+		num: "03",
+		label: "PROMOTE",
+		headline: "Reach the right audience",
+		lead: "We help your business reach relevant people through targeted advertising and marketing campaigns.",
+		ctaText: "Promote Your Business",
+		ctaLink: "/contact?interest=promote",
+		services: [
+			{
+				title: "Meta Ads",
+				desc: "Targeted Instagram and Facebook campaigns reaching clients and decision-makers in your target geography.",
+				icon: Megaphone
+			},
+			{
+				title: "Google Ads",
+				desc: "Search and local service ads positioned when high-intent prospects search for your solutions.",
+				icon: Search
+			},
+			{
+				title: "Campaign Planning & Management",
+				desc: "Strategic audience targeting, creative testing, and budget allocation to maximize return.",
+				icon: Target
+			},
+			{
+				title: "Performance Monitoring & Improvement",
+				desc: "Ongoing campaign optimization to refine cost-per-enquiry and reach quality prospects.",
+				icon: LineChart
+			}
+		]
+	},
+	{
+		id: "grow",
+		num: "04",
+		label: "GROW",
+		headline: "Turn your online presence into opportunities",
+		lead: "GROW is the intended business outcome of BUILD, CREATE, and PROMOTE — not a separate standalone service. When your foundation is solid, your value is clear, and your promotions reach the right people, sustainable growth happens naturally.",
+		ctaText: "Talk to sBLOOM About Growth",
+		ctaLink: "/contact",
+		services: [
+			{
+				title: "Better Online Visibility",
+				desc: "A recognized, discoverable digital presence across search engines, maps, and social platforms.",
+				icon: Eye
+			},
+			{
+				title: "More Relevant Enquiries & Opportunities",
+				desc: "Connect with prospective clients, students, or patients who are genuinely seeking your expertise.",
+				icon: Users
+			},
+			{
+				title: "Stronger Brand Trust",
+				desc: "Consistent messaging and verified quality that give prospective clients confidence in choosing you.",
+				icon: Award
+			},
+			{
+				title: "Support for Long-Term Business Growth",
+				desc: "A durable digital asset that works continuously to sustain and expand your business reputation.",
+				icon: TrendingUp
+			}
+		]
+	}
+];
+var SolutionsOverviewPage = ({ initialSection }) => {
+	const location = useLocation();
+	const [activeIdx, setActiveIdx] = useState(0);
+	const [direction, setDirection] = useState(1);
+	const trackRef = useRef(null);
+	const isProgrammaticScroll = useRef(false);
+	const activeStage = STAGES[activeIdx];
+	const goToStage = (newIdx, scrollIntoTrack = true) => {
+		if (newIdx < 0 || newIdx >= STAGES.length) return;
+		setDirection(newIdx > activeIdx ? 1 : -1);
+		setActiveIdx(newIdx);
+		const stageId = STAGES[newIdx].id;
+		if (window.location.hash !== `#${stageId}`) window.history.replaceState(null, "", `#${stageId}`);
+		if (scrollIntoTrack && trackRef.current) {
+			isProgrammaticScroll.current = true;
+			const trackTop = trackRef.current.offsetTop - 85;
+			const trackHeight = trackRef.current.offsetHeight - window.innerHeight;
+			const targetScroll = trackTop + newIdx / (STAGES.length - 1) * trackHeight;
+			window.scrollTo({
+				top: Math.max(0, targetScroll),
+				behavior: "smooth"
+			});
+			setTimeout(() => {
+				isProgrammaticScroll.current = false;
+			}, 700);
+		}
+	};
+	useEffect(() => {
+		const hash = (initialSection || location.hash.replace("#", "")).toLowerCase();
+		const foundIdx = STAGES.findIndex((s) => s.id === hash);
+		if (foundIdx !== -1) goToStage(foundIdx, true);
+	}, [initialSection, location.hash]);
+	useEffect(() => {
+		const handleScroll = () => {
+			if (isProgrammaticScroll.current || !trackRef.current) return;
+			const track = trackRef.current;
+			const rect = track.getBoundingClientRect();
+			const trackTop = window.pageYOffset + rect.top;
+			const trackHeight = track.offsetHeight - window.innerHeight;
+			if (trackHeight <= 0) return;
+			const currentScroll = window.pageYOffset - trackTop;
+			const progress = Math.min(1, Math.max(0, currentScroll / trackHeight));
+			let nextIdx = 0;
+			if (progress < .28) nextIdx = 0;
+			else if (progress < .58) nextIdx = 1;
+			else if (progress < .88) nextIdx = 2;
+			else nextIdx = 3;
+			if (nextIdx !== activeIdx) {
+				setDirection(nextIdx > activeIdx ? 1 : -1);
+				setActiveIdx(nextIdx);
+				window.history.replaceState(null, "", `#${STAGES[nextIdx].id}`);
+			}
+		};
+		window.addEventListener("scroll", handleScroll, { passive: true });
+		return () => window.removeEventListener("scroll", handleScroll);
+	}, [activeIdx]);
 	return /* @__PURE__ */ jsxs("div", {
-		className: "page sol-overview-wrapper",
-		children: [/* @__PURE__ */ jsx("section", {
-			className: "sol-hero",
-			children: /* @__PURE__ */ jsx("div", {
-				className: "container text-center",
-				children: /* @__PURE__ */ jsxs(ScrollReveal, {
-					delay: 0,
-					children: [
-						/* @__PURE__ */ jsx("span", {
-							className: "sol-hero-label",
-							children: "SOLUTIONS OVERVIEW"
-						}),
-						/* @__PURE__ */ jsx("h1", {
-							className: "sol-hero-title mx-auto",
-							children: "A coordinated approach to digital growth."
-						}),
-						/* @__PURE__ */ jsx("p", {
-							className: "sol-hero-desc mx-auto",
-							children: "We do not believe in one-size-fits-all digital marketing packages. Following a thorough diagnosis of your organization's communication gaps, we apply the exact combination of foundational building, content creation, and targeted promotion required to achieve your objectives."
-						}),
-						/* @__PURE__ */ jsx("div", {
-							className: "hero-buttons",
-							style: {
-								marginTop: "40px",
-								justifyContent: "center"
-							},
-							children: /* @__PURE__ */ jsx(Link$1, {
-								to: "/how-it-works",
-								className: "btn btn-primary",
-								children: "Learn How We Work"
+		className: "sol-page",
+		children: [
+			/* @__PURE__ */ jsx("div", {
+				className: "sol-bg-mesh",
+				"aria-hidden": "true"
+			}),
+			/* @__PURE__ */ jsx("section", {
+				className: "sol-hero-intro",
+				children: /* @__PURE__ */ jsx("div", {
+					className: "sol-container",
+					children: /* @__PURE__ */ jsxs(ScrollReveal, {
+						delay: 0,
+						children: [
+							/* @__PURE__ */ jsx("span", {
+								className: "sol-eyebrow",
+								children: "OUR SOLUTIONS"
+							}),
+							/* @__PURE__ */ jsxs("h1", {
+								className: "sol-hero-title",
+								children: [
+									"From Foundational Setup to",
+									" ",
+									/* @__PURE__ */ jsx("span", {
+										className: "sol-title-accent",
+										children: "Sustainable Growth."
+									})
+								]
+							}),
+							/* @__PURE__ */ jsx("p", {
+								className: "sol-hero-desc",
+								children: "We help good businesses become discoverable, trusted, and chosen through a structured, four-phase digital process."
 							})
-						})
-					]
+						]
+					})
+				})
+			}),
+			/* @__PURE__ */ jsx("div", {
+				ref: trackRef,
+				className: "sol-scroll-track",
+				id: "solutions-track",
+				children: /* @__PURE__ */ jsx("div", {
+					className: "sol-pinned-viewport",
+					children: /* @__PURE__ */ jsxs("div", {
+						className: "sol-container",
+						children: [
+							/* @__PURE__ */ jsx("div", {
+								className: "sol-single-line-nav",
+								role: "tablist",
+								"aria-label": "Solutions Stages",
+								children: STAGES.map((stg, idx) => {
+									const isActive = activeIdx === idx;
+									const isPassed = activeIdx > idx;
+									return /* @__PURE__ */ jsxs(React.Fragment, { children: [/* @__PURE__ */ jsxs("button", {
+										type: "button",
+										role: "tab",
+										"aria-selected": isActive,
+										className: `sol-line-tab-btn ${isActive ? "active" : ""}`,
+										onClick: () => goToStage(idx, true),
+										children: [/* @__PURE__ */ jsx("span", {
+											className: "sol-line-num",
+											children: stg.num
+										}), /* @__PURE__ */ jsx("span", { children: stg.label })]
+									}), idx < STAGES.length - 1 && /* @__PURE__ */ jsx("div", {
+										className: "sol-line-connector",
+										"aria-hidden": "true",
+										children: /* @__PURE__ */ jsx("div", {
+											className: "sol-line-connector-fill",
+											style: { width: isPassed ? "100%" : "0%" }
+										})
+									})] }, stg.id);
+								})
+							}),
+							/* @__PURE__ */ jsx("div", {
+								className: "sol-page-card-wrapper",
+								children: /* @__PURE__ */ jsx(AnimatePresence, {
+									mode: "wait",
+									custom: direction,
+									children: /* @__PURE__ */ jsxs(motion.div, {
+										custom: direction,
+										variants: {
+											enter: (dir) => ({
+												x: dir > 0 ? 50 : -50,
+												opacity: 0,
+												rotateY: dir > 0 ? -6 : 6,
+												scale: .98
+											}),
+											center: {
+												x: 0,
+												opacity: 1,
+												rotateY: 0,
+												scale: 1,
+												transition: {
+													duration: .42,
+													ease: [
+														.16,
+														1,
+														.3,
+														1
+													]
+												}
+											},
+											exit: (dir) => ({
+												x: dir > 0 ? -50 : 50,
+												opacity: 0,
+												rotateY: dir > 0 ? 6 : -6,
+												scale: .98,
+												transition: {
+													duration: .3,
+													ease: [
+														.16,
+														1,
+														.3,
+														1
+													]
+												}
+											})
+										},
+										initial: "enter",
+										animate: "center",
+										exit: "exit",
+										className: "sol-page-card",
+										children: [/* @__PURE__ */ jsx("div", {
+											className: "sol-card-top-bar",
+											"aria-hidden": "true"
+										}), /* @__PURE__ */ jsxs("div", {
+											className: "sol-card-grid",
+											children: [/* @__PURE__ */ jsxs("div", {
+												className: "sol-card-content",
+												children: [
+													/* @__PURE__ */ jsxs("div", {
+														className: "sol-card-badge-row",
+														children: [/* @__PURE__ */ jsx("div", {
+															className: "sol-card-step-num",
+															children: activeStage.num
+														}), /* @__PURE__ */ jsx("span", {
+															className: "sol-card-tag",
+															children: activeStage.label
+														})]
+													}),
+													/* @__PURE__ */ jsx("h2", {
+														className: "sol-card-headline",
+														children: activeStage.headline
+													}),
+													/* @__PURE__ */ jsx("p", {
+														className: "sol-card-lead",
+														children: activeStage.lead
+													}),
+													/* @__PURE__ */ jsx("div", {
+														className: "sol-service-list",
+														children: activeStage.services.map((svc, i) => {
+															const IconComp = svc.icon;
+															return /* @__PURE__ */ jsxs("div", {
+																className: "sol-service-item",
+																children: [/* @__PURE__ */ jsx("div", {
+																	className: "sol-service-icon-box",
+																	children: /* @__PURE__ */ jsx(IconComp, {
+																		size: 17,
+																		strokeWidth: 2.2
+																	})
+																}), /* @__PURE__ */ jsxs("div", {
+																	className: "sol-service-text-wrap",
+																	children: [/* @__PURE__ */ jsx("h3", {
+																		className: "sol-service-title",
+																		children: svc.title
+																	}), /* @__PURE__ */ jsx("p", {
+																		className: "sol-service-desc",
+																		children: svc.desc
+																	})]
+																})]
+															}, i);
+														})
+													}),
+													activeStage.id !== "grow" && /* @__PURE__ */ jsxs(Link, {
+														to: activeStage.ctaLink,
+														className: "sol-card-cta-btn",
+														children: [/* @__PURE__ */ jsx("span", { children: activeStage.ctaText }), /* @__PURE__ */ jsx(ArrowRight, {
+															size: 17,
+															strokeWidth: 2.2
+														})]
+													})
+												]
+											}), /* @__PURE__ */ jsxs("div", {
+												className: "sol-card-visual-wrap",
+												children: [
+													activeStage.id === "build" && /* @__PURE__ */ jsxs("div", {
+														className: "sol-visual-build",
+														children: [/* @__PURE__ */ jsxs("div", {
+															className: "sol-gbp-preview",
+															children: [
+																/* @__PURE__ */ jsxs("div", {
+																	className: "sol-gbp-top",
+																	children: [/* @__PURE__ */ jsxs("div", {
+																		className: "sol-gbp-verified",
+																		children: [/* @__PURE__ */ jsx("span", { children: "Your Business Profile" }), /* @__PURE__ */ jsx(ShieldCheck, {
+																			size: 16,
+																			className: "sol-verified-badge"
+																		})]
+																	}), /* @__PURE__ */ jsxs("div", {
+																		className: "sol-gbp-rating",
+																		children: [/* @__PURE__ */ jsx("span", {
+																			className: "sol-stars",
+																			children: "★★★★★"
+																		}), " 4.9 (120+ Reviews)"]
+																	})]
+																}),
+																/* @__PURE__ */ jsx("div", {
+																	className: "sol-gbp-meta",
+																	children: "Local Health / Education / Professional Firm · Open Now"
+																}),
+																/* @__PURE__ */ jsxs("div", {
+																	className: "sol-gbp-actions",
+																	children: [
+																		/* @__PURE__ */ jsx("span", {
+																			className: "sol-gbp-action-chip",
+																			children: "Call Now"
+																		}),
+																		/* @__PURE__ */ jsx("span", {
+																			className: "sol-gbp-action-chip",
+																			children: "Directions"
+																		}),
+																		/* @__PURE__ */ jsx("span", {
+																			className: "sol-gbp-action-chip",
+																			children: "Website"
+																		})
+																	]
+																})
+															]
+														}), /* @__PURE__ */ jsxs("div", {
+															className: "sol-web-preview",
+															children: [/* @__PURE__ */ jsxs("div", {
+																className: "sol-browser-header",
+																children: [
+																	/* @__PURE__ */ jsx("span", { className: "sol-browser-dot" }),
+																	/* @__PURE__ */ jsx("span", { className: "sol-browser-dot" }),
+																	/* @__PURE__ */ jsx("span", { className: "sol-browser-dot" }),
+																	/* @__PURE__ */ jsx("span", {
+																		className: "sol-browser-url",
+																		children: "https://yourbusiness.com"
+																	})
+																]
+															}), /* @__PURE__ */ jsxs("div", {
+																className: "sol-seo-tags",
+																children: [
+																	/* @__PURE__ */ jsx("span", {
+																		className: "sol-seo-tag",
+																		children: "Mobile Responsive"
+																	}),
+																	/* @__PURE__ */ jsx("span", {
+																		className: "sol-seo-tag",
+																		children: "Fast Loading"
+																	}),
+																	/* @__PURE__ */ jsx("span", {
+																		className: "sol-seo-tag",
+																		children: "Local SEO #1"
+																	})
+																]
+															})]
+														})]
+													}),
+													activeStage.id === "create" && /* @__PURE__ */ jsx("div", {
+														className: "sol-visual-create",
+														children: /* @__PURE__ */ jsxs("div", {
+															className: "sol-reel-card",
+															children: [
+																/* @__PURE__ */ jsxs("div", {
+																	className: "sol-reel-header",
+																	children: [/* @__PURE__ */ jsx("div", {
+																		className: "sol-reel-avatar",
+																		children: "sB"
+																	}), /* @__PURE__ */ jsxs("div", { children: [/* @__PURE__ */ jsx("div", {
+																		className: "sol-reel-user",
+																		children: "sBLOOM Creative Suite"
+																	}), /* @__PURE__ */ jsx("div", {
+																		style: {
+																			fontSize: "0.74rem",
+																			color: "#785A46"
+																		},
+																		children: "High-Impact Content"
+																	})] })]
+																}),
+																/* @__PURE__ */ jsxs("div", {
+																	className: "sol-reel-frame",
+																	children: [/* @__PURE__ */ jsx("div", {
+																		className: "sol-reel-play-btn",
+																		children: /* @__PURE__ */ jsx(Play, {
+																			size: 18,
+																			fill: "#FFFCF7",
+																			strokeWidth: 0
+																		})
+																	}), /* @__PURE__ */ jsx("span", {
+																		className: "sol-reel-badge",
+																		children: "0:45 Reel"
+																	})]
+																}),
+																/* @__PURE__ */ jsx("p", {
+																	className: "sol-reel-caption",
+																	children: "Showcasing your real expertise, workplace, and genuine client stories with clear storytelling."
+																})
+															]
+														})
+													}),
+													activeStage.id === "promote" && /* @__PURE__ */ jsx("div", {
+														className: "sol-visual-promote",
+														children: /* @__PURE__ */ jsxs("div", {
+															className: "sol-ad-box",
+															children: [
+																/* @__PURE__ */ jsxs("div", {
+																	className: "sol-ad-tag-row",
+																	children: [/* @__PURE__ */ jsx("span", {
+																		className: "sol-ad-sponsored",
+																		children: "Sponsored Campaign"
+																	}), /* @__PURE__ */ jsxs("span", {
+																		className: "sol-ad-status",
+																		children: [/* @__PURE__ */ jsx("span", { className: "sol-status-dot" }), " Active & Optimized"]
+																	})]
+																}),
+																/* @__PURE__ */ jsx("h4", {
+																	className: "sol-ad-title",
+																	children: "Expert-Led Healthcare & Professional Services"
+																}),
+																/* @__PURE__ */ jsx("p", {
+																	className: "sol-ad-copy",
+																	children: "Trusted care and tailored solutions. Direct consultations with specialized professionals."
+																}),
+																/* @__PURE__ */ jsxs("div", {
+																	className: "sol-ad-targeting",
+																	children: [
+																		/* @__PURE__ */ jsx("span", {
+																			className: "sol-targeting-pill",
+																			children: "Radius: 15 km"
+																		}),
+																		/* @__PURE__ */ jsx("span", {
+																			className: "sol-targeting-pill",
+																			children: "High Search Intent"
+																		}),
+																		/* @__PURE__ */ jsx("span", {
+																			className: "sol-targeting-pill",
+																			children: "Verified Audience"
+																		})
+																	]
+																})
+															]
+														})
+													}),
+													activeStage.id === "grow" && /* @__PURE__ */ jsxs("div", {
+														className: "sol-visual-grow",
+														children: [/* @__PURE__ */ jsxs("div", {
+															className: "sol-outcome-grid",
+															children: [
+																/* @__PURE__ */ jsxs("div", {
+																	className: "sol-outcome-card",
+																	children: [
+																		/* @__PURE__ */ jsx("div", {
+																			className: "sol-outcome-icon",
+																			children: /* @__PURE__ */ jsx(Eye, { size: 15 })
+																		}),
+																		/* @__PURE__ */ jsx("div", {
+																			className: "sol-outcome-title",
+																			children: "Discoverability"
+																		}),
+																		/* @__PURE__ */ jsx("p", {
+																			className: "sol-outcome-sub",
+																			children: "Easy to find on Google and Maps"
+																		})
+																	]
+																}),
+																/* @__PURE__ */ jsxs("div", {
+																	className: "sol-outcome-card",
+																	children: [
+																		/* @__PURE__ */ jsx("div", {
+																			className: "sol-outcome-icon",
+																			children: /* @__PURE__ */ jsx(Users, { size: 15 })
+																		}),
+																		/* @__PURE__ */ jsx("div", {
+																			className: "sol-outcome-title",
+																			children: "Enquiries"
+																		}),
+																		/* @__PURE__ */ jsx("p", {
+																			className: "sol-outcome-sub",
+																			children: "Qualified, high-intent interest"
+																		})
+																	]
+																}),
+																/* @__PURE__ */ jsxs("div", {
+																	className: "sol-outcome-card",
+																	children: [
+																		/* @__PURE__ */ jsx("div", {
+																			className: "sol-outcome-icon",
+																			children: /* @__PURE__ */ jsx(Award, { size: 15 })
+																		}),
+																		/* @__PURE__ */ jsx("div", {
+																			className: "sol-outcome-title",
+																			children: "Brand Trust"
+																		}),
+																		/* @__PURE__ */ jsx("p", {
+																			className: "sol-outcome-sub",
+																			children: "Verified credibility & reviews"
+																		})
+																	]
+																}),
+																/* @__PURE__ */ jsxs("div", {
+																	className: "sol-outcome-card",
+																	children: [
+																		/* @__PURE__ */ jsx("div", {
+																			className: "sol-outcome-icon",
+																			children: /* @__PURE__ */ jsx(TrendingUp, { size: 15 })
+																		}),
+																		/* @__PURE__ */ jsx("div", {
+																			className: "sol-outcome-title",
+																			children: "Long-Term Value"
+																		}),
+																		/* @__PURE__ */ jsx("p", {
+																			className: "sol-outcome-sub",
+																			children: "Sustainable market presence"
+																		})
+																	]
+																})
+															]
+														}), /* @__PURE__ */ jsxs("div", {
+															className: "sol-grow-note-box",
+															children: [/* @__PURE__ */ jsx("strong", { children: "Coordinated Outcome:" }), " We focus on sustainable, long-term digital strength rather than short-lived gimmicks or unrealistic guarantees."]
+														})]
+													})
+												]
+											})]
+										})]
+									}, activeStage.id)
+								})
+							}),
+							/* @__PURE__ */ jsxs("div", {
+								className: "sol-page-controls-bar",
+								children: [/* @__PURE__ */ jsxs("div", {
+									className: "sol-page-indicator",
+									children: [/* @__PURE__ */ jsxs("span", { children: [
+										"Page ",
+										/* @__PURE__ */ jsx("strong", { children: activeIdx + 1 }),
+										" of ",
+										/* @__PURE__ */ jsx("strong", { children: "4" }),
+										":"
+									] }), /* @__PURE__ */ jsx("span", {
+										style: { color: "#C9952E" },
+										children: activeStage.label
+									})]
+								}), /* @__PURE__ */ jsxs("div", {
+									className: "sol-page-arrows",
+									children: [/* @__PURE__ */ jsxs("button", {
+										type: "button",
+										className: "sol-page-arrow-btn",
+										onClick: () => goToStage(activeIdx - 1, true),
+										disabled: activeIdx === 0,
+										"aria-label": "Previous Page",
+										children: [/* @__PURE__ */ jsx(ArrowLeft, { size: 15 }), /* @__PURE__ */ jsx("span", { children: "Previous" })]
+									}), /* @__PURE__ */ jsxs("button", {
+										type: "button",
+										className: "sol-page-arrow-btn",
+										onClick: () => goToStage(activeIdx + 1, true),
+										disabled: activeIdx === STAGES.length - 1,
+										"aria-label": "Next Page",
+										children: [/* @__PURE__ */ jsx("span", { children: "Next" }), /* @__PURE__ */ jsx(ArrowRight, { size: 15 })]
+									})]
+								})]
+							})
+						]
+					})
+				})
+			}),
+			/* @__PURE__ */ jsx("div", {
+				className: "sol-container",
+				children: /* @__PURE__ */ jsx(ScrollReveal, {
+					delay: 100,
+					children: /* @__PURE__ */ jsxs("div", {
+						className: "sol-final-cta",
+						children: [
+							/* @__PURE__ */ jsx("h2", {
+								className: "sol-final-title",
+								children: "Your business has potential. Let’s help people see it."
+							}),
+							/* @__PURE__ */ jsx("p", {
+								className: "sol-final-desc",
+								children: "Whether you need to build your foundation, create compelling content, or reach new audiences, we are ready to help."
+							}),
+							/* @__PURE__ */ jsxs(Link, {
+								to: "/contact",
+								className: "sol-final-btn",
+								children: [/* @__PURE__ */ jsx("span", { children: "Talk to sBLOOM" }), /* @__PURE__ */ jsx(ArrowRight, {
+									size: 18,
+									strokeWidth: 2.2
+								})]
+							})
+						]
+					})
 				})
 			})
-		}), /* @__PURE__ */ jsx("section", {
-			className: "sol-pillars-grid",
-			children: /* @__PURE__ */ jsx("div", {
-				className: "container",
-				children: /* @__PURE__ */ jsxs("div", {
-					className: "sol-pillars-container",
-					children: [
-						/* @__PURE__ */ jsx(ScrollReveal, {
-							delay: 100,
-							children: /* @__PURE__ */ jsxs("div", {
-								className: "sol-pillar-card",
-								children: [
-									/* @__PURE__ */ jsx("h2", { children: "BUILD" }),
-									/* @__PURE__ */ jsx("p", { children: "Make your expertise discoverable. We build the digital infrastructure required to make your organization easy to find, navigate, and engage with." }),
-									/* @__PURE__ */ jsx(Link$1, {
-										to: "/solutions/build",
-										className: "sol-pillar-link",
-										children: "Explore Build →"
-									})
-								]
-							})
-						}),
-						/* @__PURE__ */ jsx(ScrollReveal, {
-							delay: 200,
-							children: /* @__PURE__ */ jsxs("div", {
-								className: "sol-pillar-card",
-								children: [
-									/* @__PURE__ */ jsx("h2", { children: "CREATE" }),
-									/* @__PURE__ */ jsx("p", { children: "Help audiences understand and trust your organization. We produce the materials required to explain your true value and approach." }),
-									/* @__PURE__ */ jsx(Link$1, {
-										to: "/solutions/create",
-										className: "sol-pillar-link",
-										children: "Explore Create →"
-									})
-								]
-							})
-						}),
-						/* @__PURE__ */ jsx(ScrollReveal, {
-							delay: 300,
-							children: /* @__PURE__ */ jsxs("div", {
-								className: "sol-pillar-card",
-								children: [
-									/* @__PURE__ */ jsx("h2", { children: "PROMOTE" }),
-									/* @__PURE__ */ jsx("p", { children: "Reach relevant audiences. We amplify your presence, putting your organization directly in front of the decision-makers that matter most." }),
-									/* @__PURE__ */ jsx(Link$1, {
-										to: "/solutions/promote",
-										className: "sol-pillar-link",
-										children: "Explore Promote →"
-									})
-								]
-							})
-						})
-					]
-				})
-			})
-		})]
+		]
 	});
 };
 //#endregion
 //#region src/routes/solutions.tsx
 var solutions_exports = /* @__PURE__ */ __exportAll({
 	default: () => solutions_default,
-	meta: () => meta$7
+	meta: () => meta$8
 });
-var meta$7 = () => {
+var meta$8 = () => {
 	return [
 		{ title: "Our Solutions | sBLOOM" },
 		{
@@ -4214,407 +5027,337 @@ var solutions_default = UNSAFE_withComponentProps(function Route() {
 	return /* @__PURE__ */ jsx(SolutionsOverviewPage, {});
 });
 //#endregion
-//#region src/pages/solutions/BuildPage.tsx
-var BuildPage = () => {
-	return /* @__PURE__ */ jsxs("div", {
-		className: "page sol-detail-wrapper",
-		children: [
-			/* @__PURE__ */ jsx("section", {
-				className: "sol-hero",
-				children: /* @__PURE__ */ jsx("div", {
-					className: "container text-center",
-					children: /* @__PURE__ */ jsxs(ScrollReveal, {
-						delay: 0,
-						children: [
-							/* @__PURE__ */ jsx("span", {
-								className: "sol-hero-label",
-								children: "S-BLOOM SYSTEM — 01"
-							}),
-							/* @__PURE__ */ jsx("h1", {
-								className: "sol-hero-title mx-auto",
-								children: "Make expertise discoverable."
-							}),
-							/* @__PURE__ */ jsx("p", {
-								className: "sol-hero-desc mx-auto",
-								children: "Your expertise cannot serve its purpose if the right audience cannot find it. The BUILD phase focuses on creating the digital infrastructure required to make your organization discoverable, accessible, and easy to navigate."
-							})
-						]
-					})
-				})
-			}),
-			/* @__PURE__ */ jsx("section", {
-				className: "sol-activities",
-				children: /* @__PURE__ */ jsx("div", {
-					className: "container",
-					children: /* @__PURE__ */ jsxs("div", {
-						className: "sol-activities-list",
-						children: [
-							/* @__PURE__ */ jsx(ScrollReveal, {
-								delay: 100,
-								children: /* @__PURE__ */ jsxs("div", {
-									className: "sol-activity-item",
-									children: [/* @__PURE__ */ jsx("h3", { children: "Website Design & Development" }), /* @__PURE__ */ jsx("p", { children: "Creating intuitive, fast, and professionally designed platforms that act as your primary digital storefront." })]
-								})
-							}),
-							/* @__PURE__ */ jsx(ScrollReveal, {
-								delay: 200,
-								children: /* @__PURE__ */ jsxs("div", {
-									className: "sol-activity-item",
-									children: [/* @__PURE__ */ jsx("h3", { children: "SEO & Search Visibility" }), /* @__PURE__ */ jsx("p", { children: "Ensuring your website ranks for the specific queries your audience is searching for." })]
-								})
-							}),
-							/* @__PURE__ */ jsx(ScrollReveal, {
-								delay: 300,
-								children: /* @__PURE__ */ jsxs("div", {
-									className: "sol-activity-item",
-									children: [/* @__PURE__ */ jsx("h3", { children: "Google Business Profile" }), /* @__PURE__ */ jsx("p", { children: "Optimizing your local footprint—crucial for healthcare clinics and regional institutions." })]
-								})
-							})
-						]
-					})
-				})
-			}),
-			/* @__PURE__ */ jsx("section", {
-				className: "final-cta",
-				children: /* @__PURE__ */ jsx("div", {
-					className: "container text-center",
-					children: /* @__PURE__ */ jsxs(ScrollReveal, {
-						delay: 0,
-						children: [/* @__PURE__ */ jsx("h2", { children: "Ready to grow your digital presence?" }), /* @__PURE__ */ jsxs("div", {
-							className: "hero-buttons",
-							style: {
-								marginTop: "40px",
-								justifyContent: "center"
-							},
-							children: [/* @__PURE__ */ jsx(Link$1, {
-								to: "/contact",
-								className: "btn btn-primary",
-								children: "Get Started"
-							}), /* @__PURE__ */ jsx(Link$1, {
-								to: "/solutions",
-								className: "btn btn-secondary",
-								style: { marginLeft: "16px" },
-								children: "Back to Solutions"
-							})]
-						})]
-					})
-				})
-			})
-		]
-	});
-};
-//#endregion
 //#region src/routes/build.tsx
 var build_exports = /* @__PURE__ */ __exportAll({
 	default: () => build_default,
-	meta: () => meta$6
+	meta: () => meta$7
 });
-var meta$6 = () => {
+var meta$7 = () => {
 	return [
-		{ title: "Build Your Digital Foundation | sBLOOM" },
+		{ title: "BUILD — Help People Find Your Business | sBLOOM Solutions" },
 		{
 			name: "description",
-			content: "Website design, SEO, and discoverability solutions."
+			content: "Website design, Google Business Profile, and SEO solutions."
 		},
 		{
 			property: "og:title",
-			content: "Build Your Digital Foundation | sBLOOM"
+			content: "BUILD — Help People Find Your Business | sBLOOM Solutions"
 		},
 		{
 			property: "og:description",
-			content: "Website design, SEO, and discoverability solutions."
+			content: "Website design, Google Business Profile, and SEO solutions."
 		}
 	];
 };
 var build_default = UNSAFE_withComponentProps(function Route() {
-	return /* @__PURE__ */ jsx(BuildPage, {});
+	return /* @__PURE__ */ jsx(SolutionsOverviewPage, { initialSection: "build" });
 });
-//#endregion
-//#region src/pages/solutions/CreatePage.tsx
-var CreatePage = () => {
-	return /* @__PURE__ */ jsxs("div", {
-		className: "page sol-detail-wrapper",
-		children: [
-			/* @__PURE__ */ jsx("section", {
-				className: "sol-hero",
-				children: /* @__PURE__ */ jsx("div", {
-					className: "container text-center",
-					children: /* @__PURE__ */ jsxs(ScrollReveal, {
-						delay: 0,
-						children: [
-							/* @__PURE__ */ jsx("span", {
-								className: "sol-hero-label",
-								children: "S-BLOOM SYSTEM — 02"
-							}),
-							/* @__PURE__ */ jsx("h1", {
-								className: "sol-hero-title mx-auto",
-								children: "Help audiences understand."
-							}),
-							/* @__PURE__ */ jsx("p", {
-								className: "sol-hero-desc mx-auto",
-								children: "Trust is built when audiences understand your true value. The CREATE phase focuses on producing the materials required to explain your expertise, showcase your culture, and keep your audience engaged through the decision journey."
-							})
-						]
-					})
-				})
-			}),
-			/* @__PURE__ */ jsx("section", {
-				className: "sol-activities",
-				children: /* @__PURE__ */ jsx("div", {
-					className: "container",
-					children: /* @__PURE__ */ jsxs("div", {
-						className: "sol-activities-list",
-						children: [
-							/* @__PURE__ */ jsx(ScrollReveal, {
-								delay: 100,
-								children: /* @__PURE__ */ jsxs("div", {
-									className: "sol-activity-item",
-									children: [/* @__PURE__ */ jsx("h3", { children: "Social Media Management" }), /* @__PURE__ */ jsx("p", { children: "Maintaining a consistent, professional presence across relevant platforms." })]
-								})
-							}),
-							/* @__PURE__ */ jsx(ScrollReveal, {
-								delay: 200,
-								children: /* @__PURE__ */ jsxs("div", {
-									className: "sol-activity-item",
-									children: [/* @__PURE__ */ jsx("h3", { children: "Social Media Posts & Digital Content" }), /* @__PURE__ */ jsx("p", { children: "Developing articles, thought leadership, and infographics that explain your value." })]
-								})
-							}),
-							/* @__PURE__ */ jsx(ScrollReveal, {
-								delay: 300,
-								children: /* @__PURE__ */ jsxs("div", {
-									className: "sol-activity-item",
-									children: [/* @__PURE__ */ jsx("h3", { children: "Reels and Videos" }), /* @__PURE__ */ jsx("p", { children: "Producing authentic, high-quality video content (e.g., campus tours, physician Q&As, expert insights) that humanize your organization." })]
-								})
-							})
-						]
-					})
-				})
-			}),
-			/* @__PURE__ */ jsx("section", {
-				className: "final-cta",
-				children: /* @__PURE__ */ jsx("div", {
-					className: "container text-center",
-					children: /* @__PURE__ */ jsxs(ScrollReveal, {
-						delay: 0,
-						children: [/* @__PURE__ */ jsx("h2", { children: "Ready to grow your digital presence?" }), /* @__PURE__ */ jsxs("div", {
-							className: "hero-buttons",
-							style: {
-								marginTop: "40px",
-								justifyContent: "center"
-							},
-							children: [/* @__PURE__ */ jsx(Link$1, {
-								to: "/contact",
-								className: "btn btn-primary",
-								children: "Get Started"
-							}), /* @__PURE__ */ jsx(Link$1, {
-								to: "/solutions",
-								className: "btn btn-secondary",
-								style: { marginLeft: "16px" },
-								children: "Back to Solutions"
-							})]
-						})]
-					})
-				})
-			})
-		]
-	});
-};
 //#endregion
 //#region src/routes/create.tsx
 var create_exports = /* @__PURE__ */ __exportAll({
 	default: () => create_default,
-	meta: () => meta$5
+	meta: () => meta$6
 });
-var meta$5 = () => {
+var meta$6 = () => {
 	return [
-		{ title: "Create Content & Assets | sBLOOM" },
+		{ title: "CREATE — Help People Understand Your Value | sBLOOM Solutions" },
 		{
 			name: "description",
-			content: "Social media, video production, and content creation."
+			content: "Social media management, photo, and video content solutions."
 		},
 		{
 			property: "og:title",
-			content: "Create Content & Assets | sBLOOM"
+			content: "CREATE — Help People Understand Your Value | sBLOOM Solutions"
 		},
 		{
 			property: "og:description",
-			content: "Social media, video production, and content creation."
+			content: "Social media management, photo, and video content solutions."
 		}
 	];
 };
 var create_default = UNSAFE_withComponentProps(function Route() {
-	return /* @__PURE__ */ jsx(CreatePage, {});
+	return /* @__PURE__ */ jsx(SolutionsOverviewPage, { initialSection: "create" });
 });
-//#endregion
-//#region src/pages/solutions/PromotePage.tsx
-var PromotePage = () => {
-	return /* @__PURE__ */ jsxs("div", {
-		className: "page sol-detail-wrapper",
-		children: [
-			/* @__PURE__ */ jsx("section", {
-				className: "sol-hero",
-				children: /* @__PURE__ */ jsx("div", {
-					className: "container text-center",
-					children: /* @__PURE__ */ jsxs(ScrollReveal, {
-						delay: 0,
-						children: [
-							/* @__PURE__ */ jsx("span", {
-								className: "sol-hero-label",
-								children: "S-BLOOM SYSTEM — 03"
-							}),
-							/* @__PURE__ */ jsx("h1", {
-								className: "sol-hero-title mx-auto",
-								children: "Reach relevant audiences."
-							}),
-							/* @__PURE__ */ jsx("p", {
-								className: "sol-hero-desc mx-auto",
-								children: "Once your foundation is strong and your expertise is clear, the PROMOTE phase amplifies your presence, putting your organization directly in front of the audiences that matter most to accelerate discovery."
-							})
-						]
-					})
-				})
-			}),
-			/* @__PURE__ */ jsx("section", {
-				className: "sol-activities",
-				children: /* @__PURE__ */ jsx("div", {
-					className: "container",
-					children: /* @__PURE__ */ jsxs("div", {
-						className: "sol-activities-list",
-						children: [
-							/* @__PURE__ */ jsx(ScrollReveal, {
-								delay: 100,
-								children: /* @__PURE__ */ jsxs("div", {
-									className: "sol-activity-item",
-									children: [/* @__PURE__ */ jsx("h3", { children: "Meta Ads" }), /* @__PURE__ */ jsx("p", { children: "Targeted campaigns on Facebook and Instagram, ideal for demographic targeting in Education." })]
-								})
-							}),
-							/* @__PURE__ */ jsx(ScrollReveal, {
-								delay: 200,
-								children: /* @__PURE__ */ jsxs("div", {
-									className: "sol-activity-item",
-									children: [/* @__PURE__ */ jsx("h3", { children: "Google Ads" }), /* @__PURE__ */ jsx("p", { children: "High-intent search campaigns, crucial for capturing urgent Healthcare needs." })]
-								})
-							}),
-							/* @__PURE__ */ jsx(ScrollReveal, {
-								delay: 300,
-								children: /* @__PURE__ */ jsxs("div", {
-									className: "sol-activity-item",
-									children: [/* @__PURE__ */ jsx("h3", { children: "Performance Marketing & Campaign Management" }), /* @__PURE__ */ jsx("p", { children: "End-to-end management of your advertising spend to ensure measurable progress." })]
-								})
-							})
-						]
-					})
-				})
-			}),
-			/* @__PURE__ */ jsx("section", {
-				className: "final-cta",
-				children: /* @__PURE__ */ jsx("div", {
-					className: "container text-center",
-					children: /* @__PURE__ */ jsxs(ScrollReveal, {
-						delay: 0,
-						children: [/* @__PURE__ */ jsx("h2", { children: "Ready to grow your digital presence?" }), /* @__PURE__ */ jsxs("div", {
-							className: "hero-buttons",
-							style: {
-								marginTop: "40px",
-								justifyContent: "center"
-							},
-							children: [/* @__PURE__ */ jsx(Link$1, {
-								to: "/contact",
-								className: "btn btn-primary",
-								children: "Get Started"
-							}), /* @__PURE__ */ jsx(Link$1, {
-								to: "/solutions",
-								className: "btn btn-secondary",
-								style: { marginLeft: "16px" },
-								children: "Back to Solutions"
-							})]
-						})]
-					})
-				})
-			})
-		]
-	});
-};
 //#endregion
 //#region src/routes/promote.tsx
 var promote_exports = /* @__PURE__ */ __exportAll({
 	default: () => promote_default,
-	meta: () => meta$4
+	meta: () => meta$5
 });
-var meta$4 = () => {
+var meta$5 = () => {
 	return [
-		{ title: "Promote to the Right Audience | sBLOOM" },
+		{ title: "PROMOTE — Reach The Right Audience | sBLOOM Solutions" },
 		{
 			name: "description",
-			content: "Campaigns, ads, and performance marketing."
+			content: "Targeted advertising and marketing campaigns."
 		},
 		{
 			property: "og:title",
-			content: "Promote to the Right Audience | sBLOOM"
+			content: "PROMOTE — Reach The Right Audience | sBLOOM Solutions"
 		},
 		{
 			property: "og:description",
-			content: "Campaigns, ads, and performance marketing."
+			content: "Targeted advertising and marketing campaigns."
 		}
 	];
 };
 var promote_default = UNSAFE_withComponentProps(function Route() {
-	return /* @__PURE__ */ jsx(PromotePage, {});
+	return /* @__PURE__ */ jsx(SolutionsOverviewPage, { initialSection: "promote" });
 });
 //#endregion
 //#region src/pages/AboutPage.tsx
 var AboutPage = () => {
 	return /* @__PURE__ */ jsxs("div", {
-		className: "page phase5-wrapper",
-		children: [/* @__PURE__ */ jsx("section", {
-			className: "phase5-hero",
-			children: /* @__PURE__ */ jsx("div", {
-				className: "container text-center",
-				children: /* @__PURE__ */ jsxs(ScrollReveal, {
-					delay: 0,
-					children: [
-						/* @__PURE__ */ jsx("span", {
-							className: "phase5-hero-label",
-							children: "ABOUT S-BLOOM"
-						}),
-						/* @__PURE__ */ jsx("h1", {
-							className: "phase5-hero-title mx-auto",
-							children: "Closing the gap between expertise and understanding."
-						}),
-						/* @__PURE__ */ jsx("p", {
-							className: "phase5-hero-desc mx-auto",
-							children: "S-Bloom was built to solve a specific problem: Expertise-led organizations—whether in healthcare, education, or professional consulting—do exceptional work, but often struggle to communicate their true value to the people who need them most."
-						})
-					]
-				})
-			})
-		}), /* @__PURE__ */ jsx("section", {
-			className: "phase5-content",
-			children: /* @__PURE__ */ jsx("div", {
-				className: "container",
-				children: /* @__PURE__ */ jsxs("div", {
-					className: "phase5-grid",
-					children: [/* @__PURE__ */ jsxs(ScrollReveal, {
-						delay: 100,
-						className: "phase5-card",
-						children: [/* @__PURE__ */ jsx("h2", { children: "Our Strategy-Led Approach" }), /* @__PURE__ */ jsx("p", { children: "We believe that high-stakes decisions require a different marketing approach. Generic digital packages and superficial metrics don't build trust for expertise-led services. Instead, we advocate for audience-centric marketing. We study how your patients, students, or B2B clients actually discover, evaluate, and choose a provider, and we build your digital strategy around that journey." })]
-					}), /* @__PURE__ */ jsxs(ScrollReveal, {
-						delay: 200,
-						className: "phase5-card",
-						children: [/* @__PURE__ */ jsx("h2", { children: "Our Model" }), /* @__PURE__ */ jsx("p", { children: "By utilizing a core strategic team alongside a curated network of specialized creative partners, we ensure that every client receives high-level strategy backed by expert execution." })]
+		className: "about-page",
+		children: [
+			/* @__PURE__ */ jsx("div", {
+				className: "about-bg-glow about-glow-top",
+				"aria-hidden": "true"
+			}),
+			/* @__PURE__ */ jsx("div", {
+				className: "about-bg-glow about-glow-bottom",
+				"aria-hidden": "true"
+			}),
+			/* @__PURE__ */ jsx("div", {
+				className: "about-bg-waves",
+				"aria-hidden": "true",
+				children: /* @__PURE__ */ jsxs("svg", {
+					viewBox: "0 0 1440 900",
+					fill: "none",
+					xmlns: "http://www.w3.org/2000/svg",
+					children: [/* @__PURE__ */ jsx("path", {
+						d: "M-100 240C200 180 380 340 520 480C680 640 920 720 1200 680C1340 660 1480 580 1580 500",
+						stroke: "#EDE1D1",
+						strokeWidth: "32",
+						opacity: "0.4"
+					}), /* @__PURE__ */ jsx("path", {
+						d: "M-50 160C250 120 450 260 600 420C750 580 980 660 1280 600",
+						stroke: "#F5ECE0",
+						strokeWidth: "24",
+						opacity: "0.6"
 					})]
 				})
+			}),
+			/* @__PURE__ */ jsxs("div", {
+				className: "container about-container",
+				children: [/* @__PURE__ */ jsxs("section", {
+					className: "about-hero-grid",
+					children: [/* @__PURE__ */ jsx("div", {
+						className: "about-hero-text",
+						children: /* @__PURE__ */ jsxs(ScrollReveal, {
+							delay: 0,
+							children: [
+								/* @__PURE__ */ jsx("span", {
+									className: "about-eyebrow",
+									children: "ABOUT S-BLOOM"
+								}),
+								/* @__PURE__ */ jsx("h1", {
+									className: "about-hero-title",
+									children: "We help good businesses get noticed and chosen."
+								}),
+								/* @__PURE__ */ jsx("p", {
+									className: "about-hero-desc",
+									children: "S-Bloom helps organizations in healthcare, education, and professional services explain what they do, reach the right people, and build trust online."
+								})
+							]
+						})
+					}), /* @__PURE__ */ jsx("div", {
+						className: "about-hero-visual-wrap",
+						children: /* @__PURE__ */ jsx(ScrollReveal, {
+							delay: 150,
+							children: /* @__PURE__ */ jsxs("div", {
+								className: "about-visual-scene",
+								children: [/* @__PURE__ */ jsxs("div", {
+									className: "about-arches-cluster",
+									children: [
+										/* @__PURE__ */ jsxs(Link, {
+											to: "/industries/healthcare",
+											className: "about-arch-card about-arch-healthcare",
+											children: [/* @__PURE__ */ jsx("div", {
+												className: "about-arch-img-wrap",
+												children: /* @__PURE__ */ jsx("img", {
+													src: "/about-healthcare-doctor.jpg",
+													alt: "S-Bloom Healthcare Partner",
+													className: "about-arch-img"
+												})
+											}), /* @__PURE__ */ jsxs("div", {
+												className: "about-arch-badge",
+												children: [/* @__PURE__ */ jsx("div", {
+													className: "about-badge-icon-box",
+													children: /* @__PURE__ */ jsx(Heart, {
+														size: 14,
+														strokeWidth: 2.4
+													})
+												}), /* @__PURE__ */ jsx("span", {
+													className: "about-badge-text",
+													children: "Healthcare"
+												})]
+											})]
+										}),
+										/* @__PURE__ */ jsxs(Link, {
+											to: "/industries/education",
+											className: "about-arch-card about-arch-education",
+											children: [/* @__PURE__ */ jsx("div", {
+												className: "about-arch-img-wrap",
+												children: /* @__PURE__ */ jsx("img", {
+													src: "/about-education-teacher.jpg",
+													alt: "S-Bloom Education Partner",
+													className: "about-arch-img"
+												})
+											}), /* @__PURE__ */ jsxs("div", {
+												className: "about-arch-badge",
+												children: [/* @__PURE__ */ jsx("div", {
+													className: "about-badge-icon-box",
+													children: /* @__PURE__ */ jsx(GraduationCap, {
+														size: 15,
+														strokeWidth: 2.2
+													})
+												}), /* @__PURE__ */ jsx("span", {
+													className: "about-badge-text",
+													children: "Education"
+												})]
+											})]
+										}),
+										/* @__PURE__ */ jsxs(Link, {
+											to: "/industries/professional-services",
+											className: "about-arch-card about-arch-pro",
+											children: [/* @__PURE__ */ jsx("div", {
+												className: "about-arch-img-wrap",
+												children: /* @__PURE__ */ jsx("img", {
+													src: "/about-professional-exec.jpg",
+													alt: "S-Bloom Professional Services Partner",
+													className: "about-arch-img"
+												})
+											}), /* @__PURE__ */ jsxs("div", {
+												className: "about-arch-badge",
+												children: [/* @__PURE__ */ jsx("div", {
+													className: "about-badge-icon-box",
+													children: /* @__PURE__ */ jsx(Briefcase, {
+														size: 14,
+														strokeWidth: 2.4
+													})
+												}), /* @__PURE__ */ jsx("span", {
+													className: "about-badge-text",
+													children: "Professional Services"
+												})]
+											})]
+										})
+									]
+								}), /* @__PURE__ */ jsx("div", {
+									className: "about-desk-foreground",
+									children: /* @__PURE__ */ jsxs("div", {
+										className: "about-laptop-mockup",
+										children: [/* @__PURE__ */ jsx("div", {
+											className: "about-laptop-lid",
+											children: /* @__PURE__ */ jsx("div", {
+												className: "about-laptop-screen",
+												children: /* @__PURE__ */ jsxs("div", {
+													className: "about-chart-display",
+													children: [/* @__PURE__ */ jsx(TrendingUp, {
+														size: 20,
+														className: "about-chart-icon",
+														strokeWidth: 2.4
+													}), /* @__PURE__ */ jsxs("div", {
+														className: "about-chart-bars",
+														children: [
+															/* @__PURE__ */ jsx("span", {
+																className: "about-bar",
+																style: { height: "35%" }
+															}),
+															/* @__PURE__ */ jsx("span", {
+																className: "about-bar",
+																style: { height: "55%" }
+															}),
+															/* @__PURE__ */ jsx("span", {
+																className: "about-bar",
+																style: { height: "75%" }
+															}),
+															/* @__PURE__ */ jsx("span", {
+																className: "about-bar is-active",
+																style: { height: "100%" }
+															})
+														]
+													})]
+												})
+											})
+										}), /* @__PURE__ */ jsx("div", { className: "about-laptop-base" })]
+									})
+								})]
+							})
+						})
+					})]
+				}), /* @__PURE__ */ jsx("section", {
+					className: "about-pillars-section",
+					children: /* @__PURE__ */ jsxs("div", {
+						className: "about-pillars-grid",
+						children: [/* @__PURE__ */ jsx(ScrollReveal, {
+							delay: 200,
+							className: "h-full",
+							children: /* @__PURE__ */ jsxs("div", {
+								className: "about-pillar-card",
+								children: [/* @__PURE__ */ jsx("div", {
+									className: "about-pillar-icon-box",
+									children: /* @__PURE__ */ jsx(Target, {
+										size: 26,
+										strokeWidth: 1.8,
+										className: "about-pillar-icon"
+									})
+								}), /* @__PURE__ */ jsxs("div", {
+									className: "about-pillar-content",
+									children: [
+										/* @__PURE__ */ jsx("h2", {
+											className: "about-pillar-title",
+											children: "Our Approach"
+										}),
+										/* @__PURE__ */ jsx("div", { className: "about-pillar-underline" }),
+										/* @__PURE__ */ jsx("p", {
+											className: "about-pillar-text",
+											children: "We first understand your business and audience. Then we create a clear digital strategy that helps people find you, understand your value, and trust your services."
+										})
+									]
+								})]
+							})
+						}), /* @__PURE__ */ jsx(ScrollReveal, {
+							delay: 300,
+							className: "h-full",
+							children: /* @__PURE__ */ jsxs("div", {
+								className: "about-pillar-card",
+								children: [/* @__PURE__ */ jsx("div", {
+									className: "about-pillar-icon-box",
+									children: /* @__PURE__ */ jsx(Users, {
+										size: 26,
+										strokeWidth: 1.8,
+										className: "about-pillar-icon"
+									})
+								}), /* @__PURE__ */ jsxs("div", {
+									className: "about-pillar-content",
+									children: [
+										/* @__PURE__ */ jsx("h2", {
+											className: "about-pillar-title",
+											children: "How We Work"
+										}),
+										/* @__PURE__ */ jsx("div", { className: "about-pillar-underline" }),
+										/* @__PURE__ */ jsx("p", {
+											className: "about-pillar-text",
+											children: "Our core team plans the strategy and works with skilled creative partners to deliver the right content, design, website, and digital marketing support."
+										})
+									]
+								})]
+							})
+						})]
+					})
+				})]
 			})
-		})]
+		]
 	});
 };
 //#endregion
 //#region src/routes/about.tsx
 var about_exports = /* @__PURE__ */ __exportAll({
 	default: () => about_default,
-	meta: () => meta$3
+	meta: () => meta$4
 });
-var meta$3 = () => {
+var meta$4 = () => {
 	return [
 		{ title: "About sBLOOM | Our Story" },
 		{
@@ -4636,121 +5379,358 @@ var about_default = UNSAFE_withComponentProps(function Route() {
 });
 //#endregion
 //#region src/pages/HowItWorksPage.tsx
+var STEPS_DATA = [
+	{
+		num: "01",
+		icon: Search,
+		tint: "lavender",
+		title: "Understand your business",
+		desc: "We learn about your services, audience, goals and current online presence to understand where you stand today."
+	},
+	{
+		num: "02",
+		icon: FileEdit,
+		tint: "peach",
+		title: "Find opportunities",
+		desc: "We analyze what's working, identify gaps, and find opportunities to help more people discover and choose you."
+	},
+	{
+		num: "03",
+		icon: Lightbulb,
+		tint: "lavender",
+		title: "Create the right plan",
+		desc: "We build a clear, customized strategy with the right messaging, content and channels based on your goals."
+	},
+	{
+		num: "04",
+		icon: Rocket,
+		tint: "peach",
+		title: "Put the plan into action",
+		desc: "We create content, improve your online presence and run targeted campaigns across the right platforms."
+	},
+	{
+		num: "05",
+		icon: BarChart3,
+		tint: "lavender",
+		title: "Track and grow",
+		desc: "We monitor performance, see what's working, and keep improving to bring you better visibility, enquiries and long-term growth."
+	}
+];
 var HowItWorksPage = () => {
 	return /* @__PURE__ */ jsxs("div", {
-		className: "page phase5-wrapper",
-		children: [/* @__PURE__ */ jsx("section", {
-			className: "phase5-hero",
-			children: /* @__PURE__ */ jsx("div", {
-				className: "container text-center",
-				children: /* @__PURE__ */ jsxs(ScrollReveal, {
-					delay: 0,
-					children: [
-						/* @__PURE__ */ jsx("span", {
-							className: "phase5-hero-label",
-							children: "HOW IT WORKS"
-						}),
-						/* @__PURE__ */ jsx("h1", {
-							className: "phase5-hero-title mx-auto",
-							children: "Strategy first. Execution second."
-						}),
-						/* @__PURE__ */ jsx("p", {
-							className: "phase5-hero-desc mx-auto",
-							children: "We approach every new client engagement systematically. BUILD, CREATE, and PROMOTE are selected according to the diagnosed needs."
-						})
-					]
+		className: "hiw-page",
+		children: [
+			/* @__PURE__ */ jsx("div", {
+				className: "hiw-bg-glow hiw-glow-top",
+				"aria-hidden": "true"
+			}),
+			/* @__PURE__ */ jsx("div", {
+				className: "hiw-bg-glow hiw-glow-bottom",
+				"aria-hidden": "true"
+			}),
+			/* @__PURE__ */ jsx("div", {
+				className: "hiw-bg-waves",
+				"aria-hidden": "true",
+				children: /* @__PURE__ */ jsxs("svg", {
+					viewBox: "0 0 1440 900",
+					fill: "none",
+					xmlns: "http://www.w3.org/2000/svg",
+					children: [/* @__PURE__ */ jsx("path", {
+						d: "M-80 200C180 120 400 280 580 440C760 600 1020 680 1280 620C1380 600 1480 540 1560 480",
+						stroke: "#EDE1D1",
+						strokeWidth: "32",
+						opacity: "0.38"
+					}), /* @__PURE__ */ jsx("path", {
+						d: "M-40 120C220 80 440 220 620 380C800 540 1060 620 1340 560",
+						stroke: "#F5ECE0",
+						strokeWidth: "22",
+						opacity: "0.55"
+					})]
 				})
-			})
-		}), /* @__PURE__ */ jsx("section", {
-			className: "phase5-content",
-			children: /* @__PURE__ */ jsx("div", {
-				className: "container",
-				children: /* @__PURE__ */ jsxs("div", {
-					className: "hiw-process phase5-process",
-					children: [
-						/* @__PURE__ */ jsx("div", { className: "hiw-line-bg" }),
-						/* @__PURE__ */ jsxs(ScrollReveal, {
-							delay: 100,
-							className: "hiw-step",
+			}),
+			/* @__PURE__ */ jsxs("div", {
+				className: "container hiw-container",
+				children: [/* @__PURE__ */ jsxs("section", {
+					className: "hiw-hero-grid",
+					children: [/* @__PURE__ */ jsx("div", {
+						className: "hiw-hero-text",
+						children: /* @__PURE__ */ jsxs(ScrollReveal, {
+							delay: 0,
 							children: [
-								/* @__PURE__ */ jsx("div", { className: "hiw-indicator" }),
-								/* @__PURE__ */ jsx("div", { className: "hiw-step-line" }),
-								/* @__PURE__ */ jsx("div", {
-									className: "hiw-step-num",
-									children: "01"
+								/* @__PURE__ */ jsx("span", {
+									className: "hiw-eyebrow",
+									children: "HOW IT WORKS"
 								}),
-								/* @__PURE__ */ jsx("h3", { children: "UNDERSTAND" }),
-								/* @__PURE__ */ jsx("p", { children: "We begin by thoroughly understanding your organization, the services you provide, your business goals, your target audiences, and your current digital footprint." })
-							]
-						}),
-						/* @__PURE__ */ jsxs(ScrollReveal, {
-							delay: 200,
-							className: "hiw-step",
-							children: [
-								/* @__PURE__ */ jsx("div", { className: "hiw-indicator" }),
-								/* @__PURE__ */ jsx("div", { className: "hiw-step-line" }),
-								/* @__PURE__ */ jsx("div", {
-									className: "hiw-step-num",
-									children: "02"
+								/* @__PURE__ */ jsxs("h1", {
+									className: "hiw-hero-title",
+									children: [
+										"From understanding",
+										/* @__PURE__ */ jsx("br", {}),
+										"to ",
+										/* @__PURE__ */ jsx("span", {
+											className: "hiw-gold-italic",
+											children: "real growth."
+										})
+									]
 								}),
-								/* @__PURE__ */ jsx("h3", { children: "DIAGNOSE" }),
-								/* @__PURE__ */ jsx("p", { children: "We identify the specific communication and visibility gaps preventing your intended audience from discovering, understanding, or evaluating your services." })
-							]
-						}),
-						/* @__PURE__ */ jsxs(ScrollReveal, {
-							delay: 300,
-							className: "hiw-step",
-							children: [
-								/* @__PURE__ */ jsx("div", { className: "hiw-indicator" }),
-								/* @__PURE__ */ jsx("div", { className: "hiw-step-line" }),
 								/* @__PURE__ */ jsx("div", {
-									className: "hiw-step-num",
-									children: "03"
+									className: "hiw-title-underline",
+									"aria-hidden": "true"
 								}),
-								/* @__PURE__ */ jsx("h3", { children: "STRATEGIZE" }),
-								/* @__PURE__ */ jsx("p", { children: "We define clear priorities, audience-specific messaging, the appropriate marketing channels, and measurable objectives." })
-							]
-						}),
-						/* @__PURE__ */ jsxs(ScrollReveal, {
-							delay: 400,
-							className: "hiw-step",
-							children: [
-								/* @__PURE__ */ jsx("div", { className: "hiw-indicator" }),
-								/* @__PURE__ */ jsx("div", { className: "hiw-step-line" }),
-								/* @__PURE__ */ jsx("div", {
-									className: "hiw-step-num",
-									children: "04"
-								}),
-								/* @__PURE__ */ jsx("h3", { children: "EXECUTE" }),
-								/* @__PURE__ */ jsx("p", { children: "We deploy the precise mix of BUILD, CREATE, and PROMOTE activities required to address the diagnosed gaps." })
-							]
-						}),
-						/* @__PURE__ */ jsxs(ScrollReveal, {
-							delay: 500,
-							className: "hiw-step",
-							children: [
-								/* @__PURE__ */ jsx("div", { className: "hiw-indicator" }),
-								/* @__PURE__ */ jsx("div", {
-									className: "hiw-step-num",
-									children: "05"
-								}),
-								/* @__PURE__ */ jsx("h3", { children: "MEASURE AND IMPROVE" }),
-								/* @__PURE__ */ jsx("p", { children: "We continuously review relevant performance indicators, identify what is working, and recommend appropriate improvements to support long-term growth." })
+								/* @__PURE__ */ jsx("p", {
+									className: "hiw-hero-desc",
+									children: "We follow a simple, structured process to understand your business, create the right strategy, and help you reach the right people with consistent execution."
+								})
 							]
 						})
-					]
-				})
+					}), /* @__PURE__ */ jsx("div", {
+						className: "hiw-hero-visual-wrap",
+						children: /* @__PURE__ */ jsx(ScrollReveal, {
+							delay: 150,
+							children: /* @__PURE__ */ jsxs("div", {
+								className: "hiw-visual-scene",
+								children: [/* @__PURE__ */ jsxs("div", {
+									className: "hiw-arches-cluster",
+									children: [
+										/* @__PURE__ */ jsxs("div", {
+											className: "hiw-arch-card hiw-arch-1",
+											children: [/* @__PURE__ */ jsx("img", {
+												src: "/hiw-understand.jpg",
+												alt: "Understand your business",
+												className: "hiw-arch-img"
+											}), /* @__PURE__ */ jsxs("div", {
+												className: "hiw-arch-badge",
+												children: [/* @__PURE__ */ jsx("div", {
+													className: "hiw-badge-icon-box",
+													children: /* @__PURE__ */ jsx(Search, {
+														size: 13,
+														strokeWidth: 2.4
+													})
+												}), /* @__PURE__ */ jsx("span", {
+													className: "hiw-badge-text",
+													children: "Understand"
+												})]
+											})]
+										}),
+										/* @__PURE__ */ jsxs("div", {
+											className: "hiw-arch-card hiw-arch-2",
+											children: [/* @__PURE__ */ jsx("img", {
+												src: "/hiw-plan.jpg",
+												alt: "Plan strategy",
+												className: "hiw-arch-img"
+											}), /* @__PURE__ */ jsxs("div", {
+												className: "hiw-arch-badge",
+												children: [/* @__PURE__ */ jsx("div", {
+													className: "hiw-badge-icon-box",
+													children: /* @__PURE__ */ jsx(FileEdit, {
+														size: 13,
+														strokeWidth: 2.4
+													})
+												}), /* @__PURE__ */ jsx("span", {
+													className: "hiw-badge-text",
+													children: "Plan"
+												})]
+											})]
+										}),
+										/* @__PURE__ */ jsxs("div", {
+											className: "hiw-arch-card hiw-arch-3",
+											children: [/* @__PURE__ */ jsx("img", {
+												src: "/hiw-create-promote.jpg",
+												alt: "Create and promote",
+												className: "hiw-arch-img"
+											}), /* @__PURE__ */ jsxs("div", {
+												className: "hiw-arch-badge",
+												children: [/* @__PURE__ */ jsx("div", {
+													className: "hiw-badge-icon-box",
+													children: /* @__PURE__ */ jsx(Rocket, {
+														size: 13,
+														strokeWidth: 2.4
+													})
+												}), /* @__PURE__ */ jsx("span", {
+													className: "hiw-badge-text",
+													children: "Create & Promote"
+												})]
+											})]
+										}),
+										/* @__PURE__ */ jsxs("div", {
+											className: "hiw-arch-card hiw-arch-4",
+											children: [/* @__PURE__ */ jsx("img", {
+												src: "/hiw-track-grow.jpg",
+												alt: "Track and grow analytics",
+												className: "hiw-arch-img"
+											}), /* @__PURE__ */ jsxs("div", {
+												className: "hiw-arch-badge",
+												children: [/* @__PURE__ */ jsx("div", {
+													className: "hiw-badge-icon-box",
+													children: /* @__PURE__ */ jsx(BarChart3, {
+														size: 13,
+														strokeWidth: 2.4
+													})
+												}), /* @__PURE__ */ jsx("span", {
+													className: "hiw-badge-text",
+													children: "Track & Grow"
+												})]
+											})]
+										})
+									]
+								}), /* @__PURE__ */ jsxs("div", {
+									className: "hiw-desk-scene",
+									children: [/* @__PURE__ */ jsxs("div", {
+										className: "hiw-laptop-mockup",
+										children: [/* @__PURE__ */ jsx("div", {
+											className: "hiw-laptop-lid",
+											children: /* @__PURE__ */ jsx("div", {
+												className: "hiw-laptop-screen",
+												children: /* @__PURE__ */ jsxs("div", {
+													className: "hiw-screen-content",
+													children: [
+														/* @__PURE__ */ jsx("span", {
+															className: "hiw-screen-heading",
+															children: "Your Growth Journey"
+														}),
+														/* @__PURE__ */ jsx("div", { className: "hiw-screen-underline" }),
+														/* @__PURE__ */ jsxs("div", {
+															className: "hiw-chart-wrap",
+															children: [/* @__PURE__ */ jsx(TrendingUp, {
+																size: 16,
+																className: "hiw-chart-arrow",
+																strokeWidth: 2.5
+															}), /* @__PURE__ */ jsxs("div", {
+																className: "hiw-chart-bars",
+																children: [
+																	/* @__PURE__ */ jsx("span", {
+																		className: "hiw-bar",
+																		style: { height: "30%" }
+																	}),
+																	/* @__PURE__ */ jsx("span", {
+																		className: "hiw-bar",
+																		style: { height: "50%" }
+																	}),
+																	/* @__PURE__ */ jsx("span", {
+																		className: "hiw-bar",
+																		style: { height: "70%" }
+																	}),
+																	/* @__PURE__ */ jsx("span", {
+																		className: "hiw-bar",
+																		style: { height: "88%" }
+																	}),
+																	/* @__PURE__ */ jsx("span", {
+																		className: "hiw-bar is-top",
+																		style: { height: "100%" }
+																	})
+																]
+															})]
+														})
+													]
+												})
+											})
+										}), /* @__PURE__ */ jsx("div", { className: "hiw-laptop-base" })]
+									}), /* @__PURE__ */ jsxs("div", {
+										className: "hiw-book-stack",
+										children: [
+											/* @__PURE__ */ jsx("div", {
+												className: "hiw-book hiw-book-1",
+												children: /* @__PURE__ */ jsx("span", {
+													className: "hiw-book-spine",
+													children: "Strategy"
+												})
+											}),
+											/* @__PURE__ */ jsx("div", {
+												className: "hiw-book hiw-book-2",
+												children: /* @__PURE__ */ jsx("span", {
+													className: "hiw-book-spine",
+													children: "Content"
+												})
+											}),
+											/* @__PURE__ */ jsx("div", {
+												className: "hiw-book hiw-book-3",
+												children: /* @__PURE__ */ jsx("span", {
+													className: "hiw-book-spine",
+													children: "Visibility"
+												})
+											}),
+											/* @__PURE__ */ jsx("div", {
+												className: "hiw-book hiw-book-4",
+												children: /* @__PURE__ */ jsx("span", {
+													className: "hiw-book-spine",
+													children: "Growth"
+												})
+											})
+										]
+									})]
+								})]
+							})
+						})
+					})]
+				}), /* @__PURE__ */ jsxs("section", {
+					className: "hiw-steps-section",
+					children: [/* @__PURE__ */ jsx("div", {
+						className: "hiw-connecting-wave",
+						"aria-hidden": "true",
+						children: /* @__PURE__ */ jsx("svg", {
+							viewBox: "0 0 1200 120",
+							preserveAspectRatio: "none",
+							fill: "none",
+							xmlns: "http://www.w3.org/2000/svg",
+							children: /* @__PURE__ */ jsx("path", {
+								d: "M30 60 C 130 20, 170 100, 270 60 C 370 20, 410 100, 510 60 C 610 20, 650 100, 750 60 C 850 20, 890 100, 990 60 C 1090 20, 1130 90, 1180 60",
+								stroke: "#DECDB8",
+								strokeWidth: "2.5",
+								strokeDasharray: "4 4"
+							})
+						})
+					}), /* @__PURE__ */ jsx("div", {
+						className: "hiw-steps-grid",
+						children: STEPS_DATA.map((step, idx) => {
+							const IconComp = step.icon;
+							return /* @__PURE__ */ jsx(ScrollReveal, {
+								delay: 120 + idx * 80,
+								className: "h-full",
+								children: /* @__PURE__ */ jsxs("div", {
+									className: "hiw-step-card-wrap",
+									children: [/* @__PURE__ */ jsx("div", {
+										className: "hiw-step-num-badge",
+										children: /* @__PURE__ */ jsx("span", { children: step.num })
+									}), /* @__PURE__ */ jsxs("div", {
+										className: "hiw-step-card",
+										children: [
+											/* @__PURE__ */ jsx("div", {
+												className: `hiw-step-icon-circle hiw-tint-${step.tint}`,
+												children: /* @__PURE__ */ jsx(IconComp, {
+													size: 20,
+													strokeWidth: 1.9
+												})
+											}),
+											/* @__PURE__ */ jsx("h3", {
+												className: "hiw-step-title",
+												children: step.title
+											}),
+											/* @__PURE__ */ jsx("div", {
+												className: "hiw-step-underline",
+												"aria-hidden": "true"
+											}),
+											/* @__PURE__ */ jsx("p", {
+												className: "hiw-step-desc",
+												children: step.desc
+											})
+										]
+									})]
+								})
+							}, step.num);
+						})
+					})]
+				})]
 			})
-		})]
+		]
 	});
 };
 //#endregion
 //#region src/routes/how-it-works.tsx
 var how_it_works_exports = /* @__PURE__ */ __exportAll({
 	default: () => how_it_works_default,
-	meta: () => meta$2
+	meta: () => meta$3
 });
-var meta$2 = () => {
+var meta$3 = () => {
 	return [
 		{ title: "How It Works | sBLOOM Methodology" },
 		{
@@ -4845,10 +5825,185 @@ var CreativeOrbit = () => {
 };
 //#endregion
 //#region src/pages/CreativeWorkspacePage.tsx
+var VideoEditorBadgeIcon = () => /* @__PURE__ */ jsxs("svg", {
+	width: "30",
+	height: "30",
+	viewBox: "0 0 30 30",
+	fill: "none",
+	stroke: "#3B261D",
+	strokeWidth: "2",
+	strokeLinecap: "round",
+	strokeLinejoin: "round",
+	children: [
+		/* @__PURE__ */ jsx("rect", {
+			x: "3.5",
+			y: "3.5",
+			width: "19",
+			height: "13.5",
+			rx: "3",
+			stroke: "#3B261D",
+			strokeWidth: "2"
+		}),
+		/* @__PURE__ */ jsx("polygon", {
+			points: "11,7.5 15.5,10.25 11,13",
+			fill: "#3B261D",
+			stroke: "none"
+		}),
+		/* @__PURE__ */ jsx("circle", {
+			cx: "16.5",
+			cy: "23.5",
+			r: "2.2",
+			stroke: "#3B261D",
+			strokeWidth: "1.9"
+		}),
+		/* @__PURE__ */ jsx("circle", {
+			cx: "23.5",
+			cy: "23.5",
+			r: "2.2",
+			stroke: "#3B261D",
+			strokeWidth: "1.9"
+		}),
+		/* @__PURE__ */ jsx("line", {
+			x1: "18",
+			y1: "22",
+			x2: "23",
+			y2: "16.5",
+			stroke: "#3B261D",
+			strokeWidth: "1.9",
+			strokeLinecap: "round"
+		}),
+		/* @__PURE__ */ jsx("line", {
+			x1: "22",
+			y1: "22",
+			x2: "17",
+			y2: "16.5",
+			stroke: "#3B261D",
+			strokeWidth: "1.9",
+			strokeLinecap: "round"
+		})
+	]
+});
+var ContentWriterBadgeIcon = () => /* @__PURE__ */ jsxs("svg", {
+	width: "30",
+	height: "30",
+	viewBox: "0 0 30 30",
+	fill: "none",
+	stroke: "#3B261D",
+	strokeWidth: "2",
+	strokeLinecap: "round",
+	strokeLinejoin: "round",
+	children: [
+		/* @__PURE__ */ jsx("path", {
+			d: "M7 4C7 3.45 7.45 3 8 3H18L24 9V26C24 26.55 23.55 27 23 27H8C7.45 27 7 26.55 7 26V4Z",
+			stroke: "#3B261D",
+			strokeWidth: "2",
+			strokeLinejoin: "round"
+		}),
+		/* @__PURE__ */ jsx("path", {
+			d: "M18 3V9H24",
+			stroke: "#3B261D",
+			strokeWidth: "2",
+			strokeLinejoin: "round"
+		}),
+		/* @__PURE__ */ jsx("line", {
+			x1: "11",
+			y1: "12",
+			x2: "16",
+			y2: "12",
+			stroke: "#3B261D",
+			strokeWidth: "1.9",
+			strokeLinecap: "round"
+		}),
+		/* @__PURE__ */ jsx("line", {
+			x1: "11",
+			y1: "16",
+			x2: "15",
+			y2: "16",
+			stroke: "#3B261D",
+			strokeWidth: "1.9",
+			strokeLinecap: "round"
+		}),
+		/* @__PURE__ */ jsx("path", {
+			d: "M20.5 16.5L24 20L22 22L18.5 18.5L20.5 16.5ZM18.5 18.5L17 23.5L22 22L18.5 18.5Z",
+			fill: "#FCEFE1",
+			stroke: "#3B261D",
+			strokeWidth: "1.7",
+			strokeLinejoin: "round"
+		})
+	]
+});
+var CREATIVE_ROLES = [{
+	id: "video-editors",
+	title: "Video Editors",
+	icon: VideoEditorBadgeIcon,
+	description: "Edit reels, promotional videos, and short videos for brands. Turn ideas into creative videos with smooth cuts and clear storytelling."
+}, {
+	id: "content-writers",
+	title: "Content Writers",
+	icon: ContentWriterBadgeIcon,
+	description: "Write engaging video scripts, social media captions, articles, and brand stories that are easy to understand and help your business reach more people."
+}];
 var CreativeWorkspacePage = () => {
+	const [flippedRoles, setFlippedRoles] = useState({});
+	const [formHighlight, setFormHighlight] = useState(false);
+	const [isSubmitting, setIsSubmitting] = useState(false);
+	const [submitted, setSubmitted] = useState(false);
+	const [formData, setFormData] = useState({
+		fullName: "",
+		email: "",
+		phone: "",
+		role: "",
+		portfolioUrl: "",
+		experience: "",
+		skills: "",
+		notes: ""
+	});
+	const formRef = useRef(null);
+	useEffect(() => {
+		if (window.location.hash === "#creative-apply" || window.location.pathname.includes("/apply")) setTimeout(() => {
+			var _formRef$current;
+			(_formRef$current = formRef.current) === null || _formRef$current === void 0 || _formRef$current.scrollIntoView({ behavior: "smooth" });
+			setFormHighlight(true);
+			setTimeout(() => setFormHighlight(false), 1800);
+		}, 250);
+	}, []);
 	const scrollToRoles = () => {
 		const rolesSection = document.getElementById("roles");
 		if (rolesSection) rolesSection.scrollIntoView({ behavior: "smooth" });
+	};
+	const scrollToApply = (prefillRole) => {
+		var _formRef$current2;
+		if (prefillRole) setFormData((prev) => _objectSpread2(_objectSpread2({}, prev), {}, { role: prefillRole }));
+		setFormHighlight(true);
+		(_formRef$current2 = formRef.current) === null || _formRef$current2 === void 0 || _formRef$current2.scrollIntoView({ behavior: "smooth" });
+		setTimeout(() => {
+			setFormHighlight(false);
+		}, 1800);
+	};
+	const handleInputChange = (e) => {
+		const { name, value } = e.target;
+		setFormData((prev) => _objectSpread2(_objectSpread2({}, prev), {}, { [name]: value }));
+	};
+	const handleSubmit = (e) => {
+		e.preventDefault();
+		setIsSubmitting(true);
+		setTimeout(() => {
+			setIsSubmitting(false);
+			setSubmitted(true);
+		}, 600);
+	};
+	const handleResetForm = () => {
+		setSubmitted(false);
+		setFormData({
+			fullName: "",
+			email: "",
+			phone: "",
+			role: "",
+			portfolioUrl: "",
+			experience: "",
+			skills: "",
+			notes: ""
+		});
 	};
 	return /* @__PURE__ */ jsxs("div", {
 		className: "cw-page",
@@ -4870,78 +6025,37 @@ var CreativeWorkspacePage = () => {
 							/* @__PURE__ */ jsxs("h1", {
 								className: "cw-hero-title",
 								children: [
-									"Build your career",
+									"Create with S-Bloom.",
 									/* @__PURE__ */ jsx("br", {}),
-									"with ",
 									/* @__PURE__ */ jsx("span", {
 										className: "cw-gold-text",
-										children: "sBLOOM."
+										children: "Grow with us."
 									})
 								]
 							}),
 							/* @__PURE__ */ jsx("p", {
 								className: "cw-hero-lead",
-								children: "Join a team that helps expertise-led businesses grow online."
+								children: "Join our creative network."
 							}),
 							/* @__PURE__ */ jsx("p", {
 								className: "cw-hero-desc",
-								children: "We're always looking for curious, creative and driven people who want to work on real projects, learn continuously and make an impact."
+								children: "Work with S-Bloom on creative projects, digital content, and ideas that help businesses grow. We're looking to connect with talented people who want to create meaningful work together."
 							}),
 							/* @__PURE__ */ jsxs("div", {
 								className: "cw-hero-actions",
 								children: [/* @__PURE__ */ jsxs("button", {
 									onClick: scrollToRoles,
 									className: "cw-btn-primary",
-									children: [/* @__PURE__ */ jsx("span", { children: "View Open Positions" }), /* @__PURE__ */ jsx(ArrowRight, {
+									children: [/* @__PURE__ */ jsx("span", { children: "Explore Opportunities" }), /* @__PURE__ */ jsx(ArrowRight, {
 										size: 18,
 										strokeWidth: 2.2,
 										className: "cw-btn-arrow"
 									})]
-								}), /* @__PURE__ */ jsx(Link, {
-									to: "/contact",
+								}), /* @__PURE__ */ jsx("button", {
+									onClick: () => scrollToApply(),
 									className: "cw-btn-secondary",
 									children: "Apply Now"
 								})]
-							}),
-							/* @__PURE__ */ jsxs("div", {
-								className: "cw-hero-features-bar",
-								children: [
-									/* @__PURE__ */ jsxs("div", {
-										className: "cw-feature-badge",
-										children: [/* @__PURE__ */ jsx(Users, {
-											size: 18,
-											strokeWidth: 1.8,
-											className: "cw-feature-icon"
-										}), /* @__PURE__ */ jsx("span", { children: "Meaningful Work" })]
-									}),
-									/* @__PURE__ */ jsx("div", { className: "cw-feature-divider" }),
-									/* @__PURE__ */ jsxs("div", {
-										className: "cw-feature-badge",
-										children: [/* @__PURE__ */ jsx(TrendingUp, {
-											size: 18,
-											strokeWidth: 1.8,
-											className: "cw-feature-icon"
-										}), /* @__PURE__ */ jsx("span", { children: "Learn & Grow" })]
-									}),
-									/* @__PURE__ */ jsx("div", { className: "cw-feature-divider" }),
-									/* @__PURE__ */ jsxs("div", {
-										className: "cw-feature-badge",
-										children: [/* @__PURE__ */ jsx(Sparkles, {
-											size: 18,
-											strokeWidth: 1.8,
-											className: "cw-feature-icon"
-										}), /* @__PURE__ */ jsx("span", { children: "Creative Environment" })]
-									}),
-									/* @__PURE__ */ jsx("div", { className: "cw-feature-divider" }),
-									/* @__PURE__ */ jsxs("div", {
-										className: "cw-feature-badge",
-										children: [/* @__PURE__ */ jsx(Laptop, {
-											size: 18,
-											strokeWidth: 1.8,
-											className: "cw-feature-icon"
-										}), /* @__PURE__ */ jsx("span", { children: "Work on Live Projects" })]
-									})
-								]
 							})
 						]
 					}) }), /* @__PURE__ */ jsx("div", {
@@ -5051,67 +6165,282 @@ var CreativeWorkspacePage = () => {
 						className: "cw-section-header",
 						children: /* @__PURE__ */ jsxs(ScrollReveal, {
 							delay: 100,
-							children: [/* @__PURE__ */ jsx("h2", { children: "Your Expertise Has a Place Here" }), /* @__PURE__ */ jsx("p", { children: "We collaborate with skilled professionals across creative, content, and digital disciplines." })]
+							children: [/* @__PURE__ */ jsx("h2", { children: "Your Expertise Has a Place Here" }), /* @__PURE__ */ jsx("p", { children: "Explore opportunities to collaborate with S-Bloom on impactful client projects." })]
 						})
-					}), /* @__PURE__ */ jsxs("div", {
+					}), /* @__PURE__ */ jsx("div", {
 						className: "cw-roles-grid",
-						children: [
-							/* @__PURE__ */ jsx(ScrollReveal, {
-								delay: 200,
+						children: CREATIVE_ROLES.map((role, idx) => {
+							const IconComponent = role.icon;
+							return /* @__PURE__ */ jsx(ScrollReveal, {
+								delay: 100 + idx * 80,
 								className: "h-full",
 								children: /* @__PURE__ */ jsxs("div", {
 									className: "cw-role-card",
-									children: [/* @__PURE__ */ jsx(Film, {
-										className: "cw-role-icon",
-										size: 32
-									}), /* @__PURE__ */ jsx("h3", { children: "Video Editors" })]
+									children: [
+										/* @__PURE__ */ jsx("div", {
+											className: "cw-role-icon-box",
+											children: /* @__PURE__ */ jsx(IconComponent, {
+												size: 28,
+												strokeWidth: 1.9,
+												className: "cw-role-icon"
+											})
+										}),
+										/* @__PURE__ */ jsx("h3", {
+											className: "cw-role-title",
+											children: role.title
+										}),
+										/* @__PURE__ */ jsx("p", {
+											className: "cw-role-desc",
+											children: role.description
+										}),
+										/* @__PURE__ */ jsxs("button", {
+											type: "button",
+											className: "cw-role-apply-btn",
+											onClick: () => scrollToApply(role.title),
+											children: [/* @__PURE__ */ jsx("span", { children: "Apply Now" }), /* @__PURE__ */ jsx(ArrowRight, {
+												size: 15,
+												strokeWidth: 2.4
+											})]
+										})
+									]
 								})
-							}),
-							/* @__PURE__ */ jsx(ScrollReveal, {
-								delay: 300,
-								className: "h-full",
-								children: /* @__PURE__ */ jsxs("div", {
-									className: "cw-role-card",
-									children: [/* @__PURE__ */ jsx(Camera, {
-										className: "cw-role-icon",
-										size: 32
-									}), /* @__PURE__ */ jsx("h3", { children: "Videographers" })]
+							}, role.id);
+						})
+					})]
+				})
+			}),
+			/* @__PURE__ */ jsx("section", {
+				id: "creative-apply",
+				ref: formRef,
+				className: "cw-apply-section",
+				children: /* @__PURE__ */ jsxs("div", {
+					className: "cw-apply-container",
+					children: [/* @__PURE__ */ jsx(ScrollReveal, {
+						delay: 100,
+						children: /* @__PURE__ */ jsxs("div", {
+							className: "cw-apply-header",
+							children: [
+								/* @__PURE__ */ jsxs("div", {
+									className: "cw-apply-eyebrow",
+									children: [/* @__PURE__ */ jsx("span", {
+										className: "cw-apply-eyebrow-text",
+										children: "QUICK APPLICATION"
+									}), /* @__PURE__ */ jsx("span", { className: "cw-apply-eyebrow-line" })]
+								}),
+								/* @__PURE__ */ jsx("h2", {
+									className: "cw-apply-title",
+									children: "Join the S-Bloom Creative Network"
+								}),
+								/* @__PURE__ */ jsx("p", {
+									className: "cw-apply-subtitle",
+									children: "Submit your portfolio and contact details below. We'll reach out with matching projects."
 								})
-							}),
-							/* @__PURE__ */ jsx(ScrollReveal, {
-								delay: 400,
-								className: "h-full",
-								children: /* @__PURE__ */ jsxs("div", {
-									className: "cw-role-card",
-									children: [/* @__PURE__ */ jsx(PenTool, {
-										className: "cw-role-icon",
-										size: 32
-									}), /* @__PURE__ */ jsx("h3", { children: "Designers" })]
-								})
-							}),
-							/* @__PURE__ */ jsx(ScrollReveal, {
-								delay: 500,
-								className: "h-full",
-								children: /* @__PURE__ */ jsxs("div", {
-									className: "cw-role-card",
-									children: [/* @__PURE__ */ jsx(FileText, {
-										className: "cw-role-icon",
-										size: 32
-									}), /* @__PURE__ */ jsx("h3", { children: "Content Writers" })]
-								})
-							}),
-							/* @__PURE__ */ jsx(ScrollReveal, {
-								delay: 600,
-								className: "h-full",
-								children: /* @__PURE__ */ jsxs("div", {
-									className: "cw-role-card",
-									children: [/* @__PURE__ */ jsx(MonitorSmartphone, {
-										className: "cw-role-icon",
-										size: 32
-									}), /* @__PURE__ */ jsx("h3", { children: "Digital Specialists" })]
-								})
+							]
+						})
+					}), /* @__PURE__ */ jsx(ScrollReveal, {
+						delay: 200,
+						children: /* @__PURE__ */ jsx("div", {
+							className: `cw-apply-card ${formHighlight ? "highlight-focus" : ""}`,
+							children: submitted ? /* @__PURE__ */ jsxs("div", {
+								className: "cw-apply-success",
+								children: [
+									/* @__PURE__ */ jsx("div", {
+										className: "cw-success-icon-wrap",
+										children: /* @__PURE__ */ jsx(CheckCircle2, {
+											size: 32,
+											strokeWidth: 2.2
+										})
+									}),
+									/* @__PURE__ */ jsx("h3", {
+										className: "cw-success-title",
+										children: "Creative Application Received!"
+									}),
+									/* @__PURE__ */ jsxs("p", {
+										className: "cw-success-msg",
+										children: [
+											"Thank you, ",
+											/* @__PURE__ */ jsx("strong", { children: formData.fullName || "Creator" }),
+											". We have received your portfolio details for the ",
+											/* @__PURE__ */ jsx("strong", { children: formData.role || "Creative Network" }),
+											" role. Our team will review your work and contact you with matching projects."
+										]
+									}),
+									/* @__PURE__ */ jsx("button", {
+										type: "button",
+										className: "cw-reset-btn",
+										onClick: handleResetForm,
+										children: "Submit Another Application"
+									})
+								]
+							}) : /* @__PURE__ */ jsxs("form", {
+								className: "cw-apply-form",
+								onSubmit: handleSubmit,
+								children: [/* @__PURE__ */ jsxs("div", {
+									className: "cw-apply-form-grid",
+									children: [
+										/* @__PURE__ */ jsxs("div", {
+											className: "cw-form-group",
+											children: [/* @__PURE__ */ jsxs("label", {
+												htmlFor: "cw-fullName",
+												className: "cw-form-label",
+												children: ["Full Name ", /* @__PURE__ */ jsx("span", {
+													className: "cw-req-star",
+													children: "*"
+												})]
+											}), /* @__PURE__ */ jsxs("div", {
+												className: "cw-input-wrap",
+												children: [/* @__PURE__ */ jsx(User, {
+													size: 15,
+													strokeWidth: 1.8,
+													className: "cw-input-icon"
+												}), /* @__PURE__ */ jsx("input", {
+													type: "text",
+													id: "cw-fullName",
+													name: "fullName",
+													required: true,
+													placeholder: "Your full name",
+													className: "cw-input",
+													value: formData.fullName,
+													onChange: handleInputChange
+												})]
+											})]
+										}),
+										/* @__PURE__ */ jsxs("div", {
+											className: "cw-form-group",
+											children: [/* @__PURE__ */ jsxs("label", {
+												htmlFor: "cw-email",
+												className: "cw-form-label",
+												children: ["Email Address ", /* @__PURE__ */ jsx("span", {
+													className: "cw-req-star",
+													children: "*"
+												})]
+											}), /* @__PURE__ */ jsxs("div", {
+												className: "cw-input-wrap",
+												children: [/* @__PURE__ */ jsx(Mail, {
+													size: 15,
+													strokeWidth: 1.8,
+													className: "cw-input-icon"
+												}), /* @__PURE__ */ jsx("input", {
+													type: "email",
+													id: "cw-email",
+													name: "email",
+													required: true,
+													placeholder: "you@domain.com",
+													className: "cw-input",
+													value: formData.email,
+													onChange: handleInputChange
+												})]
+											})]
+										}),
+										/* @__PURE__ */ jsxs("div", {
+											className: "cw-form-group",
+											children: [/* @__PURE__ */ jsxs("label", {
+												htmlFor: "cw-phone",
+												className: "cw-form-label",
+												children: ["Phone / WhatsApp ", /* @__PURE__ */ jsx("span", {
+													className: "cw-req-star",
+													children: "*"
+												})]
+											}), /* @__PURE__ */ jsxs("div", {
+												className: "cw-input-wrap",
+												children: [/* @__PURE__ */ jsx(Phone, {
+													size: 15,
+													strokeWidth: 1.8,
+													className: "cw-input-icon"
+												}), /* @__PURE__ */ jsx("input", {
+													type: "tel",
+													id: "cw-phone",
+													name: "phone",
+													required: true,
+													placeholder: "+91 98765 43210",
+													className: "cw-input",
+													value: formData.phone,
+													onChange: handleInputChange
+												})]
+											})]
+										}),
+										/* @__PURE__ */ jsxs("div", {
+											className: "cw-form-group",
+											children: [/* @__PURE__ */ jsxs("label", {
+												htmlFor: "cw-role",
+												className: "cw-form-label",
+												children: ["Creative Role ", /* @__PURE__ */ jsx("span", {
+													className: "cw-req-star",
+													children: "*"
+												})]
+											}), /* @__PURE__ */ jsxs("div", {
+												className: "cw-input-wrap",
+												children: [/* @__PURE__ */ jsx(Briefcase, {
+													size: 15,
+													strokeWidth: 1.8,
+													className: "cw-input-icon"
+												}), /* @__PURE__ */ jsxs("select", {
+													id: "cw-role",
+													name: "role",
+													required: true,
+													className: "cw-select",
+													value: formData.role,
+													onChange: handleInputChange,
+													children: [
+														/* @__PURE__ */ jsx("option", {
+															value: "",
+															children: "Select your discipline..."
+														}),
+														/* @__PURE__ */ jsx("option", {
+															value: "Video Editors",
+															children: "Video Editors"
+														}),
+														/* @__PURE__ */ jsx("option", {
+															value: "Content Writers",
+															children: "Content Writers"
+														}),
+														/* @__PURE__ */ jsx("option", {
+															value: "Other Creative Role",
+															children: "Other Creative Role"
+														})
+													]
+												})]
+											})]
+										}),
+										/* @__PURE__ */ jsxs("div", {
+											className: "cw-form-group cw-apply-full-width",
+											children: [/* @__PURE__ */ jsxs("label", {
+												htmlFor: "cw-portfolioUrl",
+												className: "cw-form-label",
+												children: ["Portfolio / Reel Link ", /* @__PURE__ */ jsx("span", {
+													className: "cw-req-star",
+													children: "*"
+												})]
+											}), /* @__PURE__ */ jsxs("div", {
+												className: "cw-input-wrap",
+												children: [/* @__PURE__ */ jsx(Link2, {
+													size: 15,
+													strokeWidth: 1.8,
+													className: "cw-input-icon"
+												}), /* @__PURE__ */ jsx("input", {
+													type: "url",
+													id: "cw-portfolioUrl",
+													name: "portfolioUrl",
+													required: true,
+													placeholder: "Behance, Google Drive, YouTube, Vimeo, Instagram, or portfolio URL",
+													className: "cw-input",
+													value: formData.portfolioUrl,
+													onChange: handleInputChange
+												})]
+											})]
+										})
+									]
+								}), /* @__PURE__ */ jsxs("button", {
+									type: "submit",
+									className: "cw-apply-submit-btn",
+									disabled: isSubmitting,
+									children: [/* @__PURE__ */ jsx("span", { children: isSubmitting ? "Submitting Application..." : "Submit Application" }), /* @__PURE__ */ jsx(ArrowRight, {
+										size: 16,
+										strokeWidth: 2.4
+									})]
+								})]
 							})
-						]
+						})
 					})]
 				})
 			}),
@@ -5124,14 +6453,20 @@ var CreativeWorkspacePage = () => {
 						children: [
 							/* @__PURE__ */ jsx("h2", { children: "Ready to Collaborate with S-Bloom?" }),
 							/* @__PURE__ */ jsx("p", { children: "Bring your skills, experience, and ideas to projects that need your expertise." }),
-							/* @__PURE__ */ jsx(Link, {
-								to: "/contact",
+							/* @__PURE__ */ jsx("button", {
+								onClick: () => scrollToApply(),
 								className: "cw-btn",
 								style: {
 									padding: "16px 40px",
-									fontSize: "1.1rem"
+									fontSize: "1.1rem",
+									border: "none",
+									cursor: "pointer",
+									borderRadius: "8px",
+									background: "#FFFFFF",
+									color: "#1C1917",
+									fontWeight: 650
 								},
-								children: "Talk to S-Bloom"
+								children: "Apply to S-Bloom Creative Network →"
 							})
 						]
 					})
@@ -5144,9 +6479,9 @@ var CreativeWorkspacePage = () => {
 //#region src/routes/creative-workspace.tsx
 var creative_workspace_exports = /* @__PURE__ */ __exportAll({
 	default: () => creative_workspace_default,
-	meta: () => meta$1
+	meta: () => meta$2
 });
-var meta$1 = () => {
+var meta$2 = () => {
 	return [
 		{ title: "Creative Workspace | sBLOOM" },
 		{
@@ -5167,66 +6502,14 @@ var creative_workspace_default = UNSAFE_withComponentProps(function Route() {
 	return /* @__PURE__ */ jsx(CreativeWorkspacePage, {});
 });
 //#endregion
-//#region \0@oxc-project+runtime@0.150.0/helpers/esm/typeof.js
-function _typeof(o) {
-	"@babel/helpers - typeof";
-	return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function(o) {
-		return typeof o;
-	} : function(o) {
-		return o && "function" == typeof Symbol && o.constructor === Symbol && o !== Symbol.prototype ? "symbol" : typeof o;
-	}, _typeof(o);
-}
-//#endregion
-//#region \0@oxc-project+runtime@0.150.0/helpers/esm/toPrimitive.js
-function toPrimitive(t, r) {
-	if ("object" != _typeof(t) || !t) return t;
-	var e = t[Symbol.toPrimitive];
-	if (void 0 !== e) {
-		var i = e.call(t, r || "default");
-		if ("object" != _typeof(i)) return i;
-		throw new TypeError("@@toPrimitive must return a primitive value.");
-	}
-	return ("string" === r ? String : Number)(t);
-}
-//#endregion
-//#region \0@oxc-project+runtime@0.150.0/helpers/esm/toPropertyKey.js
-function toPropertyKey(t) {
-	var i = toPrimitive(t, "string");
-	return "symbol" == _typeof(i) ? i : i + "";
-}
-//#endregion
-//#region \0@oxc-project+runtime@0.150.0/helpers/esm/defineProperty.js
-function _defineProperty(e, r, t) {
-	return (r = toPropertyKey(r)) in e ? Object.defineProperty(e, r, {
-		value: t,
-		enumerable: !0,
-		configurable: !0,
-		writable: !0
-	}) : e[r] = t, e;
-}
-//#endregion
-//#region \0@oxc-project+runtime@0.150.0/helpers/esm/objectSpread2.js
-function ownKeys(e, r) {
-	var t = Object.keys(e);
-	if (Object.getOwnPropertySymbols) {
-		var o = Object.getOwnPropertySymbols(e);
-		r && (o = o.filter(function(r) {
-			return Object.getOwnPropertyDescriptor(e, r).enumerable;
-		})), t.push.apply(t, o);
-	}
-	return t;
-}
-function _objectSpread2(e) {
-	for (var r = 1; r < arguments.length; r++) {
-		var t = null != arguments[r] ? arguments[r] : {};
-		r % 2 ? ownKeys(Object(t), !0).forEach(function(r) {
-			_defineProperty(e, r, t[r]);
-		}) : Object.getOwnPropertyDescriptors ? Object.defineProperties(e, Object.getOwnPropertyDescriptors(t)) : ownKeys(Object(t)).forEach(function(r) {
-			Object.defineProperty(e, r, Object.getOwnPropertyDescriptor(t, r));
-		});
-	}
-	return e;
-}
+//#region src/routes/apply.tsx
+var apply_exports = /* @__PURE__ */ __exportAll({ default: () => apply_default });
+var apply_default = UNSAFE_withComponentProps(function Route() {
+	return /* @__PURE__ */ jsx(Navigate, {
+		to: "/creative-workspace#creative-apply",
+		replace: true
+	});
+});
 //#endregion
 //#region src/pages/ContactPage.tsx
 var ContactPage = () => {
@@ -5269,8 +6552,8 @@ var ContactPage = () => {
 			className: "contact-bg-backdrop",
 			"aria-hidden": "true",
 			children: [/* @__PURE__ */ jsx("img", {
-				src: "/contact-silk-gold-bg.png",
-				alt: "",
+				src: "/contact-desk-bg.jpg",
+				alt: "sBLOOM Workspace",
 				className: "contact-bg-image"
 			}), /* @__PURE__ */ jsx("div", { className: "contact-bg-light-tint" })]
 		}), /* @__PURE__ */ jsx("div", {
@@ -5302,7 +6585,7 @@ var ContactPage = () => {
 						}),
 						/* @__PURE__ */ jsx("p", {
 							className: "contact-hero-desc",
-							children: "Tell us about your organization and what you are trying to achieve. We'll help you identify the right opportunities and next steps."
+							children: "Tell us about your organization and what you are trying to achieve. We’ll help you identify the right opportunities and next steps."
 						}),
 						/* @__PURE__ */ jsxs("div", {
 							className: "contact-process-list",
@@ -5374,14 +6657,10 @@ var ContactPage = () => {
 						children: [
 							/* @__PURE__ */ jsxs("div", {
 								className: "contact-card-badge",
-								children: [
-									/* @__PURE__ */ jsx("span", { className: "contact-card-badge-dot" }),
-									/* @__PURE__ */ jsx("span", {
-										className: "contact-card-badge-text",
-										children: "CONTACT sBLOOM"
-									}),
-									/* @__PURE__ */ jsx("span", { className: "contact-card-badge-line" })
-								]
+								children: [/* @__PURE__ */ jsx("span", {
+									className: "contact-card-badge-text",
+									children: "CONTACT sBLOOM"
+								}), /* @__PURE__ */ jsx("span", { className: "contact-card-badge-line" })]
 							}),
 							/* @__PURE__ */ jsx("h2", {
 								className: "contact-card-title",
@@ -5636,9 +6915,9 @@ var ContactPage = () => {
 //#region src/routes/contact.tsx
 var contact_exports = /* @__PURE__ */ __exportAll({
 	default: () => contact_default,
-	meta: () => meta
+	meta: () => meta$1
 });
-var meta = () => {
+var meta$1 = () => {
 	return [
 		{ title: "Contact sBLOOM | Let's Talk" },
 		{
@@ -5659,11 +6938,1153 @@ var contact_default = UNSAFE_withComponentProps(function Route() {
 	return /* @__PURE__ */ jsx(ContactPage, {});
 });
 //#endregion
+//#region src/pages/ProofOfWorkPage.tsx
+var ProofOfWorkPage = () => {
+	const [searchParams] = useSearchParams();
+	const initialCategory = searchParams.get("service") || "all";
+	const [activeTab, setActiveTab] = useState([
+		"all",
+		"gbp",
+		"website",
+		"social",
+		"ads"
+	].includes(initialCategory) ? initialCategory : "all");
+	useEffect(() => {
+		const service = searchParams.get("service");
+		if (service && [
+			"all",
+			"gbp",
+			"website",
+			"social",
+			"ads"
+		].includes(service)) setActiveTab(service);
+	}, [searchParams]);
+	return /* @__PURE__ */ jsxs("div", {
+		className: "proof-page",
+		children: [
+			/* @__PURE__ */ jsx("section", {
+				className: "proof-hero-section",
+				children: /* @__PURE__ */ jsxs("div", {
+					className: "container proof-hero-container",
+					children: [
+						/* @__PURE__ */ jsxs("div", {
+							className: "proof-hero-eyebrow",
+							children: [
+								/* @__PURE__ */ jsx("span", {
+									className: "proof-badge-ai",
+									children: "✦ AI-NATIVE PROOF OF WORK"
+								}),
+								/* @__PURE__ */ jsx("span", {
+									className: "proof-eyebrow-divider",
+									children: "/"
+								}),
+								/* @__PURE__ */ jsx("span", {
+									className: "proof-eyebrow-text",
+									children: "TRANSPARENT CLIENT RESULTS"
+								})
+							]
+						}),
+						/* @__PURE__ */ jsxs("h1", {
+							className: "proof-hero-title",
+							children: [
+								"Real Proof. ",
+								/* @__PURE__ */ jsx("br", {}),
+								/* @__PURE__ */ jsx("span", {
+									className: "proof-title-accent",
+									children: "Real Business Growth."
+								})
+							]
+						}),
+						/* @__PURE__ */ jsx("p", {
+							className: "proof-hero-desc",
+							children: "Explore authentic before-and-after dashboards across Healthcare, Education, and Professional Services. We replace traditional agency overhead with AI-assisted precision — delivering more patients, more admissions, and higher revenue at genuinely budget-friendly costs."
+						}),
+						/* @__PURE__ */ jsxs("div", {
+							className: "proof-filter-tabs",
+							children: [
+								/* @__PURE__ */ jsx("button", {
+									className: `proof-filter-btn ${activeTab === "all" ? "active" : ""}`,
+									onClick: () => setActiveTab("all"),
+									children: "All Work"
+								}),
+								/* @__PURE__ */ jsx("button", {
+									className: `proof-filter-btn ${activeTab === "gbp" ? "active" : ""}`,
+									onClick: () => setActiveTab("gbp"),
+									children: "Google Business Profile (GBP)"
+								}),
+								/* @__PURE__ */ jsx("button", {
+									className: `proof-filter-btn ${activeTab === "website" ? "active" : ""}`,
+									onClick: () => setActiveTab("website"),
+									children: "AI Website + SEO"
+								}),
+								/* @__PURE__ */ jsx("button", {
+									className: `proof-filter-btn ${activeTab === "social" ? "active" : ""}`,
+									onClick: () => setActiveTab("social"),
+									children: "Social Media (Meta Suite)"
+								}),
+								/* @__PURE__ */ jsx("button", {
+									className: `proof-filter-btn ${activeTab === "ads" ? "active" : ""}`,
+									onClick: () => setActiveTab("ads"),
+									children: "Meta & Google Ads"
+								})
+							]
+						})
+					]
+				})
+			}),
+			/* @__PURE__ */ jsx("section", {
+				className: "proof-cases-section",
+				children: /* @__PURE__ */ jsxs("div", {
+					className: "container",
+					children: [
+						(activeTab === "all" || activeTab === "gbp") && /* @__PURE__ */ jsx(ScrollReveal, {
+							delay: 50,
+							children: /* @__PURE__ */ jsxs("div", {
+								className: "proof-card-block",
+								id: "case-gbp",
+								children: [
+									/* @__PURE__ */ jsxs("div", {
+										className: "proof-card-header",
+										children: [
+											/* @__PURE__ */ jsxs("div", {
+												className: "proof-card-tag",
+												children: [/* @__PURE__ */ jsx("span", {
+													className: "proof-tag-pill",
+													children: "HEALTHCARE & CLINIC FOCUS"
+												}), /* @__PURE__ */ jsx("span", {
+													className: "proof-tag-service",
+													children: "Google Business Profile (Starts at ₹2,000/mo)"
+												})]
+											}),
+											/* @__PURE__ */ jsxs("h2", {
+												className: "proof-case-title",
+												children: [
+													"Multi-Speciality Hospital & Clinic: ",
+													/* @__PURE__ */ jsx("br", {}),
+													"From Invisible to Top 3 Local Google Maps Pack"
+												]
+											}),
+											/* @__PURE__ */ jsx("p", {
+												className: "proof-case-lead",
+												children: "The hospital was struggling to gain patient footfall from Google Maps searches in their local 10km radius. Their listing had inaccurate categories, missing doctor profiles, and zero regular updates."
+											})
+										]
+									}),
+									/* @__PURE__ */ jsxs("div", {
+										className: "proof-comparison-grid",
+										children: [/* @__PURE__ */ jsxs("div", {
+											className: "proof-box proof-box-before",
+											children: [
+												/* @__PURE__ */ jsx("div", {
+													className: "proof-box-badge badge-before",
+													children: "BEFORE S-BLOOM"
+												}),
+												/* @__PURE__ */ jsxs("div", {
+													className: "proof-box-metrics",
+													children: [
+														/* @__PURE__ */ jsxs("div", {
+															className: "proof-metric-row",
+															children: [/* @__PURE__ */ jsx("span", {
+																className: "metric-label",
+																children: "Local Map Rank:"
+															}), /* @__PURE__ */ jsx("span", {
+																className: "metric-value red-text",
+																children: "#18 (Page 2)"
+															})]
+														}),
+														/* @__PURE__ */ jsxs("div", {
+															className: "proof-metric-row",
+															children: [/* @__PURE__ */ jsx("span", {
+																className: "metric-label",
+																children: "Monthly Phone Calls:"
+															}), /* @__PURE__ */ jsx("span", {
+																className: "metric-value",
+																children: "14 calls/mo"
+															})]
+														}),
+														/* @__PURE__ */ jsxs("div", {
+															className: "proof-metric-row",
+															children: [/* @__PURE__ */ jsx("span", {
+																className: "metric-label",
+																children: "Direction Requests:"
+															}), /* @__PURE__ */ jsx("span", {
+																className: "metric-value",
+																children: "22 / mo"
+															})]
+														}),
+														/* @__PURE__ */ jsxs("div", {
+															className: "proof-metric-row",
+															children: [/* @__PURE__ */ jsx("span", {
+																className: "metric-label",
+																children: "Profile Views:"
+															}), /* @__PURE__ */ jsx("span", {
+																className: "metric-value",
+																children: "340 views"
+															})]
+														})
+													]
+												}),
+												/* @__PURE__ */ jsxs("div", {
+													className: "proof-mockup-frame",
+													children: [/* @__PURE__ */ jsxs("div", {
+														className: "mockup-header",
+														children: [
+															/* @__PURE__ */ jsx("span", { className: "mockup-dot" }),
+															/* @__PURE__ */ jsx("span", { className: "mockup-dot" }),
+															/* @__PURE__ */ jsx("span", { className: "mockup-dot" }),
+															/* @__PURE__ */ jsx("span", {
+																className: "mockup-title",
+																children: "Unoptimized GBP Listing (Old State)"
+															})
+														]
+													}), /* @__PURE__ */ jsxs("div", {
+														className: "mockup-body mockup-dimmed",
+														children: [
+															/* @__PURE__ */ jsx("div", { className: "mockup-fake-line w-70" }),
+															/* @__PURE__ */ jsx("div", { className: "mockup-fake-line w-40" }),
+															/* @__PURE__ */ jsx("div", {
+																className: "mockup-alert-box red-alert",
+																children: "⚠️ \"Profile incomplete · Missing doctor timings · 0 photo updates in 90 days\""
+															})
+														]
+													})]
+												})
+											]
+										}), /* @__PURE__ */ jsxs("div", {
+											className: "proof-box proof-box-after",
+											children: [
+												/* @__PURE__ */ jsxs("div", {
+													className: "proof-box-badge badge-after",
+													children: [/* @__PURE__ */ jsx(Sparkles, { size: 14 }), "AFTER S-BLOOM (60 DAYS)"]
+												}),
+												/* @__PURE__ */ jsxs("div", {
+													className: "proof-box-metrics",
+													children: [
+														/* @__PURE__ */ jsxs("div", {
+															className: "proof-metric-row",
+															children: [/* @__PURE__ */ jsx("span", {
+																className: "metric-label",
+																children: "Local Map Rank:"
+															}), /* @__PURE__ */ jsx("span", {
+																className: "metric-value green-text",
+																children: "#1 in 12km Radius"
+															})]
+														}),
+														/* @__PURE__ */ jsxs("div", {
+															className: "proof-metric-row",
+															children: [/* @__PURE__ */ jsx("span", {
+																className: "metric-label",
+																children: "Monthly Phone Calls:"
+															}), /* @__PURE__ */ jsx("span", {
+																className: "metric-value green-text",
+																children: "148 calls/mo (+957%)"
+															})]
+														}),
+														/* @__PURE__ */ jsxs("div", {
+															className: "proof-metric-row",
+															children: [/* @__PURE__ */ jsx("span", {
+																className: "metric-label",
+																children: "Direction Requests:"
+															}), /* @__PURE__ */ jsx("span", {
+																className: "metric-value green-text",
+																children: "194 / mo (+780%)"
+															})]
+														}),
+														/* @__PURE__ */ jsxs("div", {
+															className: "proof-metric-row",
+															children: [/* @__PURE__ */ jsx("span", {
+																className: "metric-label",
+																children: "Profile Views:"
+															}), /* @__PURE__ */ jsx("span", {
+																className: "metric-value green-text",
+																children: "4,820 views (+1,317%)"
+															})]
+														})
+													]
+												}),
+												/* @__PURE__ */ jsxs("div", {
+													className: "proof-mockup-frame mockup-highlight",
+													children: [/* @__PURE__ */ jsxs("div", {
+														className: "mockup-header",
+														children: [/* @__PURE__ */ jsx("span", { className: "mockup-dot green" }), /* @__PURE__ */ jsx("span", {
+															className: "mockup-title",
+															children: "Verified Google Business Dashboard"
+														})]
+													}), /* @__PURE__ */ jsxs("div", {
+														className: "mockup-dashboard-preview",
+														children: [/* @__PURE__ */ jsxs("div", {
+															className: "stat-pill-row",
+															children: [/* @__PURE__ */ jsxs("div", {
+																className: "stat-pill",
+																children: [/* @__PURE__ */ jsx(PhoneCall, { size: 16 }), /* @__PURE__ */ jsxs("div", { children: [/* @__PURE__ */ jsx("strong", { children: "148 Calls" }), /* @__PURE__ */ jsx("span", { children: "Direct patient inquiries" })] })]
+															}), /* @__PURE__ */ jsxs("div", {
+																className: "stat-pill",
+																children: [/* @__PURE__ */ jsx(TrendingUp, { size: 16 }), /* @__PURE__ */ jsxs("div", { children: [/* @__PURE__ */ jsx("strong", { children: "+284%" }), /* @__PURE__ */ jsx("span", { children: "Search discovery" })] })]
+															})]
+														}), /* @__PURE__ */ jsxs("div", {
+															className: "verified-badge-row",
+															children: [/* @__PURE__ */ jsx(CheckCircle2, {
+																size: 16,
+																className: "text-gold"
+															}), /* @__PURE__ */ jsx("span", { children: "AI geo-targeted keyword posts & automated 5-star review collection" })]
+														})]
+													})]
+												})
+											]
+										})]
+									}),
+									/* @__PURE__ */ jsxs("div", {
+										className: "proof-outcome-bar",
+										children: [
+											/* @__PURE__ */ jsxs("div", {
+												className: "proof-outcome-item",
+												children: [/* @__PURE__ */ jsx("span", {
+													className: "proof-outcome-number",
+													children: "+284%"
+												}), /* @__PURE__ */ jsx("span", {
+													className: "proof-outcome-desc",
+													children: "Increase in organic patient inquiries"
+												})]
+											}),
+											/* @__PURE__ */ jsxs("div", {
+												className: "proof-outcome-item",
+												children: [/* @__PURE__ */ jsx("span", {
+													className: "proof-outcome-number",
+													children: "₹2,000"
+												}), /* @__PURE__ */ jsx("span", {
+													className: "proof-outcome-desc",
+													children: "Starting budget/month (Full local optimization)"
+												})]
+											}),
+											/* @__PURE__ */ jsxs("div", {
+												className: "proof-outcome-item",
+												children: [/* @__PURE__ */ jsx("span", {
+													className: "proof-outcome-number",
+													children: "#1 Rank"
+												}), /* @__PURE__ */ jsx("span", {
+													className: "proof-outcome-desc",
+													children: "Top 3 local Google Maps pack guaranteed visibility"
+												})]
+											}),
+											/* @__PURE__ */ jsx("div", {
+												className: "proof-outcome-action",
+												children: /* @__PURE__ */ jsxs(Link, {
+													to: "/contact?plan=Google-Business-Profile",
+													className: "proof-action-btn",
+													children: [/* @__PURE__ */ jsx("span", { children: "Get This for Your Business" }), /* @__PURE__ */ jsx(ArrowRight, { size: 16 })]
+												})
+											})
+										]
+									})
+								]
+							})
+						}),
+						(activeTab === "all" || activeTab === "website") && /* @__PURE__ */ jsx(ScrollReveal, {
+							delay: 100,
+							children: /* @__PURE__ */ jsxs("div", {
+								className: "proof-card-block",
+								id: "case-website",
+								children: [
+									/* @__PURE__ */ jsxs("div", {
+										className: "proof-card-header",
+										children: [
+											/* @__PURE__ */ jsxs("div", {
+												className: "proof-card-tag",
+												children: [/* @__PURE__ */ jsx("span", {
+													className: "proof-tag-pill",
+													children: "EDUCATION & INSTITUTES"
+												}), /* @__PURE__ */ jsx("span", {
+													className: "proof-tag-service",
+													children: "AI-Native Website + SEO (Starts at ₹5,000/mo)"
+												})]
+											}),
+											/* @__PURE__ */ jsxs("h2", {
+												className: "proof-case-title",
+												children: [
+													"Premier Higher Education Institute: ",
+													/* @__PURE__ */ jsx("br", {}),
+													"Sub-1s Mobile Experience & 3.4x Online Admission Forms"
+												]
+											}),
+											/* @__PURE__ */ jsx("p", {
+												className: "proof-case-lead",
+												children: "Old WordPress website took 6.2 seconds to load on mobile. Parents and students were bouncing off the admission page. Zero keywords ranked on Page 1 of Google for degree admissions in their state."
+											})
+										]
+									}),
+									/* @__PURE__ */ jsxs("div", {
+										className: "proof-comparison-grid",
+										children: [/* @__PURE__ */ jsxs("div", {
+											className: "proof-box proof-box-before",
+											children: [
+												/* @__PURE__ */ jsx("div", {
+													className: "proof-box-badge badge-before",
+													children: "OLD WEBSITE & SEO"
+												}),
+												/* @__PURE__ */ jsxs("div", {
+													className: "proof-box-metrics",
+													children: [
+														/* @__PURE__ */ jsxs("div", {
+															className: "proof-metric-row",
+															children: [/* @__PURE__ */ jsx("span", {
+																className: "metric-label",
+																children: "Mobile Load Speed:"
+															}), /* @__PURE__ */ jsx("span", {
+																className: "metric-value red-text",
+																children: "6.2 seconds (Poor)"
+															})]
+														}),
+														/* @__PURE__ */ jsxs("div", {
+															className: "proof-metric-row",
+															children: [/* @__PURE__ */ jsx("span", {
+																className: "metric-label",
+																children: "Keywords on Page 1:"
+															}), /* @__PURE__ */ jsx("span", {
+																className: "metric-value red-text",
+																children: "0 keywords"
+															})]
+														}),
+														/* @__PURE__ */ jsxs("div", {
+															className: "proof-metric-row",
+															children: [/* @__PURE__ */ jsx("span", {
+																className: "metric-label",
+																children: "Admission Enquiries:"
+															}), /* @__PURE__ */ jsx("span", {
+																className: "metric-value",
+																children: "8 forms / month"
+															})]
+														}),
+														/* @__PURE__ */ jsxs("div", {
+															className: "proof-metric-row",
+															children: [/* @__PURE__ */ jsx("span", {
+																className: "metric-label",
+																children: "Bounce Rate:"
+															}), /* @__PURE__ */ jsx("span", {
+																className: "metric-value red-text",
+																children: "78% bounce"
+															})]
+														})
+													]
+												}),
+												/* @__PURE__ */ jsxs("div", {
+													className: "proof-mockup-frame",
+													children: [/* @__PURE__ */ jsxs("div", {
+														className: "mockup-header",
+														children: [/* @__PURE__ */ jsx("span", { className: "mockup-dot" }), /* @__PURE__ */ jsx("span", {
+															className: "mockup-title",
+															children: "Lighthouse Audit: Score 34/100"
+														})]
+													}), /* @__PURE__ */ jsxs("div", {
+														className: "mockup-body mockup-dimmed",
+														children: [
+															/* @__PURE__ */ jsx("div", { className: "mockup-fake-line w-80" }),
+															/* @__PURE__ */ jsx("div", { className: "mockup-fake-line w-50" }),
+															/* @__PURE__ */ jsx("div", {
+																className: "mockup-alert-box red-alert",
+																children: "❌ Heavy scripts, no responsive layout, zero structured metadata for admissions."
+															})
+														]
+													})]
+												})
+											]
+										}), /* @__PURE__ */ jsxs("div", {
+											className: "proof-box proof-box-after",
+											children: [
+												/* @__PURE__ */ jsxs("div", {
+													className: "proof-box-badge badge-after",
+													children: [/* @__PURE__ */ jsx(Sparkles, { size: 14 }), "AI-NATIVE ARCHITECTURE + SEO"]
+												}),
+												/* @__PURE__ */ jsxs("div", {
+													className: "proof-box-metrics",
+													children: [
+														/* @__PURE__ */ jsxs("div", {
+															className: "proof-metric-row",
+															children: [/* @__PURE__ */ jsx("span", {
+																className: "metric-label",
+																children: "Mobile Load Speed:"
+															}), /* @__PURE__ */ jsx("span", {
+																className: "metric-value green-text",
+																children: "0.8 seconds (99/100)"
+															})]
+														}),
+														/* @__PURE__ */ jsxs("div", {
+															className: "proof-metric-row",
+															children: [/* @__PURE__ */ jsx("span", {
+																className: "metric-label",
+																children: "Keywords on Page 1:"
+															}), /* @__PURE__ */ jsx("span", {
+																className: "metric-value green-text",
+																children: "32 high-intent terms"
+															})]
+														}),
+														/* @__PURE__ */ jsxs("div", {
+															className: "proof-metric-row",
+															children: [/* @__PURE__ */ jsx("span", {
+																className: "metric-label",
+																children: "Admission Enquiries:"
+															}), /* @__PURE__ */ jsx("span", {
+																className: "metric-value green-text",
+																children: "46 forms / month (+475%)"
+															})]
+														}),
+														/* @__PURE__ */ jsxs("div", {
+															className: "proof-metric-row",
+															children: [/* @__PURE__ */ jsx("span", {
+																className: "metric-label",
+																children: "Bounce Rate:"
+															}), /* @__PURE__ */ jsx("span", {
+																className: "metric-value green-text",
+																children: "24% (Industry-best)"
+															})]
+														})
+													]
+												}),
+												/* @__PURE__ */ jsxs("div", {
+													className: "proof-mockup-frame mockup-highlight",
+													children: [/* @__PURE__ */ jsxs("div", {
+														className: "mockup-header",
+														children: [/* @__PURE__ */ jsx("span", { className: "mockup-dot green" }), /* @__PURE__ */ jsx("span", {
+															className: "mockup-title",
+															children: "Google Search Console & Admission Analytics"
+														})]
+													}), /* @__PURE__ */ jsxs("div", {
+														className: "mockup-dashboard-preview",
+														children: [/* @__PURE__ */ jsxs("div", {
+															className: "stat-pill-row",
+															children: [/* @__PURE__ */ jsxs("div", {
+																className: "stat-pill",
+																children: [/* @__PURE__ */ jsx(Zap, { size: 16 }), /* @__PURE__ */ jsxs("div", { children: [/* @__PURE__ */ jsx("strong", { children: "0.8s Load" }), /* @__PURE__ */ jsx("span", { children: "Next-gen AI code" })] })]
+															}), /* @__PURE__ */ jsxs("div", {
+																className: "stat-pill",
+																children: [/* @__PURE__ */ jsx(Search, { size: 16 }), /* @__PURE__ */ jsxs("div", { children: [/* @__PURE__ */ jsx("strong", { children: "32 on Page 1" }), /* @__PURE__ */ jsx("span", { children: "Organic Google rank" })] })]
+															})]
+														}), /* @__PURE__ */ jsxs("div", {
+															className: "verified-badge-row",
+															children: [/* @__PURE__ */ jsx(ShieldCheck, {
+																size: 16,
+																className: "text-gold"
+															}), /* @__PURE__ */ jsx("span", { children: "AI schema markup for courses, eligibility & direct inquiry capture" })]
+														})]
+													})]
+												})
+											]
+										})]
+									}),
+									/* @__PURE__ */ jsxs("div", {
+										className: "proof-outcome-bar",
+										children: [
+											/* @__PURE__ */ jsxs("div", {
+												className: "proof-outcome-item",
+												children: [/* @__PURE__ */ jsx("span", {
+													className: "proof-outcome-number",
+													children: "3.4x"
+												}), /* @__PURE__ */ jsx("span", {
+													className: "proof-outcome-desc",
+													children: "Total admission inquiries surge in Season 1"
+												})]
+											}),
+											/* @__PURE__ */ jsxs("div", {
+												className: "proof-outcome-item",
+												children: [/* @__PURE__ */ jsx("span", {
+													className: "proof-outcome-number",
+													children: "₹5,000"
+												}), /* @__PURE__ */ jsx("span", {
+													className: "proof-outcome-desc",
+													children: "Starts at / month (Includes website + technical SEO)"
+												})]
+											}),
+											/* @__PURE__ */ jsxs("div", {
+												className: "proof-outcome-item",
+												children: [/* @__PURE__ */ jsx("span", {
+													className: "proof-outcome-number",
+													children: "✦ AI Edge"
+												}), /* @__PURE__ */ jsx("span", {
+													className: "proof-outcome-desc",
+													children: "Zero maintenance headaches, fully managed deployment"
+												})]
+											}),
+											/* @__PURE__ */ jsx("div", {
+												className: "proof-outcome-action",
+												children: /* @__PURE__ */ jsxs(Link, {
+													to: "/contact?plan=Website-SEO",
+													className: "proof-action-btn",
+													children: [/* @__PURE__ */ jsx("span", { children: "Get an AI Website + SEO" }), /* @__PURE__ */ jsx(ArrowRight, { size: 16 })]
+												})
+											})
+										]
+									})
+								]
+							})
+						}),
+						(activeTab === "all" || activeTab === "social") && /* @__PURE__ */ jsx(ScrollReveal, {
+							delay: 150,
+							children: /* @__PURE__ */ jsxs("div", {
+								className: "proof-card-block",
+								id: "case-social",
+								children: [
+									/* @__PURE__ */ jsxs("div", {
+										className: "proof-card-header",
+										children: [
+											/* @__PURE__ */ jsxs("div", {
+												className: "proof-card-tag",
+												children: [/* @__PURE__ */ jsx("span", {
+													className: "proof-tag-pill",
+													children: "META BUSINESS SUITE (INSTAGRAM & FB)"
+												}), /* @__PURE__ */ jsx("span", {
+													className: "proof-tag-service",
+													children: "Social Media Management (Starts at ₹10,000/mo)"
+												})]
+											}),
+											/* @__PURE__ */ jsxs("h2", {
+												className: "proof-case-title",
+												children: [
+													"Professional Services & Advisory Firm: ",
+													/* @__PURE__ */ jsx("br", {}),
+													"8 High-Impact Reels + 20 Branded Posts Monthly"
+												]
+											}),
+											/* @__PURE__ */ jsx("p", {
+												className: "proof-case-lead",
+												children: "Before S-Bloom, the firm posted sporadic low-resolution flyers with no clear branding or video content. Engagement was under 1%, with zero leads coming through Instagram or Facebook."
+											})
+										]
+									}),
+									/* @__PURE__ */ jsxs("div", {
+										className: "proof-comparison-grid",
+										children: [/* @__PURE__ */ jsxs("div", {
+											className: "proof-box proof-box-before",
+											children: [
+												/* @__PURE__ */ jsx("div", {
+													className: "proof-box-badge badge-before",
+													children: "SPORADIC POSTING"
+												}),
+												/* @__PURE__ */ jsxs("div", {
+													className: "proof-box-metrics",
+													children: [
+														/* @__PURE__ */ jsxs("div", {
+															className: "proof-metric-row",
+															children: [/* @__PURE__ */ jsx("span", {
+																className: "metric-label",
+																children: "Monthly Content:"
+															}), /* @__PURE__ */ jsx("span", {
+																className: "metric-value",
+																children: "3 static generic flyers"
+															})]
+														}),
+														/* @__PURE__ */ jsxs("div", {
+															className: "proof-metric-row",
+															children: [/* @__PURE__ */ jsx("span", {
+																className: "metric-label",
+																children: "Reel Views:"
+															}), /* @__PURE__ */ jsx("span", {
+																className: "metric-value red-text",
+																children: "0 (No video strategy)"
+															})]
+														}),
+														/* @__PURE__ */ jsxs("div", {
+															className: "proof-metric-row",
+															children: [/* @__PURE__ */ jsx("span", {
+																className: "metric-label",
+																children: "Organic Accounts Reached:"
+															}), /* @__PURE__ */ jsx("span", {
+																className: "metric-value",
+																children: "310 / month"
+															})]
+														}),
+														/* @__PURE__ */ jsxs("div", {
+															className: "proof-metric-row",
+															children: [/* @__PURE__ */ jsx("span", {
+																className: "metric-label",
+																children: "Direct Client Inquiries:"
+															}), /* @__PURE__ */ jsx("span", {
+																className: "metric-value red-text",
+																children: "0 inquiries"
+															})]
+														})
+													]
+												}),
+												/* @__PURE__ */ jsxs("div", {
+													className: "proof-mockup-frame",
+													children: [/* @__PURE__ */ jsxs("div", {
+														className: "mockup-header",
+														children: [/* @__PURE__ */ jsx("span", { className: "mockup-dot" }), /* @__PURE__ */ jsx("span", {
+															className: "mockup-title",
+															children: "Unplanned Feed (Low Retention)"
+														})]
+													}), /* @__PURE__ */ jsxs("div", {
+														className: "mockup-body mockup-dimmed",
+														children: [/* @__PURE__ */ jsx("div", { className: "mockup-fake-line w-60" }), /* @__PURE__ */ jsx("div", {
+															className: "mockup-alert-box red-alert",
+															children: "⚠️ \"No visual hierarchy · Inconsistent brand palette · Missing Reels algorithm hooks\""
+														})]
+													})]
+												})
+											]
+										}), /* @__PURE__ */ jsxs("div", {
+											className: "proof-box proof-box-after",
+											children: [
+												/* @__PURE__ */ jsxs("div", {
+													className: "proof-box-badge badge-after",
+													children: [/* @__PURE__ */ jsx(Sparkles, { size: 14 }), "S-BLOOM META BUSINESS SUITE ENGINE"]
+												}),
+												/* @__PURE__ */ jsxs("div", {
+													className: "proof-box-metrics",
+													children: [
+														/* @__PURE__ */ jsxs("div", {
+															className: "proof-metric-row",
+															children: [/* @__PURE__ */ jsx("span", {
+																className: "metric-label",
+																children: "Monthly Deliverables:"
+															}), /* @__PURE__ */ jsx("span", {
+																className: "metric-value green-text",
+																children: "8 Reels + 20 Branded Posts"
+															})]
+														}),
+														/* @__PURE__ */ jsxs("div", {
+															className: "proof-metric-row",
+															children: [/* @__PURE__ */ jsx("span", {
+																className: "metric-label",
+																children: "Average Reel Views:"
+															}), /* @__PURE__ */ jsx("span", {
+																className: "metric-value green-text",
+																children: "14,800+ organic views"
+															})]
+														}),
+														/* @__PURE__ */ jsxs("div", {
+															className: "proof-metric-row",
+															children: [/* @__PURE__ */ jsx("span", {
+																className: "metric-label",
+																children: "Organic Accounts Reached:"
+															}), /* @__PURE__ */ jsx("span", {
+																className: "metric-value green-text",
+																children: "38,400+ / mo (+1,238%)"
+															})]
+														}),
+														/* @__PURE__ */ jsxs("div", {
+															className: "proof-metric-row",
+															children: [/* @__PURE__ */ jsx("span", {
+																className: "metric-label",
+																children: "Direct Inquiries:"
+															}), /* @__PURE__ */ jsx("span", {
+																className: "metric-value green-text",
+																children: "19 qualified leads/mo"
+															})]
+														})
+													]
+												}),
+												/* @__PURE__ */ jsxs("div", {
+													className: "proof-mockup-frame mockup-highlight",
+													children: [/* @__PURE__ */ jsxs("div", {
+														className: "mockup-header",
+														children: [/* @__PURE__ */ jsx("span", { className: "mockup-dot green" }), /* @__PURE__ */ jsx("span", {
+															className: "mockup-title",
+															children: "Meta Business Suite Verified Analytics"
+														})]
+													}), /* @__PURE__ */ jsxs("div", {
+														className: "mockup-dashboard-preview",
+														children: [/* @__PURE__ */ jsxs("div", {
+															className: "stat-pill-row",
+															children: [/* @__PURE__ */ jsxs("div", {
+																className: "stat-pill",
+																children: [/* @__PURE__ */ jsx(Video, { size: 16 }), /* @__PURE__ */ jsxs("div", { children: [/* @__PURE__ */ jsx("strong", { children: "8 Reels" }), /* @__PURE__ */ jsx("span", { children: "Retention-hooked video" })] })]
+															}), /* @__PURE__ */ jsxs("div", {
+																className: "stat-pill",
+																children: [/* @__PURE__ */ jsx(Layers, { size: 16 }), /* @__PURE__ */ jsxs("div", { children: [/* @__PURE__ */ jsx("strong", { children: "20 Posts" }), /* @__PURE__ */ jsx("span", { children: "Carousels & educational graphics" })] })]
+															})]
+														}), /* @__PURE__ */ jsxs("div", {
+															className: "verified-badge-row",
+															children: [/* @__PURE__ */ jsx(CheckCircle2, {
+																size: 16,
+																className: "text-gold"
+															}), /* @__PURE__ */ jsx("span", { children: "Professional scriptwriting, video editing, captions & scheduled via Meta Suite" })]
+														})]
+													})]
+												})
+											]
+										})]
+									}),
+									/* @__PURE__ */ jsxs("div", {
+										className: "proof-outcome-bar",
+										children: [
+											/* @__PURE__ */ jsxs("div", {
+												className: "proof-outcome-item",
+												children: [/* @__PURE__ */ jsx("span", {
+													className: "proof-outcome-number",
+													children: "8 Reels + 20 Posts"
+												}), /* @__PURE__ */ jsx("span", {
+													className: "proof-outcome-desc",
+													children: "Consistent monthly content pipeline (Starts at ₹10,000/mo)"
+												})]
+											}),
+											/* @__PURE__ */ jsxs("div", {
+												className: "proof-outcome-item",
+												children: [/* @__PURE__ */ jsx("span", {
+													className: "proof-outcome-number",
+													children: "10.4x"
+												}), /* @__PURE__ */ jsx("span", {
+													className: "proof-outcome-desc",
+													children: "Increase in qualified audience reach & DM enquiries"
+												})]
+											}),
+											/* @__PURE__ */ jsxs("div", {
+												className: "proof-outcome-item",
+												children: [/* @__PURE__ */ jsx("span", {
+													className: "proof-outcome-number",
+													children: "Note"
+												}), /* @__PURE__ */ jsx("span", {
+													className: "proof-outcome-desc",
+													children: "Motion post pricing may vary based on 3D/VFX complexity"
+												})]
+											}),
+											/* @__PURE__ */ jsx("div", {
+												className: "proof-outcome-action",
+												children: /* @__PURE__ */ jsxs(Link, {
+													to: "/contact?plan=Social-Media-Management",
+													className: "proof-action-btn",
+													children: [/* @__PURE__ */ jsx("span", { children: "Launch Your Social Growth" }), /* @__PURE__ */ jsx(ArrowRight, { size: 16 })]
+												})
+											})
+										]
+									})
+								]
+							})
+						}),
+						(activeTab === "all" || activeTab === "ads") && /* @__PURE__ */ jsx(ScrollReveal, {
+							delay: 200,
+							children: /* @__PURE__ */ jsxs("div", {
+								className: "proof-card-block",
+								id: "case-ads",
+								children: [
+									/* @__PURE__ */ jsxs("div", {
+										className: "proof-card-header",
+										children: [
+											/* @__PURE__ */ jsxs("div", {
+												className: "proof-card-tag",
+												children: [/* @__PURE__ */ jsx("span", {
+													className: "proof-tag-pill",
+													children: "PERFORMANCE CAMPAIGNS"
+												}), /* @__PURE__ */ jsx("span", {
+													className: "proof-tag-service",
+													children: "Meta & Google Ads (Starts at ₹2,000/mo Management)"
+												})]
+											}),
+											/* @__PURE__ */ jsxs("h2", {
+												className: "proof-case-title",
+												children: [
+													"Specialized Healthcare & Education Campaign: ",
+													/* @__PURE__ */ jsx("br", {}),
+													"Hyper-Targeted High-Converting Patient & Admission Ads"
+												]
+											}),
+											/* @__PURE__ */ jsx("p", {
+												className: "proof-case-lead",
+												children: "Previous campaigns were run through random \"boost post\" clicks without proper pixel tracking, resulting in ₹450+ cost per lead with 80% spam inquiries."
+											})
+										]
+									}),
+									/* @__PURE__ */ jsxs("div", {
+										className: "proof-comparison-grid",
+										children: [/* @__PURE__ */ jsxs("div", {
+											className: "proof-box proof-box-before",
+											children: [
+												/* @__PURE__ */ jsx("div", {
+													className: "proof-box-badge badge-before",
+													children: "UNOPTIMIZED BOOST POSTS"
+												}),
+												/* @__PURE__ */ jsxs("div", {
+													className: "proof-box-metrics",
+													children: [
+														/* @__PURE__ */ jsxs("div", {
+															className: "proof-metric-row",
+															children: [/* @__PURE__ */ jsx("span", {
+																className: "metric-label",
+																children: "Cost Per Lead (CPL):"
+															}), /* @__PURE__ */ jsx("span", {
+																className: "metric-value red-text",
+																children: "₹465 / lead"
+															})]
+														}),
+														/* @__PURE__ */ jsxs("div", {
+															className: "proof-metric-row",
+															children: [/* @__PURE__ */ jsx("span", {
+																className: "metric-label",
+																children: "Lead Qualification Rate:"
+															}), /* @__PURE__ */ jsx("span", {
+																className: "metric-value red-text",
+																children: "20% (Mostly junk leads)"
+															})]
+														}),
+														/* @__PURE__ */ jsxs("div", {
+															className: "proof-metric-row",
+															children: [/* @__PURE__ */ jsx("span", {
+																className: "metric-label",
+																children: "Ad Return (ROAS):"
+															}), /* @__PURE__ */ jsx("span", {
+																className: "metric-value",
+																children: "1.1x"
+															})]
+														})
+													]
+												}),
+												/* @__PURE__ */ jsxs("div", {
+													className: "proof-mockup-frame",
+													children: [/* @__PURE__ */ jsxs("div", {
+														className: "mockup-header",
+														children: [/* @__PURE__ */ jsx("span", { className: "mockup-dot" }), /* @__PURE__ */ jsx("span", {
+															className: "mockup-title",
+															children: "Broad Non-Targeted Ad Spend"
+														})]
+													}), /* @__PURE__ */ jsx("div", {
+														className: "mockup-body mockup-dimmed",
+														children: /* @__PURE__ */ jsx("div", {
+															className: "mockup-alert-box red-alert",
+															children: "❌ No custom conversions · Missing lead filtering questions · Budget burned on wrong age brackets."
+														})
+													})]
+												})
+											]
+										}), /* @__PURE__ */ jsxs("div", {
+											className: "proof-box proof-box-after",
+											children: [
+												/* @__PURE__ */ jsxs("div", {
+													className: "proof-box-badge badge-after",
+													children: [/* @__PURE__ */ jsx(Sparkles, { size: 14 }), "S-BLOOM HIGH-INTENT FUNNELS"]
+												}),
+												/* @__PURE__ */ jsxs("div", {
+													className: "proof-box-metrics",
+													children: [
+														/* @__PURE__ */ jsxs("div", {
+															className: "proof-metric-row",
+															children: [/* @__PURE__ */ jsx("span", {
+																className: "metric-label",
+																children: "Cost Per Lead (CPL):"
+															}), /* @__PURE__ */ jsx("span", {
+																className: "metric-value green-text",
+																children: "₹82 / verified inquiry"
+															})]
+														}),
+														/* @__PURE__ */ jsxs("div", {
+															className: "proof-metric-row",
+															children: [/* @__PURE__ */ jsx("span", {
+																className: "metric-label",
+																children: "Lead Qualification Rate:"
+															}), /* @__PURE__ */ jsx("span", {
+																className: "metric-value green-text",
+																children: "86% genuine appointments"
+															})]
+														}),
+														/* @__PURE__ */ jsxs("div", {
+															className: "proof-metric-row",
+															children: [/* @__PURE__ */ jsx("span", {
+																className: "metric-label",
+																children: "Ad Return (ROAS):"
+															}), /* @__PURE__ */ jsx("span", {
+																className: "metric-value green-text",
+																children: "4.4x verified return"
+															})]
+														})
+													]
+												}),
+												/* @__PURE__ */ jsxs("div", {
+													className: "proof-mockup-frame mockup-highlight",
+													children: [/* @__PURE__ */ jsxs("div", {
+														className: "mockup-header",
+														children: [/* @__PURE__ */ jsx("span", { className: "mockup-dot green" }), /* @__PURE__ */ jsx("span", {
+															className: "mockup-title",
+															children: "Google & Meta Ads Manager Dashboard"
+														})]
+													}), /* @__PURE__ */ jsxs("div", {
+														className: "mockup-dashboard-preview",
+														children: [/* @__PURE__ */ jsxs("div", {
+															className: "stat-pill-row",
+															children: [/* @__PURE__ */ jsxs("div", {
+																className: "stat-pill",
+																children: [/* @__PURE__ */ jsx(BarChart3, { size: 16 }), /* @__PURE__ */ jsxs("div", { children: [/* @__PURE__ */ jsx("strong", { children: "₹82 CPL" }), /* @__PURE__ */ jsx("span", { children: "82% cost reduction" })] })]
+															}), /* @__PURE__ */ jsxs("div", {
+																className: "stat-pill",
+																children: [/* @__PURE__ */ jsx(TrendingUp, { size: 16 }), /* @__PURE__ */ jsxs("div", { children: [/* @__PURE__ */ jsx("strong", { children: "4.4x ROAS" }), /* @__PURE__ */ jsx("span", { children: "Positive pipeline ROI" })] })]
+															})]
+														}), /* @__PURE__ */ jsxs("div", {
+															className: "verified-badge-row",
+															children: [/* @__PURE__ */ jsx(CheckCircle2, {
+																size: 16,
+																className: "text-gold"
+															}), /* @__PURE__ */ jsx("span", { children: "Ad spend funds vary client to client based on specific goals & target reach" })]
+														})]
+													})]
+												})
+											]
+										})]
+									}),
+									/* @__PURE__ */ jsxs("div", {
+										className: "proof-outcome-bar",
+										children: [
+											/* @__PURE__ */ jsxs("div", {
+												className: "proof-outcome-item",
+												children: [/* @__PURE__ */ jsx("span", {
+													className: "proof-outcome-number",
+													children: "₹2,000 / mo"
+												}), /* @__PURE__ */ jsx("span", {
+													className: "proof-outcome-desc",
+													children: "Management fee (₹3,000 one-time setup if no ad account exists)"
+												})]
+											}),
+											/* @__PURE__ */ jsxs("div", {
+												className: "proof-outcome-item",
+												children: [/* @__PURE__ */ jsx("span", {
+													className: "proof-outcome-number",
+													children: "Tailored Funds"
+												}), /* @__PURE__ */ jsx("span", {
+													className: "proof-outcome-desc",
+													children: "Ad budget funds vary per client — 100% transparent reporting"
+												})]
+											}),
+											/* @__PURE__ */ jsxs("div", {
+												className: "proof-outcome-item",
+												children: [/* @__PURE__ */ jsx("span", {
+													className: "proof-outcome-number",
+													children: "Targeted"
+												}), /* @__PURE__ */ jsx("span", {
+													className: "proof-outcome-desc",
+													children: "Zero wasted budget on irrelevant audiences"
+												})]
+											}),
+											/* @__PURE__ */ jsx("div", {
+												className: "proof-outcome-action",
+												children: /* @__PURE__ */ jsxs(Link, {
+													to: "/contact?plan=Meta-Google-Ads",
+													className: "proof-action-btn",
+													children: [/* @__PURE__ */ jsx("span", { children: "Scale Your Ads with Us" }), /* @__PURE__ */ jsx(ArrowRight, { size: 16 })]
+												})
+											})
+										]
+									})
+								]
+							})
+						})
+					]
+				})
+			}),
+			/* @__PURE__ */ jsx("section", {
+				className: "proof-why-different-section",
+				children: /* @__PURE__ */ jsx("div", {
+					className: "container",
+					children: /* @__PURE__ */ jsxs("div", {
+						className: "proof-why-box",
+						children: [/* @__PURE__ */ jsxs("div", {
+							className: "proof-why-left",
+							children: [
+								/* @__PURE__ */ jsx("span", {
+									className: "proof-why-eyebrow",
+									children: "WHY OUR WORK BEATS EVERY AGENCY"
+								}),
+								/* @__PURE__ */ jsxs("h2", {
+									className: "proof-why-title",
+									children: [
+										"Budget-Friendly Services. ",
+										/* @__PURE__ */ jsx("br", {}),
+										"Powered by AI. Verified by Data."
+									]
+								}),
+								/* @__PURE__ */ jsxs("p", {
+									className: "proof-why-desc",
+									children: [
+										"Most agencies charge ₹30,000–₹1,00,000+ per month because they rely on bloated teams and outdated manual workflows. At ",
+										/* @__PURE__ */ jsx("strong", { children: "sBLOOM" }),
+										", we harness proprietary AI workflows to produce institutional-grade websites, high-retention Reels, and algorithmic SEO in a fraction of the time — passing all the cost savings directly to you."
+									]
+								}),
+								/* @__PURE__ */ jsxs("div", {
+									className: "proof-why-checklist",
+									children: [
+										/* @__PURE__ */ jsxs("div", {
+											className: "proof-check-item",
+											children: [/* @__PURE__ */ jsx(CheckCircle2, {
+												size: 18,
+												className: "text-gold"
+											}), /* @__PURE__ */ jsx("span", { children: "Purpose-built for Healthcare, Education & Professional Services" })]
+										}),
+										/* @__PURE__ */ jsxs("div", {
+											className: "proof-check-item",
+											children: [/* @__PURE__ */ jsx(CheckCircle2, {
+												size: 18,
+												className: "text-gold"
+											}), /* @__PURE__ */ jsx("span", { children: "Transparent weekly dashboard updates with zero hidden markups" })]
+										}),
+										/* @__PURE__ */ jsxs("div", {
+											className: "proof-check-item",
+											children: [/* @__PURE__ */ jsx(CheckCircle2, {
+												size: 18,
+												className: "text-gold"
+											}), /* @__PURE__ */ jsx("span", { children: "Plans starting as low as ₹2,000/month" })]
+										})
+									]
+								})
+							]
+						}), /* @__PURE__ */ jsx("div", {
+							className: "proof-why-right",
+							children: /* @__PURE__ */ jsxs("div", {
+								className: "proof-why-cta-card",
+								children: [
+									/* @__PURE__ */ jsx("h3", {
+										className: "proof-cta-card-title",
+										children: "Ready to see these numbers for your business?"
+									}),
+									/* @__PURE__ */ jsx("p", {
+										className: "proof-cta-card-desc",
+										children: "Tell us about your organization and get a tailored AI growth audit within 24 hours."
+									}),
+									/* @__PURE__ */ jsxs(Link, {
+										to: "/contact",
+										className: "btn-proof-primary",
+										children: [/* @__PURE__ */ jsx("span", { children: "Talk to sBLOOM" }), /* @__PURE__ */ jsx(ArrowRight, { size: 18 })]
+									}),
+									/* @__PURE__ */ jsx(Link, {
+										to: "/#pricing",
+										className: "btn-proof-secondary",
+										children: /* @__PURE__ */ jsx("span", { children: "View All Pricing Plans" })
+									})
+								]
+							})
+						})]
+					})
+				})
+			})
+		]
+	});
+};
+//#endregion
+//#region src/routes/proof-of-work.tsx
+var proof_of_work_exports = /* @__PURE__ */ __exportAll({
+	default: () => proof_of_work_default,
+	meta: () => meta
+});
+var meta = () => {
+	return [
+		{ title: "Proof of Work | sBLOOM - Real Client Results" },
+		{
+			name: "description",
+			content: "Explore verified before-and-after dashboards for Healthcare, Education, and Professional Services powered by sBLOOM AI-native digital marketing."
+		},
+		{
+			property: "og:title",
+			content: "Proof of Work | sBLOOM - Real Client Results"
+		},
+		{
+			property: "og:description",
+			content: "Explore verified before-and-after dashboards for Healthcare, Education, and Professional Services."
+		}
+	];
+};
+var proof_of_work_default = UNSAFE_withComponentProps(function Route() {
+	return /* @__PURE__ */ jsx(ProofOfWorkPage, {});
+});
+//#endregion
 //#region \0virtual:react-router/server-manifest
 var server_manifest_default = {
 	"entry": {
-		"module": "/assets/entry.client-CQj_wNyt.js",
-		"imports": ["/assets/jsx-runtime-BHANhu7e.js"],
+		"module": "/assets/entry.client-55VPP4AO.js",
+		"imports": ["/assets/jsx-runtime-BsyjEvTb.js"],
 		"css": []
 	},
 	"routes": {
@@ -5680,15 +8101,16 @@ var server_manifest_default = {
 			"hasClientMiddleware": false,
 			"hasDefaultExport": true,
 			"hasErrorBoundary": false,
-			"module": "/assets/root-D2PA7fMm.js",
+			"module": "/assets/root-8yLS7IPD.js",
 			"imports": [
-				"/assets/jsx-runtime-BHANhu7e.js",
-				"/assets/arrow-right-We32XTf0.js",
-				"/assets/camera-DFlvwyjA.js",
-				"/assets/proxy-2z8OEwB7.js",
-				"/assets/phone-OfcaQyEJ.js"
+				"/assets/jsx-runtime-BsyjEvTb.js",
+				"/assets/createLucideIcon-CwdIbnKb.js",
+				"/assets/arrow-right-15U-iPYb.js",
+				"/assets/briefcase-C-mYWWl7.js",
+				"/assets/proxy-ST7B0mD5.js",
+				"/assets/phone-BVAH-4Jp.js"
 			],
-			"css": ["/assets/root-__OHG7lq.css"],
+			"css": ["/assets/root-bpQORl4W.css"],
 			"clientActionModule": void 0,
 			"clientLoaderModule": void 0,
 			"clientMiddlewareModule": void 0,
@@ -5707,18 +8129,25 @@ var server_manifest_default = {
 			"hasClientMiddleware": false,
 			"hasDefaultExport": true,
 			"hasErrorBoundary": false,
-			"module": "/assets/home-nl8wYsfO.js",
+			"module": "/assets/home-DqWSD3Pt.js",
 			"imports": [
-				"/assets/jsx-runtime-BHANhu7e.js",
-				"/assets/arrow-right-We32XTf0.js",
-				"/assets/camera-DFlvwyjA.js",
-				"/assets/check-B3QaiORv.js",
-				"/assets/file-text-C2cXeDTY.js",
-				"/assets/film-BhO0SBg_.js",
-				"/assets/proxy-2z8OEwB7.js",
-				"/assets/ScrollReveal-Dh9yN8p5.js"
+				"/assets/jsx-runtime-BsyjEvTb.js",
+				"/assets/createLucideIcon-CwdIbnKb.js",
+				"/assets/arrow-right-15U-iPYb.js",
+				"/assets/proxy-ST7B0mD5.js",
+				"/assets/circle-check-CH-gujLG.js",
+				"/assets/file-text-Burlk_f5.js",
+				"/assets/film-UP_0_Rum.js",
+				"/assets/megaphone-CuRaGHmu.js",
+				"/assets/monitor-DYPScnuF.js",
+				"/assets/play-DrBcmWZN.js",
+				"/assets/shield-check-DMuVmhW2.js",
+				"/assets/sparkles-2Q9aahuk.js",
+				"/assets/target-ZJMD494F.js",
+				"/assets/users-C2my3pE2.js",
+				"/assets/ScrollReveal-CXAisqc7.js"
 			],
-			"css": ["/assets/home-B_n4jYOw.css"],
+			"css": ["/assets/home-Bw3fLknB.css"],
 			"clientActionModule": void 0,
 			"clientLoaderModule": void 0,
 			"clientMiddlewareModule": void 0,
@@ -5737,16 +8166,19 @@ var server_manifest_default = {
 			"hasClientMiddleware": false,
 			"hasDefaultExport": true,
 			"hasErrorBoundary": false,
-			"module": "/assets/education-BrOYc295.js",
+			"module": "/assets/education-C7QYFV1R.js",
 			"imports": [
-				"/assets/jsx-runtime-BHANhu7e.js",
-				"/assets/arrow-right-We32XTf0.js",
-				"/assets/circle-check-CCXuOjDp.js",
-				"/assets/check-B3QaiORv.js",
-				"/assets/trending-up-ty446-cJ.js",
-				"/assets/ScrollReveal-Dh9yN8p5.js"
+				"/assets/jsx-runtime-BsyjEvTb.js",
+				"/assets/arrow-right-15U-iPYb.js",
+				"/assets/map-pin-BIDWhrwv.js",
+				"/assets/megaphone-CuRaGHmu.js",
+				"/assets/monitor-DYPScnuF.js",
+				"/assets/trending-up-P5GqPifz.js",
+				"/assets/users-C2my3pE2.js",
+				"/assets/ScrollReveal-CXAisqc7.js",
+				"/assets/createLucideIcon-CwdIbnKb.js"
 			],
-			"css": ["/assets/education-so6YjTNq.css"],
+			"css": ["/assets/IndustryPage-CognUMiH.css"],
 			"clientActionModule": void 0,
 			"clientLoaderModule": void 0,
 			"clientMiddlewareModule": void 0,
@@ -5765,9 +8197,19 @@ var server_manifest_default = {
 			"hasClientMiddleware": false,
 			"hasDefaultExport": true,
 			"hasErrorBoundary": false,
-			"module": "/assets/healthcare-y1OnR84q.js",
-			"imports": ["/assets/jsx-runtime-BHANhu7e.js", "/assets/ScrollReveal-Dh9yN8p5.js"],
-			"css": [],
+			"module": "/assets/healthcare-CUTppuPv.js",
+			"imports": [
+				"/assets/jsx-runtime-BsyjEvTb.js",
+				"/assets/arrow-right-15U-iPYb.js",
+				"/assets/map-pin-BIDWhrwv.js",
+				"/assets/megaphone-CuRaGHmu.js",
+				"/assets/monitor-DYPScnuF.js",
+				"/assets/trending-up-P5GqPifz.js",
+				"/assets/users-C2my3pE2.js",
+				"/assets/ScrollReveal-CXAisqc7.js",
+				"/assets/createLucideIcon-CwdIbnKb.js"
+			],
+			"css": ["/assets/IndustryPage-CognUMiH.css"],
 			"clientActionModule": void 0,
 			"clientLoaderModule": void 0,
 			"clientMiddlewareModule": void 0,
@@ -5786,8 +8228,8 @@ var server_manifest_default = {
 			"hasClientMiddleware": false,
 			"hasDefaultExport": true,
 			"hasErrorBoundary": false,
-			"module": "/assets/professional-services-Dl4Dvq-2.js",
-			"imports": ["/assets/jsx-runtime-BHANhu7e.js", "/assets/ScrollReveal-Dh9yN8p5.js"],
+			"module": "/assets/professional-services-Be3B6FtS.js",
+			"imports": ["/assets/jsx-runtime-BsyjEvTb.js", "/assets/ScrollReveal-CXAisqc7.js"],
 			"css": [],
 			"clientActionModule": void 0,
 			"clientLoaderModule": void 0,
@@ -5807,9 +8249,25 @@ var server_manifest_default = {
 			"hasClientMiddleware": false,
 			"hasDefaultExport": true,
 			"hasErrorBoundary": false,
-			"module": "/assets/solutions-Dw5wopZc.js",
-			"imports": ["/assets/jsx-runtime-BHANhu7e.js", "/assets/ScrollReveal-Dh9yN8p5.js"],
-			"css": [],
+			"module": "/assets/solutions-DeDZ4HYA.js",
+			"imports": [
+				"/assets/jsx-runtime-BsyjEvTb.js",
+				"/assets/SolutionsOverviewPage-BfLqq4ld.js",
+				"/assets/createLucideIcon-CwdIbnKb.js",
+				"/assets/arrow-right-15U-iPYb.js",
+				"/assets/proxy-ST7B0mD5.js",
+				"/assets/file-text-Burlk_f5.js",
+				"/assets/map-pin-BIDWhrwv.js",
+				"/assets/megaphone-CuRaGHmu.js",
+				"/assets/play-DrBcmWZN.js",
+				"/assets/search-D5LEcq4c.js",
+				"/assets/shield-check-DMuVmhW2.js",
+				"/assets/target-ZJMD494F.js",
+				"/assets/trending-up-P5GqPifz.js",
+				"/assets/users-C2my3pE2.js",
+				"/assets/ScrollReveal-CXAisqc7.js"
+			],
+			"css": ["/assets/SolutionsOverviewPage-CCmpwlVE.css"],
 			"clientActionModule": void 0,
 			"clientLoaderModule": void 0,
 			"clientMiddlewareModule": void 0,
@@ -5828,9 +8286,25 @@ var server_manifest_default = {
 			"hasClientMiddleware": false,
 			"hasDefaultExport": true,
 			"hasErrorBoundary": false,
-			"module": "/assets/build-BpqyAL8s.js",
-			"imports": ["/assets/jsx-runtime-BHANhu7e.js", "/assets/ScrollReveal-Dh9yN8p5.js"],
-			"css": [],
+			"module": "/assets/build-jn3cbl5V.js",
+			"imports": [
+				"/assets/jsx-runtime-BsyjEvTb.js",
+				"/assets/SolutionsOverviewPage-BfLqq4ld.js",
+				"/assets/createLucideIcon-CwdIbnKb.js",
+				"/assets/arrow-right-15U-iPYb.js",
+				"/assets/proxy-ST7B0mD5.js",
+				"/assets/file-text-Burlk_f5.js",
+				"/assets/map-pin-BIDWhrwv.js",
+				"/assets/megaphone-CuRaGHmu.js",
+				"/assets/play-DrBcmWZN.js",
+				"/assets/search-D5LEcq4c.js",
+				"/assets/shield-check-DMuVmhW2.js",
+				"/assets/target-ZJMD494F.js",
+				"/assets/trending-up-P5GqPifz.js",
+				"/assets/users-C2my3pE2.js",
+				"/assets/ScrollReveal-CXAisqc7.js"
+			],
+			"css": ["/assets/SolutionsOverviewPage-CCmpwlVE.css"],
 			"clientActionModule": void 0,
 			"clientLoaderModule": void 0,
 			"clientMiddlewareModule": void 0,
@@ -5849,9 +8323,25 @@ var server_manifest_default = {
 			"hasClientMiddleware": false,
 			"hasDefaultExport": true,
 			"hasErrorBoundary": false,
-			"module": "/assets/create-DG_yOscR.js",
-			"imports": ["/assets/jsx-runtime-BHANhu7e.js", "/assets/ScrollReveal-Dh9yN8p5.js"],
-			"css": [],
+			"module": "/assets/create-BD2WWFxZ.js",
+			"imports": [
+				"/assets/jsx-runtime-BsyjEvTb.js",
+				"/assets/SolutionsOverviewPage-BfLqq4ld.js",
+				"/assets/createLucideIcon-CwdIbnKb.js",
+				"/assets/arrow-right-15U-iPYb.js",
+				"/assets/proxy-ST7B0mD5.js",
+				"/assets/file-text-Burlk_f5.js",
+				"/assets/map-pin-BIDWhrwv.js",
+				"/assets/megaphone-CuRaGHmu.js",
+				"/assets/play-DrBcmWZN.js",
+				"/assets/search-D5LEcq4c.js",
+				"/assets/shield-check-DMuVmhW2.js",
+				"/assets/target-ZJMD494F.js",
+				"/assets/trending-up-P5GqPifz.js",
+				"/assets/users-C2my3pE2.js",
+				"/assets/ScrollReveal-CXAisqc7.js"
+			],
+			"css": ["/assets/SolutionsOverviewPage-CCmpwlVE.css"],
 			"clientActionModule": void 0,
 			"clientLoaderModule": void 0,
 			"clientMiddlewareModule": void 0,
@@ -5870,9 +8360,25 @@ var server_manifest_default = {
 			"hasClientMiddleware": false,
 			"hasDefaultExport": true,
 			"hasErrorBoundary": false,
-			"module": "/assets/promote-Ca1fhaWg.js",
-			"imports": ["/assets/jsx-runtime-BHANhu7e.js", "/assets/ScrollReveal-Dh9yN8p5.js"],
-			"css": [],
+			"module": "/assets/promote-FQk9-mEN.js",
+			"imports": [
+				"/assets/jsx-runtime-BsyjEvTb.js",
+				"/assets/SolutionsOverviewPage-BfLqq4ld.js",
+				"/assets/createLucideIcon-CwdIbnKb.js",
+				"/assets/arrow-right-15U-iPYb.js",
+				"/assets/proxy-ST7B0mD5.js",
+				"/assets/file-text-Burlk_f5.js",
+				"/assets/map-pin-BIDWhrwv.js",
+				"/assets/megaphone-CuRaGHmu.js",
+				"/assets/play-DrBcmWZN.js",
+				"/assets/search-D5LEcq4c.js",
+				"/assets/shield-check-DMuVmhW2.js",
+				"/assets/target-ZJMD494F.js",
+				"/assets/trending-up-P5GqPifz.js",
+				"/assets/users-C2my3pE2.js",
+				"/assets/ScrollReveal-CXAisqc7.js"
+			],
+			"css": ["/assets/SolutionsOverviewPage-CCmpwlVE.css"],
 			"clientActionModule": void 0,
 			"clientLoaderModule": void 0,
 			"clientMiddlewareModule": void 0,
@@ -5891,9 +8397,17 @@ var server_manifest_default = {
 			"hasClientMiddleware": false,
 			"hasDefaultExport": true,
 			"hasErrorBoundary": false,
-			"module": "/assets/about-Cw6NUqS9.js",
-			"imports": ["/assets/jsx-runtime-BHANhu7e.js", "/assets/ScrollReveal-Dh9yN8p5.js"],
-			"css": [],
+			"module": "/assets/about-V0W4qtp4.js",
+			"imports": [
+				"/assets/jsx-runtime-BsyjEvTb.js",
+				"/assets/createLucideIcon-CwdIbnKb.js",
+				"/assets/briefcase-C-mYWWl7.js",
+				"/assets/target-ZJMD494F.js",
+				"/assets/trending-up-P5GqPifz.js",
+				"/assets/users-C2my3pE2.js",
+				"/assets/ScrollReveal-CXAisqc7.js"
+			],
+			"css": ["/assets/about-5IYE-Zsv.css"],
 			"clientActionModule": void 0,
 			"clientLoaderModule": void 0,
 			"clientMiddlewareModule": void 0,
@@ -5912,9 +8426,18 @@ var server_manifest_default = {
 			"hasClientMiddleware": false,
 			"hasDefaultExport": true,
 			"hasErrorBoundary": false,
-			"module": "/assets/how-it-works-beujm97M.js",
-			"imports": ["/assets/jsx-runtime-BHANhu7e.js", "/assets/ScrollReveal-Dh9yN8p5.js"],
-			"css": [],
+			"module": "/assets/how-it-works-B2Cxq7Rr.js",
+			"imports": [
+				"/assets/jsx-runtime-BsyjEvTb.js",
+				"/assets/createLucideIcon-CwdIbnKb.js",
+				"/assets/chart-column-CkOwwm5a.js",
+				"/assets/lightbulb-CPfvZZEL.js",
+				"/assets/rocket-DS-d3Amh.js",
+				"/assets/search-D5LEcq4c.js",
+				"/assets/trending-up-P5GqPifz.js",
+				"/assets/ScrollReveal-CXAisqc7.js"
+			],
+			"css": ["/assets/how-it-works-CLU59gNz.css"],
 			"clientActionModule": void 0,
 			"clientLoaderModule": void 0,
 			"clientMiddlewareModule": void 0,
@@ -5933,17 +8456,43 @@ var server_manifest_default = {
 			"hasClientMiddleware": false,
 			"hasDefaultExport": true,
 			"hasErrorBoundary": false,
-			"module": "/assets/creative-workspace-IdNcVbT5.js",
+			"module": "/assets/creative-workspace-CfcCNmV1.js",
 			"imports": [
-				"/assets/jsx-runtime-BHANhu7e.js",
-				"/assets/arrow-right-We32XTf0.js",
-				"/assets/camera-DFlvwyjA.js",
-				"/assets/file-text-C2cXeDTY.js",
-				"/assets/film-BhO0SBg_.js",
-				"/assets/trending-up-ty446-cJ.js",
-				"/assets/ScrollReveal-Dh9yN8p5.js"
+				"/assets/jsx-runtime-BsyjEvTb.js",
+				"/assets/createLucideIcon-CwdIbnKb.js",
+				"/assets/arrow-right-15U-iPYb.js",
+				"/assets/briefcase-C-mYWWl7.js",
+				"/assets/circle-check-CH-gujLG.js",
+				"/assets/file-text-Burlk_f5.js",
+				"/assets/film-UP_0_Rum.js",
+				"/assets/phone-BVAH-4Jp.js",
+				"/assets/rocket-DS-d3Amh.js",
+				"/assets/target-ZJMD494F.js",
+				"/assets/user-DHGRb9qL.js",
+				"/assets/ScrollReveal-CXAisqc7.js"
 			],
-			"css": ["/assets/creative-workspace-B3xJ1GNi.css"],
+			"css": ["/assets/creative-workspace-DHEOdfjN.css"],
+			"clientActionModule": void 0,
+			"clientLoaderModule": void 0,
+			"clientMiddlewareModule": void 0,
+			"hydrateFallbackModule": void 0
+		},
+		"routes/apply": {
+			"id": "routes/apply",
+			"parentId": "root",
+			"path": "apply",
+			"index": void 0,
+			"caseSensitive": void 0,
+			"hasAction": false,
+			"hasLoader": false,
+			"hasClientAction": false,
+			"hasClientLoader": false,
+			"hasClientMiddleware": false,
+			"hasDefaultExport": true,
+			"hasErrorBoundary": false,
+			"module": "/assets/apply-BtdK-Xzp.js",
+			"imports": ["/assets/jsx-runtime-BsyjEvTb.js"],
+			"css": [],
 			"clientActionModule": void 0,
 			"clientLoaderModule": void 0,
 			"clientMiddlewareModule": void 0,
@@ -5962,23 +8511,59 @@ var server_manifest_default = {
 			"hasClientMiddleware": false,
 			"hasDefaultExport": true,
 			"hasErrorBoundary": false,
-			"module": "/assets/contact-HYGjSy55.js",
+			"module": "/assets/contact-Dop--lko.js",
 			"imports": [
-				"/assets/jsx-runtime-BHANhu7e.js",
-				"/assets/arrow-right-We32XTf0.js",
-				"/assets/circle-check-CCXuOjDp.js",
-				"/assets/file-text-C2cXeDTY.js",
-				"/assets/phone-OfcaQyEJ.js"
+				"/assets/jsx-runtime-BsyjEvTb.js",
+				"/assets/createLucideIcon-CwdIbnKb.js",
+				"/assets/arrow-right-15U-iPYb.js",
+				"/assets/chart-column-CkOwwm5a.js",
+				"/assets/circle-check-CH-gujLG.js",
+				"/assets/file-text-Burlk_f5.js",
+				"/assets/lightbulb-CPfvZZEL.js",
+				"/assets/phone-BVAH-4Jp.js",
+				"/assets/user-DHGRb9qL.js"
 			],
-			"css": ["/assets/contact-CoDvOEga.css"],
+			"css": ["/assets/contact-6JLp--au.css"],
+			"clientActionModule": void 0,
+			"clientLoaderModule": void 0,
+			"clientMiddlewareModule": void 0,
+			"hydrateFallbackModule": void 0
+		},
+		"routes/proof-of-work": {
+			"id": "routes/proof-of-work",
+			"parentId": "root",
+			"path": "proof-of-work",
+			"index": void 0,
+			"caseSensitive": void 0,
+			"hasAction": false,
+			"hasLoader": false,
+			"hasClientAction": false,
+			"hasClientLoader": false,
+			"hasClientMiddleware": false,
+			"hasDefaultExport": true,
+			"hasErrorBoundary": false,
+			"module": "/assets/proof-of-work-BEbjgHSS.js",
+			"imports": [
+				"/assets/jsx-runtime-BsyjEvTb.js",
+				"/assets/createLucideIcon-CwdIbnKb.js",
+				"/assets/arrow-right-15U-iPYb.js",
+				"/assets/chart-column-CkOwwm5a.js",
+				"/assets/circle-check-CH-gujLG.js",
+				"/assets/search-D5LEcq4c.js",
+				"/assets/shield-check-DMuVmhW2.js",
+				"/assets/sparkles-2Q9aahuk.js",
+				"/assets/trending-up-P5GqPifz.js",
+				"/assets/ScrollReveal-CXAisqc7.js"
+			],
+			"css": ["/assets/proof-of-work-BXOfu75J.css"],
 			"clientActionModule": void 0,
 			"clientLoaderModule": void 0,
 			"clientMiddlewareModule": void 0,
 			"hydrateFallbackModule": void 0
 		}
 	},
-	"url": "/assets/manifest-420175b5.js",
-	"version": "420175b5",
+	"url": "/assets/manifest-ab2d0fd0.js",
+	"version": "ab2d0fd0",
 	"sri": void 0
 };
 //#endregion
@@ -6113,6 +8698,14 @@ var routes = {
 		caseSensitive: void 0,
 		module: creative_workspace_exports
 	},
+	"routes/apply": {
+		id: "routes/apply",
+		parentId: "root",
+		path: "apply",
+		index: void 0,
+		caseSensitive: void 0,
+		module: apply_exports
+	},
 	"routes/contact": {
 		id: "routes/contact",
 		parentId: "root",
@@ -6120,6 +8713,14 @@ var routes = {
 		index: void 0,
 		caseSensitive: void 0,
 		module: contact_exports
+	},
+	"routes/proof-of-work": {
+		id: "routes/proof-of-work",
+		parentId: "root",
+		path: "proof-of-work",
+		index: void 0,
+		caseSensitive: void 0,
+		module: proof_of_work_exports
 	}
 };
 var allowedActionOrigins = false;

@@ -44,7 +44,13 @@ type Pages = {
   "/creative-workspace": {
     params: {};
   };
+  "/apply": {
+    params: {};
+  };
   "/contact": {
+    params: {};
+  };
+  "/proof-of-work": {
     params: {};
   };
 };
@@ -52,7 +58,7 @@ type Pages = {
 type RouteFiles = {
   "root.tsx": {
     id: "root";
-    page: "/" | "/industries/education" | "/industries/healthcare" | "/industries/professional-services" | "/solutions" | "/solutions/build" | "/solutions/create" | "/solutions/promote" | "/about" | "/how-it-works" | "/creative-workspace" | "/contact";
+    page: "/" | "/industries/education" | "/industries/healthcare" | "/industries/professional-services" | "/solutions" | "/solutions/build" | "/solutions/create" | "/solutions/promote" | "/about" | "/how-it-works" | "/creative-workspace" | "/apply" | "/contact" | "/proof-of-work";
   };
   "routes/home.tsx": {
     id: "routes/home";
@@ -98,9 +104,17 @@ type RouteFiles = {
     id: "routes/creative-workspace";
     page: "/creative-workspace";
   };
+  "routes/apply.tsx": {
+    id: "routes/apply";
+    page: "/apply";
+  };
   "routes/contact.tsx": {
     id: "routes/contact";
     page: "/contact";
+  };
+  "routes/proof-of-work.tsx": {
+    id: "routes/proof-of-work";
+    page: "/proof-of-work";
   };
 };
 
@@ -117,5 +131,7 @@ type RouteModules = {
   "routes/about": typeof import("./src/routes/about.tsx");
   "routes/how-it-works": typeof import("./src/routes/how-it-works.tsx");
   "routes/creative-workspace": typeof import("./src/routes/creative-workspace.tsx");
+  "routes/apply": typeof import("./src/routes/apply.tsx");
   "routes/contact": typeof import("./src/routes/contact.tsx");
+  "routes/proof-of-work": typeof import("./src/routes/proof-of-work.tsx");
 };

@@ -1,0 +1,434 @@
+/* ==========================================================================
+   ABOUT PAGE - MATCHING SCREENSHOT DESIGN
+   ========================================================================== */
+
+.about-page {
+  min-height: 100vh;
+  background-color: #FAF6EF;
+  background-image: 
+    radial-gradient(ellipse at 85% 15%, rgba(246, 230, 207, 0.65) 0%, transparent 65%),
+    radial-gradient(ellipse at 15% 85%, rgba(240, 226, 210, 0.7) 0%, transparent 70%);
+  position: relative;
+  overflow: hidden;
+  padding: 76px 0 20px 0;
+  color: #1F1915;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.about-bg-glow {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(90px);
+  pointer-events: none;
+  z-index: 0;
+}
+
+.about-glow-top {
+  width: 500px;
+  height: 500px;
+  top: -120px;
+  right: -100px;
+  background: radial-gradient(circle, rgba(235, 203, 155, 0.3) 0%, transparent 70%);
+}
+
+.about-glow-bottom {
+  width: 600px;
+  height: 600px;
+  bottom: -150px;
+  left: -150px;
+  background: radial-gradient(circle, rgba(215, 185, 145, 0.25) 0%, transparent 70%);
+}
+
+.about-bg-waves {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 0;
+  overflow: hidden;
+}
+
+.about-bg-waves svg {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.about-container {
+  position: relative;
+  z-index: 2;
+  max-width: 1240px;
+  margin: 0 auto;
+  padding: 0 24px;
+  width: 100%;
+}
+
+/* ==========================================================================
+   HERO GRID: LEFT CONTENT + RIGHT 3 ARCHES
+   ========================================================================== */
+
+.about-hero-grid {
+  display: grid;
+  grid-template-columns: 1fr 1.05fr;
+  gap: 36px;
+  align-items: center;
+  margin-bottom: 22px;
+}
+
+@media (max-width: 1024px) {
+  .about-hero-grid {
+    grid-template-columns: 1fr;
+    gap: 28px;
+  }
+}
+
+.about-hero-text {
+  max-width: 540px;
+}
+
+.about-eyebrow {
+  font-family: var(--font-heading);
+  font-size: 0.8rem;
+  font-weight: 750;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: #8F6235;
+  margin-bottom: 8px;
+  display: inline-block;
+}
+
+.about-hero-title {
+  font-family: var(--font-heading);
+  font-size: 2.35rem;
+  font-weight: 800;
+  color: #1F1915;
+  line-height: 1.15;
+  margin: 0 0 12px 0;
+  letter-spacing: -0.025em;
+}
+
+@media (max-width: 640px) {
+  .about-hero-title {
+    font-size: 1.85rem;
+  }
+}
+
+.about-hero-desc {
+  font-family: var(--font-body);
+  font-size: 0.98rem;
+  line-height: 1.5;
+  color: #55473A;
+  margin: 0;
+}
+
+/* Visual Scene */
+.about-hero-visual-wrap {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+.about-visual-scene {
+  width: 100%;
+  max-width: 520px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+}
+
+/* 3 Arches Cluster */
+.about-arches-cluster {
+  display: grid;
+  grid-template-columns: 1fr 1.05fr 1fr;
+  gap: 12px;
+  width: 100%;
+  align-items: flex-end;
+  position: relative;
+  z-index: 1;
+}
+
+.about-arch-card {
+  text-decoration: none;
+  background: #FFFFFF;
+  border: 1.5px solid #E8D9C6;
+  border-radius: 36px 36px 18px 18px;
+  overflow: hidden;
+  box-shadow: 0 8px 22px rgba(100, 70, 40, 0.08);
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  transition: all 0.3s cubic-bezier(0.2, 0, 0, 1);
+}
+
+.about-arch-healthcare {
+  height: 195px;
+}
+
+.about-arch-education {
+  height: 225px;
+}
+
+.about-arch-pro {
+  height: 195px;
+}
+
+@media (max-width: 600px) {
+  .about-arch-healthcare,
+  .about-arch-education,
+  .about-arch-pro {
+    height: 160px;
+    border-radius: 28px 28px 14px 14px;
+  }
+}
+
+.about-arch-card:hover {
+  transform: translateY(-4px);
+  border-color: #C5965A;
+  box-shadow: 0 14px 30px rgba(100, 70, 40, 0.14);
+}
+
+.about-arch-img-wrap {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+
+.about-arch-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.4s ease;
+}
+
+.about-arch-card:hover .about-arch-img {
+  transform: scale(1.06);
+}
+
+/* Floating Pill Badge */
+.about-arch-badge {
+  position: absolute;
+  bottom: 8px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(8px);
+  border: 1px solid #ECD8C4;
+  border-radius: 9999px;
+  padding: 3px 10px 3px 5px;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  box-shadow: 0 3px 10px rgba(60, 40, 20, 0.1);
+  white-space: nowrap;
+  pointer-events: none;
+  z-index: 3;
+  transition: transform 0.2s ease, border-color 0.2s ease;
+}
+
+.about-arch-card:hover .about-arch-badge {
+  border-color: #BA7C3D;
+  transform: translateX(-50%) translateY(-2px);
+}
+
+.about-badge-icon-box {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: #FAF0E1;
+  border: 1px solid #ECD5B7;
+  color: #8F562B;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.about-badge-text {
+  font-family: var(--font-heading);
+  font-size: 0.72rem;
+  font-weight: 700;
+  color: #2C2017;
+}
+
+/* Desk Foreground with Laptop Graphic */
+.about-desk-foreground {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  margin-top: -26px;
+  position: relative;
+  z-index: 2;
+}
+
+.about-laptop-mockup {
+  width: 160px;
+  filter: drop-shadow(0 10px 22px rgba(80, 50, 25, 0.18));
+}
+
+.about-laptop-lid {
+  background: #25201B;
+  border-radius: 8px 8px 0 0;
+  padding: 4px 4px 0 4px;
+}
+
+.about-laptop-screen {
+  background: #FFFBF4;
+  border-radius: 5px 5px 0 0;
+  height: 82px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid #E8DCBE;
+  position: relative;
+  overflow: hidden;
+}
+
+.about-chart-display {
+  display: flex;
+  align-items: flex-end;
+  gap: 8px;
+  padding: 8px;
+}
+
+.about-chart-icon {
+  color: #B8854E;
+  margin-bottom: 2px;
+}
+
+.about-chart-bars {
+  display: flex;
+  align-items: flex-end;
+  gap: 5px;
+  height: 40px;
+}
+
+.about-bar {
+  width: 7px;
+  background: #ECD5B7;
+  border-radius: 2px 2px 0 0;
+  transition: all 0.3s ease;
+}
+
+.about-bar.is-active {
+  background: linear-gradient(180deg, #BA7C3D 0%, #8F562B 100%);
+}
+
+.about-laptop-base {
+  height: 6px;
+  background: #CFC5B8;
+  border-radius: 0 0 6px 6px;
+  border-top: 1px solid #DFD6CA;
+  border-bottom: 2px solid #A89B8D;
+  position: relative;
+}
+
+.about-laptop-base::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 30px;
+  height: 2px;
+  background: #8F8274;
+  border-radius: 0 0 2px 2px;
+}
+
+/* ==========================================================================
+   BOTTOM PILLARS SECTION: "Our Approach" & "How We Work"
+   ========================================================================== */
+
+.about-pillars-section {
+  padding-top: 0;
+}
+
+.about-pillars-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 22px;
+}
+
+@media (max-width: 860px) {
+  .about-pillars-grid {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+}
+
+.about-pillar-card {
+  background: #FFFFFF;
+  border: 1.5px solid #EBE0D2;
+  border-radius: 18px;
+  padding: 18px 22px;
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  box-shadow: 0 6px 18px rgba(100, 70, 40, 0.04);
+  transition: all 0.28s cubic-bezier(0.2, 0, 0, 1);
+  height: 100%;
+  box-sizing: border-box;
+}
+
+.about-pillar-card:hover {
+  border-color: #CCA066;
+  transform: translateY(-3px);
+  box-shadow: 0 12px 28px rgba(100, 70, 40, 0.1);
+}
+
+.about-pillar-icon-box {
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  background: #FAF3E8;
+  border: 1.5px solid #ECD8BF;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  color: #8F562B;
+  transition: transform 0.3s ease;
+}
+
+.about-pillar-card:hover .about-pillar-icon-box {
+  transform: scale(1.06);
+  background: #F5E8D4;
+}
+
+.about-pillar-content {
+  flex: 1;
+}
+
+.about-pillar-title {
+  font-family: var(--font-heading);
+  font-size: 1.2rem;
+  font-weight: 750;
+  color: #1F1915;
+  margin: 0;
+}
+
+.about-pillar-underline {
+  width: 30px;
+  height: 2px;
+  background: #C5965A;
+  border-radius: 2px;
+  margin: 4px 0 8px 0;
+}
+
+.about-pillar-text {
+  font-family: var(--font-body);
+  font-size: 0.88rem;
+  line-height: 1.45;
+  color: #55473A;
+  margin: 0;
+}
+
+@media (max-width: 768px) {
+  .about-page {
+    padding: 85px 0 40px 0;
+  }
+}

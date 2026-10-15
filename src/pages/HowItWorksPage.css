@@ -1,0 +1,550 @@
+/* ==========================================================================
+   HOW IT WORKS PAGE - COMPACT VIEWPORT-FITTING DESIGN
+   ========================================================================== */
+
+.hiw-page {
+  min-height: 100vh;
+  background-color: #FAF6EF;
+  background-image: 
+    radial-gradient(ellipse at 85% 15%, rgba(246, 230, 207, 0.65) 0%, transparent 65%),
+    radial-gradient(ellipse at 15% 85%, rgba(240, 226, 210, 0.7) 0%, transparent 70%);
+  position: relative;
+  overflow: hidden;
+  padding: 76px 0 20px 0;
+  color: #1F1915;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.hiw-bg-glow {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(90px);
+  pointer-events: none;
+  z-index: 0;
+}
+
+.hiw-glow-top {
+  width: 500px;
+  height: 500px;
+  top: -120px;
+  right: -100px;
+  background: radial-gradient(circle, rgba(235, 203, 155, 0.3) 0%, transparent 70%);
+}
+
+.hiw-glow-bottom {
+  width: 600px;
+  height: 600px;
+  bottom: -150px;
+  left: -150px;
+  background: radial-gradient(circle, rgba(215, 185, 145, 0.25) 0%, transparent 70%);
+}
+
+.hiw-bg-waves {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 0;
+  overflow: hidden;
+}
+
+.hiw-bg-waves svg {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.hiw-container {
+  position: relative;
+  z-index: 2;
+  max-width: 1260px;
+  margin: 0 auto;
+  padding: 0 20px;
+  width: 100%;
+}
+
+/* ==========================================================================
+   HERO GRID: LEFT CONTENT + RIGHT 4 ARCHES & DESK SCENE
+   ========================================================================== */
+
+.hiw-hero-grid {
+  display: grid;
+  grid-template-columns: 1fr 1.1fr;
+  gap: 36px;
+  align-items: center;
+  margin-bottom: 18px;
+}
+
+@media (max-width: 1024px) {
+  .hiw-hero-grid {
+    grid-template-columns: 1fr;
+    gap: 24px;
+  }
+}
+
+.hiw-hero-text {
+  max-width: 520px;
+}
+
+.hiw-eyebrow {
+  font-family: var(--font-heading);
+  font-size: 0.8rem;
+  font-weight: 750;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: #8F6235;
+  margin-bottom: 6px;
+  display: inline-block;
+}
+
+.hiw-hero-title {
+  font-family: var(--font-heading);
+  font-size: 2.35rem;
+  font-weight: 800;
+  color: #1F1915;
+  line-height: 1.15;
+  margin: 0 0 8px 0;
+  letter-spacing: -0.025em;
+}
+
+@media (max-width: 640px) {
+  .hiw-hero-title {
+    font-size: 1.85rem;
+  }
+}
+
+.hiw-gold-italic {
+  font-style: italic;
+  color: #BA7C3D;
+  font-family: var(--font-heading);
+}
+
+.hiw-title-underline {
+  width: 32px;
+  height: 2.5px;
+  background: #C5965A;
+  border-radius: 2px;
+  margin-bottom: 12px;
+}
+
+.hiw-hero-desc {
+  font-family: var(--font-body);
+  font-size: 0.95rem;
+  line-height: 1.48;
+  color: #55473A;
+  margin: 0;
+}
+
+/* Visual Scene */
+.hiw-hero-visual-wrap {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+.hiw-visual-scene {
+  width: 100%;
+  max-width: 540px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+}
+
+/* 4 Arches Cluster */
+.hiw-arches-cluster {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 10px;
+  width: 100%;
+  align-items: flex-end;
+  position: relative;
+  z-index: 1;
+}
+
+.hiw-arch-card {
+  background: #FFFFFF;
+  border: 1.5px solid #E8D9C6;
+  border-radius: 28px 28px 14px 14px;
+  overflow: hidden;
+  box-shadow: 0 6px 18px rgba(100, 70, 40, 0.08);
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  transition: all 0.3s cubic-bezier(0.2, 0, 0, 1);
+}
+
+.hiw-arch-1 { height: 140px; }
+.hiw-arch-2 { height: 125px; }
+.hiw-arch-3 { height: 150px; }
+.hiw-arch-4 { height: 135px; }
+
+@media (max-width: 600px) {
+  .hiw-arch-1, .hiw-arch-2, .hiw-arch-3, .hiw-arch-4 {
+    height: 110px;
+    border-radius: 20px 20px 10px 10px;
+  }
+}
+
+.hiw-arch-card:hover {
+  transform: translateY(-4px);
+  border-color: #C5965A;
+  box-shadow: 0 10px 24px rgba(100, 70, 40, 0.14);
+}
+
+.hiw-arch-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.4s ease;
+}
+
+.hiw-arch-card:hover .hiw-arch-img {
+  transform: scale(1.06);
+}
+
+/* Floating Pill Badges */
+.hiw-arch-badge {
+  position: absolute;
+  bottom: 6px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(8px);
+  border: 1px solid #ECD8C4;
+  border-radius: 9999px;
+  padding: 2px 7px 2px 4px;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  box-shadow: 0 3px 8px rgba(60, 40, 20, 0.08);
+  white-space: nowrap;
+  pointer-events: none;
+  z-index: 3;
+}
+
+.hiw-badge-icon-box {
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: #FAF0E1;
+  border: 1px solid #ECD5B7;
+  color: #8F562B;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.hiw-badge-text {
+  font-family: var(--font-heading);
+  font-size: 0.65rem;
+  font-weight: 700;
+  color: #2C2017;
+}
+
+/* Desk Scene: Laptop & Book Stack */
+.hiw-desk-scene {
+  width: 100%;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  gap: 16px;
+  margin-top: -24px;
+  position: relative;
+  z-index: 2;
+}
+
+.hiw-laptop-mockup {
+  width: 170px;
+  filter: drop-shadow(0 10px 22px rgba(80, 50, 25, 0.18));
+}
+
+.hiw-laptop-lid {
+  background: #25201B;
+  border-radius: 8px 8px 0 0;
+  padding: 4px 4px 0 4px;
+}
+
+.hiw-laptop-screen {
+  background: #FFFBF4;
+  border-radius: 5px 5px 0 0;
+  height: 86px;
+  padding: 7px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  border: 1px solid #E8DCBE;
+  position: relative;
+  overflow: hidden;
+  box-sizing: border-box;
+}
+
+.hiw-screen-content {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  width: 100%;
+}
+
+.hiw-screen-heading {
+  font-family: var(--font-heading);
+  font-size: 0.64rem;
+  font-weight: 750;
+  color: #1F1915;
+}
+
+.hiw-screen-underline {
+  width: 20px;
+  height: 2px;
+  background: #C5965A;
+  margin: 2px 0 5px 0;
+}
+
+.hiw-chart-wrap {
+  display: flex;
+  align-items: flex-end;
+  gap: 8px;
+  width: 100%;
+  margin-top: auto;
+}
+
+.hiw-chart-arrow {
+  color: #BA7C3D;
+  margin-bottom: 2px;
+}
+
+.hiw-chart-bars {
+  display: flex;
+  align-items: flex-end;
+  gap: 4px;
+  height: 38px;
+  flex: 1;
+}
+
+.hiw-bar {
+  width: 6px;
+  background: #E8D5BF;
+  border-radius: 2px 2px 0 0;
+  transition: all 0.3s ease;
+}
+
+.hiw-bar.is-top {
+  background: linear-gradient(180deg, #BA7C3D 0%, #8F562B 100%);
+}
+
+.hiw-laptop-base {
+  height: 6px;
+  background: #CFC5B8;
+  border-radius: 0 0 6px 6px;
+  border-top: 1px solid #DFD6CA;
+  border-bottom: 2px solid #A89B8D;
+  position: relative;
+}
+
+.hiw-laptop-base::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 30px;
+  height: 2px;
+  background: #8F8274;
+  border-radius: 0 0 2px 2px;
+}
+
+/* Book Stack */
+.hiw-book-stack {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  width: 76px;
+  margin-bottom: 3px;
+  filter: drop-shadow(0 4px 10px rgba(70, 45, 20, 0.12));
+}
+
+.hiw-book {
+  height: 11px;
+  background: #F8F3EA;
+  border: 1px solid #D8C7B2;
+  border-radius: 2px;
+  display: flex;
+  align-items: center;
+  padding: 0 6px;
+  box-shadow: inset 0 -1px 2px rgba(0, 0, 0, 0.04);
+}
+
+.hiw-book-spine {
+  font-family: var(--font-heading);
+  font-size: 0.54rem;
+  font-weight: 750;
+  letter-spacing: 0.04em;
+  color: #554434;
+}
+
+/* ==========================================================================
+   5 STEPS PROCESS SECTION WITH CONNECTING FLOW LINE
+   ========================================================================== */
+
+.hiw-steps-section {
+  position: relative;
+  padding-top: 6px;
+}
+
+.hiw-connecting-wave {
+  position: absolute;
+  top: 4px;
+  left: 0;
+  width: 100%;
+  height: 50px;
+  pointer-events: none;
+  z-index: 1;
+}
+
+@media (max-width: 1024px) {
+  .hiw-connecting-wave {
+    display: none;
+  }
+}
+
+.hiw-connecting-wave svg {
+  width: 100%;
+  height: 100%;
+}
+
+.hiw-steps-grid {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 12px;
+  position: relative;
+  z-index: 2;
+}
+
+@media (max-width: 1100px) {
+  .hiw-steps-grid {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+  }
+}
+
+@media (max-width: 768px) {
+  .hiw-steps-grid {
+    grid-template-columns: 1fr;
+    gap: 18px;
+  }
+}
+
+.hiw-step-card-wrap {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: 100%;
+}
+
+.hiw-step-num-badge {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: #FFFFFF;
+  border: 1.5px solid #DECDB8;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-heading);
+  font-size: 0.74rem;
+  font-weight: 750;
+  color: #5C3826;
+  box-shadow: 0 3px 8px rgba(80, 50, 25, 0.08);
+  margin-bottom: -14px;
+  position: relative;
+  z-index: 4;
+}
+
+.hiw-step-card {
+  background: #FFFFFF;
+  border: 1.5px solid #EBE0D2;
+  border-radius: 26px 26px 14px 14px;
+  padding: 20px 10px 14px 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  box-shadow: 0 6px 18px rgba(100, 70, 40, 0.04);
+  height: 100%;
+  box-sizing: border-box;
+  transition: all 0.28s cubic-bezier(0.2, 0, 0, 1);
+}
+
+.hiw-step-card:hover {
+  border-color: #CCA066;
+  transform: translateY(-3px);
+  box-shadow: 0 10px 24px rgba(100, 70, 40, 0.1);
+}
+
+.hiw-step-icon-circle {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 10px auto;
+  transition: transform 0.3s ease;
+}
+
+.hiw-step-card:hover .hiw-step-icon-circle {
+  transform: scale(1.08);
+}
+
+.hiw-tint-lavender {
+  background: #EFEAF4;
+  border: 1.2px solid #E2D7EB;
+  color: #5C3826;
+}
+
+.hiw-tint-peach {
+  background: #FCEEE0;
+  border: 1.2px solid #F3DFCC;
+  color: #8C5528;
+}
+
+.hiw-step-title {
+  font-family: var(--font-heading);
+  font-size: 0.88rem;
+  font-weight: 750;
+  color: #1F1915;
+  margin: 0;
+  min-height: 34px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  line-height: 1.2;
+}
+
+.hiw-step-underline {
+  width: 22px;
+  height: 1.5px;
+  background: #DECDB8;
+  border-radius: 1px;
+  margin: 6px auto;
+}
+
+.hiw-step-desc {
+  font-family: var(--font-body);
+  font-size: 0.76rem;
+  line-height: 1.35;
+  color: #5A4E42;
+  margin: 0;
+  text-align: center;
+}
+
+@media (max-width: 768px) {
+  .hiw-page {
+    padding: 85px 0 40px 0;
+  }
+}

@@ -1,13 +1,25 @@
+import React, { useEffect } from "react";
 import {
   Links,
   Meta,
   Outlet,
   Scripts,
-  ScrollRestoration,
+  useLocation,
 } from "react-router";
 import { Navbar } from "./components/layout/Navbar";
 import { Footer } from "./components/layout/Footer";
 import "./index.css";
+
+function ScrollToTop() {
+  const { pathname } = useLocation();
+
+  useEffect(() => {
+    // When redirecting or navigating to any page, always start from the top
+    window.scrollTo(0, 0);
+  }, [pathname]);
+
+  return null;
+}
 
 export function Layout({ children }: { children: React.ReactNode }) {
   return (
@@ -19,6 +31,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
         <Links />
       </head>
       <body>
+        <ScrollToTop />
         <div className="app-layout">
           <Navbar />
           <main style={{ flex: 1 }}>
@@ -26,7 +39,6 @@ export function Layout({ children }: { children: React.ReactNode }) {
           </main>
           <Footer />
         </div>
-        <ScrollRestoration />
         <Scripts />
       </body>
     </html>

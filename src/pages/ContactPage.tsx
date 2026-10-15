@@ -69,11 +69,11 @@ export const ContactPage: React.FC = () => {
 
   return (
     <div className="contact-page-wrapper">
-      {/* Approved Visual Reference Background: Champagne Silk with Flowing Gold Curves */}
+      {/* Photo Desk Setting with Warm Sunlight, Laptop & Green Plant matching img 1 */}
       <div className="contact-bg-backdrop" aria-hidden="true">
         <img
-          src="/contact-silk-gold-bg.png"
-          alt=""
+          src="/contact-desk-bg.jpg"
+          alt="sBLOOM Workspace"
           className="contact-bg-image"
         />
         <div className="contact-bg-light-tint" />
@@ -100,7 +100,7 @@ export const ContactPage: React.FC = () => {
 
             {/* Supporting Paragraph */}
             <p className="contact-hero-desc">
-              Tell us about your organization and what you are trying to achieve. We'll help you identify the right opportunities and next steps.
+              Tell us about your organization and what you are trying to achieve. We’ll help you identify the right opportunities and next steps.
             </p>
 
             {/* 3 Strategic Process Steps: Understand, Strategize, Grow Together */}
@@ -147,7 +147,6 @@ export const ContactPage: React.FC = () => {
             <div className="contact-card">
               {/* Card Eyebrow */}
               <div className="contact-card-badge">
-                <span className="contact-card-badge-dot" />
                 <span className="contact-card-badge-text">CONTACT sBLOOM</span>
                 <span className="contact-card-badge-line" />
               </div>

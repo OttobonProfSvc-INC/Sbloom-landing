@@ -12,5 +12,7 @@ export default [
   route("about", "routes/about.tsx"),
   route("how-it-works", "routes/how-it-works.tsx"),
   route("creative-workspace", "routes/creative-workspace.tsx"),
+  route("apply", "routes/apply.tsx"),
   route("contact", "routes/contact.tsx"),
+  route("proof-of-work", "routes/proof-of-work.tsx"),
 ] satisfies RouteConfig;

@@ -1,15 +1,15 @@
 import type { MetaFunction } from "react-router";
-import { PromotePage } from "../pages/solutions/PromotePage";
+import { SolutionsOverviewPage } from "../pages/solutions/SolutionsOverviewPage";
 
 export const meta: MetaFunction = () => {
   return [
-    { title: "Promote to the Right Audience | sBLOOM" },
-    { name: "description", content: "Campaigns, ads, and performance marketing." },
-    { property: "og:title", content: "Promote to the Right Audience | sBLOOM" },
-    { property: "og:description", content: "Campaigns, ads, and performance marketing." },
+    { title: "PROMOTE — Reach The Right Audience | sBLOOM Solutions" },
+    { name: "description", content: "Targeted advertising and marketing campaigns." },
+    { property: "og:title", content: "PROMOTE — Reach The Right Audience | sBLOOM Solutions" },
+    { property: "og:description", content: "Targeted advertising and marketing campaigns." },
   ];
 };
 
 export default function Route() {
-  return <PromotePage />;
+  return <SolutionsOverviewPage initialSection="promote" />;
 }

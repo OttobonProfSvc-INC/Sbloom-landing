@@ -5,6 +5,8 @@ import { DigitalGrowthSystem } from '../components/home/DigitalGrowthSystem';
 import { HeroFloatingIcons } from '../components/home/HeroFloatingIcons';
 import { HeroSubtleCurves } from '../components/home/HeroSubtleCurves';
 import { DualPathCards } from '../components/home/DualPathCards';
+import { HomePricingSection } from '../components/home/HomePricingSection';
+import { WhyBetter } from '../components/home/WhyBetter';
 import { BottomCornerScrollShowcase } from '../components/home/BottomCornerScrollShowcase';
 
 export const HomePage: React.FC = () => {
@@ -67,7 +69,7 @@ export const HomePage: React.FC = () => {
           {/* Left Column: Typography & CTAs */}
           <div className="hero-final-content">
             <div className="hero-final-eyebrow">
-              <span className="eyebrow-text">DIGITAL GROWTH PARTNER</span>
+              <span className="eyebrow-text">AI DIGITAL GROWTH PARTNER</span>
               <span className="eyebrow-line" />
             </div>
 
@@ -107,6 +109,12 @@ export const HomePage: React.FC = () => {
       <div className="home-lower-silk-wrapper">
         {/* SECTION 4 - What sBLOOM Changes */}
         <DigitalGrowthSystem />
+
+        {/* SECTION: Why S-Bloom is Best Out of All Digital Marketing Agencies */}
+        <WhyBetter />
+
+        {/* SECTION 5 - Simple Plans. Real Business Growth (Pricing) */}
+        <HomePricingSection />
 
         {/* SECTION 10 - Final CTA */}
         <section className="home-final-cta-section">

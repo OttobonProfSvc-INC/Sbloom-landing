@@ -15,10 +15,9 @@ export const Navbar: React.FC = () => {
   };
 
   const industries = [
-    { name: 'Education', desc: 'Digital growth for education institutions', href: '/industries/education' },
-    { name: 'Healthcare', desc: 'Digital growth for healthcare organizations', href: '/industries/healthcare' },
-    { name: 'Technology & IT', desc: 'Digital growth for tech organizations', href: '/industries/technology' },
-    { name: 'Professional Services', desc: 'Digital growth for professional firms', href: '/industries/professional-services' }
+    { name: 'Education', href: '/industries/education' },
+    { name: 'Healthcare', href: '/industries/healthcare' },
+    { name: 'Professional Services', href: '/industries/professional-services' }
   ];
 
   return (
@@ -63,11 +62,7 @@ export const Navbar: React.FC = () => {
                         aria-current={location.pathname === ind.href ? 'page' : undefined}
                         onClick={handleMobileClick}
                       >
-                        <div className="dropdown-item-content">
-                          <span className="dropdown-item-title">{ind.name}</span>
-                          <span className="dropdown-item-desc">{ind.desc}</span>
-                        </div>
-                        <span className="dropdown-item-arrow">→</span>
+                        <span className="dropdown-item-title">{ind.name}</span>
                       </Link>
                     ))}
                   </motion.div>
@@ -86,8 +81,12 @@ export const Navbar: React.FC = () => {
             <li>
               <Link to="/about" className={`nav-link ${location.pathname === '/about' ? 'active' : ''}`} aria-current={location.pathname === '/about' ? 'page' : undefined} onClick={handleMobileClick}>About</Link>
             </li>
-            <li className="nav-workspace-item" style={{ marginLeft: '16px', borderLeft: '1px solid var(--border-subtle)', paddingLeft: '24px' }}>
-              <Link to="/creative-workspace" className={`nav-link ${location.pathname === '/creative-workspace' ? 'active' : ''}`} style={{ fontSize: '0.8rem', textTransform: 'uppercase', letterSpacing: '1px' }} onClick={handleMobileClick}>Creative Workspace</Link>
+
+            <li>
+              <Link to="/proof-of-work" className={`nav-link ${location.pathname === '/proof-of-work' ? 'active' : ''}`} aria-current={location.pathname === '/proof-of-work' ? 'page' : undefined} onClick={handleMobileClick}>Proof of Work</Link>
+            </li>
+            <li className="nav-workspace-item" style={{ marginLeft: '10px', borderLeft: '1px solid rgba(229, 169, 60, 0.25)', paddingLeft: '16px' }}>
+              <Link to="/creative-workspace" className={`nav-link ${location.pathname === '/creative-workspace' ? 'active' : ''}`} style={{ fontSize: '0.78rem', textTransform: 'uppercase', letterSpacing: '0.8px' }} onClick={handleMobileClick}>Creative Workspace</Link>
             </li>
             <li className="nav-cta-item">
               <Link to="/contact" className="btn btn-primary btn-nav" onClick={handleMobileClick}>Talk to sBLOOM</Link>

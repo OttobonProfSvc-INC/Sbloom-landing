@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router';
 import { ScrollReveal } from '../ScrollReveal';
 
 export const DigitalGrowthSystem: React.FC = () => {
   const [hoveredStage, setHoveredStage] = useState<string | null>(null);
   const [isMobile, setIsMobile] = useState(false);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const handleResize = () => setIsMobile(window.innerWidth < 1024);
@@ -21,7 +22,7 @@ export const DigitalGrowthSystem: React.FC = () => {
       headline: 'Be easier to find.',
       desc: 'Establish a strong digital foundation with websites, local SEO, and business profiles.',
       services: ['Website Design & Development', 'SEO', 'Google Business Profile'],
-      link: '/solutions/build',
+      link: '/solutions#build',
       linkText: 'Explore Build →'
     },
     {
@@ -31,7 +32,7 @@ export const DigitalGrowthSystem: React.FC = () => {
       headline: 'Be easier to understand.',
       desc: 'Communicate expertise and value through meaningful content, video, and creative work.',
       services: ['Social Media Management', 'Social Media Posts', 'Reels and Videos', 'Digital Content'],
-      link: '/solutions/create',
+      link: '/solutions#create',
       linkText: 'Explore Create →'
     },
     {
@@ -41,7 +42,7 @@ export const DigitalGrowthSystem: React.FC = () => {
       headline: 'Reach the people who matter.',
       desc: 'Reach relevant audiences through targeted campaigns and distribution.',
       services: ['Meta Ads', 'Google Ads', 'Performance Marketing', 'Campaign Management'],
-      link: '/solutions/promote',
+      link: '/solutions#promote',
       linkText: 'Explore Promote →'
     },
     {
@@ -51,7 +52,7 @@ export const DigitalGrowthSystem: React.FC = () => {
       headline: 'Drive sustainable growth.',
       desc: 'The intended business outcome, turning a stronger digital presence into a foundation for business growth.',
       services: ['Increased Visibility', 'Qualified Leads', 'Brand Trust'],
-      link: '/solutions',
+      link: '/solutions#grow',
       linkText: 'Explore Solutions →'
     }
   ];
@@ -70,7 +71,11 @@ export const DigitalGrowthSystem: React.FC = () => {
           <div className="dgs-mobile-journey">
             {stages.map((stage, idx) => (
               <ScrollReveal key={stage.id} delay={idx * 100}>
-                <div className="dgs-mobile-stage">
+                <div 
+                  className="dgs-mobile-stage"
+                  onClick={() => navigate(stage.link)}
+                  style={{ cursor: 'pointer' }}
+                >
                   <div className="dgs-mobile-num-label">
                     <span className="dgs-m-num">{stage.num}</span>
                     <span className="dgs-m-label">{stage.label}</span>
@@ -84,7 +89,13 @@ export const DigitalGrowthSystem: React.FC = () => {
                     ))}
                   </div>
                   
-                  <Link to={stage.link} className="dgs-m-link">{stage.linkText}</Link>
+                  <Link 
+                    to={stage.link} 
+                    className="dgs-m-link"
+                    onClick={(e) => e.stopPropagation()}
+                  >
+                    {stage.linkText}
+                  </Link>
                   
                   {/* Connecting Line */}
                   {idx < stages.length - 1 && <div className="dgs-m-line"></div>}
@@ -158,6 +169,8 @@ export const DigitalGrowthSystem: React.FC = () => {
                   key={stage.id} 
                   className={`dgs-col ${isActive ? 'active' : ''} ${isDimmed ? 'dimmed' : ''}`}
                   onMouseEnter={() => setHoveredStage(stage.id)}
+                  onClick={() => navigate(stage.link)}
+                  style={{ cursor: 'pointer' }}
                 >
                   <h3 className="dgs-col-headline">{stage.headline}</h3>
                   <p className="dgs-col-desc">{stage.desc}</p>
@@ -168,7 +181,13 @@ export const DigitalGrowthSystem: React.FC = () => {
                     ))}
                   </div>
                   
-                  <Link to={stage.link} className="dgs-explore-link">{stage.linkText}</Link>
+                  <Link 
+                    to={stage.link} 
+                    className="dgs-explore-link"
+                    onClick={(e) => e.stopPropagation()}
+                  >
+                    {stage.linkText}
+                  </Link>
                 </div>
               );
             })}

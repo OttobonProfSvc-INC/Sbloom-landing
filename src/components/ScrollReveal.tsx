@@ -5,13 +5,15 @@ interface ScrollRevealProps {
   delay?: number; // Delay in milliseconds
   className?: string;
   threshold?: number; // 0.0 to 1.0 (percentage of element visible before triggering)
+  style?: React.CSSProperties;
 }
 
 export const ScrollReveal: React.FC<ScrollRevealProps> = ({ 
   children, 
   delay = 0, 
   className = '',
-  threshold = 0.1 
+  threshold = 0.1,
+  style: userStyle = {}
 }) => {
   const [isVisible, setIsVisible] = useState(false);
   const domRef = useRef<HTMLDivElement>(null);
@@ -60,6 +62,7 @@ export const ScrollReveal: React.FC<ScrollRevealProps> = ({
 
   const style: React.CSSProperties = {
     transitionDelay: `${delay}ms`,
+    ...userStyle,
   };
 
   return (
