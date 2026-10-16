@@ -260,7 +260,7 @@ var Footer = () => {
 							"aria-label": "sBLOOM Home",
 							className: "footer-logo-link",
 							children: /* @__PURE__ */ jsx("img", {
-								src: "/sbloom-logo-v2.jpg",
+								src: "/sbloom-logo-transparent.png",
 								alt: "sBLOOM Logo",
 								className: "footer-logo"
 							})
@@ -8141,7 +8141,7 @@ var server_manifest_default = {
 			"hasClientMiddleware": false,
 			"hasDefaultExport": true,
 			"hasErrorBoundary": false,
-			"module": "/assets/root-B8j5PJYa.js",
+			"module": "/assets/root-C_HI4BcU.js",
 			"imports": [
 				"/assets/jsx-runtime-Cvr-326h.js",
 				"/assets/createLucideIcon-BbNJcHBT.js",
@@ -8155,7 +8155,7 @@ var server_manifest_default = {
 				"/assets/proxy-zBmQOEAL.js",
 				"/assets/AnimatePresence-Drl4xYzo.js"
 			],
-			"css": ["/assets/root-aant6YTH.css"],
+			"css": ["/assets/root-BiNeSDzu.css"],
 			"clientActionModule": void 0,
 			"clientLoaderModule": void 0,
 			"clientMiddlewareModule": void 0,
@@ -8665,8 +8665,8 @@ var server_manifest_default = {
 			"hydrateFallbackModule": void 0
 		}
 	},
-	"url": "/assets/manifest-3317b1d1.js",
-	"version": "3317b1d1",
+	"url": "/assets/manifest-c3ed4987.js",
+	"version": "c3ed4987",
 	"sri": void 0
 };
 //#endregion

@@ -107,9 +107,10 @@ a {
   flex-shrink: 0;
 }
 .logo-img {
-  height: 28px;
+  height: 32px;
   width: auto;
   display: block;
+  object-fit: contain;
 }
 .nav-links {
   display: flex;

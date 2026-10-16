@@ -22,7 +22,7 @@ export const Footer: React.FC = () => {
           {/* LEFT: Branding */}
           <div className="footer-brand">
             <Link to="/" aria-label="sBLOOM Home" className="footer-logo-link">
-              <img src="/sbloom-logo-v2.jpg" alt="sBLOOM Logo" className="footer-logo" />
+              <img src="/sbloom-logo-transparent.png" alt="sBLOOM Logo" className="footer-logo" />
             </Link>
             <p className="footer-desc">
               S-Bloom is a specialized digital growth partner for expertise-led organizations in healthcare, education, and professional services.
