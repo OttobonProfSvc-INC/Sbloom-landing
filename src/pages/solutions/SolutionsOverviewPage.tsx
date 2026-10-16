@@ -839,24 +839,6 @@ export const SolutionsOverviewPage: React.FC<SolutionsPageProps> = ({ initialSec
           </div>
         </div>
       </div>
-
-      {/* =================================================================
-         6. FINAL CTA SECTION ON SOLUTIONS PAGE
-         ================================================================= */}
-      <div className="sol-container">
-        <ScrollReveal delay={100}>
-          <div className="sol-final-cta">
-            <h2 className="sol-final-title">Your business has potential. Let’s help people see it.</h2>
-            <p className="sol-final-desc">
-              Whether you need to build your foundation, create compelling content, or reach new audiences, we are ready to help.
-            </p>
-            <Link to="/contact" className="sol-final-btn">
-              <span>Talk to sBLOOM</span>
-              <ArrowRight size={18} strokeWidth={2.2} />
-            </Link>
-          </div>
-        </ScrollReveal>
-      </div>
     </div>
   );
 };

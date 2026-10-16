@@ -95,11 +95,6 @@ export const DualPathCards: React.FC = () => {
                   Grow your business. Build your brand.
                 </h4>
 
-                {/* Description */}
-                <p className="dual-path-card-desc">
-                  Build your online presence, strengthen credibility, and reach the right audience with strategic digital solutions.
-                </p>
-
                 {/* Divider Line */}
                 <hr className="dual-path-card-divider" />
 
@@ -146,11 +141,6 @@ export const DualPathCards: React.FC = () => {
                 <h4 className="dual-path-card-headline">
                   Create with S-Bloom. Grow with us.
                 </h4>
-
-                {/* Description */}
-                <p className="dual-path-card-desc">
-                  Work with S-Bloom on creative projects, digital content, and ideas that help businesses grow. We're looking to connect with talented people who want to create meaningful work together.
-                </p>
 
                 {/* Divider Line */}
                 <hr className="dual-path-card-divider" />

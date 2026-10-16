@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { Link } from 'react-router';
+import React, { useState, useEffect } from 'react';
+import { Link, useSearchParams } from 'react-router';
 import { 
   ArrowRight, 
   TrendingUp, 
@@ -250,7 +250,27 @@ const POW_CASES: Record<POWCategory, POWCaseData> = {
 };
 
 export const ProofOfWorkPage: React.FC = () => {
-  const [activeTab, setActiveTab] = useState<POWCategory>('gbp');
+  const [searchParams] = useSearchParams();
+  const serviceParam = searchParams.get('service') as POWCategory | null;
+  const initialCategory: POWCategory = (serviceParam && ['gbp', 'website', 'social', 'ads'].includes(serviceParam))
+    ? serviceParam
+    : 'gbp';
+
+  const [activeTab, setActiveTab] = useState<POWCategory>(initialCategory);
+
+  useEffect(() => {
+    const service = searchParams.get('service') as POWCategory | null;
+    if (service && ['gbp', 'website', 'social', 'ads'].includes(service)) {
+      setActiveTab(service);
+      setTimeout(() => {
+        const target = document.querySelector('.proof-pill-nav-wrap');
+        if (target) {
+          target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+      }, 100);
+    }
+  }, [searchParams]);
+
   const currentCase = POW_CASES[activeTab];
 
   return (

@@ -6,7 +6,7 @@
 .dual-path-section {
   position: relative;
   width: 100%;
-  padding: 100px 0 110px;
+  padding: 36px 0 64px;
   background-color: #FAF6EE;
   background: 
     radial-gradient(ellipse at 85% 15%, #FFF6E2 0%, rgba(255, 246, 226, 0.5) 40%, transparent 70%),
@@ -114,8 +114,8 @@
 .dual-path-container {
   position: relative;
   z-index: 2;
-  width: 92%;
-  max-width: 1080px;
+  width: 94%;
+  max-width: 1440px;
   margin: 0 auto;
 }
 
@@ -125,7 +125,7 @@
 
 .dual-path-header {
   text-align: center;
-  margin-bottom: 48px;
+  margin-bottom: 32px;
 }
 
 .dual-path-title {

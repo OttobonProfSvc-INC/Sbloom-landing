@@ -1,11 +1,11 @@
 import { PassThrough } from "node:stream";
 import { createReadableStreamFromReadable } from "@react-router/node";
-import { Link, Links, Meta, Navigate, Outlet, Scripts, ServerRouter, UNSAFE_withComponentProps, useLocation, useNavigate } from "react-router";
+import { Link, Links, Meta, Navigate, Outlet, Scripts, ServerRouter, UNSAFE_withComponentProps, useLocation, useNavigate, useSearchParams } from "react-router";
 import { isbot } from "isbot";
 import { renderToPipeableStream } from "react-dom/server";
 import { Fragment, jsx, jsxs } from "react/jsx-runtime";
 import { useCallback, useEffect, useRef, useState } from "react";
-import { ArrowLeft, ArrowRight, BarChart3, BookOpen, Bookmark, Bot, Briefcase, Building2, Calendar, Camera, Check, CheckCircle2, ChevronDown, Clock, FileText, Film, Gift, Globe, GraduationCap, Heart, Image, LayoutGrid, Leaf, Lightbulb, Link2, Mail, MapPin, Megaphone, Menu, MessageCircle, MessageSquare, Monitor, MonitorSmartphone, Palette, PenTool, Phone, PhoneCall, Play, Rocket, Search, Send, ShieldCheck, Smartphone, Sparkles, Star, Target, TrendingUp, User, UserPlus, Users, Volume2, VolumeX, Wallet, X, Zap } from "lucide-react";
+import { ArrowLeft, ArrowRight, BarChart3, BookOpen, Bookmark, Bot, Briefcase, Building2, Calendar, Camera, Check, CheckCircle2, ChevronDown, ChevronUp, Clock, Code2, Compass, Crown, FileText, Film, Gift, Globe, GraduationCap, Heart, Image, LayoutGrid, Leaf, Lightbulb, Link2, Mail, MapPin, Megaphone, Menu, MessageCircle, MessageSquare, Monitor, MonitorSmartphone, Palette, PenTool, Phone, PhoneCall, Play, Rocket, Search, Send, ShieldCheck, Smartphone, Sparkles, Star, Target, TrendingUp, User, UserPlus, Users, Volume2, Wallet, X, Zap } from "lucide-react";
 import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 //#region \0rolldown/runtime.js
 var __defProp = Object.defineProperty;
@@ -636,137 +636,37 @@ var ScrollReveal = ({ children, delay = 0, className = "", threshold = .1, style
 //#region src/components/home/DigitalGrowthSystem.tsx
 var DigitalGrowthSystem = () => {
 	const [hoveredStage, setHoveredStage] = useState(null);
-	const [isMobile, setIsMobile] = useState(false);
-	const navigate = useNavigate();
-	useEffect(() => {
-		const handleResize = () => setIsMobile(window.innerWidth < 1024);
-		handleResize();
-		window.addEventListener("resize", handleResize);
-		return () => window.removeEventListener("resize", handleResize);
-	}, []);
+	useNavigate();
 	const stages = [
 		{
 			id: "build",
 			num: "01",
 			label: "BUILD",
 			headline: "Be easier to find.",
-			desc: "Establish a strong digital foundation with websites, local SEO, and business profiles.",
-			services: [
-				"Website Design & Development",
-				"SEO",
-				"Google Business Profile"
-			],
-			link: "/solutions#build",
-			linkText: "Explore Build →"
+			link: "/solutions#build"
 		},
 		{
 			id: "create",
 			num: "02",
 			label: "CREATE",
 			headline: "Be easier to understand.",
-			desc: "Communicate expertise and value through meaningful content, video, and creative work.",
-			services: [
-				"Social Media Management",
-				"Social Media Posts",
-				"Reels and Videos",
-				"Digital Content"
-			],
-			link: "/solutions#create",
-			linkText: "Explore Create →"
+			link: "/solutions#create"
 		},
 		{
 			id: "promote",
 			num: "03",
 			label: "PROMOTE",
-			headline: "Reach the people who matter.",
-			desc: "Reach relevant audiences through targeted campaigns and distribution.",
-			services: [
-				"Meta Ads",
-				"Google Ads",
-				"Performance Marketing",
-				"Campaign Management"
-			],
-			link: "/solutions#promote",
-			linkText: "Explore Promote →"
+			headline: "Be easier to reach the people who matter.",
+			link: "/solutions#promote"
 		},
 		{
 			id: "grow",
 			num: "04",
 			label: "GROW",
-			headline: "Drive sustainable growth.",
-			desc: "The intended business outcome, turning a stronger digital presence into a foundation for business growth.",
-			services: [
-				"Increased Visibility",
-				"Qualified Leads",
-				"Brand Trust"
-			],
-			link: "/solutions#grow",
-			linkText: "Explore Solutions →"
+			headline: "Be easier to drive sustainable growth.",
+			link: "/solutions#grow"
 		}
 	];
-	if (isMobile) return /* @__PURE__ */ jsx("section", {
-		className: "dgs-section section",
-		children: /* @__PURE__ */ jsxs("div", {
-			className: "container",
-			children: [/* @__PURE__ */ jsx(ScrollReveal, {
-				delay: 0,
-				children: /* @__PURE__ */ jsxs("div", {
-					className: "dgs-intro",
-					children: [/* @__PURE__ */ jsx("span", {
-						className: "dgs-label",
-						children: "WHAT SBLOOM CHANGES"
-					}), /* @__PURE__ */ jsx("h2", {
-						className: "dgs-main-heading",
-						children: "We turn what you do well into something people can see, understand and act on."
-					})]
-				})
-			}), /* @__PURE__ */ jsx("div", {
-				className: "dgs-mobile-journey",
-				children: stages.map((stage, idx) => /* @__PURE__ */ jsx(ScrollReveal, {
-					delay: idx * 100,
-					children: /* @__PURE__ */ jsxs("div", {
-						className: "dgs-mobile-stage",
-						onClick: () => navigate(stage.link),
-						style: { cursor: "pointer" },
-						children: [
-							/* @__PURE__ */ jsxs("div", {
-								className: "dgs-mobile-num-label",
-								children: [/* @__PURE__ */ jsx("span", {
-									className: "dgs-m-num",
-									children: stage.num
-								}), /* @__PURE__ */ jsx("span", {
-									className: "dgs-m-label",
-									children: stage.label
-								})]
-							}),
-							/* @__PURE__ */ jsx("h3", {
-								className: "dgs-m-headline",
-								children: stage.headline
-							}),
-							/* @__PURE__ */ jsx("p", {
-								className: "dgs-m-desc",
-								children: stage.desc
-							}),
-							/* @__PURE__ */ jsx("div", {
-								className: "dgs-m-services",
-								children: stage.services.map((service, i) => /* @__PURE__ */ jsx("div", {
-									className: "dgs-service-item",
-									children: service
-								}, i))
-							}),
-							/* @__PURE__ */ jsx(Link, {
-								to: stage.link,
-								className: "dgs-m-link",
-								onClick: (e) => e.stopPropagation(),
-								children: stage.linkText
-							}),
-							idx < stages.length - 1 && /* @__PURE__ */ jsx("div", { className: "dgs-m-line" })
-						]
-					})
-				}, stage.id))
-			})]
-		})
-	});
 	return /* @__PURE__ */ jsx("section", {
 		className: "dgs-section section",
 		children: /* @__PURE__ */ jsxs("div", {
@@ -784,82 +684,57 @@ var DigitalGrowthSystem = () => {
 					})]
 				})
 			}), /* @__PURE__ */ jsxs("div", {
-				className: "dgs-system-wrapper",
-				children: [
-					/* @__PURE__ */ jsx("div", {
-						className: "dgs-diagram-top",
-						children: stages.map((stage) => {
-							const isActive = hoveredStage === stage.id;
-							return /* @__PURE__ */ jsxs("div", {
-								className: `dgs-node ${isActive ? "active" : ""} ${hoveredStage !== null && !isActive ? "dimmed" : ""}`,
-								children: [/* @__PURE__ */ jsx("span", {
-									className: "dgs-node-num",
-									children: stage.num
-								}), /* @__PURE__ */ jsx("span", {
-									className: "dgs-node-label",
-									children: stage.label
-								})]
-							}, stage.id);
-						})
-					}),
-					/* @__PURE__ */ jsxs("div", {
-						className: "dgs-line-system",
-						children: [/* @__PURE__ */ jsx("div", {
-							className: "dgs-horizontal-line",
-							children: /* @__PURE__ */ jsx("div", {
-								className: "dgs-horizontal-line-highlight",
-								style: {
-									width: hoveredStage === "build" ? "12.5%" : hoveredStage === "create" ? "37.5%" : hoveredStage === "promote" ? "62.5%" : hoveredStage === "grow" ? "87.5%" : "0%",
-									opacity: hoveredStage ? 1 : 0
-								}
-							})
-						}), /* @__PURE__ */ jsxs("div", {
-							className: "dgs-vertical-drops",
+				className: "dgs-stream-wrapper",
+				children: [/* @__PURE__ */ jsx("div", {
+					className: "dgs-stream-track",
+					"aria-hidden": "true"
+				}), /* @__PURE__ */ jsx("div", {
+					className: "dgs-stream-grid",
+					children: stages.map((stage, idx) => {
+						const isHovered = hoveredStage === stage.id;
+						return /* @__PURE__ */ jsxs("div", {
+							className: `dgs-stream-item ${isHovered ? "active" : ""}`,
+							onMouseEnter: () => setHoveredStage(stage.id),
+							onMouseLeave: () => setHoveredStage(null),
 							children: [
-								/* @__PURE__ */ jsx("div", { className: `dgs-v-drop ${hoveredStage === "build" ? "active" : ""}` }),
-								/* @__PURE__ */ jsx("div", { className: `dgs-v-drop ${hoveredStage === "create" ? "active" : ""}` }),
-								/* @__PURE__ */ jsx("div", { className: `dgs-v-drop ${hoveredStage === "promote" ? "active" : ""}` }),
-								/* @__PURE__ */ jsx("div", { className: `dgs-v-drop ${hoveredStage === "grow" ? "active" : ""}` })
-							]
-						})]
-					}),
-					/* @__PURE__ */ jsx("div", {
-						className: "dgs-columns",
-						onMouseLeave: () => setHoveredStage(null),
-						children: stages.map((stage) => {
-							const isActive = hoveredStage === stage.id;
-							return /* @__PURE__ */ jsxs("div", {
-								className: `dgs-col ${isActive ? "active" : ""} ${hoveredStage !== null && !isActive ? "dimmed" : ""}`,
-								onMouseEnter: () => setHoveredStage(stage.id),
-								onClick: () => navigate(stage.link),
-								style: { cursor: "pointer" },
-								children: [
-									/* @__PURE__ */ jsx("h3", {
-										className: "dgs-col-headline",
-										children: stage.headline
-									}),
-									/* @__PURE__ */ jsx("p", {
-										className: "dgs-col-desc",
-										children: stage.desc
-									}),
-									/* @__PURE__ */ jsx("div", {
-										className: "dgs-services-list",
-										children: stage.services.map((service, i) => /* @__PURE__ */ jsx("div", {
-											className: "dgs-service-item",
-											children: service
-										}, i))
-									}),
-									/* @__PURE__ */ jsx(Link, {
+								/* @__PURE__ */ jsxs("div", {
+									className: "dgs-stream-header",
+									children: [/* @__PURE__ */ jsx("span", {
+										className: "dgs-stream-num",
+										children: stage.num
+									}), /* @__PURE__ */ jsx("span", {
+										className: "dgs-stream-label",
+										children: stage.label
+									})]
+								}),
+								/* @__PURE__ */ jsx("h3", {
+									className: "dgs-stream-headline",
+									children: stage.headline
+								}),
+								/* @__PURE__ */ jsx("div", {
+									className: "dgs-stream-action",
+									children: /* @__PURE__ */ jsx(Link, {
 										to: stage.link,
-										className: "dgs-explore-link",
-										onClick: (e) => e.stopPropagation(),
-										children: stage.linkText
+										className: "dgs-explore-btn",
+										"aria-label": `Explore ${stage.label}`,
+										onClick: (e) => {
+											e.stopPropagation();
+										},
+										children: /* @__PURE__ */ jsxs("span", { children: ["Explore ", stage.label.charAt(0) + stage.label.slice(1).toLowerCase()] })
 									})
-								]
-							}, stage.id);
-						})
+								}),
+								idx < stages.length - 1 && /* @__PURE__ */ jsxs("div", {
+									className: "dgs-stream-arrow-divider",
+									"aria-hidden": "true",
+									children: [/* @__PURE__ */ jsx("span", { className: "dgs-divider-line" }), /* @__PURE__ */ jsx(ArrowRight, {
+										size: 14,
+										className: "dgs-divider-icon"
+									})]
+								})
+							]
+						}, stage.id);
 					})
-				]
+				})]
 			})]
 		})
 	});
@@ -2357,10 +2232,6 @@ var DualPathCards = () => {
 										className: "dual-path-card-headline",
 										children: "Grow your business. Build your brand."
 									}),
-									/* @__PURE__ */ jsx("p", {
-										className: "dual-path-card-desc",
-										children: "Build your online presence, strengthen credibility, and reach the right audience with strategic digital solutions."
-									}),
 									/* @__PURE__ */ jsx("hr", { className: "dual-path-card-divider" }),
 									/* @__PURE__ */ jsxs("ul", {
 										className: "dual-path-feature-list",
@@ -2442,10 +2313,6 @@ var DualPathCards = () => {
 									/* @__PURE__ */ jsx("h4", {
 										className: "dual-path-card-headline",
 										children: "Create with S-Bloom. Grow with us."
-									}),
-									/* @__PURE__ */ jsx("p", {
-										className: "dual-path-card-desc",
-										children: "Work with S-Bloom on creative projects, digital content, and ideas that help businesses grow. We're looking to connect with talented people who want to create meaningful work together."
 									}),
 									/* @__PURE__ */ jsx("hr", { className: "dual-path-card-divider" }),
 									/* @__PURE__ */ jsxs("ul", {
@@ -2545,62 +2412,6 @@ var GbpIcon = () => /* @__PURE__ */ jsxs("svg", {
 		fill: "#BA7C3D"
 	})]
 });
-var CurvedArrowSvg = () => /* @__PURE__ */ jsxs("svg", {
-	className: "home-pricing-promo-arrow",
-	width: "54",
-	height: "32",
-	viewBox: "0 0 54 32",
-	fill: "none",
-	xmlns: "http://www.w3.org/2000/svg",
-	children: [/* @__PURE__ */ jsx("path", {
-		d: "M4 28C14 28 28 24 46 8",
-		stroke: "#BA7C3D",
-		strokeWidth: "2.2",
-		strokeLinecap: "round"
-	}), /* @__PURE__ */ jsx("path", {
-		d: "M36 6L47 7.5L46 18",
-		stroke: "#BA7C3D",
-		strokeWidth: "2.2",
-		strokeLinecap: "round",
-		strokeLinejoin: "round"
-	})]
-});
-var SunburstSparks = () => /* @__PURE__ */ jsxs("svg", {
-	width: "20",
-	height: "20",
-	viewBox: "0 0 20 20",
-	fill: "none",
-	xmlns: "http://www.w3.org/2000/svg",
-	children: [
-		/* @__PURE__ */ jsx("line", {
-			x1: "10",
-			y1: "2",
-			x2: "10",
-			y2: "7",
-			stroke: "#BA7C3D",
-			strokeWidth: "2",
-			strokeLinecap: "round"
-		}),
-		/* @__PURE__ */ jsx("line", {
-			x1: "3.5",
-			y1: "4.5",
-			x2: "7.5",
-			y2: "8.5",
-			stroke: "#BA7C3D",
-			strokeWidth: "2",
-			strokeLinecap: "round"
-		}),
-		/* @__PURE__ */ jsx("line", {
-			x1: "16.5",
-			y1: "4.5",
-			x2: "12.5",
-			y2: "8.5",
-			stroke: "#BA7C3D",
-			strokeWidth: "2",
-			strokeLinecap: "round"
-		})
-	]
-});
 var HomePricingSection = () => {
 	return /* @__PURE__ */ jsx("section", {
 		className: "home-pricing-section",
@@ -2608,63 +2419,37 @@ var HomePricingSection = () => {
 		children: /* @__PURE__ */ jsxs("div", {
 			className: "home-pricing-container",
 			children: [
-				/* @__PURE__ */ jsxs("div", {
+				/* @__PURE__ */ jsx("div", {
 					className: "home-pricing-hero-row",
-					children: [/* @__PURE__ */ jsx("div", {
+					children: /* @__PURE__ */ jsx("div", {
 						className: "home-pricing-hero-text",
 						children: /* @__PURE__ */ jsxs(ScrollReveal, {
 							delay: 0,
-							children: [
-								/* @__PURE__ */ jsxs("div", {
-									className: "home-pricing-eyebrow-row",
-									children: [/* @__PURE__ */ jsx("span", {
+							children: [/* @__PURE__ */ jsxs("div", {
+								className: "home-pricing-eyebrow-container",
+								children: [
+									/* @__PURE__ */ jsx("span", {
+										className: "home-pricing-eyebrow-line",
+										"aria-hidden": "true"
+									}),
+									/* @__PURE__ */ jsx("span", {
 										className: "home-pricing-eyebrow",
 										children: "BUDGET-FRIENDLY & AI-POWERED"
-									}), /* @__PURE__ */ jsxs(Link, {
-										to: "/proof-of-work",
-										className: "home-pricing-proof-pill",
-										children: [
-											/* @__PURE__ */ jsx(Sparkles, { size: 13 }),
-											/* @__PURE__ */ jsx("span", { children: "See Verified Proof of Work" }),
-											/* @__PURE__ */ jsx(ArrowRight, { size: 13 })
-										]
-									})]
-								}),
-								/* @__PURE__ */ jsxs("h2", {
-									className: "home-pricing-title",
-									children: [
-										"Simple Plans.",
-										/* @__PURE__ */ jsx("br", {}),
-										/* @__PURE__ */ jsx("span", {
-											className: "home-pricing-title-italic",
-											children: "Real "
-										}),
-										/* @__PURE__ */ jsx("span", {
-											className: "home-pricing-title-serif",
-											children: "Business Growth."
-										})
-									]
-								}),
-								/* @__PURE__ */ jsx("p", {
-									className: "home-pricing-desc",
-									children: "High-performance digital growth built for Healthcare, Education, and Professional Services. Powered by AI to cut your agency costs in half while delivering more patients, admissions, and clients."
-								})
-							]
+									}),
+									/* @__PURE__ */ jsx("span", {
+										className: "home-pricing-eyebrow-line",
+										"aria-hidden": "true"
+									})
+								]
+							}), /* @__PURE__ */ jsxs("h2", {
+								className: "home-pricing-title",
+								children: ["Simple Plans. ", /* @__PURE__ */ jsx("span", {
+									className: "home-pricing-title-serif",
+									children: "Real Business Growth."
+								})]
+							})]
 						})
-					}), /* @__PURE__ */ jsx("div", {
-						className: "home-pricing-visual-wrap",
-						children: /* @__PURE__ */ jsx(ScrollReveal, {
-							delay: 150,
-							children: /* @__PURE__ */ jsx("div", {
-								className: "home-pricing-visual-card",
-								children: /* @__PURE__ */ jsx("img", {
-									src: "/pricing-laptop-growth.jpg",
-									alt: "Business Growth Dashboard and Strategy",
-									className: "home-pricing-hero-img"
-								})
-							})
-						})
-					})]
+					})
 				}),
 				/* @__PURE__ */ jsx("div", {
 					className: "home-pricing-cards-grid",
@@ -2672,18 +2457,13 @@ var HomePricingSection = () => {
 						{
 							id: "gbp",
 							name: "Google Business Profile (GBP)",
-							badge: "✦ Automation",
+							badge: "+ AUTOMATION",
 							icon: /* @__PURE__ */ jsx(GbpIcon, {}),
 							isDualPrice: false,
-							startsLabel: "Starts at",
+							startsLabel: "STARTS AT",
 							price: "₹2,000",
 							period: "/month",
-							features: [
-								"Profile setup & complete local verification",
-								"Weekly updates (geo-tagged photos, posts, offers)",
-								"Local SEO ranking to reach Top 3 on Google Maps",
-								"Direct phone calls, directions & local patient/student inquiries"
-							],
+							features: ["Profile setup & complete local verification", "Local SEO ranking to reach Top 3 on Google Maps"],
 							footnote: null,
 							proofLink: "/proof-of-work?service=gbp",
 							actionLabel: "View Proof of Work"
@@ -2691,21 +2471,16 @@ var HomePricingSection = () => {
 						{
 							id: "website-seo",
 							name: "Website + SEO",
-							badge: "✦ AI-Powered",
+							badge: "+ AI-POWERED",
 							icon: /* @__PURE__ */ jsx(Monitor, {
 								size: 22,
 								strokeWidth: 2.2
 							}),
 							isDualPrice: false,
-							startsLabel: "Starts at",
+							startsLabel: "STARTS AT",
 							price: "₹5,000",
 							period: "/month",
-							features: [
-								"AI-native high speed website design & architecture",
-								"End-to-end technical & local SEO keyword optimization",
-								"Mobile-first sub-1s loading for higher conversions",
-								"Predictable inbound inquiries for clinics, schools & firms"
-							],
+							features: ["AI-enabled high-speed website design & architecture", "End-to-end technical & local SEO keyword optimization"],
 							footnote: null,
 							proofLink: "/proof-of-work?service=website",
 							actionLabel: "View Proof of Work"
@@ -2713,43 +2488,33 @@ var HomePricingSection = () => {
 						{
 							id: "social-media",
 							name: "Social Media Management",
-							badge: "Meta Business Suite",
+							badge: "META BUSINESS SUITE",
 							icon: /* @__PURE__ */ jsx(SocialMediaIcon, {}),
 							isDualPrice: false,
-							startsLabel: "Starts at",
+							startsLabel: "STARTS AT",
 							price: "₹10,000",
 							period: "/month",
-							features: [
-								"8 High-Impact Reels + 20 Branded Posts monthly",
-								"Managed directly via Meta Business Suite (Instagram & Facebook)",
-								"Content strategy, scriptwriting, hooks & caption optimization",
-								"Targeted community engagement & direct lead pipeline"
-							],
-							footnote: "* Note: Motion post pricing may vary based on animation scope",
+							features: ["8 High-Impact Reels + 20 Branded Posts monthly", "Content strategy, scriptwriting, hooks & caption optimization"],
+							footnote: "* Note: If you require 20+ reels, it will come under Motion. Motion post pricing may vary.",
 							proofLink: "/proof-of-work?service=social",
 							actionLabel: "View Proof of Work"
 						},
 						{
 							id: "ads",
 							name: "Meta & Google Ads",
-							badge: "High-Intent Leads",
+							badge: "HIGH-INTENT LEADS",
 							icon: /* @__PURE__ */ jsx(Megaphone, {
 								size: 22,
 								strokeWidth: 2.2
 							}),
 							isDualPrice: true,
-							startsLabel: "Starts at",
+							startsLabel: "STARTS AT",
 							tier1Price: "₹2,000",
-							tier1Note: "Management (If ad account exists)",
+							tier1Note: "If you have a Meta/Google Business account",
 							tier2Price: "₹3,000",
-							tier2Note: "One-time setup (If no ad account)",
-							features: [
-								"Hyper-targeted Meta (Insta/FB) & Google Search campaigns",
-								"Custom lead-filtering funnels for patients, admissions & clients",
-								"Continuous conversion rate & negative keyword optimization",
-								"Transparent weekly analytics & ROAS tracking dashboard"
-							],
-							footnote: "* Note: Ad spend funds vary from client to client based on goals",
+							tier2Note: "If you don't have a Meta/Google Business account",
+							features: ["Hyper-targeted Meta (Insta/FB) & Google Search campaigns", "Transparent weekly analytics & ROAS tracking dashboard"],
+							footnote: "* Note: Ad funding must be provided by the client. We do not provide ad funding. Our charge covers only the running and management of your ads.",
 							proofLink: "/proof-of-work?service=ads",
 							actionLabel: "View Proof of Work"
 						}
@@ -2763,7 +2528,8 @@ var HomePricingSection = () => {
 									className: "home-pricing-card-top-badge",
 									children: plan.badge
 								}),
-								/* @__PURE__ */ jsxs("div", {
+								/* @__PURE__ */ jsxs(Link, {
+									to: plan.proofLink,
 									className: "home-pricing-card-header",
 									children: [/* @__PURE__ */ jsx("div", {
 										className: "home-pricing-icon-box",
@@ -2822,7 +2588,7 @@ var HomePricingSection = () => {
 										className: "home-pricing-feature-item",
 										children: [/* @__PURE__ */ jsx(Check, {
 											className: "home-pricing-check-icon",
-											size: 16,
+											size: 15,
 											strokeWidth: 2.8
 										}), /* @__PURE__ */ jsx("span", { children: feat })]
 									}, fIdx))
@@ -2838,7 +2604,7 @@ var HomePricingSection = () => {
 										className: "home-pricing-action-btn",
 										"aria-label": `Open proof of work for ${plan.name}`,
 										children: [/* @__PURE__ */ jsx("span", { children: plan.actionLabel }), /* @__PURE__ */ jsx(ArrowRight, {
-											size: 16,
+											size: 15,
 											strokeWidth: 2.4
 										})]
 									})
@@ -2849,23 +2615,19 @@ var HomePricingSection = () => {
 				}),
 				/* @__PURE__ */ jsx("div", {
 					className: "home-pricing-transparency-note",
-					children: /* @__PURE__ */ jsxs("span", { children: [
-						"💡 ",
-						/* @__PURE__ */ jsx("strong", { children: "Full Transparency:" }),
-						" All ad campaign spends and creative motion requirements are customized to your exact admission or patient targets. No hidden retainers or surprises."
-					] })
+					children: /* @__PURE__ */ jsx("span", { children: "* Pricing may vary from client to client based on requirements." })
 				}),
 				/* @__PURE__ */ jsx(ScrollReveal, {
 					delay: 350,
-					children: /* @__PURE__ */ jsxs("div", {
+					children: /* @__PURE__ */ jsx("div", {
 						className: "home-pricing-promo-banner",
-						children: [/* @__PURE__ */ jsxs("div", {
+						children: /* @__PURE__ */ jsxs("div", {
 							className: "home-pricing-promo-left",
 							children: [
 								/* @__PURE__ */ jsx("div", {
 									className: "home-pricing-gift-box",
 									children: /* @__PURE__ */ jsx(Gift, {
-										size: 28,
+										size: 26,
 										strokeWidth: 2.1
 									})
 								}),
@@ -2886,21 +2648,218 @@ var HomePricingSection = () => {
 									]
 								})
 							]
-						}), /* @__PURE__ */ jsxs("div", {
-							className: "home-pricing-promo-right",
-							children: [/* @__PURE__ */ jsx(CurvedArrowSvg, {}), /* @__PURE__ */ jsxs("div", {
-								className: "home-pricing-promo-note-wrap",
-								children: [/* @__PURE__ */ jsx("span", {
-									className: "home-pricing-promo-note",
-									children: "More visibility at no extra cost!"
-								}), /* @__PURE__ */ jsx("span", {
-									className: "home-pricing-promo-sparks",
-									"aria-hidden": "true",
-									children: /* @__PURE__ */ jsx(SunburstSparks, {})
-								})]
-							})]
+						})
+					})
+				})
+			]
+		})
+	});
+};
+//#endregion
+//#region src/data/clientLogos.ts
+/**
+* Master List of Client Logos
+* You can add new client logos here anytime by simply adding a new item to this array!
+*/
+var CLIENT_LOGOS = [
+	{
+		id: "star-clinic",
+		name: "Star Clinic",
+		image: "/images/clients/star-clinic.jpg",
+		sector: "Healthcare",
+		tagline: "Family Medical Centre"
+	},
+	{
+		id: "medcy-ivf",
+		name: "Medcy IVF",
+		image: "/images/clients/medcy-ivf.jpg",
+		sector: "Fertility & IVF",
+		tagline: "Miracles Made Here"
+	},
+	{
+		id: "vizag-ivf",
+		name: "Vizag IVF Centre",
+		image: "/images/clients/vizag-ivf.jpg",
+		sector: "Fertility Specialist",
+		tagline: "Conceiving Joy"
+	},
+	{
+		id: "medcy-hospitals",
+		name: "Medcy Hospitals",
+		image: "/images/clients/medcy-hospitals.jpg",
+		sector: "Multi-Speciality",
+		tagline: "Health, Hope & Harmony"
+	},
+	{
+		id: "sri-venkateswara",
+		name: "Sri Venkateswara Hospital",
+		image: "/images/clients/sri-venkateswara.png",
+		sector: "Hospital & Healthcare",
+		tagline: "Premier Patient Care"
+	},
+	{
+		id: "vizag-sainik",
+		name: "Vizag Sainik Academy",
+		image: "/images/clients/vizag-sainik.jpg",
+		sector: "Defence Education",
+		tagline: "Academy of Excellence"
+	},
+	{
+		id: "sri-basara-school",
+		name: "Sri Basara Leads International School",
+		image: "/images/clients/sri-basara-school.jpg",
+		sector: "International School",
+		tagline: "Leading Global Education"
+	},
+	{
+		id: "bansal-college",
+		name: "Bansal Junior College",
+		image: "/images/clients/bansal-college.png",
+		sector: "Higher Education",
+		tagline: "Ideal for Scholars"
+	},
+	{
+		id: "sri-basara-defence",
+		name: "Sri Basara Defence Academy",
+		image: "/images/clients/sri-basara-defence.png",
+		sector: "Defence Academy",
+		tagline: "Learn • Lead • Succeed"
+	}
+];
+//#endregion
+//#region src/components/home/ClientLogoMarquee.tsx
+var ClientLogoMarquee = ({ logos = CLIENT_LOGOS }) => {
+	const row1Logos = [
+		...logos,
+		...logos,
+		...logos
+	];
+	const row2Logos = [
+		...logos.slice(3),
+		...logos.slice(0, 3),
+		...logos.slice(3),
+		...logos.slice(0, 3),
+		...logos.slice(3),
+		...logos.slice(0, 3)
+	];
+	const row3Logos = [
+		...logos.slice(6),
+		...logos.slice(0, 6),
+		...logos.slice(6),
+		...logos.slice(0, 6),
+		...logos.slice(6),
+		...logos.slice(0, 6)
+	];
+	const renderLogoCard = (logo, keySuffix) => /* @__PURE__ */ jsx("div", {
+		className: "logo-item",
+		title: logo.name,
+		children: /* @__PURE__ */ jsx("img", {
+			src: logo.image,
+			alt: logo.name,
+			className: "logo-img",
+			loading: "lazy"
+		})
+	}, `${logo.id}-${keySuffix}`);
+	return /* @__PURE__ */ jsx("section", {
+		className: "client-logo-marquee-section",
+		"aria-label": "Client Showcase",
+		children: /* @__PURE__ */ jsxs("div", {
+			className: "client-logo-container",
+			children: [
+				/* @__PURE__ */ jsx(ScrollReveal, {
+					delay: 0,
+					children: /* @__PURE__ */ jsxs("div", {
+						className: "client-logo-header",
+						children: [/* @__PURE__ */ jsxs("div", {
+							className: "client-logo-eyebrow-wrap",
+							children: [
+								/* @__PURE__ */ jsx("span", {
+									className: "client-logo-eyebrow-line",
+									"aria-hidden": "true"
+								}),
+								/* @__PURE__ */ jsx("span", {
+									className: "client-logo-eyebrow",
+									children: "✦ TRUSTED BY INDUSTRY LEADERS"
+								}),
+								/* @__PURE__ */ jsx("span", {
+									className: "client-logo-eyebrow-line",
+									"aria-hidden": "true"
+								})
+							]
+						}), /* @__PURE__ */ jsxs("h2", {
+							className: "client-logo-title",
+							children: [
+								"Powering Growth for Top Healthcare, Education &",
+								" ",
+								/* @__PURE__ */ jsx("span", {
+									className: "client-logo-gold",
+									children: "Enterprise Brands."
+								})
+							]
 						})]
 					})
+				}),
+				/* @__PURE__ */ jsxs("div", {
+					className: "logo-marquee-wrapper",
+					children: [
+						/* @__PURE__ */ jsx("div", {
+							className: "logo-marquee-fade-left",
+							"aria-hidden": "true"
+						}),
+						/* @__PURE__ */ jsx("div", {
+							className: "logo-marquee-fade-right",
+							"aria-hidden": "true"
+						}),
+						/* @__PURE__ */ jsx("div", {
+							className: "logo-marquee-row dir-ltr",
+							"aria-label": "Trusted Clients Row 1",
+							children: /* @__PURE__ */ jsxs("div", {
+								className: "logo-marquee-track speed-normal",
+								children: [/* @__PURE__ */ jsx("div", {
+									className: "logo-marquee-group",
+									children: row1Logos.map((logo, idx) => renderLogoCard(logo, `r1-a-${idx}`))
+								}), /* @__PURE__ */ jsx("div", {
+									className: "logo-marquee-group",
+									"aria-hidden": "true",
+									children: row1Logos.map((logo, idx) => renderLogoCard(logo, `r1-b-${idx}`))
+								})]
+							})
+						}),
+						/* @__PURE__ */ jsx("div", {
+							className: "logo-marquee-row dir-rtl",
+							"aria-label": "Trusted Clients Row 2",
+							children: /* @__PURE__ */ jsxs("div", {
+								className: "logo-marquee-track speed-fast",
+								children: [/* @__PURE__ */ jsx("div", {
+									className: "logo-marquee-group",
+									children: row2Logos.map((logo, idx) => renderLogoCard(logo, `r2-a-${idx}`))
+								}), /* @__PURE__ */ jsx("div", {
+									className: "logo-marquee-group",
+									"aria-hidden": "true",
+									children: row2Logos.map((logo, idx) => renderLogoCard(logo, `r2-b-${idx}`))
+								})]
+							})
+						}),
+						/* @__PURE__ */ jsx("div", {
+							className: "logo-marquee-row dir-ltr",
+							"aria-label": "Trusted Clients Row 3",
+							children: /* @__PURE__ */ jsxs("div", {
+								className: "logo-marquee-track speed-slow",
+								children: [/* @__PURE__ */ jsx("div", {
+									className: "logo-marquee-group",
+									children: row3Logos.map((logo, idx) => renderLogoCard(logo, `r3-a-${idx}`))
+								}), /* @__PURE__ */ jsx("div", {
+									className: "logo-marquee-group",
+									"aria-hidden": "true",
+									children: row3Logos.map((logo, idx) => renderLogoCard(logo, `r3-b-${idx}`))
+								})]
+							})
+						})
+					]
+				}),
+				/* @__PURE__ */ jsxs("div", {
+					className: "client-logo-bottom-note",
+					children: [/* @__PURE__ */ jsx("span", { className: "client-logo-note-dot" }), /* @__PURE__ */ jsx("span", { children: "Proven ROI across verified regional, national & enterprise campaigns" })]
 				})
 			]
 		})
@@ -2919,33 +2878,26 @@ var WhyBetter = () => {
 					className: "why-better-header",
 					children: /* @__PURE__ */ jsxs(ScrollReveal, {
 						delay: 0,
-						children: [
-							/* @__PURE__ */ jsxs("div", {
-								className: "why-better-eyebrow",
-								children: [/* @__PURE__ */ jsx("span", {
-									className: "why-badge-glow",
-									children: "✦ THE S-BLOOM ADVANTAGE"
-								}), /* @__PURE__ */ jsx("span", {
-									className: "why-eyebrow-sub",
-									children: "WHY OUR WORK IS BEST"
-								})]
-							}),
-							/* @__PURE__ */ jsxs("h2", {
-								className: "why-better-title",
-								children: [
-									"Why We Beat Every Other ",
-									/* @__PURE__ */ jsx("br", {}),
-									/* @__PURE__ */ jsx("span", {
-										className: "why-title-serif",
-										children: "Digital Marketing Agency."
-									})
-								]
-							}),
-							/* @__PURE__ */ jsx("p", {
-								className: "why-better-lead",
-								children: "You don't need vanity metrics. You need real patients walking through your clinic doors, parents enrolling their children in your classrooms, and high-value clients seeking your professional counsel."
-							})
-						]
+						children: [/* @__PURE__ */ jsxs("div", {
+							className: "why-better-eyebrow",
+							children: [/* @__PURE__ */ jsx("span", {
+								className: "why-badge-glow",
+								children: "✦ THE S-BLOOM ADVANTAGE"
+							}), /* @__PURE__ */ jsx("span", {
+								className: "why-eyebrow-sub",
+								children: "WHY OUR WORK IS BEST"
+							})]
+						}), /* @__PURE__ */ jsxs("h2", {
+							className: "why-better-title",
+							children: [
+								"Why We Beat Every Other ",
+								/* @__PURE__ */ jsx("br", {}),
+								/* @__PURE__ */ jsx("span", {
+									className: "why-title-serif",
+									children: "Digital Marketing Agency."
+								})
+							]
+						})]
 					})
 				}),
 				/* @__PURE__ */ jsx("div", {
@@ -2956,7 +2908,6 @@ var WhyBetter = () => {
 							icon: /* @__PURE__ */ jsx(Bot, { size: 26 }),
 							tag: "TECH INNOVATION",
 							title: "AI-Native Efficiency, Zero Agency Bloat",
-							desc: "Traditional agencies bill you for 10-person overheads and slow manual delivery. We leverage modern AI tools to build high-converting websites, conduct medical & institutional SEO, and edit retention-hooked Reels in half the time.",
 							bullets: [
 								"Websites that load in under 1 second",
 								"AI-driven keyword analysis for local dominance",
@@ -2969,7 +2920,6 @@ var WhyBetter = () => {
 							icon: /* @__PURE__ */ jsx(Target, { size: 26 }),
 							tag: "LASER FOCUS",
 							title: "Built Exclusively for 3 High-Trust Sectors",
-							desc: "We do not market e-commerce clothes or fast food. We specialize strictly in Healthcare, Education, and Professional Services — solving the exact crises you face: empty appointment books, declining student admissions, and invisible professional authority.",
 							bullets: [
 								"Healthcare: More local clinic & hospital patients",
 								"Education: Predictable admission inquiries every season",
@@ -2982,7 +2932,6 @@ var WhyBetter = () => {
 							icon: /* @__PURE__ */ jsx(Wallet, { size: 26 }),
 							tag: "RADICAL AFFORDABILITY",
 							title: "Genuinely Budget-Friendly & Transparent",
-							desc: "Starting from just ₹2,000/month, every plan delivers measurable business outcomes rather than vanity follower counts. Complete transparency on ad spend with zero hidden retainers or surprise agency invoices.",
 							bullets: [
 								"Full GBP optimization from ₹2,000/month",
 								"AI Website + SEO from ₹5,000/month",
@@ -3013,10 +2962,6 @@ var WhyBetter = () => {
 								/* @__PURE__ */ jsx("h3", {
 									className: "why-card-title",
 									children: pillar.title
-								}),
-								/* @__PURE__ */ jsx("p", {
-									className: "why-card-desc",
-									children: pillar.desc
 								}),
 								/* @__PURE__ */ jsx("div", {
 									className: "why-card-bullets",
@@ -3107,11 +3052,20 @@ var BottomCornerScrollShowcase = () => {
 	const [scrollProgress, setScrollProgress] = useState(0);
 	const [isMuted, setIsMuted] = useState(true);
 	const [manualOverride, setManualOverride] = useState(false);
+	const [isMenuOpen, setIsMenuOpen] = useState(false);
 	const videoRef = useRef(null);
+	const widgetRef = useRef(null);
 	const overrideTimerRef = useRef(null);
 	const circleRadius = 44;
 	const circumference = 2 * Math.PI * circleRadius;
 	const strokeDashoffset = circumference - scrollProgress * circumference;
+	useEffect(() => {
+		const handleClickOutside = (event) => {
+			if (widgetRef.current && !widgetRef.current.contains(event.target)) setIsMenuOpen(false);
+		};
+		document.addEventListener("mousedown", handleClickOutside);
+		return () => document.removeEventListener("mousedown", handleClickOutside);
+	}, []);
 	useEffect(() => {
 		const handleScroll = () => {
 			const scrollHeight = document.documentElement.scrollHeight - window.innerHeight;
@@ -3135,14 +3089,17 @@ var BottomCornerScrollShowcase = () => {
 		if (activeStage === 5 && videoRef.current) videoRef.current.play().catch(() => {});
 		else if (videoRef.current) videoRef.current.pause();
 	}, [activeStage]);
-	const handleCircleClick = () => {
-		const nextStage = (activeStage + 1) % STAGES$1.length;
-		setActiveStage(nextStage);
+	const handleSelectStage = (stageId) => {
+		setActiveStage(stageId);
 		setManualOverride(true);
+		setIsMenuOpen(false);
 		if (overrideTimerRef.current) clearTimeout(overrideTimerRef.current);
 		overrideTimerRef.current = setTimeout(() => {
 			setManualOverride(false);
-		}, 5e3);
+		}, 12e3);
+	};
+	const handleCircleClick = () => {
+		setIsMenuOpen((prev) => !prev);
 	};
 	const toggleSound = (e) => {
 		e.stopPropagation();
@@ -3155,239 +3112,312 @@ var BottomCornerScrollShowcase = () => {
 	const IconComponent = currentStageInfo.icon;
 	return /* @__PURE__ */ jsxs("div", {
 		className: "corner-circle-widget-wrapper",
+		ref: widgetRef,
 		"aria-label": "S-Bloom Small Circular Pipeline",
-		children: [/* @__PURE__ */ jsxs("div", {
-			className: "corner-circle-label-pill",
-			children: [
-				activeStage === 0 && /* @__PURE__ */ jsx("span", { className: "circle-rec-dot" }),
-				/* @__PURE__ */ jsx(IconComponent, {
-					size: 13,
-					color: "#D9A52E"
-				}),
-				/* @__PURE__ */ jsx("span", { children: currentStageInfo.label })
-			]
-		}), /* @__PURE__ */ jsxs("div", {
-			className: "corner-circle-orb",
-			onClick: handleCircleClick,
-			title: `Click to cycle stages (Currently: ${currentStageInfo.label})`,
-			children: [
-				/* @__PURE__ */ jsxs("svg", {
-					className: "corner-circle-svg-ring",
-					viewBox: "0 0 96 96",
-					children: [
-						/* @__PURE__ */ jsx("defs", { children: /* @__PURE__ */ jsxs("linearGradient", {
-							id: "goldRingGradient",
-							x1: "0%",
-							y1: "0%",
-							x2: "100%",
-							y2: "100%",
+		children: [
+			/* @__PURE__ */ jsx(AnimatePresence, { children: isMenuOpen && /* @__PURE__ */ jsxs(motion.div, {
+				className: "corner-circle-options-menu",
+				initial: {
+					opacity: 0,
+					y: 10,
+					scale: .95
+				},
+				animate: {
+					opacity: 1,
+					y: 0,
+					scale: 1
+				},
+				exit: {
+					opacity: 0,
+					y: 10,
+					scale: .95
+				},
+				transition: { duration: .2 },
+				children: [/* @__PURE__ */ jsxs("div", {
+					className: "corner-circle-options-header",
+					children: [/* @__PURE__ */ jsx("span", { children: "EXPLORE PIPELINE" }), /* @__PURE__ */ jsx("button", {
+						className: "corner-circle-options-close",
+						onClick: (e) => {
+							e.stopPropagation();
+							setIsMenuOpen(false);
+						},
+						"aria-label": "Close options",
+						children: /* @__PURE__ */ jsx(X, { size: 13 })
+					})]
+				}), /* @__PURE__ */ jsx("div", {
+					className: "corner-circle-options-list",
+					children: STAGES$1.map((stage) => {
+						const StageIcon = stage.icon;
+						const isSelected = activeStage === stage.id;
+						return /* @__PURE__ */ jsxs("button", {
+							className: `corner-circle-option-btn ${isSelected ? "active" : ""}`,
+							onClick: (e) => {
+								e.stopPropagation();
+								handleSelectStage(stage.id);
+							},
 							children: [
-								/* @__PURE__ */ jsx("stop", {
-									offset: "0%",
-									stopColor: "#FFE0A3"
+								/* @__PURE__ */ jsx("div", {
+									className: "corner-option-icon",
+									children: /* @__PURE__ */ jsx(StageIcon, { size: 14 })
 								}),
-								/* @__PURE__ */ jsx("stop", {
-									offset: "50%",
-									stopColor: "#D9A52E"
+								/* @__PURE__ */ jsx("span", {
+									className: "corner-option-name",
+									children: stage.label
 								}),
-								/* @__PURE__ */ jsx("stop", {
-									offset: "100%",
-									stopColor: "#8F6216"
+								isSelected && /* @__PURE__ */ jsx("span", {
+									className: "corner-option-indicator",
+									children: "●"
 								})
 							]
-						}) }),
-						/* @__PURE__ */ jsx("circle", {
-							className: "circle-ring-bg",
-							cx: "48",
-							cy: "48",
-							r: circleRadius
-						}),
-						/* @__PURE__ */ jsx("circle", {
-							className: "circle-ring-progress",
-							cx: "48",
-							cy: "48",
-							r: circleRadius,
-							style: {
-								strokeDasharray: circumference,
-								strokeDashoffset
-							}
-						})
-					]
-				}),
-				/* @__PURE__ */ jsxs("div", {
-					className: "corner-circle-lens-frame",
-					children: [/* @__PURE__ */ jsx("div", { className: "corner-circle-lens-glare" }), /* @__PURE__ */ jsxs(AnimatePresence, {
-						mode: "wait",
+						}, stage.key);
+					})
+				})]
+			}) }),
+			/* @__PURE__ */ jsxs("div", {
+				className: "corner-circle-label-pill",
+				onClick: () => setIsMenuOpen((prev) => !prev),
+				title: "Click to view all pipeline options",
+				children: [
+					activeStage === 0 && /* @__PURE__ */ jsx("span", { className: "circle-rec-dot" }),
+					/* @__PURE__ */ jsx(IconComponent, {
+						size: 13,
+						color: "#D9A52E"
+					}),
+					/* @__PURE__ */ jsx("span", { children: currentStageInfo.label }),
+					isMenuOpen ? /* @__PURE__ */ jsx(ChevronDown, {
+						size: 12,
+						color: "#785A46",
+						style: { marginLeft: 2 }
+					}) : /* @__PURE__ */ jsx(ChevronUp, {
+						size: 12,
+						color: "#785A46",
+						style: { marginLeft: 2 }
+					})
+				]
+			}),
+			/* @__PURE__ */ jsxs("div", {
+				className: "corner-circle-orb",
+				onClick: handleCircleClick,
+				title: `Click to view options (Currently: ${currentStageInfo.label})`,
+				children: [
+					/* @__PURE__ */ jsxs("svg", {
+						className: "corner-circle-svg-ring",
+						viewBox: "0 0 96 96",
 						children: [
-							activeStage === 0 && /* @__PURE__ */ jsxs(motion.div, {
-								className: "circle-content-canvas circle-view-camera",
-								initial: {
-									opacity: 0,
-									scale: .9
-								},
-								animate: {
-									opacity: 1,
-									scale: 1
-								},
-								exit: {
-									opacity: 0,
-									scale: 1.1
-								},
-								transition: { duration: .25 },
-								children: [/* @__PURE__ */ jsx("img", {
-									src: "/camera-studio-bloom.jpg",
-									alt: "Cinema Camera",
-									className: "circle-camera-img"
-								}), /* @__PURE__ */ jsx("div", {
-									className: "circle-camera-hud-badge",
-									children: /* @__PURE__ */ jsx("span", { children: "● REC" })
-								})]
-							}, "circle-stage-camera"),
-							activeStage === 1 && /* @__PURE__ */ jsxs(motion.div, {
-								className: "circle-content-canvas circle-view-reel",
-								initial: {
-									opacity: 0,
-									scale: .9
-								},
-								animate: {
-									opacity: 1,
-									scale: 1
-								},
-								exit: {
-									opacity: 0,
-									scale: 1.1
-								},
-								transition: { duration: .25 },
-								children: [/* @__PURE__ */ jsx("img", {
-									src: "/about-studio-stage.jpg",
-									alt: "Social Reel Stage",
-									className: "circle-reel-img"
-								}), /* @__PURE__ */ jsxs("div", {
-									className: "circle-reel-center-icon",
-									children: [/* @__PURE__ */ jsx("div", {
-										className: "circle-reel-glyph",
-										children: /* @__PURE__ */ jsx(Film, { size: 15 })
-									}), /* @__PURE__ */ jsx("span", {
-										className: "circle-reel-sub",
-										children: "REEL"
-									})]
-								})]
-							}, "circle-stage-reel"),
-							activeStage === 2 && /* @__PURE__ */ jsxs(motion.div, {
-								className: "circle-content-canvas circle-view-post",
-								initial: {
-									opacity: 0,
-									scale: .9
-								},
-								animate: {
-									opacity: 1,
-									scale: 1
-								},
-								exit: {
-									opacity: 0,
-									scale: 1.1
-								},
-								transition: { duration: .25 },
+							/* @__PURE__ */ jsx("defs", { children: /* @__PURE__ */ jsxs("linearGradient", {
+								id: "goldRingGradient",
+								x1: "0%",
+								y1: "0%",
+								x2: "100%",
+								y2: "100%",
 								children: [
-									/* @__PURE__ */ jsx("div", {
-										className: "circle-post-avatar",
-										children: "🌸"
+									/* @__PURE__ */ jsx("stop", {
+										offset: "0%",
+										stopColor: "#FFE0A3"
 									}),
-									/* @__PURE__ */ jsx("div", {
-										className: "circle-post-text",
-										children: "POST"
+									/* @__PURE__ */ jsx("stop", {
+										offset: "50%",
+										stopColor: "#D9A52E"
 									}),
-									/* @__PURE__ */ jsx("div", {
-										className: "circle-post-likes",
-										children: "👍 1.8K"
+									/* @__PURE__ */ jsx("stop", {
+										offset: "100%",
+										stopColor: "#8F6216"
 									})
 								]
-							}, "circle-stage-post"),
-							activeStage === 3 && /* @__PURE__ */ jsxs(motion.div, {
-								className: "circle-content-canvas circle-view-ad",
-								initial: {
-									opacity: 0,
-									scale: .9
-								},
-								animate: {
-									opacity: 1,
-									scale: 1
-								},
-								exit: {
-									opacity: 0,
-									scale: 1.1
-								},
-								transition: { duration: .25 },
-								children: [/* @__PURE__ */ jsx("div", {
-									className: "circle-ad-icon-box",
-									children: /* @__PURE__ */ jsx(Megaphone, { size: 16 })
-								}), /* @__PURE__ */ jsx("div", {
-									className: "circle-ad-tag",
-									children: "AD"
-								})]
-							}, "circle-stage-ad"),
-							activeStage === 4 && /* @__PURE__ */ jsxs(motion.div, {
-								className: "circle-content-canvas circle-view-web",
-								initial: {
-									opacity: 0,
-									scale: .9
-								},
-								animate: {
-									opacity: 1,
-									scale: 1
-								},
-								exit: {
-									opacity: 0,
-									scale: 1.1
-								},
-								transition: { duration: .25 },
-								children: [/* @__PURE__ */ jsx("div", {
-									className: "circle-web-icon-box",
-									children: /* @__PURE__ */ jsx(Globe, { size: 16 })
-								}), /* @__PURE__ */ jsx("div", {
-									className: "circle-web-url",
-									children: "sbloom.co"
-								})]
-							}, "circle-stage-web"),
-							activeStage === 5 && /* @__PURE__ */ jsxs(motion.div, {
-								className: "circle-content-canvas circle-view-video",
-								initial: {
-									opacity: 0,
-									scale: .9
-								},
-								animate: {
-									opacity: 1,
-									scale: 1
-								},
-								exit: {
-									opacity: 0,
-									scale: 1.1
-								},
-								transition: { duration: .25 },
-								children: [/* @__PURE__ */ jsx("video", {
-									ref: videoRef,
-									src: "/hero-studio-video.mp4",
-									playsInline: true,
-									loop: true,
-									muted: isMuted,
-									className: "circle-playing-video"
-								}), /* @__PURE__ */ jsx("div", {
-									className: "circle-video-badge-overlay",
-									children: /* @__PURE__ */ jsx("span", { children: "● VIDEO" })
-								})]
-							}, "circle-stage-video")
+							}) }),
+							/* @__PURE__ */ jsx("circle", {
+								className: "circle-ring-bg",
+								cx: "48",
+								cy: "48",
+								r: circleRadius
+							}),
+							/* @__PURE__ */ jsx("circle", {
+								className: "circle-ring-progress",
+								cx: "48",
+								cy: "48",
+								r: circleRadius,
+								style: {
+									strokeDasharray: circumference,
+									strokeDashoffset
+								}
+							})
 						]
-					})]
-				}),
-				activeStage === 5 && /* @__PURE__ */ jsx("button", {
-					className: "circle-sound-toggle-btn",
-					onClick: toggleSound,
-					title: isMuted ? "Unmute S-Bloom video" : "Mute video",
-					"aria-label": "Toggle audio",
-					children: isMuted ? /* @__PURE__ */ jsx(VolumeX, { size: 13 }) : /* @__PURE__ */ jsx(Volume2, { size: 13 })
-				})
-			]
-		})]
+					}),
+					/* @__PURE__ */ jsxs("div", {
+						className: "corner-circle-lens-frame",
+						children: [/* @__PURE__ */ jsx("div", { className: "corner-circle-lens-glare" }), /* @__PURE__ */ jsxs(AnimatePresence, {
+							mode: "wait",
+							children: [
+								activeStage === 0 && /* @__PURE__ */ jsxs(motion.div, {
+									className: "circle-content-canvas circle-view-camera",
+									initial: {
+										opacity: 0,
+										scale: .9
+									},
+									animate: {
+										opacity: 1,
+										scale: 1
+									},
+									exit: {
+										opacity: 0,
+										scale: 1.1
+									},
+									transition: { duration: .25 },
+									children: [/* @__PURE__ */ jsx("img", {
+										src: "/camera-studio-bloom.jpg",
+										alt: "Cinema Camera",
+										className: "circle-camera-img"
+									}), /* @__PURE__ */ jsx("div", {
+										className: "circle-camera-hud-badge",
+										children: /* @__PURE__ */ jsx("span", { children: "● REC" })
+									})]
+								}, "circle-stage-camera"),
+								activeStage === 1 && /* @__PURE__ */ jsxs(motion.div, {
+									className: "circle-content-canvas circle-view-reel",
+									initial: {
+										opacity: 0,
+										scale: .9
+									},
+									animate: {
+										opacity: 1,
+										scale: 1
+									},
+									exit: {
+										opacity: 0,
+										scale: 1.1
+									},
+									transition: { duration: .25 },
+									children: [/* @__PURE__ */ jsx("img", {
+										src: "/about-studio-stage.jpg",
+										alt: "Social Reel Stage",
+										className: "circle-reel-img"
+									}), /* @__PURE__ */ jsxs("div", {
+										className: "circle-reel-center-icon",
+										children: [/* @__PURE__ */ jsx("div", {
+											className: "circle-reel-glyph",
+											children: /* @__PURE__ */ jsx(Film, { size: 15 })
+										}), /* @__PURE__ */ jsx("span", {
+											className: "circle-reel-sub",
+											children: "REEL"
+										})]
+									})]
+								}, "circle-stage-reel"),
+								activeStage === 2 && /* @__PURE__ */ jsxs(motion.div, {
+									className: "circle-content-canvas circle-view-post",
+									initial: {
+										opacity: 0,
+										scale: .9
+									},
+									animate: {
+										opacity: 1,
+										scale: 1
+									},
+									exit: {
+										opacity: 0,
+										scale: 1.1
+									},
+									transition: { duration: .25 },
+									children: [
+										/* @__PURE__ */ jsx("div", {
+											className: "circle-post-avatar",
+											children: "🌸"
+										}),
+										/* @__PURE__ */ jsx("div", {
+											className: "circle-post-text",
+											children: "POST"
+										}),
+										/* @__PURE__ */ jsx("div", {
+											className: "circle-post-likes",
+											children: "👍 1.8K"
+										})
+									]
+								}, "circle-stage-post"),
+								activeStage === 3 && /* @__PURE__ */ jsxs(motion.div, {
+									className: "circle-content-canvas circle-view-ad",
+									initial: {
+										opacity: 0,
+										scale: .9
+									},
+									animate: {
+										opacity: 1,
+										scale: 1
+									},
+									exit: {
+										opacity: 0,
+										scale: 1.1
+									},
+									transition: { duration: .25 },
+									children: [/* @__PURE__ */ jsx("div", {
+										className: "circle-ad-icon-box",
+										children: /* @__PURE__ */ jsx(Megaphone, { size: 16 })
+									}), /* @__PURE__ */ jsx("div", {
+										className: "circle-ad-tag",
+										children: "AD"
+									})]
+								}, "circle-stage-ad"),
+								activeStage === 4 && /* @__PURE__ */ jsxs(motion.div, {
+									className: "circle-content-canvas circle-view-web",
+									initial: {
+										opacity: 0,
+										scale: .9
+									},
+									animate: {
+										opacity: 1,
+										scale: 1
+									},
+									exit: {
+										opacity: 0,
+										scale: 1.1
+									},
+									transition: { duration: .25 },
+									children: [/* @__PURE__ */ jsx("div", {
+										className: "circle-web-icon-box",
+										children: /* @__PURE__ */ jsx(Globe, { size: 16 })
+									}), /* @__PURE__ */ jsx("div", {
+										className: "circle-web-url",
+										children: "sbloom.co"
+									})]
+								}, "circle-stage-web"),
+								activeStage === 5 && /* @__PURE__ */ jsxs(motion.div, {
+									className: "circle-content-canvas circle-view-video",
+									initial: {
+										opacity: 0,
+										scale: .9
+									},
+									animate: {
+										opacity: 1,
+										scale: 1
+									},
+									exit: {
+										opacity: 0,
+										scale: 1.1
+									},
+									transition: { duration: .25 },
+									children: [/* @__PURE__ */ jsx("video", {
+										ref: videoRef,
+										src: "/hero-studio-video.mp4",
+										playsInline: true,
+										loop: true,
+										muted: isMuted,
+										className: "circle-playing-video"
+									}), /* @__PURE__ */ jsx("div", {
+										className: "circle-video-badge-overlay",
+										children: /* @__PURE__ */ jsx("span", { children: "● VIDEO" })
+									})]
+								}, "circle-stage-video")
+							]
+						})]
+					}),
+					activeStage === 5 && /* @__PURE__ */ jsx("button", {
+						className: "circle-sound-toggle-btn",
+						onClick: toggleSound,
+						title: isMuted ? "Unmute S-Bloom video" : "Mute video",
+						"aria-label": "Toggle audio",
+						children: isMuted ? /* @__PURE__ */ jsx(VolumeX, { size: 13 }) : /* @__PURE__ */ jsx(Volume2, { size: 13 })
+					})
+				]
+			})
+		]
 	});
 };
 //#endregion
@@ -3520,7 +3550,7 @@ var HomePage = () => {
 									className: "hero-final-eyebrow",
 									children: [/* @__PURE__ */ jsx("span", {
 										className: "eyebrow-text",
-										children: "AI DIGITAL GROWTH PARTNER"
+										children: "YOUR AI DIGITAL GROWTH PARTNER"
 									}), /* @__PURE__ */ jsx("span", { className: "eyebrow-line" })]
 								}),
 								/* @__PURE__ */ jsxs("h1", {
@@ -3569,13 +3599,14 @@ var HomePage = () => {
 					})
 				]
 			}),
-			/* @__PURE__ */ jsx(DualPathCards, {}),
 			/* @__PURE__ */ jsxs("div", {
 				className: "home-lower-silk-wrapper",
 				children: [
 					/* @__PURE__ */ jsx(DigitalGrowthSystem, {}),
+					/* @__PURE__ */ jsx(DualPathCards, {}),
 					/* @__PURE__ */ jsx(WhyBetter, {}),
 					/* @__PURE__ */ jsx(HomePricingSection, {}),
+					/* @__PURE__ */ jsx(ClientLogoMarquee, {}),
 					/* @__PURE__ */ jsx("section", {
 						className: "home-final-cta-section",
 						children: /* @__PURE__ */ jsx("div", {
@@ -3931,127 +3962,337 @@ var healthcare_default = UNSAFE_withComponentProps(function Route() {
 });
 //#endregion
 //#region src/pages/industries/ProfessionalServicesPage.tsx
+var SECTOR_PILLARS = [
+	{
+		id: "it-companies",
+		title: "IT & Tech Firms",
+		tagline: "High-speed websites, technical SEO, and targeted B2B ad funnels.",
+		icon: Code2,
+		badge: "✦ B2B Growth Engine",
+		fullTitle: "Drive High-Value B2B Inquiries for IT & Tech Firms",
+		description: "We provide IT companies, SaaS startups, and software consultancies with our complete digital growth suite—technical B2B SEO, rapid-loading website architecture, and hyper-targeted Meta & Google ad funnels to predictably generate high-paying corporate client leads and revenue.",
+		capabilities: [
+			"High-Performance B2B Website & Product Landing Pages",
+			"Technical & Local SEO to Rank for High-Intent Tech Keywords",
+			"Hyper-Targeted Meta & Google Search Campaigns for B2B Leads",
+			"LinkedIn & Meta Social Media Management to Establish Authority"
+		],
+		metricTag: "Client Inbound",
+		metricBig: "2.8x",
+		metricSub: "Increase in qualified corporate & startup inbound inquiries",
+		trustBadge: "Verified B2B Lead Funnels",
+		ctaText: "Scale Your IT Firm",
+		ctaLink: "/contact"
+	},
+	{
+		id: "individuals",
+		title: "Individual Aspirants",
+		tagline: "Showcase real expertise with custom portfolio websites and social authority.",
+		icon: GraduationCap,
+		badge: "✦ Personal Branding & Growth",
+		fullTitle: "Build a Real-World Portfolio & Grow Your Digital Presence",
+		description: "For individual professionals, developers, consultants, and career aspirants, we deliver custom digital solutions—building interactive portfolio websites, personal brand SEO, and social media presence that turns your skills into undeniable real-world proof to win clients and land top roles.",
+		capabilities: [
+			"Custom Interactive Portfolio Website Showcasing Real Projects",
+			"Personal SEO to Rank on Google for Your Name & Domain Expertise",
+			"Social Media & LinkedIn Branding to Attract Recruiters & Clients",
+			"Structured Project Case Studies & Proof of Competence Displays"
+		],
+		metricTag: "Career Proof",
+		metricBig: "100% Real-World",
+		metricSub: "Verifiable project proof that commands market attention",
+		trustBadge: "Industry-Ready Digital Portfolio",
+		ctaText: "Build Your Portfolio",
+		ctaLink: "/contact"
+	},
+	{
+		id: "empires",
+		title: "Political & Empires",
+		tagline: "Multi-channel social media, verified Google presence, and geo-targeted ads.",
+		icon: Crown,
+		badge: "✦ Digital Dominance",
+		fullTitle: "Build Digital Authority & Public Trust for Leaders and Empires",
+		description: "For prominent leaders, political figures, and multi-venture entrepreneurs, we engineer commanding digital authority. From managing multi-channel social media with high-impact video reels to Google Business Profiles and geo-targeted advertising, we expand reach, protect reputation, and scale empire revenue.",
+		capabilities: [
+			"High-Impact Social Media Management with Viral Video & Reels",
+			"Google Business Profile & Knowledge Panel Authority across Locations",
+			"Geo-Fenced Meta & Google Ad Campaigns for Focused Regional Impact",
+			"Cross-Venture Brand Positioning & Strategic Public Reputation Management"
+		],
+		metricTag: "Targeted Reach",
+		metricBig: "10M+",
+		metricSub: "Regional & targeted digital impressions delivered",
+		trustBadge: "Discreet & High-Impact Campaigns",
+		ctaText: "Grow Your Empire",
+		ctaLink: "/contact"
+	},
+	{
+		id: "hospitality",
+		title: "Hotels & Dining",
+		tagline: "Google Maps Top 3 ranking, viral social media, and direct booking funnels.",
+		icon: Building2,
+		badge: "✦ Footfall & Reservations",
+		fullTitle: "Pack Rooms & Tables with Local SEO, Reels & Targeted Ads",
+		description: "We help boutique hotels, resorts, and premier dining spots maximize footfall, direct bookings, and table reservations. With Google Business Profile dominance on Google Maps, mouth-watering Instagram reels, and zero-commission reservation funnels, we turn searches into paying customers.",
+		capabilities: [
+			"Google Business Profile (GBP) Local SEO to Rank Top 3 on Google Maps",
+			"Mouth-Watering Instagram Reels & Video Content Showcasing Ambiance",
+			"Direct Zero-Commission Booking & Reservation Website Architecture",
+			"Hyper-Local Meta & Google Ads Targeting Travelers and Diners"
+		],
+		metricTag: "Direct Revenue",
+		metricBig: "+45%",
+		metricSub: "Increase in local customer footfall and direct reservations",
+		trustBadge: "Top 3 Google Maps Ranking Focus",
+		ctaText: "Boost Hospitality Bookings",
+		ctaLink: "/contact"
+	}
+];
 var ConsultingProfessionalServicesPage = () => {
+	const [activeSectorId, setActiveSectorId] = useState("it-companies");
+	const currentSector = SECTOR_PILLARS.find((s) => s.id === activeSectorId) || SECTOR_PILLARS[0];
 	return /* @__PURE__ */ jsxs("div", {
-		className: "page ps-page-wrapper",
-		children: [
-			/* @__PURE__ */ jsx("section", {
-				className: "ind-hero ps-hero-visual",
-				children: /* @__PURE__ */ jsx("div", {
-					className: "container",
+		className: "ps-page-container",
+		children: [/* @__PURE__ */ jsx("div", {
+			className: "industry-bg-curve",
+			"aria-hidden": "true",
+			children: /* @__PURE__ */ jsxs("svg", {
+				viewBox: "0 0 1440 640",
+				fill: "none",
+				preserveAspectRatio: "none",
+				children: [/* @__PURE__ */ jsx("path", {
+					d: "M-40,80 C260,180 420,-30 840,40 C1180,100 1340,30 1520,70 L1520,0 L-40,0 Z",
+					fill: "#F6EFE5",
+					opacity: "0.65"
+				}), /* @__PURE__ */ jsx("path", {
+					d: "M-20,240 C340,320 620,110 1020,180 C1280,225 1420,130 1500,160",
+					stroke: "#EFE3D3",
+					strokeWidth: "38",
+					strokeLinecap: "round",
+					fill: "none",
+					opacity: "0.5"
+				})]
+			})
+		}), /* @__PURE__ */ jsxs("div", {
+			className: "industry-container",
+			children: [
+				/* @__PURE__ */ jsx("section", {
+					className: "ps-hero-section",
 					children: /* @__PURE__ */ jsx(ScrollReveal, {
 						delay: 0,
 						children: /* @__PURE__ */ jsxs("div", {
-							className: "ps-editorial-header",
+							className: "ps-hero-header",
 							children: [
-								/* @__PURE__ */ jsx("span", {
-									className: "ind-hero-label",
-									children: "SBLOOM — PROFESSIONAL SERVICES"
+								/* @__PURE__ */ jsxs("div", {
+									className: "ps-eyebrow-wrap",
+									children: [
+										/* @__PURE__ */ jsx("span", {
+											className: "ps-eyebrow-line",
+											"aria-hidden": "true"
+										}),
+										/* @__PURE__ */ jsx("span", {
+											className: "ps-eyebrow",
+											children: "SBLOOM — PROFESSIONAL SERVICES"
+										}),
+										/* @__PURE__ */ jsx("span", {
+											className: "ps-eyebrow-line",
+											"aria-hidden": "true"
+										})
+									]
 								}),
-								/* @__PURE__ */ jsx("h1", {
-									className: "ind-hero-title",
-									children: "Digital growth for consulting and professional services."
+								/* @__PURE__ */ jsxs("h1", {
+									className: "ps-hero-title",
+									children: [
+										"Digital Growth & Revenue for ",
+										/* @__PURE__ */ jsx("br", {}),
+										/* @__PURE__ */ jsx("span", {
+											className: "ps-gold-text",
+											children: "Modern Professional Services."
+										})
+									]
 								}),
 								/* @__PURE__ */ jsx("p", {
-									className: "ind-hero-desc",
-									children: "We help IT consultancies, independent experts, and professional firms close the gap between their complex expertise and what their B2B clients actually understand."
+									className: "ps-hero-desc",
+									children: "For everyone across these sectors, we provide S-BLOOM's core growth engine—high-performance websites, technical SEO, Google Business Profile (GBP), Meta ads, and social media management—to generate qualified leads, footfall, and measurable revenue."
 								})
 							]
 						})
 					})
-				})
-			}),
-			/* @__PURE__ */ jsx("section", {
-				className: "ind-journey ps-journey",
-				children: /* @__PURE__ */ jsx("div", {
-					className: "container",
-					children: /* @__PURE__ */ jsxs("div", {
-						className: "ps-editorial-columns",
-						children: [/* @__PURE__ */ jsx(ScrollReveal, {
-							delay: 100,
-							className: "ps-col",
-							children: /* @__PURE__ */ jsx("h2", { children: "B2B decisions focus on risk mitigation and authority." })
-						}), /* @__PURE__ */ jsx(ScrollReveal, {
-							delay: 200,
-							className: "ps-col",
-							children: /* @__PURE__ */ jsx("p", { children: "Corporate clients and procurement teams do not make impulse purchases. They evaluate your firm based on proven methodologies, deep industry understanding, and past success. Whether you are an independent consultant or a large IT firm, our approach focuses on proving your capability before the first conversation even happens." })
-						})]
-					})
-				})
-			}),
-			/* @__PURE__ */ jsx("section", {
-				className: "ind-challenge ps-challenge",
-				children: /* @__PURE__ */ jsx("div", {
-					className: "container",
-					children: /* @__PURE__ */ jsx("div", {
-						className: "ps-editorial-box",
-						children: /* @__PURE__ */ jsxs(ScrollReveal, {
-							delay: 100,
-							children: [/* @__PURE__ */ jsx("h2", { children: "Making invisible expertise visible." }), /* @__PURE__ */ jsx("p", { children: "The biggest challenge for professional services is differentiation. Jargon-heavy websites and generic B2B marketing obscure your true value. You don't just need local visibility; you need to establish thought leadership and build authority in a crowded, competitive market." })]
-						})
-					})
-				})
-			}),
-			/* @__PURE__ */ jsx("section", {
-				className: "ind-approach ps-approach",
-				children: /* @__PURE__ */ jsxs("div", {
-					className: "container",
+				}),
+				/* @__PURE__ */ jsxs("section", {
+					className: "ps-cards-selector-section",
 					children: [/* @__PURE__ */ jsx(ScrollReveal, {
-						delay: 0,
+						delay: 60,
 						children: /* @__PURE__ */ jsx("div", {
-							className: "ind-approach-header border-top",
-							children: /* @__PURE__ */ jsx("h2", { children: "Our Approach applied to Professional Services" })
+							className: "ps-cards-selector-grid",
+							children: SECTOR_PILLARS.map((sector) => {
+								const IconComponent = sector.icon;
+								const isActive = sector.id === activeSectorId;
+								return /* @__PURE__ */ jsxs("div", {
+									className: `ps-selector-card ${isActive ? "active" : ""}`,
+									onClick: () => setActiveSectorId(sector.id),
+									role: "button",
+									tabIndex: 0,
+									"aria-label": `Explore services for ${sector.title}`,
+									onKeyDown: (e) => {
+										if (e.key === "Enter" || e.key === " ") setActiveSectorId(sector.id);
+									},
+									children: [/* @__PURE__ */ jsxs("div", { children: [/* @__PURE__ */ jsxs("div", {
+										className: "ps-card-top-row",
+										children: [/* @__PURE__ */ jsx("div", {
+											className: "ps-card-icon-box",
+											children: /* @__PURE__ */ jsx(IconComponent, { size: 18 })
+										}), /* @__PURE__ */ jsx("h3", {
+											className: "ps-card-title",
+											children: sector.title
+										})]
+									}), /* @__PURE__ */ jsx("p", {
+										className: "ps-card-desc",
+										children: sector.tagline
+									})] }), /* @__PURE__ */ jsx("div", {
+										className: "ps-card-action-row",
+										children: /* @__PURE__ */ jsxs("span", {
+											className: "ps-card-explore-btn",
+											children: [/* @__PURE__ */ jsx("span", { children: "Explore Services" }), /* @__PURE__ */ jsx(ArrowRight, {
+												size: 13,
+												strokeWidth: 2.4
+											})]
+										})
+									})]
+								}, sector.id);
+							})
 						})
-					}), /* @__PURE__ */ jsxs("div", {
-						className: "ps-approach-grid ind-approach-grid",
-						children: [
-							/* @__PURE__ */ jsx(ScrollReveal, {
-								delay: 100,
-								children: /* @__PURE__ */ jsxs("div", {
-									className: "ps-approach-card ind-approach-card",
-									children: [/* @__PURE__ */ jsx("h3", { children: "BUILD" }), /* @__PURE__ */ jsx("p", { children: "We develop a technical SEO architecture centered around the complex business problems your firm solves." })]
-								})
-							}),
-							/* @__PURE__ */ jsx(ScrollReveal, {
-								delay: 200,
-								children: /* @__PURE__ */ jsxs("div", {
-									className: "ps-approach-card ind-approach-card",
-									children: [/* @__PURE__ */ jsx("h3", { children: "CREATE" }), /* @__PURE__ */ jsx("p", { children: "We produce authoritative digital content, including long-form articles and optimized LinkedIn posts, that showcase your methodology." })]
-								})
-							}),
-							/* @__PURE__ */ jsx(ScrollReveal, {
-								delay: 300,
-								children: /* @__PURE__ */ jsxs("div", {
-									className: "ps-approach-card ind-approach-card",
-									children: [/* @__PURE__ */ jsx("h3", { children: "PROMOTE" }), /* @__PURE__ */ jsx("p", { children: "We utilize targeted LinkedIn B2B advertising and Account-Based Marketing (ABM) strategies to reach specific decision-makers." })]
-								})
-							})
-						]
+					}), /* @__PURE__ */ jsx(ScrollReveal, {
+						delay: 120,
+						children: /* @__PURE__ */ jsxs("div", {
+							className: "ps-showcase-card",
+							children: [/* @__PURE__ */ jsxs("div", {
+								className: "ps-showcase-left",
+								children: [
+									/* @__PURE__ */ jsxs("div", {
+										className: "ps-showcase-badge",
+										children: [/* @__PURE__ */ jsx(Sparkles, { size: 12 }), /* @__PURE__ */ jsx("span", { children: currentSector.badge })]
+									}),
+									/* @__PURE__ */ jsx("h2", {
+										className: "ps-showcase-heading",
+										children: currentSector.fullTitle
+									}),
+									/* @__PURE__ */ jsx("p", {
+										className: "ps-showcase-desc",
+										children: currentSector.description
+									}),
+									/* @__PURE__ */ jsx("div", {
+										className: "ps-showcase-capabilities",
+										children: currentSector.capabilities.map((cap, cIdx) => /* @__PURE__ */ jsxs("div", {
+											className: "ps-capability-item",
+											children: [/* @__PURE__ */ jsx(CheckCircle2, {
+												size: 15,
+												className: "ps-cap-icon"
+											}), /* @__PURE__ */ jsx("span", { children: cap })]
+										}, cIdx))
+									})
+								]
+							}), /* @__PURE__ */ jsxs("div", {
+								className: "ps-showcase-right",
+								children: [
+									/* @__PURE__ */ jsx("span", {
+										className: "ps-metric-tag",
+										children: currentSector.metricTag
+									}),
+									/* @__PURE__ */ jsx("span", {
+										className: "ps-metric-big",
+										children: currentSector.metricBig
+									}),
+									/* @__PURE__ */ jsx("span", {
+										className: "ps-metric-sub",
+										children: currentSector.metricSub
+									}),
+									/* @__PURE__ */ jsxs("div", {
+										className: "ps-trust-badge",
+										children: [/* @__PURE__ */ jsx(ShieldCheck, {
+											size: 14,
+											color: "#BA7C3D"
+										}), /* @__PURE__ */ jsx("span", { children: currentSector.trustBadge })]
+									}),
+									/* @__PURE__ */ jsxs(Link, {
+										to: currentSector.ctaLink,
+										className: "ps-action-btn",
+										children: [/* @__PURE__ */ jsx("span", { children: currentSector.ctaText }), /* @__PURE__ */ jsx(ArrowRight, {
+											size: 15,
+											strokeWidth: 2.4
+										})]
+									})
+								]
+							})]
+						})
 					})]
-				})
-			}),
-			/* @__PURE__ */ jsx("section", {
-				className: "final-cta",
-				children: /* @__PURE__ */ jsx("div", {
-					className: "container text-center",
+				}),
+				/* @__PURE__ */ jsx("section", {
+					className: "ps-consulting-section",
 					children: /* @__PURE__ */ jsxs(ScrollReveal, {
-						delay: 0,
-						children: [/* @__PURE__ */ jsx("h2", { children: "Ready to grow your digital presence?" }), /* @__PURE__ */ jsx("div", {
-							className: "hero-buttons",
-							style: {
-								marginTop: "40px",
-								justifyContent: "center"
-							},
-							children: /* @__PURE__ */ jsx(Link, {
-								to: "/contact",
-								className: "btn btn-primary",
-								children: "Request a Professional Services Strategy Consultation"
+						delay: 150,
+						children: [/* @__PURE__ */ jsx("div", {
+							className: "ps-consulting-header",
+							children: /* @__PURE__ */ jsxs("h2", {
+								className: "ps-consulting-title",
+								children: ["Other ", /* @__PURE__ */ jsx("span", {
+									className: "ps-gold-text",
+									children: "Services."
+								})]
 							})
+						}), /* @__PURE__ */ jsxs("div", {
+							className: "ps-consulting-single-card",
+							children: [/* @__PURE__ */ jsx("div", {
+								className: "ps-consulting-single-left",
+								children: /* @__PURE__ */ jsxs("div", {
+									className: "ps-consulting-card-top",
+									children: [/* @__PURE__ */ jsx("div", {
+										className: "ps-consulting-icon-box",
+										children: /* @__PURE__ */ jsx(Compass, { size: 22 })
+									}), /* @__PURE__ */ jsxs("div", { children: [/* @__PURE__ */ jsx("h3", {
+										className: "ps-consulting-single-title",
+										children: "Marketing Consultation"
+									}), /* @__PURE__ */ jsx("span", {
+										className: "ps-consulting-single-tag",
+										children: "✦ Senior Growth Advisory"
+									})] })]
+								})
+							}), /* @__PURE__ */ jsx("div", {
+								className: "ps-consulting-single-right",
+								children: /* @__PURE__ */ jsxs(Link, {
+									to: "/contact",
+									className: "ps-consulting-single-btn",
+									children: [/* @__PURE__ */ jsx("span", { children: "Book Marketing Consultation" }), /* @__PURE__ */ jsx(ArrowRight, {
+										size: 15,
+										strokeWidth: 2.4
+									})]
+								})
+							})]
+						})]
+					})
+				}),
+				/* @__PURE__ */ jsx(ScrollReveal, {
+					delay: 180,
+					children: /* @__PURE__ */ jsxs("div", {
+						className: "ps-banner-cta",
+						children: [/* @__PURE__ */ jsxs("div", { children: [/* @__PURE__ */ jsx("h3", {
+							className: "ps-banner-title",
+							children: "Ready to accelerate growth for your business, empire, or career?"
+						}), /* @__PURE__ */ jsx("p", {
+							className: "ps-banner-desc",
+							children: "Talk directly with S-BLOOM to launch your high-impact digital growth services or book a strategic marketing consultation."
+						})] }), /* @__PURE__ */ jsxs(Link, {
+							to: "/contact",
+							className: "ps-banner-btn",
+							children: [/* @__PURE__ */ jsx("span", { children: "Talk to S-BLOOM" }), /* @__PURE__ */ jsx(ArrowRight, {
+								size: 15,
+								strokeWidth: 2.4
+							})]
 						})]
 					})
 				})
-			})
-		]
+			]
+		})]
 	});
 };
 //#endregion
@@ -5327,33 +5568,6 @@ var SolutionsOverviewPage = ({ initialSection }) => {
 										"aria-label": "Next Phase",
 										children: [/* @__PURE__ */ jsx("span", { children: "Next" }), /* @__PURE__ */ jsx(ArrowRight, { size: 15 })]
 									})]
-								})]
-							})
-						]
-					})
-				})
-			}),
-			/* @__PURE__ */ jsx("div", {
-				className: "sol-container",
-				children: /* @__PURE__ */ jsx(ScrollReveal, {
-					delay: 100,
-					children: /* @__PURE__ */ jsxs("div", {
-						className: "sol-final-cta",
-						children: [
-							/* @__PURE__ */ jsx("h2", {
-								className: "sol-final-title",
-								children: "Your business has potential. Let’s help people see it."
-							}),
-							/* @__PURE__ */ jsx("p", {
-								className: "sol-final-desc",
-								children: "Whether you need to build your foundation, create compelling content, or reach new audiences, we are ready to help."
-							}),
-							/* @__PURE__ */ jsxs(Link, {
-								to: "/contact",
-								className: "sol-final-btn",
-								children: [/* @__PURE__ */ jsx("span", { children: "Talk to sBLOOM" }), /* @__PURE__ */ jsx(ArrowRight, {
-									size: 18,
-									strokeWidth: 2.2
 								})]
 							})
 						]
@@ -7587,7 +7801,33 @@ var POW_CASES = {
 	}
 };
 var ProofOfWorkPage = () => {
-	const [activeTab, setActiveTab] = useState("gbp");
+	const [searchParams] = useSearchParams();
+	const serviceParam = searchParams.get("service");
+	const initialCategory = serviceParam && [
+		"gbp",
+		"website",
+		"social",
+		"ads"
+	].includes(serviceParam) ? serviceParam : "gbp";
+	const [activeTab, setActiveTab] = useState(initialCategory);
+	useEffect(() => {
+		const service = searchParams.get("service");
+		if (service && [
+			"gbp",
+			"website",
+			"social",
+			"ads"
+		].includes(service)) {
+			setActiveTab(service);
+			setTimeout(() => {
+				const target = document.querySelector(".proof-pill-nav-wrap");
+				if (target) target.scrollIntoView({
+					behavior: "smooth",
+					block: "start"
+				});
+			}, 100);
+		}
+	}, [searchParams]);
 	const currentCase = POW_CASES[activeTab];
 	return /* @__PURE__ */ jsxs("div", {
 		className: "proof-page",
@@ -7884,8 +8124,8 @@ var proof_of_work_default = UNSAFE_withComponentProps(function Route() {
 //#region \0virtual:react-router/server-manifest
 var server_manifest_default = {
 	"entry": {
-		"module": "/assets/entry.client-Dm_7X2fz.js",
-		"imports": ["/assets/jsx-runtime-BlNWIPXH.js"],
+		"module": "/assets/entry.client-55VPP4AO.js",
+		"imports": ["/assets/jsx-runtime-BsyjEvTb.js"],
 		"css": []
 	},
 	"routes": {
@@ -7902,20 +8142,21 @@ var server_manifest_default = {
 			"hasClientMiddleware": false,
 			"hasDefaultExport": true,
 			"hasErrorBoundary": false,
-			"module": "/assets/root-CEI4ch9j.js",
+			"module": "/assets/root-D6be4fmP.js",
 			"imports": [
-				"/assets/jsx-runtime-BlNWIPXH.js",
-				"/assets/createLucideIcon-CL2tSNCL.js",
-				"/assets/arrow-right-KqOf-Gdl.js",
-				"/assets/briefcase-tF5iWa8f.js",
-				"/assets/camera-BJN__wyo.js",
-				"/assets/message-circle-D7ybGlZB.js",
-				"/assets/globe-D3mN-kk0.js",
-				"/assets/phone-DutSVw__.js",
-				"/assets/proxy-RobfnU4X.js",
-				"/assets/AnimatePresence-Cg8KffXb.js"
+				"/assets/jsx-runtime-BsyjEvTb.js",
+				"/assets/createLucideIcon-CwdIbnKb.js",
+				"/assets/arrow-right-15U-iPYb.js",
+				"/assets/briefcase-C-mYWWl7.js",
+				"/assets/camera-BhaOD3b7.js",
+				"/assets/globe--SxRTJ5b.js",
+				"/assets/phone-BVAH-4Jp.js",
+				"/assets/message-circle-DbQdYZKU.js",
+				"/assets/x-oUmXnxgy.js",
+				"/assets/proxy-FSJxybC7.js",
+				"/assets/AnimatePresence-C9vUs0fx.js"
 			],
-			"css": ["/assets/root-bpQORl4W.css"],
+			"css": ["/assets/root-aant6YTH.css"],
 			"clientActionModule": void 0,
 			"clientLoaderModule": void 0,
 			"clientMiddlewareModule": void 0,
@@ -7934,25 +8175,28 @@ var server_manifest_default = {
 			"hasClientMiddleware": false,
 			"hasDefaultExport": true,
 			"hasErrorBoundary": false,
-			"module": "/assets/home-BLe9981u.js",
+			"module": "/assets/home-D2K8zBwh.js",
 			"imports": [
-				"/assets/jsx-runtime-BlNWIPXH.js",
-				"/assets/createLucideIcon-CL2tSNCL.js",
-				"/assets/arrow-right-KqOf-Gdl.js",
-				"/assets/camera-BJN__wyo.js",
-				"/assets/file-text-BWFLFhPT.js",
-				"/assets/film-BBg52dMe.js",
-				"/assets/globe-D3mN-kk0.js",
-				"/assets/megaphone-DXwXuk5K.js",
-				"/assets/monitor-DL3t_mot.js",
-				"/assets/shield-check-CQSr4HmB.js",
-				"/assets/target-D6PfSGQz.js",
-				"/assets/users-A_LCLQ7t.js",
-				"/assets/proxy-RobfnU4X.js",
-				"/assets/AnimatePresence-Cg8KffXb.js",
-				"/assets/ScrollReveal-CgH2EXqj.js"
+				"/assets/jsx-runtime-BsyjEvTb.js",
+				"/assets/createLucideIcon-CwdIbnKb.js",
+				"/assets/arrow-right-15U-iPYb.js",
+				"/assets/camera-BhaOD3b7.js",
+				"/assets/globe--SxRTJ5b.js",
+				"/assets/circle-check-CH-gujLG.js",
+				"/assets/file-text-Burlk_f5.js",
+				"/assets/film-UP_0_Rum.js",
+				"/assets/megaphone-CuRaGHmu.js",
+				"/assets/monitor-DYPScnuF.js",
+				"/assets/play-DrBcmWZN.js",
+				"/assets/shield-check-DMuVmhW2.js",
+				"/assets/target-ZJMD494F.js",
+				"/assets/users-C2my3pE2.js",
+				"/assets/x-oUmXnxgy.js",
+				"/assets/proxy-FSJxybC7.js",
+				"/assets/AnimatePresence-C9vUs0fx.js",
+				"/assets/ScrollReveal-CXAisqc7.js"
 			],
-			"css": ["/assets/home-Bw3fLknB.css"],
+			"css": ["/assets/home-FavC3wQ1.css"],
 			"clientActionModule": void 0,
 			"clientLoaderModule": void 0,
 			"clientMiddlewareModule": void 0,
@@ -7971,17 +8215,17 @@ var server_manifest_default = {
 			"hasClientMiddleware": false,
 			"hasDefaultExport": true,
 			"hasErrorBoundary": false,
-			"module": "/assets/education-CX_PG4vY.js",
+			"module": "/assets/education-DAiFa3Ge.js",
 			"imports": [
-				"/assets/jsx-runtime-BlNWIPXH.js",
-				"/assets/arrow-right-KqOf-Gdl.js",
-				"/assets/map-pin-C0CJ_POJ.js",
-				"/assets/megaphone-DXwXuk5K.js",
-				"/assets/monitor-DL3t_mot.js",
-				"/assets/trending-up-l7soWG3q.js",
-				"/assets/users-A_LCLQ7t.js",
-				"/assets/ScrollReveal-CgH2EXqj.js",
-				"/assets/createLucideIcon-CL2tSNCL.js"
+				"/assets/jsx-runtime-BsyjEvTb.js",
+				"/assets/arrow-right-15U-iPYb.js",
+				"/assets/map-pin-BIDWhrwv.js",
+				"/assets/megaphone-CuRaGHmu.js",
+				"/assets/monitor-DYPScnuF.js",
+				"/assets/trending-up-P5GqPifz.js",
+				"/assets/users-C2my3pE2.js",
+				"/assets/ScrollReveal-CXAisqc7.js",
+				"/assets/createLucideIcon-CwdIbnKb.js"
 			],
 			"css": ["/assets/IndustryPage-tWuJ6uW7.css"],
 			"clientActionModule": void 0,
@@ -8002,17 +8246,17 @@ var server_manifest_default = {
 			"hasClientMiddleware": false,
 			"hasDefaultExport": true,
 			"hasErrorBoundary": false,
-			"module": "/assets/healthcare-DJgW2Pbx.js",
+			"module": "/assets/healthcare-Bt9yeSGJ.js",
 			"imports": [
-				"/assets/jsx-runtime-BlNWIPXH.js",
-				"/assets/arrow-right-KqOf-Gdl.js",
-				"/assets/map-pin-C0CJ_POJ.js",
-				"/assets/megaphone-DXwXuk5K.js",
-				"/assets/monitor-DL3t_mot.js",
-				"/assets/trending-up-l7soWG3q.js",
-				"/assets/users-A_LCLQ7t.js",
-				"/assets/ScrollReveal-CgH2EXqj.js",
-				"/assets/createLucideIcon-CL2tSNCL.js"
+				"/assets/jsx-runtime-BsyjEvTb.js",
+				"/assets/arrow-right-15U-iPYb.js",
+				"/assets/map-pin-BIDWhrwv.js",
+				"/assets/megaphone-CuRaGHmu.js",
+				"/assets/monitor-DYPScnuF.js",
+				"/assets/trending-up-P5GqPifz.js",
+				"/assets/users-C2my3pE2.js",
+				"/assets/ScrollReveal-CXAisqc7.js",
+				"/assets/createLucideIcon-CwdIbnKb.js"
 			],
 			"css": ["/assets/IndustryPage-tWuJ6uW7.css"],
 			"clientActionModule": void 0,
@@ -8033,9 +8277,18 @@ var server_manifest_default = {
 			"hasClientMiddleware": false,
 			"hasDefaultExport": true,
 			"hasErrorBoundary": false,
-			"module": "/assets/professional-services-DczuG8tY.js",
-			"imports": ["/assets/jsx-runtime-BlNWIPXH.js", "/assets/ScrollReveal-CgH2EXqj.js"],
-			"css": [],
+			"module": "/assets/professional-services-BiKjI5nu.js",
+			"imports": [
+				"/assets/jsx-runtime-BsyjEvTb.js",
+				"/assets/createLucideIcon-CwdIbnKb.js",
+				"/assets/arrow-right-15U-iPYb.js",
+				"/assets/building-complex-CLCqMRLP.js",
+				"/assets/circle-check-CH-gujLG.js",
+				"/assets/graduation-cap-rFlmePL7.js",
+				"/assets/shield-check-DMuVmhW2.js",
+				"/assets/ScrollReveal-CXAisqc7.js"
+			],
+			"css": ["/assets/professional-services-Dp8oGgwr.css", "/assets/IndustryPage-tWuJ6uW7.css"],
 			"clientActionModule": void 0,
 			"clientLoaderModule": void 0,
 			"clientMiddlewareModule": void 0,
@@ -8054,30 +8307,31 @@ var server_manifest_default = {
 			"hasClientMiddleware": false,
 			"hasDefaultExport": true,
 			"hasErrorBoundary": false,
-			"module": "/assets/solutions-Bq_-RfAp.js",
+			"module": "/assets/solutions-61p-fyuf.js",
 			"imports": [
-				"/assets/jsx-runtime-BlNWIPXH.js",
-				"/assets/SolutionsOverviewPage-CbO5Bl3M.js",
-				"/assets/createLucideIcon-CL2tSNCL.js",
-				"/assets/arrow-left-CT4c2LcA.js",
-				"/assets/arrow-right-KqOf-Gdl.js",
-				"/assets/image-D9Q2YExd.js",
-				"/assets/chart-column-CNmPOak1.js",
-				"/assets/message-circle-D7ybGlZB.js",
-				"/assets/film-BBg52dMe.js",
-				"/assets/globe-D3mN-kk0.js",
-				"/assets/heart-CRIR-TFr.js",
-				"/assets/map-pin-C0CJ_POJ.js",
-				"/assets/megaphone-DXwXuk5K.js",
-				"/assets/palette-DQX21BE6.js",
-				"/assets/shield-check-CQSr4HmB.js",
-				"/assets/search-U7Cjb8zI.js",
-				"/assets/target-D6PfSGQz.js",
-				"/assets/user-ei6e_N60.js",
-				"/assets/users-A_LCLQ7t.js",
-				"/assets/proxy-RobfnU4X.js",
-				"/assets/AnimatePresence-Cg8KffXb.js",
-				"/assets/ScrollReveal-CgH2EXqj.js"
+				"/assets/jsx-runtime-BsyjEvTb.js",
+				"/assets/SolutionsOverviewPage-BiZVIStK.js",
+				"/assets/createLucideIcon-CwdIbnKb.js",
+				"/assets/arrow-left-4APnbDld.js",
+				"/assets/arrow-right-15U-iPYb.js",
+				"/assets/image-NZ-E0ZXK.js",
+				"/assets/chart-column-CkOwwm5a.js",
+				"/assets/globe--SxRTJ5b.js",
+				"/assets/film-UP_0_Rum.js",
+				"/assets/heart-BKxYrWhg.js",
+				"/assets/map-pin-BIDWhrwv.js",
+				"/assets/megaphone-CuRaGHmu.js",
+				"/assets/message-circle-DbQdYZKU.js",
+				"/assets/palette-DcTihtN5.js",
+				"/assets/play-DrBcmWZN.js",
+				"/assets/search-D5LEcq4c.js",
+				"/assets/shield-check-DMuVmhW2.js",
+				"/assets/target-ZJMD494F.js",
+				"/assets/user-DHGRb9qL.js",
+				"/assets/users-C2my3pE2.js",
+				"/assets/proxy-FSJxybC7.js",
+				"/assets/AnimatePresence-C9vUs0fx.js",
+				"/assets/ScrollReveal-CXAisqc7.js"
 			],
 			"css": ["/assets/SolutionsOverviewPage-M-TccOgD.css"],
 			"clientActionModule": void 0,
@@ -8098,30 +8352,31 @@ var server_manifest_default = {
 			"hasClientMiddleware": false,
 			"hasDefaultExport": true,
 			"hasErrorBoundary": false,
-			"module": "/assets/build-CVVTFWNv.js",
+			"module": "/assets/build-NbiKQ3ky.js",
 			"imports": [
-				"/assets/jsx-runtime-BlNWIPXH.js",
-				"/assets/SolutionsOverviewPage-CbO5Bl3M.js",
-				"/assets/createLucideIcon-CL2tSNCL.js",
-				"/assets/arrow-left-CT4c2LcA.js",
-				"/assets/arrow-right-KqOf-Gdl.js",
-				"/assets/image-D9Q2YExd.js",
-				"/assets/chart-column-CNmPOak1.js",
-				"/assets/message-circle-D7ybGlZB.js",
-				"/assets/film-BBg52dMe.js",
-				"/assets/globe-D3mN-kk0.js",
-				"/assets/heart-CRIR-TFr.js",
-				"/assets/map-pin-C0CJ_POJ.js",
-				"/assets/megaphone-DXwXuk5K.js",
-				"/assets/palette-DQX21BE6.js",
-				"/assets/shield-check-CQSr4HmB.js",
-				"/assets/search-U7Cjb8zI.js",
-				"/assets/target-D6PfSGQz.js",
-				"/assets/user-ei6e_N60.js",
-				"/assets/users-A_LCLQ7t.js",
-				"/assets/proxy-RobfnU4X.js",
-				"/assets/AnimatePresence-Cg8KffXb.js",
-				"/assets/ScrollReveal-CgH2EXqj.js"
+				"/assets/jsx-runtime-BsyjEvTb.js",
+				"/assets/SolutionsOverviewPage-BiZVIStK.js",
+				"/assets/createLucideIcon-CwdIbnKb.js",
+				"/assets/arrow-left-4APnbDld.js",
+				"/assets/arrow-right-15U-iPYb.js",
+				"/assets/image-NZ-E0ZXK.js",
+				"/assets/chart-column-CkOwwm5a.js",
+				"/assets/globe--SxRTJ5b.js",
+				"/assets/film-UP_0_Rum.js",
+				"/assets/heart-BKxYrWhg.js",
+				"/assets/map-pin-BIDWhrwv.js",
+				"/assets/megaphone-CuRaGHmu.js",
+				"/assets/message-circle-DbQdYZKU.js",
+				"/assets/palette-DcTihtN5.js",
+				"/assets/play-DrBcmWZN.js",
+				"/assets/search-D5LEcq4c.js",
+				"/assets/shield-check-DMuVmhW2.js",
+				"/assets/target-ZJMD494F.js",
+				"/assets/user-DHGRb9qL.js",
+				"/assets/users-C2my3pE2.js",
+				"/assets/proxy-FSJxybC7.js",
+				"/assets/AnimatePresence-C9vUs0fx.js",
+				"/assets/ScrollReveal-CXAisqc7.js"
 			],
 			"css": ["/assets/SolutionsOverviewPage-M-TccOgD.css"],
 			"clientActionModule": void 0,
@@ -8142,30 +8397,31 @@ var server_manifest_default = {
 			"hasClientMiddleware": false,
 			"hasDefaultExport": true,
 			"hasErrorBoundary": false,
-			"module": "/assets/create-BLGm0AoI.js",
+			"module": "/assets/create-DHywXUp8.js",
 			"imports": [
-				"/assets/jsx-runtime-BlNWIPXH.js",
-				"/assets/SolutionsOverviewPage-CbO5Bl3M.js",
-				"/assets/createLucideIcon-CL2tSNCL.js",
-				"/assets/arrow-left-CT4c2LcA.js",
-				"/assets/arrow-right-KqOf-Gdl.js",
-				"/assets/image-D9Q2YExd.js",
-				"/assets/chart-column-CNmPOak1.js",
-				"/assets/message-circle-D7ybGlZB.js",
-				"/assets/film-BBg52dMe.js",
-				"/assets/globe-D3mN-kk0.js",
-				"/assets/heart-CRIR-TFr.js",
-				"/assets/map-pin-C0CJ_POJ.js",
-				"/assets/megaphone-DXwXuk5K.js",
-				"/assets/palette-DQX21BE6.js",
-				"/assets/shield-check-CQSr4HmB.js",
-				"/assets/search-U7Cjb8zI.js",
-				"/assets/target-D6PfSGQz.js",
-				"/assets/user-ei6e_N60.js",
-				"/assets/users-A_LCLQ7t.js",
-				"/assets/proxy-RobfnU4X.js",
-				"/assets/AnimatePresence-Cg8KffXb.js",
-				"/assets/ScrollReveal-CgH2EXqj.js"
+				"/assets/jsx-runtime-BsyjEvTb.js",
+				"/assets/SolutionsOverviewPage-BiZVIStK.js",
+				"/assets/createLucideIcon-CwdIbnKb.js",
+				"/assets/arrow-left-4APnbDld.js",
+				"/assets/arrow-right-15U-iPYb.js",
+				"/assets/image-NZ-E0ZXK.js",
+				"/assets/chart-column-CkOwwm5a.js",
+				"/assets/globe--SxRTJ5b.js",
+				"/assets/film-UP_0_Rum.js",
+				"/assets/heart-BKxYrWhg.js",
+				"/assets/map-pin-BIDWhrwv.js",
+				"/assets/megaphone-CuRaGHmu.js",
+				"/assets/message-circle-DbQdYZKU.js",
+				"/assets/palette-DcTihtN5.js",
+				"/assets/play-DrBcmWZN.js",
+				"/assets/search-D5LEcq4c.js",
+				"/assets/shield-check-DMuVmhW2.js",
+				"/assets/target-ZJMD494F.js",
+				"/assets/user-DHGRb9qL.js",
+				"/assets/users-C2my3pE2.js",
+				"/assets/proxy-FSJxybC7.js",
+				"/assets/AnimatePresence-C9vUs0fx.js",
+				"/assets/ScrollReveal-CXAisqc7.js"
 			],
 			"css": ["/assets/SolutionsOverviewPage-M-TccOgD.css"],
 			"clientActionModule": void 0,
@@ -8186,30 +8442,31 @@ var server_manifest_default = {
 			"hasClientMiddleware": false,
 			"hasDefaultExport": true,
 			"hasErrorBoundary": false,
-			"module": "/assets/promote-B8o34pvq.js",
+			"module": "/assets/promote-BfZZbkcE.js",
 			"imports": [
-				"/assets/jsx-runtime-BlNWIPXH.js",
-				"/assets/SolutionsOverviewPage-CbO5Bl3M.js",
-				"/assets/createLucideIcon-CL2tSNCL.js",
-				"/assets/arrow-left-CT4c2LcA.js",
-				"/assets/arrow-right-KqOf-Gdl.js",
-				"/assets/image-D9Q2YExd.js",
-				"/assets/chart-column-CNmPOak1.js",
-				"/assets/message-circle-D7ybGlZB.js",
-				"/assets/film-BBg52dMe.js",
-				"/assets/globe-D3mN-kk0.js",
-				"/assets/heart-CRIR-TFr.js",
-				"/assets/map-pin-C0CJ_POJ.js",
-				"/assets/megaphone-DXwXuk5K.js",
-				"/assets/palette-DQX21BE6.js",
-				"/assets/shield-check-CQSr4HmB.js",
-				"/assets/search-U7Cjb8zI.js",
-				"/assets/target-D6PfSGQz.js",
-				"/assets/user-ei6e_N60.js",
-				"/assets/users-A_LCLQ7t.js",
-				"/assets/proxy-RobfnU4X.js",
-				"/assets/AnimatePresence-Cg8KffXb.js",
-				"/assets/ScrollReveal-CgH2EXqj.js"
+				"/assets/jsx-runtime-BsyjEvTb.js",
+				"/assets/SolutionsOverviewPage-BiZVIStK.js",
+				"/assets/createLucideIcon-CwdIbnKb.js",
+				"/assets/arrow-left-4APnbDld.js",
+				"/assets/arrow-right-15U-iPYb.js",
+				"/assets/image-NZ-E0ZXK.js",
+				"/assets/chart-column-CkOwwm5a.js",
+				"/assets/globe--SxRTJ5b.js",
+				"/assets/film-UP_0_Rum.js",
+				"/assets/heart-BKxYrWhg.js",
+				"/assets/map-pin-BIDWhrwv.js",
+				"/assets/megaphone-CuRaGHmu.js",
+				"/assets/message-circle-DbQdYZKU.js",
+				"/assets/palette-DcTihtN5.js",
+				"/assets/play-DrBcmWZN.js",
+				"/assets/search-D5LEcq4c.js",
+				"/assets/shield-check-DMuVmhW2.js",
+				"/assets/target-ZJMD494F.js",
+				"/assets/user-DHGRb9qL.js",
+				"/assets/users-C2my3pE2.js",
+				"/assets/proxy-FSJxybC7.js",
+				"/assets/AnimatePresence-C9vUs0fx.js",
+				"/assets/ScrollReveal-CXAisqc7.js"
 			],
 			"css": ["/assets/SolutionsOverviewPage-M-TccOgD.css"],
 			"clientActionModule": void 0,
@@ -8230,16 +8487,17 @@ var server_manifest_default = {
 			"hasClientMiddleware": false,
 			"hasDefaultExport": true,
 			"hasErrorBoundary": false,
-			"module": "/assets/about-CVUnfjwG.js",
+			"module": "/assets/about-CWKcl1ML.js",
 			"imports": [
-				"/assets/jsx-runtime-BlNWIPXH.js",
-				"/assets/createLucideIcon-CL2tSNCL.js",
-				"/assets/briefcase-tF5iWa8f.js",
-				"/assets/heart-CRIR-TFr.js",
-				"/assets/target-D6PfSGQz.js",
-				"/assets/trending-up-l7soWG3q.js",
-				"/assets/users-A_LCLQ7t.js",
-				"/assets/ScrollReveal-CgH2EXqj.js"
+				"/assets/jsx-runtime-BsyjEvTb.js",
+				"/assets/briefcase-C-mYWWl7.js",
+				"/assets/graduation-cap-rFlmePL7.js",
+				"/assets/heart-BKxYrWhg.js",
+				"/assets/target-ZJMD494F.js",
+				"/assets/trending-up-P5GqPifz.js",
+				"/assets/users-C2my3pE2.js",
+				"/assets/ScrollReveal-CXAisqc7.js",
+				"/assets/createLucideIcon-CwdIbnKb.js"
 			],
 			"css": ["/assets/about-5IYE-Zsv.css"],
 			"clientActionModule": void 0,
@@ -8260,17 +8518,17 @@ var server_manifest_default = {
 			"hasClientMiddleware": false,
 			"hasDefaultExport": true,
 			"hasErrorBoundary": false,
-			"module": "/assets/how-it-works-Dxzmk0jN.js",
+			"module": "/assets/how-it-works-Cdi_pshQ.js",
 			"imports": [
-				"/assets/jsx-runtime-BlNWIPXH.js",
-				"/assets/createLucideIcon-CL2tSNCL.js",
-				"/assets/arrow-left-CT4c2LcA.js",
-				"/assets/arrow-right-KqOf-Gdl.js",
-				"/assets/chart-column-CNmPOak1.js",
-				"/assets/lightbulb-BWLJwHpq.js",
-				"/assets/search-U7Cjb8zI.js",
-				"/assets/trending-up-l7soWG3q.js",
-				"/assets/proxy-RobfnU4X.js"
+				"/assets/jsx-runtime-BsyjEvTb.js",
+				"/assets/createLucideIcon-CwdIbnKb.js",
+				"/assets/arrow-left-4APnbDld.js",
+				"/assets/arrow-right-15U-iPYb.js",
+				"/assets/chart-column-CkOwwm5a.js",
+				"/assets/lightbulb-CPfvZZEL.js",
+				"/assets/search-D5LEcq4c.js",
+				"/assets/trending-up-P5GqPifz.js",
+				"/assets/proxy-FSJxybC7.js"
 			],
 			"css": ["/assets/how-it-works-BuG3iXEo.css"],
 			"clientActionModule": void 0,
@@ -8291,20 +8549,21 @@ var server_manifest_default = {
 			"hasClientMiddleware": false,
 			"hasDefaultExport": true,
 			"hasErrorBoundary": false,
-			"module": "/assets/creative-workspace-CcenB6_8.js",
+			"module": "/assets/creative-workspace-BC0M1HID.js",
 			"imports": [
-				"/assets/jsx-runtime-BlNWIPXH.js",
-				"/assets/createLucideIcon-CL2tSNCL.js",
-				"/assets/arrow-right-KqOf-Gdl.js",
-				"/assets/briefcase-tF5iWa8f.js",
-				"/assets/file-text-BWFLFhPT.js",
-				"/assets/film-BBg52dMe.js",
-				"/assets/phone-DutSVw__.js",
-				"/assets/megaphone-DXwXuk5K.js",
-				"/assets/palette-DQX21BE6.js",
-				"/assets/user-ei6e_N60.js",
-				"/assets/users-A_LCLQ7t.js",
-				"/assets/ScrollReveal-CgH2EXqj.js"
+				"/assets/jsx-runtime-BsyjEvTb.js",
+				"/assets/createLucideIcon-CwdIbnKb.js",
+				"/assets/arrow-right-15U-iPYb.js",
+				"/assets/briefcase-C-mYWWl7.js",
+				"/assets/circle-check-CH-gujLG.js",
+				"/assets/file-text-Burlk_f5.js",
+				"/assets/film-UP_0_Rum.js",
+				"/assets/phone-BVAH-4Jp.js",
+				"/assets/megaphone-CuRaGHmu.js",
+				"/assets/palette-DcTihtN5.js",
+				"/assets/user-DHGRb9qL.js",
+				"/assets/users-C2my3pE2.js",
+				"/assets/ScrollReveal-CXAisqc7.js"
 			],
 			"css": ["/assets/creative-workspace-Dagk2enX.css"],
 			"clientActionModule": void 0,
@@ -8325,8 +8584,8 @@ var server_manifest_default = {
 			"hasClientMiddleware": false,
 			"hasDefaultExport": true,
 			"hasErrorBoundary": false,
-			"module": "/assets/apply-DU8uj-So.js",
-			"imports": ["/assets/jsx-runtime-BlNWIPXH.js"],
+			"module": "/assets/apply-BtdK-Xzp.js",
+			"imports": ["/assets/jsx-runtime-BsyjEvTb.js"],
 			"css": [],
 			"clientActionModule": void 0,
 			"clientLoaderModule": void 0,
@@ -8346,16 +8605,18 @@ var server_manifest_default = {
 			"hasClientMiddleware": false,
 			"hasDefaultExport": true,
 			"hasErrorBoundary": false,
-			"module": "/assets/contact-VyxY2keG.js",
+			"module": "/assets/contact-W9kudJ9X.js",
 			"imports": [
-				"/assets/jsx-runtime-BlNWIPXH.js",
-				"/assets/createLucideIcon-CL2tSNCL.js",
-				"/assets/arrow-right-KqOf-Gdl.js",
-				"/assets/chart-column-CNmPOak1.js",
-				"/assets/file-text-BWFLFhPT.js",
-				"/assets/lightbulb-BWLJwHpq.js",
-				"/assets/phone-DutSVw__.js",
-				"/assets/user-ei6e_N60.js"
+				"/assets/jsx-runtime-BsyjEvTb.js",
+				"/assets/createLucideIcon-CwdIbnKb.js",
+				"/assets/arrow-right-15U-iPYb.js",
+				"/assets/building-complex-CLCqMRLP.js",
+				"/assets/chart-column-CkOwwm5a.js",
+				"/assets/circle-check-CH-gujLG.js",
+				"/assets/file-text-Burlk_f5.js",
+				"/assets/lightbulb-CPfvZZEL.js",
+				"/assets/phone-BVAH-4Jp.js",
+				"/assets/user-DHGRb9qL.js"
 			],
 			"css": ["/assets/contact-6JLp--au.css"],
 			"clientActionModule": void 0,
@@ -8376,26 +8637,27 @@ var server_manifest_default = {
 			"hasClientMiddleware": false,
 			"hasDefaultExport": true,
 			"hasErrorBoundary": false,
-			"module": "/assets/proof-of-work-B5u60aUh.js",
+			"module": "/assets/proof-of-work-DKFcEMnO.js",
 			"imports": [
-				"/assets/jsx-runtime-BlNWIPXH.js",
-				"/assets/createLucideIcon-CL2tSNCL.js",
-				"/assets/arrow-right-KqOf-Gdl.js",
-				"/assets/image-D9Q2YExd.js",
-				"/assets/camera-BJN__wyo.js",
-				"/assets/chart-column-CNmPOak1.js",
-				"/assets/file-text-BWFLFhPT.js",
-				"/assets/film-BBg52dMe.js",
-				"/assets/heart-CRIR-TFr.js",
-				"/assets/map-pin-C0CJ_POJ.js",
-				"/assets/monitor-DL3t_mot.js",
-				"/assets/search-U7Cjb8zI.js",
-				"/assets/target-D6PfSGQz.js",
-				"/assets/trending-up-l7soWG3q.js",
-				"/assets/users-A_LCLQ7t.js",
-				"/assets/proxy-RobfnU4X.js",
-				"/assets/AnimatePresence-Cg8KffXb.js",
-				"/assets/ScrollReveal-CgH2EXqj.js"
+				"/assets/jsx-runtime-BsyjEvTb.js",
+				"/assets/createLucideIcon-CwdIbnKb.js",
+				"/assets/arrow-right-15U-iPYb.js",
+				"/assets/image-NZ-E0ZXK.js",
+				"/assets/camera-BhaOD3b7.js",
+				"/assets/chart-column-CkOwwm5a.js",
+				"/assets/circle-check-CH-gujLG.js",
+				"/assets/file-text-Burlk_f5.js",
+				"/assets/film-UP_0_Rum.js",
+				"/assets/heart-BKxYrWhg.js",
+				"/assets/map-pin-BIDWhrwv.js",
+				"/assets/monitor-DYPScnuF.js",
+				"/assets/search-D5LEcq4c.js",
+				"/assets/target-ZJMD494F.js",
+				"/assets/trending-up-P5GqPifz.js",
+				"/assets/users-C2my3pE2.js",
+				"/assets/proxy-FSJxybC7.js",
+				"/assets/AnimatePresence-C9vUs0fx.js",
+				"/assets/ScrollReveal-CXAisqc7.js"
 			],
 			"css": ["/assets/proof-of-work-CCyIXzzI.css"],
 			"clientActionModule": void 0,
@@ -8404,8 +8666,8 @@ var server_manifest_default = {
 			"hydrateFallbackModule": void 0
 		}
 	},
-	"url": "/assets/manifest-7b06f8fc.js",
-	"version": "7b06f8fc",
+	"url": "/assets/manifest-88ce2254.js",
+	"version": "88ce2254",
 	"sri": void 0
 };
 //#endregion

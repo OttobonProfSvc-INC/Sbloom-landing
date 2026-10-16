@@ -18,6 +18,117 @@
   user-select: none;
 }
 
+/* Expandable Options Popover Menu */
+.corner-circle-options-menu {
+  position: absolute;
+  bottom: calc(100% + 8px);
+  right: 0;
+  width: 175px;
+  background: rgba(255, 255, 255, 0.98);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1.5px solid rgba(217, 165, 46, 0.35);
+  border-radius: 16px;
+  padding: 10px;
+  box-shadow: 0 14px 38px rgba(36, 33, 42, 0.16), 0 2px 10px rgba(217, 165, 46, 0.18);
+  z-index: 1000;
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.corner-circle-options-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 2px 6px 8px;
+  border-bottom: 1px solid rgba(36, 33, 42, 0.08);
+  margin-bottom: 4px;
+}
+
+.corner-circle-options-header span {
+  font-size: 0.65rem;
+  font-weight: 750;
+  letter-spacing: 1.4px;
+  color: #785A46;
+  text-transform: uppercase;
+}
+
+.corner-circle-options-close {
+  background: none;
+  border: none;
+  color: #8C847E;
+  cursor: pointer;
+  padding: 3px;
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
+}
+
+.corner-circle-options-close:hover {
+  color: #24212A;
+  background: rgba(36, 33, 42, 0.08);
+}
+
+.corner-circle-options-list {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.corner-circle-option-btn {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+  padding: 7px 10px;
+  background: transparent;
+  border: 1px solid transparent;
+  border-radius: 9px;
+  color: #24212A;
+  font-size: 0.8rem;
+  font-weight: 600;
+  cursor: pointer;
+  text-align: left;
+  transition: all 0.18s ease;
+}
+
+.corner-circle-option-btn:hover {
+  background: #FAF6EE;
+  border-color: rgba(217, 165, 46, 0.35);
+  color: #B58122;
+  transform: translateX(-2px);
+}
+
+.corner-circle-option-btn.active {
+  background: #24212A;
+  color: #FFFFFF;
+  border-color: #24212A;
+}
+
+.corner-circle-option-btn.active .corner-option-icon {
+  color: #D9A52E;
+}
+
+.corner-option-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #785A46;
+  flex-shrink: 0;
+}
+
+.corner-option-name {
+  flex: 1;
+}
+
+.corner-option-indicator {
+  font-size: 0.6rem;
+  color: #D9A52E;
+}
+
 /* Clean White Floating Stage Badge Pill above the circle */
 .corner-circle-label-pill {
   display: inline-flex;
@@ -34,6 +145,13 @@
   box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08), 0 1px 3px rgba(0, 0, 0, 0.04);
   white-space: nowrap;
   transition: all 0.25s ease;
+  cursor: pointer;
+}
+
+.corner-circle-label-pill:hover {
+  border-color: rgba(217, 165, 46, 0.45);
+  background: #FDFBF7;
+  transform: translateY(-1px);
 }
 
 .circle-rec-dot {

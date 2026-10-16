@@ -6,6 +6,7 @@ import { HeroFloatingIcons } from '../components/home/HeroFloatingIcons';
 import { HeroSubtleCurves } from '../components/home/HeroSubtleCurves';
 import { DualPathCards } from '../components/home/DualPathCards';
 import { HomePricingSection } from '../components/home/HomePricingSection';
+import { ClientLogoMarquee } from '../components/home/ClientLogoMarquee';
 import { WhyBetter } from '../components/home/WhyBetter';
 import { BottomCornerScrollShowcase } from '../components/home/BottomCornerScrollShowcase';
 
@@ -69,7 +70,7 @@ export const HomePage: React.FC = () => {
           {/* Left Column: Typography & CTAs */}
           <div className="hero-final-content">
             <div className="hero-final-eyebrow">
-              <span className="eyebrow-text">AI DIGITAL GROWTH PARTNER</span>
+              <span className="eyebrow-text">YOUR AI DIGITAL GROWTH PARTNER</span>
               <span className="eyebrow-line" />
             </div>
 
@@ -102,19 +103,22 @@ export const HomePage: React.FC = () => {
         </div>
       </section>
 
-      {/* SECTION 2 - Dual Paths */}
-      <DualPathCards />
-
       {/* LOWER LUXURY SILK WRAPPER - Continuous Uninterrupted Background Canvas */}
       <div className="home-lower-silk-wrapper">
-        {/* SECTION 4 - What sBLOOM Changes */}
+        {/* SECTION 2 - What sBLOOM Changes (BUILD -> CREATE -> PROMOTE -> GROW) */}
         <DigitalGrowthSystem />
 
-        {/* SECTION: Why S-Bloom is Best Out of All Digital Marketing Agencies */}
+        {/* SECTION 3 - Dual Paths (How can S-Bloom help you grow?) */}
+        <DualPathCards />
+
+        {/* SECTION 4: Why S-Bloom is Best Out of All Digital Marketing Agencies */}
         <WhyBetter />
 
         {/* SECTION 5 - Simple Plans. Real Business Growth (Pricing) */}
         <HomePricingSection />
+
+        {/* SECTION 6 - Trusted Clients Logo Cloud (3 Alternating Scrolling Lines) */}
+        <ClientLogoMarquee />
 
         {/* SECTION 10 - Final CTA */}
         <section className="home-final-cta-section">
