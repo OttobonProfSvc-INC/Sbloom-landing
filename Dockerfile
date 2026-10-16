@@ -34,27 +34,20 @@ WORKDIR /app
 ENV NODE_ENV=production
 ENV PORT=4180
 
-# Create dedicated non-root user and group for security best practices
+# Create dedicated non-root user and group with home directory
 RUN addgroup --system --gid 1001 nodejs && \
-    adduser --system --uid 1001 reactrouter
+    adduser --system --uid 1001 -G nodejs -h /home/reactrouter -D reactrouter
 
-# Copy production node_modules and package manifest
-COPY --from=builder /app/package.json ./package.json
-COPY --from=builder /app/node_modules ./node_modules
-
-# Copy compiled build directory (contains server and client bundles)
-COPY --from=builder /app/build ./build
-
-# Copy public static assets directory
-COPY --from=builder /app/public ./public
-
-# Set proper ownership for the non-root user
-RUN chown -R reactrouter:nodejs /app
+# Copy production dependencies and build artifacts directly with proper ownership
+COPY --from=builder --chown=reactrouter:nodejs /app/package.json ./package.json
+COPY --from=builder --chown=reactrouter:nodejs /app/node_modules ./node_modules
+COPY --from=builder --chown=reactrouter:nodejs /app/build ./build
+COPY --from=builder --chown=reactrouter:nodejs /app/public ./public
 
 USER reactrouter
 
 # Expose non-standard production port (default: 4180)
 EXPOSE 4180
 
-# Launch production server
-CMD ["npx", "react-router-serve", "./build/server/index.js"]
+# Launch production server directly without external registry lookups
+CMD ["./node_modules/.bin/react-router-serve", "./build/server/index.js"]
