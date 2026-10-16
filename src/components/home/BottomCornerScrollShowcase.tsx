@@ -8,7 +8,8 @@ import {
   Globe, 
   Play, 
   Volume2, 
-  VolumeX 
+  VolumeX,
+  type LucideIcon 
 } from 'lucide-react';
 import './BottomCornerScrollShowcase.css';
 
@@ -16,7 +17,7 @@ interface StageConfig {
   id: number;
   key: string;
   label: string;
-  icon: React.ElementType;
+  icon: LucideIcon;
 }
 
 const STAGES: StageConfig[] = [

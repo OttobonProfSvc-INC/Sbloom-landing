@@ -15,7 +15,7 @@ const EcosystemModel = () => {
   const petalsRef = useRef<THREE.Mesh>(null);
   const outerRef = useRef<THREE.Mesh>(null);
 
-  useFrame((state, delta) => {
+  useFrame((_state, delta) => {
     if (petalsRef.current) {
       // Petals rotate right (clockwise)
       petalsRef.current.rotation.z -= delta * 0.15;

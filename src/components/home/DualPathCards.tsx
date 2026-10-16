@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router';
-import { BookOpen, Users, CheckCircle2, ArrowRight } from 'lucide-react';
+import { BookOpen, Users, CheckCircle2 } from 'lucide-react';
 import { ScrollReveal } from '../ScrollReveal';
 import './DualPathCards.css';
 

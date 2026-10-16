@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router';
-import { Bot, Target, Wallet, ArrowRight, CheckCircle2, ShieldCheck, Zap } from 'lucide-react';
+import { Bot, Target, Wallet, ArrowRight, CheckCircle2, ShieldCheck } from 'lucide-react';
 import { ScrollReveal } from '../ScrollReveal';
 import './WhyBetter.css';
 

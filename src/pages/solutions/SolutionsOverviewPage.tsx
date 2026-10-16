@@ -224,7 +224,7 @@ export const SolutionsOverviewPage: React.FC<SolutionsPageProps> = ({ initialSec
       scale: 1,
       transition: {
         duration: 0.32,
-        ease: [0.16, 1, 0.3, 1],
+        ease: [0.16, 1, 0.3, 1] as const,
       },
     },
     exit: (dir: number) => ({
@@ -233,7 +233,7 @@ export const SolutionsOverviewPage: React.FC<SolutionsPageProps> = ({ initialSec
       scale: 0.99,
       transition: {
         duration: 0.22,
-        ease: [0.16, 1, 0.3, 1],
+        ease: [0.16, 1, 0.3, 1] as const,
       },
     }),
   };
