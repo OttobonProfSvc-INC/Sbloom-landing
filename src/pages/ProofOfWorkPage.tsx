@@ -32,6 +32,12 @@ export const ProofOfWorkPage: React.FC = () => {
     const service = searchParams.get('service') as ServiceCategory;
     if (service && ['all', 'gbp', 'website', 'social', 'ads'].includes(service)) {
       setActiveTab(service);
+      setTimeout(() => {
+        const target = document.querySelector('.proof-filter-tabs');
+        if (target) {
+          target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+      }, 100);
     }
   }, [searchParams]);
 

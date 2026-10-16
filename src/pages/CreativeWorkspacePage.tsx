@@ -512,32 +512,6 @@ export const CreativeWorkspacePage = () => {
           </ScrollReveal>
         </div>
       </section>
-
-      {/* Final CTA Section */}
-      <section className="cw-cta-section">
-        <div className="container">
-          <ScrollReveal delay={100}>
-            <h2>Ready to Collaborate with S-Bloom?</h2>
-            <p>Bring your skills, experience, and ideas to projects that need your expertise.</p>
-            <button
-              onClick={() => scrollToApply()}
-              className="cw-btn"
-              style={{
-                padding: '16px 40px',
-                fontSize: '1.1rem',
-                border: 'none',
-                cursor: 'pointer',
-                borderRadius: '8px',
-                background: '#FFFFFF',
-                color: '#1C1917',
-                fontWeight: 650,
-              }}
-            >
-              Apply to S-Bloom Creative Network →
-            </button>
-          </ScrollReveal>
-        </div>
-      </section>
     </div>
   );
 };

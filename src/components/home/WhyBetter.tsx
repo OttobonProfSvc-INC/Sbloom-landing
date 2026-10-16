@@ -11,7 +11,6 @@ export const WhyBetter: React.FC = () => {
       icon: <Bot size={26} />,
       tag: 'TECH INNOVATION',
       title: 'AI-Native Efficiency, Zero Agency Bloat',
-      desc: 'Traditional agencies bill you for 10-person overheads and slow manual delivery. We leverage modern AI tools to build high-converting websites, conduct medical & institutional SEO, and edit retention-hooked Reels in half the time.',
       bullets: [
         'Websites that load in under 1 second',
         'AI-driven keyword analysis for local dominance',
@@ -24,7 +23,6 @@ export const WhyBetter: React.FC = () => {
       icon: <Target size={26} />,
       tag: 'LASER FOCUS',
       title: 'Built Exclusively for 3 High-Trust Sectors',
-      desc: 'We do not market e-commerce clothes or fast food. We specialize strictly in Healthcare, Education, and Professional Services — solving the exact crises you face: empty appointment books, declining student admissions, and invisible professional authority.',
       bullets: [
         'Healthcare: More local clinic & hospital patients',
         'Education: Predictable admission inquiries every season',
@@ -37,7 +35,6 @@ export const WhyBetter: React.FC = () => {
       icon: <Wallet size={26} />,
       tag: 'RADICAL AFFORDABILITY',
       title: 'Genuinely Budget-Friendly & Transparent',
-      desc: 'Starting from just ₹2,000/month, every plan delivers measurable business outcomes rather than vanity follower counts. Complete transparency on ad spend with zero hidden retainers or surprise agency invoices.',
       bullets: [
         'Full GBP optimization from ₹2,000/month',
         'AI Website + SEO from ₹5,000/month',
@@ -62,11 +59,6 @@ export const WhyBetter: React.FC = () => {
               Why We Beat Every Other <br />
               <span className="why-title-serif">Digital Marketing Agency.</span>
             </h2>
-
-            <p className="why-better-lead">
-              You don't need vanity metrics. You need real patients walking through your clinic doors, 
-              parents enrolling their children in your classrooms, and high-value clients seeking your professional counsel.
-            </p>
           </ScrollReveal>
         </div>
 
@@ -84,7 +76,6 @@ export const WhyBetter: React.FC = () => {
 
                 <div className="why-card-tag">{pillar.tag}</div>
                 <h3 className="why-card-title">{pillar.title}</h3>
-                <p className="why-card-desc">{pillar.desc}</p>
 
                 <div className="why-card-bullets">
                   {pillar.bullets.map((bullet, bIdx) => (

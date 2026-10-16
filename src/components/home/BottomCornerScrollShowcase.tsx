@@ -8,7 +8,10 @@ import {
   Globe, 
   Play, 
   Volume2, 
-  VolumeX 
+  VolumeX,
+  ChevronUp,
+  ChevronDown,
+  X
 } from 'lucide-react';
 import './BottomCornerScrollShowcase.css';
 
@@ -33,14 +36,27 @@ export const BottomCornerScrollShowcase: React.FC = () => {
   const [scrollProgress, setScrollProgress] = useState(0);
   const [isMuted, setIsMuted] = useState(true);
   const [manualOverride, setManualOverride] = useState(false);
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   const videoRef = useRef<HTMLVideoElement>(null);
+  const widgetRef = useRef<HTMLDivElement>(null);
   const overrideTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   // Radius for SVG progress ring
   const circleRadius = 44;
   const circumference = 2 * Math.PI * circleRadius; // ~276.46
   const strokeDashoffset = circumference - (scrollProgress * circumference);
+
+  // Close options menu when clicking anywhere outside
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (widgetRef.current && !widgetRef.current.contains(event.target as Node)) {
+        setIsMenuOpen(false);
+      }
+    };
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => document.removeEventListener('mousedown', handleClickOutside);
+  }, []);
 
   // Track page scroll and map progress to the 6 stages
   useEffect(() => {
@@ -82,15 +98,20 @@ export const BottomCornerScrollShowcase: React.FC = () => {
     }
   }, [activeStage]);
 
-  // Click on circle to cycle to next stage
-  const handleCircleClick = () => {
-    const nextStage = (activeStage + 1) % STAGES.length;
-    setActiveStage(nextStage);
+  // Click an option in the menu: switch directly to it
+  const handleSelectStage = (stageId: number) => {
+    setActiveStage(stageId);
     setManualOverride(true);
+    setIsMenuOpen(false);
     if (overrideTimerRef.current) clearTimeout(overrideTimerRef.current);
     overrideTimerRef.current = setTimeout(() => {
       setManualOverride(false);
-    }, 5000);
+    }, 12000);
+  };
+
+  // Click on circle orb: toggle options menu
+  const handleCircleClick = () => {
+    setIsMenuOpen(prev => !prev);
   };
 
   const toggleSound = (e: React.MouseEvent) => {
@@ -105,19 +126,82 @@ export const BottomCornerScrollShowcase: React.FC = () => {
   const IconComponent = currentStageInfo.icon;
 
   return (
-    <div className="corner-circle-widget-wrapper" aria-label="S-Bloom Small Circular Pipeline">
-      {/* Clean White Floating Badge Pill - Only One Time Name */}
-      <div className="corner-circle-label-pill">
+    <div 
+      className="corner-circle-widget-wrapper" 
+      ref={widgetRef}
+      aria-label="S-Bloom Small Circular Pipeline"
+    >
+      {/* Expandable Options Menu appearing when clicking widget */}
+      <AnimatePresence>
+        {isMenuOpen && (
+          <motion.div
+            className="corner-circle-options-menu"
+            initial={{ opacity: 0, y: 10, scale: 0.95 }}
+            animate={{ opacity: 1, y: 0, scale: 1 }}
+            exit={{ opacity: 0, y: 10, scale: 0.95 }}
+            transition={{ duration: 0.2 }}
+          >
+            <div className="corner-circle-options-header">
+              <span>EXPLORE PIPELINE</span>
+              <button
+                className="corner-circle-options-close"
+                onClick={(e) => {
+                  e.stopPropagation();
+                  setIsMenuOpen(false);
+                }}
+                aria-label="Close options"
+              >
+                <X size={13} />
+              </button>
+            </div>
+
+            <div className="corner-circle-options-list">
+              {STAGES.map((stage) => {
+                const StageIcon = stage.icon;
+                const isSelected = activeStage === stage.id;
+                return (
+                  <button
+                    key={stage.key}
+                    className={`corner-circle-option-btn ${isSelected ? 'active' : ''}`}
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      handleSelectStage(stage.id);
+                    }}
+                  >
+                    <div className="corner-option-icon">
+                      <StageIcon size={14} />
+                    </div>
+                    <span className="corner-option-name">{stage.label}</span>
+                    {isSelected && <span className="corner-option-indicator">●</span>}
+                  </button>
+                );
+              })}
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+
+      {/* Clean White Floating Badge Pill (clickable to toggle options) */}
+      <div 
+        className="corner-circle-label-pill"
+        onClick={() => setIsMenuOpen(prev => !prev)}
+        title="Click to view all pipeline options"
+      >
         {activeStage === 0 && <span className="circle-rec-dot" />}
         <IconComponent size={13} color="#D9A52E" />
         <span>{currentStageInfo.label}</span>
+        {isMenuOpen ? (
+          <ChevronDown size={12} color="#785A46" style={{ marginLeft: 2 }} />
+        ) : (
+          <ChevronUp size={12} color="#785A46" style={{ marginLeft: 2 }} />
+        )}
       </div>
 
       {/* The Small Round Circle Orb */}
       <div 
         className="corner-circle-orb" 
         onClick={handleCircleClick}
-        title={`Click to cycle stages (Currently: ${currentStageInfo.label})`}
+        title={`Click to view options (Currently: ${currentStageInfo.label})`}
       >
         {/* SVG Circular Progress Ring */}
         <svg className="corner-circle-svg-ring" viewBox="0 0 96 96">

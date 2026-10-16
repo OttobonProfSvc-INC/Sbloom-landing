@@ -5,7 +5,7 @@ import { isbot } from "isbot";
 import { renderToPipeableStream } from "react-dom/server";
 import { Fragment, jsx, jsxs } from "react/jsx-runtime";
 import React, { useEffect, useRef, useState } from "react";
-import { ArrowLeft, ArrowRight, Award, BarChart3, BookOpen, Bot, Briefcase, Building2, Camera, Check, CheckCircle2, ChevronDown, Eye, FileEdit, FileText, Film, Gift, Globe, GraduationCap, Heart, Layers, LayoutGrid, Lightbulb, LineChart, Link2, Mail, MapPin, Megaphone, Menu, MessageCircle, MessageSquare, Monitor, MonitorSmartphone, PenTool, Phone, PhoneCall, Play, PlayCircle, Rocket, Search, Share2, ShieldCheck, Sparkles, Target, TrendingUp, User, Users, Video, Volume2, VolumeX, Wallet, X, Zap } from "lucide-react";
+import { ArrowLeft, ArrowRight, Award, BarChart3, BookOpen, Bot, Briefcase, Building2, Camera, Check, CheckCircle2, ChevronDown, ChevronUp, Eye, FileEdit, FileText, Film, Gift, Globe, GraduationCap, Heart, Layers, LayoutGrid, Lightbulb, LineChart, Link2, Mail, MapPin, Megaphone, Menu, MessageCircle, MessageSquare, Monitor, MonitorSmartphone, PenTool, Phone, PhoneCall, Play, PlayCircle, Rocket, Search, Share2, ShieldCheck, Sparkles, Target, TrendingUp, User, Users, Video, Volume2, VolumeX, Wallet, X, Zap } from "lucide-react";
 import { AnimatePresence, motion } from "framer-motion";
 //#region \0rolldown/runtime.js
 var __defProp = Object.defineProperty;
@@ -636,137 +636,37 @@ var ScrollReveal = ({ children, delay = 0, className = "", threshold = .1, style
 //#region src/components/home/DigitalGrowthSystem.tsx
 var DigitalGrowthSystem = () => {
 	const [hoveredStage, setHoveredStage] = useState(null);
-	const [isMobile, setIsMobile] = useState(false);
-	const navigate = useNavigate();
-	useEffect(() => {
-		const handleResize = () => setIsMobile(window.innerWidth < 1024);
-		handleResize();
-		window.addEventListener("resize", handleResize);
-		return () => window.removeEventListener("resize", handleResize);
-	}, []);
+	useNavigate();
 	const stages = [
 		{
 			id: "build",
 			num: "01",
 			label: "BUILD",
 			headline: "Be easier to find.",
-			desc: "Establish a strong digital foundation with websites, local SEO, and business profiles.",
-			services: [
-				"Website Design & Development",
-				"SEO",
-				"Google Business Profile"
-			],
-			link: "/solutions#build",
-			linkText: "Explore Build →"
+			link: "/solutions#build"
 		},
 		{
 			id: "create",
 			num: "02",
 			label: "CREATE",
 			headline: "Be easier to understand.",
-			desc: "Communicate expertise and value through meaningful content, video, and creative work.",
-			services: [
-				"Social Media Management",
-				"Social Media Posts",
-				"Reels and Videos",
-				"Digital Content"
-			],
-			link: "/solutions#create",
-			linkText: "Explore Create →"
+			link: "/solutions#create"
 		},
 		{
 			id: "promote",
 			num: "03",
 			label: "PROMOTE",
-			headline: "Reach the people who matter.",
-			desc: "Reach relevant audiences through targeted campaigns and distribution.",
-			services: [
-				"Meta Ads",
-				"Google Ads",
-				"Performance Marketing",
-				"Campaign Management"
-			],
-			link: "/solutions#promote",
-			linkText: "Explore Promote →"
+			headline: "Be easier to reach the people who matter.",
+			link: "/solutions#promote"
 		},
 		{
 			id: "grow",
 			num: "04",
 			label: "GROW",
-			headline: "Drive sustainable growth.",
-			desc: "The intended business outcome, turning a stronger digital presence into a foundation for business growth.",
-			services: [
-				"Increased Visibility",
-				"Qualified Leads",
-				"Brand Trust"
-			],
-			link: "/solutions#grow",
-			linkText: "Explore Solutions →"
+			headline: "Be easier to drive sustainable growth.",
+			link: "/solutions#grow"
 		}
 	];
-	if (isMobile) return /* @__PURE__ */ jsx("section", {
-		className: "dgs-section section",
-		children: /* @__PURE__ */ jsxs("div", {
-			className: "container",
-			children: [/* @__PURE__ */ jsx(ScrollReveal, {
-				delay: 0,
-				children: /* @__PURE__ */ jsxs("div", {
-					className: "dgs-intro",
-					children: [/* @__PURE__ */ jsx("span", {
-						className: "dgs-label",
-						children: "WHAT SBLOOM CHANGES"
-					}), /* @__PURE__ */ jsx("h2", {
-						className: "dgs-main-heading",
-						children: "We turn what you do well into something people can see, understand and act on."
-					})]
-				})
-			}), /* @__PURE__ */ jsx("div", {
-				className: "dgs-mobile-journey",
-				children: stages.map((stage, idx) => /* @__PURE__ */ jsx(ScrollReveal, {
-					delay: idx * 100,
-					children: /* @__PURE__ */ jsxs("div", {
-						className: "dgs-mobile-stage",
-						onClick: () => navigate(stage.link),
-						style: { cursor: "pointer" },
-						children: [
-							/* @__PURE__ */ jsxs("div", {
-								className: "dgs-mobile-num-label",
-								children: [/* @__PURE__ */ jsx("span", {
-									className: "dgs-m-num",
-									children: stage.num
-								}), /* @__PURE__ */ jsx("span", {
-									className: "dgs-m-label",
-									children: stage.label
-								})]
-							}),
-							/* @__PURE__ */ jsx("h3", {
-								className: "dgs-m-headline",
-								children: stage.headline
-							}),
-							/* @__PURE__ */ jsx("p", {
-								className: "dgs-m-desc",
-								children: stage.desc
-							}),
-							/* @__PURE__ */ jsx("div", {
-								className: "dgs-m-services",
-								children: stage.services.map((service, i) => /* @__PURE__ */ jsx("div", {
-									className: "dgs-service-item",
-									children: service
-								}, i))
-							}),
-							/* @__PURE__ */ jsx(Link, {
-								to: stage.link,
-								className: "dgs-m-link",
-								onClick: (e) => e.stopPropagation(),
-								children: stage.linkText
-							}),
-							idx < stages.length - 1 && /* @__PURE__ */ jsx("div", { className: "dgs-m-line" })
-						]
-					})
-				}, stage.id))
-			})]
-		})
-	});
 	return /* @__PURE__ */ jsx("section", {
 		className: "dgs-section section",
 		children: /* @__PURE__ */ jsxs("div", {
@@ -784,82 +684,61 @@ var DigitalGrowthSystem = () => {
 					})]
 				})
 			}), /* @__PURE__ */ jsxs("div", {
-				className: "dgs-system-wrapper",
-				children: [
-					/* @__PURE__ */ jsx("div", {
-						className: "dgs-diagram-top",
-						children: stages.map((stage) => {
-							const isActive = hoveredStage === stage.id;
-							return /* @__PURE__ */ jsxs("div", {
-								className: `dgs-node ${isActive ? "active" : ""} ${hoveredStage !== null && !isActive ? "dimmed" : ""}`,
-								children: [/* @__PURE__ */ jsx("span", {
-									className: "dgs-node-num",
-									children: stage.num
-								}), /* @__PURE__ */ jsx("span", {
-									className: "dgs-node-label",
-									children: stage.label
-								})]
-							}, stage.id);
-						})
-					}),
-					/* @__PURE__ */ jsxs("div", {
-						className: "dgs-line-system",
-						children: [/* @__PURE__ */ jsx("div", {
-							className: "dgs-horizontal-line",
-							children: /* @__PURE__ */ jsx("div", {
-								className: "dgs-horizontal-line-highlight",
-								style: {
-									width: hoveredStage === "build" ? "12.5%" : hoveredStage === "create" ? "37.5%" : hoveredStage === "promote" ? "62.5%" : hoveredStage === "grow" ? "87.5%" : "0%",
-									opacity: hoveredStage ? 1 : 0
-								}
-							})
-						}), /* @__PURE__ */ jsxs("div", {
-							className: "dgs-vertical-drops",
+				className: "dgs-stream-wrapper",
+				children: [/* @__PURE__ */ jsx("div", {
+					className: "dgs-stream-track",
+					"aria-hidden": "true"
+				}), /* @__PURE__ */ jsx("div", {
+					className: "dgs-stream-grid",
+					children: stages.map((stage, idx) => {
+						const isHovered = hoveredStage === stage.id;
+						return /* @__PURE__ */ jsxs("div", {
+							className: `dgs-stream-item ${isHovered ? "active" : ""}`,
+							onMouseEnter: () => setHoveredStage(stage.id),
+							onMouseLeave: () => setHoveredStage(null),
 							children: [
-								/* @__PURE__ */ jsx("div", { className: `dgs-v-drop ${hoveredStage === "build" ? "active" : ""}` }),
-								/* @__PURE__ */ jsx("div", { className: `dgs-v-drop ${hoveredStage === "create" ? "active" : ""}` }),
-								/* @__PURE__ */ jsx("div", { className: `dgs-v-drop ${hoveredStage === "promote" ? "active" : ""}` }),
-								/* @__PURE__ */ jsx("div", { className: `dgs-v-drop ${hoveredStage === "grow" ? "active" : ""}` })
-							]
-						})]
-					}),
-					/* @__PURE__ */ jsx("div", {
-						className: "dgs-columns",
-						onMouseLeave: () => setHoveredStage(null),
-						children: stages.map((stage) => {
-							const isActive = hoveredStage === stage.id;
-							return /* @__PURE__ */ jsxs("div", {
-								className: `dgs-col ${isActive ? "active" : ""} ${hoveredStage !== null && !isActive ? "dimmed" : ""}`,
-								onMouseEnter: () => setHoveredStage(stage.id),
-								onClick: () => navigate(stage.link),
-								style: { cursor: "pointer" },
-								children: [
-									/* @__PURE__ */ jsx("h3", {
-										className: "dgs-col-headline",
-										children: stage.headline
-									}),
-									/* @__PURE__ */ jsx("p", {
-										className: "dgs-col-desc",
-										children: stage.desc
-									}),
-									/* @__PURE__ */ jsx("div", {
-										className: "dgs-services-list",
-										children: stage.services.map((service, i) => /* @__PURE__ */ jsx("div", {
-											className: "dgs-service-item",
-											children: service
-										}, i))
-									}),
-									/* @__PURE__ */ jsx(Link, {
+								/* @__PURE__ */ jsxs("div", {
+									className: "dgs-stream-header",
+									children: [/* @__PURE__ */ jsx("span", {
+										className: "dgs-stream-num",
+										children: stage.num
+									}), /* @__PURE__ */ jsx("span", {
+										className: "dgs-stream-label",
+										children: stage.label
+									})]
+								}),
+								/* @__PURE__ */ jsx("h3", {
+									className: "dgs-stream-headline",
+									children: stage.headline
+								}),
+								/* @__PURE__ */ jsx("div", {
+									className: "dgs-stream-action",
+									children: /* @__PURE__ */ jsx(Link, {
 										to: stage.link,
-										className: "dgs-explore-link",
-										onClick: (e) => e.stopPropagation(),
-										children: stage.linkText
+										className: "dgs-circle-arrow-btn",
+										"aria-label": `Go to ${stage.label}`,
+										onClick: (e) => {
+											e.stopPropagation();
+										},
+										children: /* @__PURE__ */ jsx(ArrowRight, {
+											className: "dgs-btn-arrow-icon",
+											size: 20,
+											strokeWidth: 2.4
+										})
 									})
-								]
-							}, stage.id);
-						})
+								}),
+								idx < stages.length - 1 && /* @__PURE__ */ jsxs("div", {
+									className: "dgs-stream-arrow-divider",
+									"aria-hidden": "true",
+									children: [/* @__PURE__ */ jsx("span", { className: "dgs-divider-line" }), /* @__PURE__ */ jsx(ArrowRight, {
+										size: 14,
+										className: "dgs-divider-icon"
+									})]
+								})
+							]
+						}, stage.id);
 					})
-				]
+				})]
 			})]
 		})
 	});
@@ -3107,11 +2986,20 @@ var BottomCornerScrollShowcase = () => {
 	const [scrollProgress, setScrollProgress] = useState(0);
 	const [isMuted, setIsMuted] = useState(true);
 	const [manualOverride, setManualOverride] = useState(false);
+	const [isMenuOpen, setIsMenuOpen] = useState(false);
 	const videoRef = useRef(null);
+	const widgetRef = useRef(null);
 	const overrideTimerRef = useRef(null);
 	const circleRadius = 44;
 	const circumference = 2 * Math.PI * circleRadius;
 	const strokeDashoffset = circumference - scrollProgress * circumference;
+	useEffect(() => {
+		const handleClickOutside = (event) => {
+			if (widgetRef.current && !widgetRef.current.contains(event.target)) setIsMenuOpen(false);
+		};
+		document.addEventListener("mousedown", handleClickOutside);
+		return () => document.removeEventListener("mousedown", handleClickOutside);
+	}, []);
 	useEffect(() => {
 		const handleScroll = () => {
 			const scrollHeight = document.documentElement.scrollHeight - window.innerHeight;
@@ -3135,14 +3023,17 @@ var BottomCornerScrollShowcase = () => {
 		if (activeStage === 5 && videoRef.current) videoRef.current.play().catch(() => {});
 		else if (videoRef.current) videoRef.current.pause();
 	}, [activeStage]);
-	const handleCircleClick = () => {
-		const nextStage = (activeStage + 1) % STAGES$1.length;
-		setActiveStage(nextStage);
+	const handleSelectStage = (stageId) => {
+		setActiveStage(stageId);
 		setManualOverride(true);
+		setIsMenuOpen(false);
 		if (overrideTimerRef.current) clearTimeout(overrideTimerRef.current);
 		overrideTimerRef.current = setTimeout(() => {
 			setManualOverride(false);
-		}, 5e3);
+		}, 12e3);
+	};
+	const handleCircleClick = () => {
+		setIsMenuOpen((prev) => !prev);
 	};
 	const toggleSound = (e) => {
 		e.stopPropagation();
@@ -3155,239 +3046,312 @@ var BottomCornerScrollShowcase = () => {
 	const IconComponent = currentStageInfo.icon;
 	return /* @__PURE__ */ jsxs("div", {
 		className: "corner-circle-widget-wrapper",
+		ref: widgetRef,
 		"aria-label": "S-Bloom Small Circular Pipeline",
-		children: [/* @__PURE__ */ jsxs("div", {
-			className: "corner-circle-label-pill",
-			children: [
-				activeStage === 0 && /* @__PURE__ */ jsx("span", { className: "circle-rec-dot" }),
-				/* @__PURE__ */ jsx(IconComponent, {
-					size: 13,
-					color: "#D9A52E"
-				}),
-				/* @__PURE__ */ jsx("span", { children: currentStageInfo.label })
-			]
-		}), /* @__PURE__ */ jsxs("div", {
-			className: "corner-circle-orb",
-			onClick: handleCircleClick,
-			title: `Click to cycle stages (Currently: ${currentStageInfo.label})`,
-			children: [
-				/* @__PURE__ */ jsxs("svg", {
-					className: "corner-circle-svg-ring",
-					viewBox: "0 0 96 96",
-					children: [
-						/* @__PURE__ */ jsx("defs", { children: /* @__PURE__ */ jsxs("linearGradient", {
-							id: "goldRingGradient",
-							x1: "0%",
-							y1: "0%",
-							x2: "100%",
-							y2: "100%",
+		children: [
+			/* @__PURE__ */ jsx(AnimatePresence, { children: isMenuOpen && /* @__PURE__ */ jsxs(motion.div, {
+				className: "corner-circle-options-menu",
+				initial: {
+					opacity: 0,
+					y: 10,
+					scale: .95
+				},
+				animate: {
+					opacity: 1,
+					y: 0,
+					scale: 1
+				},
+				exit: {
+					opacity: 0,
+					y: 10,
+					scale: .95
+				},
+				transition: { duration: .2 },
+				children: [/* @__PURE__ */ jsxs("div", {
+					className: "corner-circle-options-header",
+					children: [/* @__PURE__ */ jsx("span", { children: "EXPLORE PIPELINE" }), /* @__PURE__ */ jsx("button", {
+						className: "corner-circle-options-close",
+						onClick: (e) => {
+							e.stopPropagation();
+							setIsMenuOpen(false);
+						},
+						"aria-label": "Close options",
+						children: /* @__PURE__ */ jsx(X, { size: 13 })
+					})]
+				}), /* @__PURE__ */ jsx("div", {
+					className: "corner-circle-options-list",
+					children: STAGES$1.map((stage) => {
+						const StageIcon = stage.icon;
+						const isSelected = activeStage === stage.id;
+						return /* @__PURE__ */ jsxs("button", {
+							className: `corner-circle-option-btn ${isSelected ? "active" : ""}`,
+							onClick: (e) => {
+								e.stopPropagation();
+								handleSelectStage(stage.id);
+							},
 							children: [
-								/* @__PURE__ */ jsx("stop", {
-									offset: "0%",
-									stopColor: "#FFE0A3"
+								/* @__PURE__ */ jsx("div", {
+									className: "corner-option-icon",
+									children: /* @__PURE__ */ jsx(StageIcon, { size: 14 })
 								}),
-								/* @__PURE__ */ jsx("stop", {
-									offset: "50%",
-									stopColor: "#D9A52E"
+								/* @__PURE__ */ jsx("span", {
+									className: "corner-option-name",
+									children: stage.label
 								}),
-								/* @__PURE__ */ jsx("stop", {
-									offset: "100%",
-									stopColor: "#8F6216"
+								isSelected && /* @__PURE__ */ jsx("span", {
+									className: "corner-option-indicator",
+									children: "●"
 								})
 							]
-						}) }),
-						/* @__PURE__ */ jsx("circle", {
-							className: "circle-ring-bg",
-							cx: "48",
-							cy: "48",
-							r: circleRadius
-						}),
-						/* @__PURE__ */ jsx("circle", {
-							className: "circle-ring-progress",
-							cx: "48",
-							cy: "48",
-							r: circleRadius,
-							style: {
-								strokeDasharray: circumference,
-								strokeDashoffset
-							}
-						})
-					]
-				}),
-				/* @__PURE__ */ jsxs("div", {
-					className: "corner-circle-lens-frame",
-					children: [/* @__PURE__ */ jsx("div", { className: "corner-circle-lens-glare" }), /* @__PURE__ */ jsxs(AnimatePresence, {
-						mode: "wait",
+						}, stage.key);
+					})
+				})]
+			}) }),
+			/* @__PURE__ */ jsxs("div", {
+				className: "corner-circle-label-pill",
+				onClick: () => setIsMenuOpen((prev) => !prev),
+				title: "Click to view all pipeline options",
+				children: [
+					activeStage === 0 && /* @__PURE__ */ jsx("span", { className: "circle-rec-dot" }),
+					/* @__PURE__ */ jsx(IconComponent, {
+						size: 13,
+						color: "#D9A52E"
+					}),
+					/* @__PURE__ */ jsx("span", { children: currentStageInfo.label }),
+					isMenuOpen ? /* @__PURE__ */ jsx(ChevronDown, {
+						size: 12,
+						color: "#785A46",
+						style: { marginLeft: 2 }
+					}) : /* @__PURE__ */ jsx(ChevronUp, {
+						size: 12,
+						color: "#785A46",
+						style: { marginLeft: 2 }
+					})
+				]
+			}),
+			/* @__PURE__ */ jsxs("div", {
+				className: "corner-circle-orb",
+				onClick: handleCircleClick,
+				title: `Click to view options (Currently: ${currentStageInfo.label})`,
+				children: [
+					/* @__PURE__ */ jsxs("svg", {
+						className: "corner-circle-svg-ring",
+						viewBox: "0 0 96 96",
 						children: [
-							activeStage === 0 && /* @__PURE__ */ jsxs(motion.div, {
-								className: "circle-content-canvas circle-view-camera",
-								initial: {
-									opacity: 0,
-									scale: .9
-								},
-								animate: {
-									opacity: 1,
-									scale: 1
-								},
-								exit: {
-									opacity: 0,
-									scale: 1.1
-								},
-								transition: { duration: .25 },
-								children: [/* @__PURE__ */ jsx("img", {
-									src: "/camera-studio-bloom.jpg",
-									alt: "Cinema Camera",
-									className: "circle-camera-img"
-								}), /* @__PURE__ */ jsx("div", {
-									className: "circle-camera-hud-badge",
-									children: /* @__PURE__ */ jsx("span", { children: "● REC" })
-								})]
-							}, "circle-stage-camera"),
-							activeStage === 1 && /* @__PURE__ */ jsxs(motion.div, {
-								className: "circle-content-canvas circle-view-reel",
-								initial: {
-									opacity: 0,
-									scale: .9
-								},
-								animate: {
-									opacity: 1,
-									scale: 1
-								},
-								exit: {
-									opacity: 0,
-									scale: 1.1
-								},
-								transition: { duration: .25 },
-								children: [/* @__PURE__ */ jsx("img", {
-									src: "/about-studio-stage.jpg",
-									alt: "Social Reel Stage",
-									className: "circle-reel-img"
-								}), /* @__PURE__ */ jsxs("div", {
-									className: "circle-reel-center-icon",
-									children: [/* @__PURE__ */ jsx("div", {
-										className: "circle-reel-glyph",
-										children: /* @__PURE__ */ jsx(Film, { size: 15 })
-									}), /* @__PURE__ */ jsx("span", {
-										className: "circle-reel-sub",
-										children: "REEL"
-									})]
-								})]
-							}, "circle-stage-reel"),
-							activeStage === 2 && /* @__PURE__ */ jsxs(motion.div, {
-								className: "circle-content-canvas circle-view-post",
-								initial: {
-									opacity: 0,
-									scale: .9
-								},
-								animate: {
-									opacity: 1,
-									scale: 1
-								},
-								exit: {
-									opacity: 0,
-									scale: 1.1
-								},
-								transition: { duration: .25 },
+							/* @__PURE__ */ jsx("defs", { children: /* @__PURE__ */ jsxs("linearGradient", {
+								id: "goldRingGradient",
+								x1: "0%",
+								y1: "0%",
+								x2: "100%",
+								y2: "100%",
 								children: [
-									/* @__PURE__ */ jsx("div", {
-										className: "circle-post-avatar",
-										children: "🌸"
+									/* @__PURE__ */ jsx("stop", {
+										offset: "0%",
+										stopColor: "#FFE0A3"
 									}),
-									/* @__PURE__ */ jsx("div", {
-										className: "circle-post-text",
-										children: "POST"
+									/* @__PURE__ */ jsx("stop", {
+										offset: "50%",
+										stopColor: "#D9A52E"
 									}),
-									/* @__PURE__ */ jsx("div", {
-										className: "circle-post-likes",
-										children: "👍 1.8K"
+									/* @__PURE__ */ jsx("stop", {
+										offset: "100%",
+										stopColor: "#8F6216"
 									})
 								]
-							}, "circle-stage-post"),
-							activeStage === 3 && /* @__PURE__ */ jsxs(motion.div, {
-								className: "circle-content-canvas circle-view-ad",
-								initial: {
-									opacity: 0,
-									scale: .9
-								},
-								animate: {
-									opacity: 1,
-									scale: 1
-								},
-								exit: {
-									opacity: 0,
-									scale: 1.1
-								},
-								transition: { duration: .25 },
-								children: [/* @__PURE__ */ jsx("div", {
-									className: "circle-ad-icon-box",
-									children: /* @__PURE__ */ jsx(Megaphone, { size: 16 })
-								}), /* @__PURE__ */ jsx("div", {
-									className: "circle-ad-tag",
-									children: "AD"
-								})]
-							}, "circle-stage-ad"),
-							activeStage === 4 && /* @__PURE__ */ jsxs(motion.div, {
-								className: "circle-content-canvas circle-view-web",
-								initial: {
-									opacity: 0,
-									scale: .9
-								},
-								animate: {
-									opacity: 1,
-									scale: 1
-								},
-								exit: {
-									opacity: 0,
-									scale: 1.1
-								},
-								transition: { duration: .25 },
-								children: [/* @__PURE__ */ jsx("div", {
-									className: "circle-web-icon-box",
-									children: /* @__PURE__ */ jsx(Globe, { size: 16 })
-								}), /* @__PURE__ */ jsx("div", {
-									className: "circle-web-url",
-									children: "sbloom.co"
-								})]
-							}, "circle-stage-web"),
-							activeStage === 5 && /* @__PURE__ */ jsxs(motion.div, {
-								className: "circle-content-canvas circle-view-video",
-								initial: {
-									opacity: 0,
-									scale: .9
-								},
-								animate: {
-									opacity: 1,
-									scale: 1
-								},
-								exit: {
-									opacity: 0,
-									scale: 1.1
-								},
-								transition: { duration: .25 },
-								children: [/* @__PURE__ */ jsx("video", {
-									ref: videoRef,
-									src: "/hero-studio-video.mp4",
-									playsInline: true,
-									loop: true,
-									muted: isMuted,
-									className: "circle-playing-video"
-								}), /* @__PURE__ */ jsx("div", {
-									className: "circle-video-badge-overlay",
-									children: /* @__PURE__ */ jsx("span", { children: "● VIDEO" })
-								})]
-							}, "circle-stage-video")
+							}) }),
+							/* @__PURE__ */ jsx("circle", {
+								className: "circle-ring-bg",
+								cx: "48",
+								cy: "48",
+								r: circleRadius
+							}),
+							/* @__PURE__ */ jsx("circle", {
+								className: "circle-ring-progress",
+								cx: "48",
+								cy: "48",
+								r: circleRadius,
+								style: {
+									strokeDasharray: circumference,
+									strokeDashoffset
+								}
+							})
 						]
-					})]
-				}),
-				activeStage === 5 && /* @__PURE__ */ jsx("button", {
-					className: "circle-sound-toggle-btn",
-					onClick: toggleSound,
-					title: isMuted ? "Unmute S-Bloom video" : "Mute video",
-					"aria-label": "Toggle audio",
-					children: isMuted ? /* @__PURE__ */ jsx(VolumeX, { size: 13 }) : /* @__PURE__ */ jsx(Volume2, { size: 13 })
-				})
-			]
-		})]
+					}),
+					/* @__PURE__ */ jsxs("div", {
+						className: "corner-circle-lens-frame",
+						children: [/* @__PURE__ */ jsx("div", { className: "corner-circle-lens-glare" }), /* @__PURE__ */ jsxs(AnimatePresence, {
+							mode: "wait",
+							children: [
+								activeStage === 0 && /* @__PURE__ */ jsxs(motion.div, {
+									className: "circle-content-canvas circle-view-camera",
+									initial: {
+										opacity: 0,
+										scale: .9
+									},
+									animate: {
+										opacity: 1,
+										scale: 1
+									},
+									exit: {
+										opacity: 0,
+										scale: 1.1
+									},
+									transition: { duration: .25 },
+									children: [/* @__PURE__ */ jsx("img", {
+										src: "/camera-studio-bloom.jpg",
+										alt: "Cinema Camera",
+										className: "circle-camera-img"
+									}), /* @__PURE__ */ jsx("div", {
+										className: "circle-camera-hud-badge",
+										children: /* @__PURE__ */ jsx("span", { children: "● REC" })
+									})]
+								}, "circle-stage-camera"),
+								activeStage === 1 && /* @__PURE__ */ jsxs(motion.div, {
+									className: "circle-content-canvas circle-view-reel",
+									initial: {
+										opacity: 0,
+										scale: .9
+									},
+									animate: {
+										opacity: 1,
+										scale: 1
+									},
+									exit: {
+										opacity: 0,
+										scale: 1.1
+									},
+									transition: { duration: .25 },
+									children: [/* @__PURE__ */ jsx("img", {
+										src: "/about-studio-stage.jpg",
+										alt: "Social Reel Stage",
+										className: "circle-reel-img"
+									}), /* @__PURE__ */ jsxs("div", {
+										className: "circle-reel-center-icon",
+										children: [/* @__PURE__ */ jsx("div", {
+											className: "circle-reel-glyph",
+											children: /* @__PURE__ */ jsx(Film, { size: 15 })
+										}), /* @__PURE__ */ jsx("span", {
+											className: "circle-reel-sub",
+											children: "REEL"
+										})]
+									})]
+								}, "circle-stage-reel"),
+								activeStage === 2 && /* @__PURE__ */ jsxs(motion.div, {
+									className: "circle-content-canvas circle-view-post",
+									initial: {
+										opacity: 0,
+										scale: .9
+									},
+									animate: {
+										opacity: 1,
+										scale: 1
+									},
+									exit: {
+										opacity: 0,
+										scale: 1.1
+									},
+									transition: { duration: .25 },
+									children: [
+										/* @__PURE__ */ jsx("div", {
+											className: "circle-post-avatar",
+											children: "🌸"
+										}),
+										/* @__PURE__ */ jsx("div", {
+											className: "circle-post-text",
+											children: "POST"
+										}),
+										/* @__PURE__ */ jsx("div", {
+											className: "circle-post-likes",
+											children: "👍 1.8K"
+										})
+									]
+								}, "circle-stage-post"),
+								activeStage === 3 && /* @__PURE__ */ jsxs(motion.div, {
+									className: "circle-content-canvas circle-view-ad",
+									initial: {
+										opacity: 0,
+										scale: .9
+									},
+									animate: {
+										opacity: 1,
+										scale: 1
+									},
+									exit: {
+										opacity: 0,
+										scale: 1.1
+									},
+									transition: { duration: .25 },
+									children: [/* @__PURE__ */ jsx("div", {
+										className: "circle-ad-icon-box",
+										children: /* @__PURE__ */ jsx(Megaphone, { size: 16 })
+									}), /* @__PURE__ */ jsx("div", {
+										className: "circle-ad-tag",
+										children: "AD"
+									})]
+								}, "circle-stage-ad"),
+								activeStage === 4 && /* @__PURE__ */ jsxs(motion.div, {
+									className: "circle-content-canvas circle-view-web",
+									initial: {
+										opacity: 0,
+										scale: .9
+									},
+									animate: {
+										opacity: 1,
+										scale: 1
+									},
+									exit: {
+										opacity: 0,
+										scale: 1.1
+									},
+									transition: { duration: .25 },
+									children: [/* @__PURE__ */ jsx("div", {
+										className: "circle-web-icon-box",
+										children: /* @__PURE__ */ jsx(Globe, { size: 16 })
+									}), /* @__PURE__ */ jsx("div", {
+										className: "circle-web-url",
+										children: "sbloom.co"
+									})]
+								}, "circle-stage-web"),
+								activeStage === 5 && /* @__PURE__ */ jsxs(motion.div, {
+									className: "circle-content-canvas circle-view-video",
+									initial: {
+										opacity: 0,
+										scale: .9
+									},
+									animate: {
+										opacity: 1,
+										scale: 1
+									},
+									exit: {
+										opacity: 0,
+										scale: 1.1
+									},
+									transition: { duration: .25 },
+									children: [/* @__PURE__ */ jsx("video", {
+										ref: videoRef,
+										src: "/hero-studio-video.mp4",
+										playsInline: true,
+										loop: true,
+										muted: isMuted,
+										className: "circle-playing-video"
+									}), /* @__PURE__ */ jsx("div", {
+										className: "circle-video-badge-overlay",
+										children: /* @__PURE__ */ jsx("span", { children: "● VIDEO" })
+									})]
+								}, "circle-stage-video")
+							]
+						})]
+					}),
+					activeStage === 5 && /* @__PURE__ */ jsx("button", {
+						className: "circle-sound-toggle-btn",
+						onClick: toggleSound,
+						title: isMuted ? "Unmute S-Bloom video" : "Mute video",
+						"aria-label": "Toggle audio",
+						children: isMuted ? /* @__PURE__ */ jsx(VolumeX, { size: 13 }) : /* @__PURE__ */ jsx(Volume2, { size: 13 })
+					})
+				]
+			})
+		]
 	});
 };
 //#endregion
@@ -3520,7 +3484,7 @@ var HomePage = () => {
 									className: "hero-final-eyebrow",
 									children: [/* @__PURE__ */ jsx("span", {
 										className: "eyebrow-text",
-										children: "AI DIGITAL GROWTH PARTNER"
+										children: "YOUR AI DIGITAL GROWTH PARTNER"
 									}), /* @__PURE__ */ jsx("span", { className: "eyebrow-line" })]
 								}),
 								/* @__PURE__ */ jsxs("h1", {
@@ -4964,33 +4928,6 @@ var SolutionsOverviewPage = ({ initialSection }) => {
 										"aria-label": "Next Page",
 										children: [/* @__PURE__ */ jsx("span", { children: "Next" }), /* @__PURE__ */ jsx(ArrowRight, { size: 15 })]
 									})]
-								})]
-							})
-						]
-					})
-				})
-			}),
-			/* @__PURE__ */ jsx("div", {
-				className: "sol-container",
-				children: /* @__PURE__ */ jsx(ScrollReveal, {
-					delay: 100,
-					children: /* @__PURE__ */ jsxs("div", {
-						className: "sol-final-cta",
-						children: [
-							/* @__PURE__ */ jsx("h2", {
-								className: "sol-final-title",
-								children: "Your business has potential. Let’s help people see it."
-							}),
-							/* @__PURE__ */ jsx("p", {
-								className: "sol-final-desc",
-								children: "Whether you need to build your foundation, create compelling content, or reach new audiences, we are ready to help."
-							}),
-							/* @__PURE__ */ jsxs(Link, {
-								to: "/contact",
-								className: "sol-final-btn",
-								children: [/* @__PURE__ */ jsx("span", { children: "Talk to sBLOOM" }), /* @__PURE__ */ jsx(ArrowRight, {
-									size: 18,
-									strokeWidth: 2.2
 								})]
 							})
 						]
@@ -6442,34 +6379,6 @@ var CreativeWorkspacePage = () => {
 							})
 						})
 					})]
-				})
-			}),
-			/* @__PURE__ */ jsx("section", {
-				className: "cw-cta-section",
-				children: /* @__PURE__ */ jsx("div", {
-					className: "container",
-					children: /* @__PURE__ */ jsxs(ScrollReveal, {
-						delay: 100,
-						children: [
-							/* @__PURE__ */ jsx("h2", { children: "Ready to Collaborate with S-Bloom?" }),
-							/* @__PURE__ */ jsx("p", { children: "Bring your skills, experience, and ideas to projects that need your expertise." }),
-							/* @__PURE__ */ jsx("button", {
-								onClick: () => scrollToApply(),
-								className: "cw-btn",
-								style: {
-									padding: "16px 40px",
-									fontSize: "1.1rem",
-									border: "none",
-									cursor: "pointer",
-									borderRadius: "8px",
-									background: "#FFFFFF",
-									color: "#1C1917",
-									fontWeight: 650
-								},
-								children: "Apply to S-Bloom Creative Network →"
-							})
-						]
-					})
 				})
 			})
 		]
@@ -8101,16 +8010,17 @@ var server_manifest_default = {
 			"hasClientMiddleware": false,
 			"hasDefaultExport": true,
 			"hasErrorBoundary": false,
-			"module": "/assets/root-8yLS7IPD.js",
+			"module": "/assets/root-Cu0au376.js",
 			"imports": [
 				"/assets/jsx-runtime-BsyjEvTb.js",
 				"/assets/createLucideIcon-CwdIbnKb.js",
 				"/assets/arrow-right-15U-iPYb.js",
 				"/assets/briefcase-C-mYWWl7.js",
 				"/assets/proxy-ST7B0mD5.js",
+				"/assets/x-CUrlOrHV.js",
 				"/assets/phone-BVAH-4Jp.js"
 			],
-			"css": ["/assets/root-bpQORl4W.css"],
+			"css": ["/assets/root-BzZL1K_O.css"],
 			"clientActionModule": void 0,
 			"clientLoaderModule": void 0,
 			"clientMiddlewareModule": void 0,
@@ -8129,12 +8039,13 @@ var server_manifest_default = {
 			"hasClientMiddleware": false,
 			"hasDefaultExport": true,
 			"hasErrorBoundary": false,
-			"module": "/assets/home-DqWSD3Pt.js",
+			"module": "/assets/home-D1PCze8x.js",
 			"imports": [
 				"/assets/jsx-runtime-BsyjEvTb.js",
 				"/assets/createLucideIcon-CwdIbnKb.js",
 				"/assets/arrow-right-15U-iPYb.js",
 				"/assets/proxy-ST7B0mD5.js",
+				"/assets/x-CUrlOrHV.js",
 				"/assets/circle-check-CH-gujLG.js",
 				"/assets/file-text-Burlk_f5.js",
 				"/assets/film-UP_0_Rum.js",
@@ -8147,7 +8058,7 @@ var server_manifest_default = {
 				"/assets/users-C2my3pE2.js",
 				"/assets/ScrollReveal-CXAisqc7.js"
 			],
-			"css": ["/assets/home-Bw3fLknB.css"],
+			"css": ["/assets/home-DBBr3dqz.css"],
 			"clientActionModule": void 0,
 			"clientLoaderModule": void 0,
 			"clientMiddlewareModule": void 0,
@@ -8249,10 +8160,10 @@ var server_manifest_default = {
 			"hasClientMiddleware": false,
 			"hasDefaultExport": true,
 			"hasErrorBoundary": false,
-			"module": "/assets/solutions-DeDZ4HYA.js",
+			"module": "/assets/solutions-uhnpiHKD.js",
 			"imports": [
 				"/assets/jsx-runtime-BsyjEvTb.js",
-				"/assets/SolutionsOverviewPage-BfLqq4ld.js",
+				"/assets/SolutionsOverviewPage-k0WREw1P.js",
 				"/assets/createLucideIcon-CwdIbnKb.js",
 				"/assets/arrow-right-15U-iPYb.js",
 				"/assets/proxy-ST7B0mD5.js",
@@ -8286,10 +8197,10 @@ var server_manifest_default = {
 			"hasClientMiddleware": false,
 			"hasDefaultExport": true,
 			"hasErrorBoundary": false,
-			"module": "/assets/build-jn3cbl5V.js",
+			"module": "/assets/build-IG5dE8OY.js",
 			"imports": [
 				"/assets/jsx-runtime-BsyjEvTb.js",
-				"/assets/SolutionsOverviewPage-BfLqq4ld.js",
+				"/assets/SolutionsOverviewPage-k0WREw1P.js",
 				"/assets/createLucideIcon-CwdIbnKb.js",
 				"/assets/arrow-right-15U-iPYb.js",
 				"/assets/proxy-ST7B0mD5.js",
@@ -8323,10 +8234,10 @@ var server_manifest_default = {
 			"hasClientMiddleware": false,
 			"hasDefaultExport": true,
 			"hasErrorBoundary": false,
-			"module": "/assets/create-BD2WWFxZ.js",
+			"module": "/assets/create-DOXqTeRc.js",
 			"imports": [
 				"/assets/jsx-runtime-BsyjEvTb.js",
-				"/assets/SolutionsOverviewPage-BfLqq4ld.js",
+				"/assets/SolutionsOverviewPage-k0WREw1P.js",
 				"/assets/createLucideIcon-CwdIbnKb.js",
 				"/assets/arrow-right-15U-iPYb.js",
 				"/assets/proxy-ST7B0mD5.js",
@@ -8360,10 +8271,10 @@ var server_manifest_default = {
 			"hasClientMiddleware": false,
 			"hasDefaultExport": true,
 			"hasErrorBoundary": false,
-			"module": "/assets/promote-FQk9-mEN.js",
+			"module": "/assets/promote-eaEcb9r3.js",
 			"imports": [
 				"/assets/jsx-runtime-BsyjEvTb.js",
-				"/assets/SolutionsOverviewPage-BfLqq4ld.js",
+				"/assets/SolutionsOverviewPage-k0WREw1P.js",
 				"/assets/createLucideIcon-CwdIbnKb.js",
 				"/assets/arrow-right-15U-iPYb.js",
 				"/assets/proxy-ST7B0mD5.js",
@@ -8456,7 +8367,7 @@ var server_manifest_default = {
 			"hasClientMiddleware": false,
 			"hasDefaultExport": true,
 			"hasErrorBoundary": false,
-			"module": "/assets/creative-workspace-CfcCNmV1.js",
+			"module": "/assets/creative-workspace-DpAZF2YQ.js",
 			"imports": [
 				"/assets/jsx-runtime-BsyjEvTb.js",
 				"/assets/createLucideIcon-CwdIbnKb.js",
@@ -8562,8 +8473,8 @@ var server_manifest_default = {
 			"hydrateFallbackModule": void 0
 		}
 	},
-	"url": "/assets/manifest-ab2d0fd0.js",
-	"version": "ab2d0fd0",
+	"url": "/assets/manifest-ff0ebe5f.js",
+	"version": "ff0ebe5f",
 	"sri": void 0
 };
 //#endregion

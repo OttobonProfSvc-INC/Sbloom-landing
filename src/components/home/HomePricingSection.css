@@ -3,7 +3,7 @@
    ========================================================================== */
 
 .home-pricing-section {
-  padding: 40px 0 60px;
+  padding: 14px 0 16px;
   position: relative;
   z-index: 2;
   box-sizing: border-box;
@@ -12,146 +12,78 @@
 .home-pricing-container {
   max-width: 1320px;
   margin: 0 auto;
-  padding: 0 32px;
+  padding: 0 28px;
   box-sizing: border-box;
 }
 
 @media (max-width: 768px) {
   .home-pricing-container {
-    padding: 0 20px;
+    padding: 0 16px;
   }
 }
 
 /* ==========================================================================
-   TOP ROW: Heading + Visual Card
+   TOP ROW: Eyebrow with Lines + Heading (Exact Image Match)
    ========================================================================== */
 
 .home-pricing-hero-row {
-  display: grid;
-  grid-template-columns: 1.15fr 0.85fr;
-  gap: 40px;
+  display: flex;
+  flex-direction: column;
   align-items: center;
-  margin-bottom: 36px;
-}
-
-@media (max-width: 1024px) {
-  .home-pricing-hero-row {
-    grid-template-columns: 1fr;
-    gap: 24px;
-  }
+  text-align: center;
+  margin-bottom: 12px;
 }
 
 .home-pricing-hero-text {
-  max-width: 580px;
+  max-width: 100%;
+  text-align: center;
 }
 
-.home-pricing-eyebrow-row {
-  display: flex;
-  flex-wrap: wrap;
+.home-pricing-eyebrow-container {
+  display: inline-flex;
   align-items: center;
-  gap: 12px;
-  margin-bottom: 12px;
+  justify-content: center;
+  gap: 16px;
+  margin-bottom: 6px;
+}
+
+.home-pricing-eyebrow-line {
+  width: 44px;
+  height: 1.5px;
+  background: #BA7C3D;
+  opacity: 0.75;
 }
 
 .home-pricing-eyebrow {
   font-family: var(--font-heading);
-  font-size: 0.82rem;
-  font-weight: 750;
-  letter-spacing: 0.16em;
+  font-size: 0.74rem;
+  font-weight: 800;
+  letter-spacing: 0.18em;
   text-transform: uppercase;
-  color: #BA7C3D;
-  display: inline-block;
-}
-
-.home-pricing-proof-pill {
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  background: #FAF2E6;
-  border: 1px solid #EADBCC;
-  border-radius: 999px;
-  padding: 4px 12px;
-  font-size: 0.78rem;
-  font-weight: 700;
   color: #8C5325;
-  text-decoration: none;
-  transition: all 0.2s ease;
-}
-
-.home-pricing-proof-pill:hover {
-  background: #2D2018;
-  color: #FFFFFF;
-  border-color: #2D2018;
-  transform: translateY(-1px);
+  display: inline-block;
 }
 
 .home-pricing-title {
   font-family: var(--font-heading);
-  font-size: 3rem;
+  font-size: clamp(1.8rem, 2.7vw, 2.35rem);
   font-weight: 800;
-  color: #1F1915;
-  line-height: 1.12;
-  margin: 0 0 14px 0;
-  letter-spacing: -0.025em;
-}
-
-.home-pricing-title-italic {
-  font-family: 'Playfair Display', Georgia, serif;
-  font-style: italic;
-  font-weight: 600;
-  color: #BA7C3D;
+  color: #17120F;
+  line-height: 1.15;
+  margin: 0;
+  letter-spacing: -0.02em;
 }
 
 .home-pricing-title-serif {
   font-family: 'Playfair Display', Georgia, serif;
   font-style: italic;
-  font-weight: 600;
-  color: #2D2018;
+  font-weight: 500;
+  color: #BA7C3D;
+  margin-left: 3px;
 }
 
 .home-pricing-desc {
-  font-family: var(--font-body);
-  font-size: 1.02rem;
-  line-height: 1.6;
-  color: #554437;
-  margin: 0;
-  max-width: 520px;
-}
-
-/* Right Visual Card */
-.home-pricing-visual-wrap {
-  display: flex;
-  justify-content: flex-end;
-}
-
-@media (max-width: 1024px) {
-  .home-pricing-visual-wrap {
-    justify-content: flex-start;
-  }
-}
-
-.home-pricing-visual-card {
-  border: 1.5px solid #EADBCC;
-  border-radius: 24px;
-  padding: 7px;
-  box-shadow: 0 14px 40px rgba(70, 48, 32, 0.08);
-  background: #FFFFFF;
-  transition: transform 0.4s ease, box-shadow 0.4s ease;
-  width: 100%;
-  max-width: 580px;
-}
-
-.home-pricing-visual-card:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 22px 55px rgba(70, 48, 32, 0.12);
-}
-
-.home-pricing-hero-img {
-  width: 100%;
-  height: auto;
-  display: block;
-  object-fit: cover;
-  border-radius: 19px;
+  display: none;
 }
 
 /* ==========================================================================
@@ -161,22 +93,22 @@
 .home-pricing-cards-grid {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  gap: 18px;
-  margin-bottom: 24px;
+  gap: 14px;
+  margin-bottom: 10px;
   align-items: stretch;
 }
 
 @media (max-width: 1140px) {
   .home-pricing-cards-grid {
     grid-template-columns: repeat(2, 1fr);
-    gap: 18px;
+    gap: 14px;
   }
 }
 
 @media (max-width: 640px) {
   .home-pricing-cards-grid {
     grid-template-columns: 1fr;
-    gap: 16px;
+    gap: 14px;
   }
 }
 
@@ -190,54 +122,57 @@
 .home-pricing-card {
   background: #FFFFFF;
   border: 1.5px solid #F0E6D8;
-  border-radius: 22px;
-  padding: 24px 20px 20px;
+  border-radius: 18px;
+  padding: 14px 16px 12px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   height: 100%;
-  min-height: 520px;
-  box-shadow: 0 8px 24px rgba(70, 48, 32, 0.04);
+  min-height: 330px;
+  box-shadow: 0 6px 20px rgba(70, 48, 32, 0.04);
   transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.3s ease, border-color 0.3s ease;
   position: relative;
   box-sizing: border-box;
 }
 
 .home-pricing-card:hover {
-  transform: translateY(-6px);
-  box-shadow: 0 18px 40px rgba(70, 48, 32, 0.1);
+  transform: translateY(-3px);
+  box-shadow: 0 12px 30px rgba(70, 48, 32, 0.09);
   border-color: #DCC3A3;
 }
 
 /* Card Top Badge */
 .home-pricing-card-top-badge {
   position: absolute;
-  top: -11px;
-  right: 18px;
-  background: linear-gradient(135deg, #2D2018 0%, #4A3427 100%);
-  color: #EEDBBE;
-  font-size: 0.68rem;
+  top: -10px;
+  right: 14px;
+  background: #241812;
+  color: #FFFFFF;
+  font-size: 0.63rem;
   font-weight: 800;
   letter-spacing: 0.6px;
   text-transform: uppercase;
-  padding: 3px 10px;
+  padding: 2.5px 10px;
   border-radius: 999px;
-  box-shadow: 0 2px 8px rgba(45, 32, 24, 0.2);
+  box-shadow: 0 2px 8px rgba(36, 24, 18, 0.25);
 }
 
 /* Card Header: Icon + Title */
 .home-pricing-card-header {
   display: flex;
   align-items: center;
-  gap: 12px;
-  margin-bottom: 14px;
-  min-height: 52px;
+  gap: 10px;
+  margin-bottom: 8px;
+  min-height: 42px;
+  text-decoration: none;
+  color: inherit;
+  cursor: pointer;
 }
 
 .home-pricing-icon-box {
-  width: 44px;
-  height: 44px;
-  border-radius: 12px;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
   background: #FAF0E4;
   border: 1.2px solid #EEDAC5;
   display: flex;
@@ -255,18 +190,18 @@
 
 .home-pricing-card-title {
   font-family: var(--font-heading);
-  font-size: 1.02rem;
+  font-size: 0.98rem;
   font-weight: 750;
-  color: #1F1915;
-  line-height: 1.25;
+  color: #17120F;
+  line-height: 1.2;
   margin: 0;
 }
 
-/* "Starts at" Label */
+/* "STARTS AT" Label */
 .home-pricing-starts-label {
-  font-size: 0.76rem;
-  font-weight: 600;
-  color: #8C7B6E;
+  font-size: 0.66rem;
+  font-weight: 700;
+  color: #7A695C;
   text-transform: uppercase;
   letter-spacing: 0.5px;
   margin-bottom: 2px;
@@ -274,9 +209,8 @@
 
 /* Price Display */
 .home-pricing-price-wrap {
-  margin-bottom: 16px;
-  height: 58px;
-  min-height: 58px;
+  margin-bottom: 8px;
+  min-height: 42px;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -289,26 +223,25 @@
 
 .home-pricing-amount {
   font-family: var(--font-heading);
-  font-size: 2.1rem;
+  font-size: 1.95rem;
   font-weight: 800;
-  color: #9A5A27;
+  color: #1E1611;
   letter-spacing: -0.02em;
   line-height: 1;
 }
 
 .home-pricing-period {
   font-family: var(--font-body);
-  font-size: 0.88rem;
-  color: #8A7B6E;
+  font-size: 0.82rem;
+  color: #6E5C50;
   font-weight: 500;
-  margin-left: 5px;
+  margin-left: 4px;
 }
 
 /* Dual Pricing Box (Meta & Google Ads) */
 .home-pricing-dual-container {
-  margin-bottom: 16px;
-  height: 58px;
-  min-height: 58px;
+  margin-bottom: 8px;
+  min-height: 42px;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -321,9 +254,9 @@
 }
 
 .home-pricing-dual-pill {
-  background: #FAF4EB;
-  border: 1px solid #EFE4D5;
-  border-radius: 8px;
+  background: #FAF3EB;
+  border: 1px solid #ECE0D2;
+  border-radius: 7px;
   padding: 3px 5px;
   text-align: center;
   display: flex;
@@ -333,16 +266,16 @@
 
 .home-pricing-dual-amount {
   font-family: var(--font-heading);
-  font-size: 1.02rem;
+  font-size: 0.96rem;
   font-weight: 800;
-  color: #9A5A27;
+  color: #1E1611;
   line-height: 1.1;
 }
 
 .home-pricing-dual-note {
   font-family: var(--font-body);
-  font-size: 0.62rem;
-  color: #7A6C5F;
+  font-size: 0.58rem;
+  color: #5C4C40;
   line-height: 1.15;
 }
 
@@ -350,28 +283,28 @@
 .home-pricing-features-list {
   list-style: none;
   padding: 0;
-  margin: 0 0 14px 0;
+  margin: 0 0 8px 0;
   flex: 1;
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
-  gap: 9px;
+  gap: 5px;
 }
 
 .home-pricing-feature-item {
   display: flex;
   align-items: flex-start;
-  gap: 8px;
+  gap: 6px;
   font-family: var(--font-body);
-  font-size: 0.84rem;
-  line-height: 1.35;
-  color: #4A3E34;
+  font-size: 0.78rem;
+  line-height: 1.32;
+  color: #2E221B;
 }
 
 .home-pricing-check-icon {
   color: #BA7C3D;
   font-weight: 800;
-  font-size: 0.92rem;
+  font-size: 0.82rem;
   line-height: 1;
   margin-top: 2px;
   flex-shrink: 0;
@@ -379,13 +312,14 @@
 
 /* Footnote inside card */
 .home-pricing-card-footnote {
-  font-size: 0.72rem;
-  line-height: 1.3;
-  color: #917C6B;
+  font-size: 0.66rem;
+  line-height: 1.25;
+  color: #695A4E;
   font-style: italic;
-  margin-bottom: 12px;
+  margin-bottom: 8px;
   padding: 4px 6px;
-  background: #FAF7F2;
+  background: #F8F4EE;
+  border: 1px solid #EFE6DA;
   border-radius: 6px;
 }
 
@@ -393,31 +327,31 @@
 .home-pricing-card-footer {
   margin-top: auto;
   display: flex;
-  padding-top: 10px;
+  padding-top: 4px;
 }
 
 .home-pricing-action-btn {
   width: 100%;
-  height: 42px;
-  border-radius: 12px;
-  background: #F4EBE0;
-  color: #35251F;
+  height: 38px;
+  border-radius: 8px;
+  background: #261A13;
+  color: #FFFFFF;
   display: inline-flex;
   align-items: center;
   justify-content: center;
   gap: 8px;
-  font-size: 0.84rem;
-  font-weight: 700;
+  font-size: 0.82rem;
+  font-weight: 750;
   text-decoration: none;
   transition: all 0.25s ease;
-  box-shadow: 0 2px 8px rgba(70, 48, 32, 0.04);
+  box-shadow: 0 2px 8px rgba(38, 26, 19, 0.2);
 }
 
 .home-pricing-action-btn:hover,
 .home-pricing-card:hover .home-pricing-action-btn {
-  background: #2D2018;
+  background: #3D271D;
   color: #FFFFFF;
-  box-shadow: 0 4px 14px rgba(45, 32, 24, 0.25);
+  box-shadow: 0 4px 14px rgba(38, 26, 19, 0.3);
   transform: translateY(-1px);
 }
 
@@ -431,121 +365,76 @@
 
 .home-pricing-transparency-note {
   background: #FAF5ED;
-  border: 1px dashed #DFCBB5;
-  border-radius: 12px;
-  padding: 10px 18px;
-  margin-bottom: 24px;
-  font-size: 0.82rem;
-  color: #6A5849;
-  line-height: 1.45;
+  border: 1px solid #E6D8C8;
+  border-radius: 8px;
+  padding: 6px 16px;
+  margin-bottom: 8px;
+  font-size: 0.76rem;
+  color: #4F4035;
+  line-height: 1.35;
   text-align: center;
 }
 
 /* ==========================================================================
-   BOTTOM PROMOTIONAL BANNER (FREE GBP CALLOUT)
+   BOTTOM PROMOTIONAL BANNER (FREE GBP CALLOUT - EXACT IMAGE MATCH)
    ========================================================================== */
 
 .home-pricing-promo-banner {
-  background: linear-gradient(135deg, #FAF4EB 0%, #F5ECDF 100%);
-  border: 1.5px solid #EADBCA;
-  border-radius: 18px;
-  padding: 12px 24px;
+  background: #FAF3E8;
+  border: 1.2px solid #EADBCA;
+  border-radius: 12px;
+  padding: 8px 24px;
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  box-shadow: 0 4px 16px rgba(70, 48, 32, 0.04);
+  justify-content: center;
+  box-shadow: 0 3px 12px rgba(70, 48, 32, 0.04);
 }
 
-@media (max-width: 900px) {
+@media (max-width: 768px) {
   .home-pricing-promo-banner {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 16px;
-    padding: 20px 22px;
+    padding: 10px 16px;
   }
 }
 
 .home-pricing-promo-left {
   display: flex;
   align-items: center;
-  gap: 18px;
-}
-
-@media (max-width: 600px) {
-  .home-pricing-promo-left {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 12px;
-  }
+  justify-content: center;
 }
 
 .home-pricing-gift-box {
-  width: 48px;
-  height: 48px;
-  border-radius: 14px;
-  background: #FFFFFF;
-  border: 1px solid #EADBCA;
+  width: 36px;
+  height: 36px;
+  border-radius: 10px;
+  background: #FAF0E2;
+  border: 1.2px solid #E5D2BC;
   display: flex;
   align-items: center;
   justify-content: center;
-  color: #BA7C3D;
+  color: #9A5A27;
   flex-shrink: 0;
-  box-shadow: 0 4px 12px rgba(70, 48, 32, 0.06);
 }
 
 .home-pricing-promo-divider {
-  width: 1px;
-  height: 38px;
-  background: #D8C3AC;
-}
-
-@media (max-width: 600px) {
-  .home-pricing-promo-divider {
-    display: none;
-  }
+  width: 1.5px;
+  height: 28px;
+  background: #D9C3AB;
+  margin: 0 16px;
 }
 
 .home-pricing-promo-text {
   font-family: var(--font-body);
-  font-size: 0.98rem;
-  font-weight: 500;
-  color: #382B21;
+  font-size: 0.92rem;
+  font-weight: 600;
+  color: #221A15;
   margin: 0;
-  line-height: 1.45;
+  line-height: 1.35;
 }
 
 .home-pricing-promo-free {
   font-family: var(--font-heading);
   font-weight: 800;
-  color: #9A5A27;
-  letter-spacing: 0.04em;
+  color: #BA7C3D;
+  letter-spacing: 0.02em;
 }
 
-.home-pricing-promo-right {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-}
-
-.home-pricing-promo-note-wrap {
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  background: #FFFFFF;
-  border: 1px solid #EFE4D3;
-  padding: 6px 14px;
-  border-radius: 999px;
-  box-shadow: 0 2px 8px rgba(70, 48, 32, 0.04);
-}
-
-.home-pricing-promo-note {
-  font-family: var(--font-body);
-  font-size: 0.85rem;
-  font-weight: 600;
-  color: #7D4C1F;
-}
-
-.home-pricing-promo-sparks {
-  display: inline-flex;
-  align-items: center;
-}
