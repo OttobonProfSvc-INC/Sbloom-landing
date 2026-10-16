@@ -1,0 +1,30 @@
+# Dependencies & Build artifacts
+node_modules
+build
+dist
+.tmp
+*.tsbuildinfo
+
+# Version control & IDE
+.git
+.github
+.gitignore
+.vscode
+.idea
+.antigravity-ide
+.gemini
+
+# Logs & scratch files
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+*.log
+scratch/
+
+# OS specific files
+.DS_Store
+Thumbs.db
+
+# Environment variables
+.env.local
+.env.*.local

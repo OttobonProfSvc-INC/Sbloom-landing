@@ -1,0 +1,30 @@
+services:
+  sbloom-app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: sbloom-landing
+    restart: unless-stopped
+    ports:
+      # Maps host port 4180 to container port 4180 (avoiding 80, 443, 3000, 5000, 8080)
+      - "${PORT:-4180}:4180"
+    environment:
+      - NODE_ENV=production
+      - PORT=4180
+    healthcheck:
+      test: ["CMD-SHELL", "wget --no-verbose --tries=1 --spider http://127.0.0.1:4180/ || exit 1"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+      start_period: 15s
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"
+    networks:
+      - sbloom-net
+
+networks:
+  sbloom-net:
+    driver: bridge
