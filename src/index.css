@@ -106,11 +106,15 @@ a {
   margin-right: 36px;
   flex-shrink: 0;
 }
-.logo-img {
-  height: 32px;
+.logo-img,
+.navbar-logo-img {
+  height: 34px;
   width: auto;
   display: block;
   object-fit: contain;
+  mix-blend-mode: normal !important;
+  filter: none !important;
+  opacity: 1 !important;
 }
 .nav-links {
   display: flex;
@@ -1796,7 +1800,11 @@ a {
 }
 .footer-logo {
   height: 40px;
+  width: auto;
+  object-fit: contain;
   margin-bottom: 16px;
+  mix-blend-mode: normal !important;
+  display: block;
 }
 .footer-desc {
   color: var(--gold-primary);

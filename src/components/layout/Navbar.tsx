@@ -24,7 +24,7 @@ export const Navbar: React.FC = () => {
     <header className="navbar">
       <div className="container nav-container">
         <Link to="/" className="logo-container" aria-label="sBLOOM Home" onClick={handleMobileClick}>
-          <img src="/sbloom-logo-transparent.png" alt="sBLOOM Logo" className="logo-img" />
+          <img src="/sbloom-logo-gold-v2.png?v=3" alt="sBLOOM Logo" className="navbar-logo-img" />
         </Link>
         <nav>
           <ul className={`nav-links ${mobileMenuOpen ? 'mobile-open' : ''}`}>

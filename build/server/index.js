@@ -85,9 +85,9 @@ var Navbar = () => {
 					"aria-label": "sBLOOM Home",
 					onClick: handleMobileClick,
 					children: /* @__PURE__ */ jsx("img", {
-						src: "/sbloom-logo-transparent.png",
+						src: "/sbloom-logo-gold-v2.png?v=3",
 						alt: "sBLOOM Logo",
-						className: "logo-img"
+						className: "navbar-logo-img"
 					})
 				}),
 				/* @__PURE__ */ jsx("nav", { children: /* @__PURE__ */ jsxs("ul", {
@@ -260,7 +260,7 @@ var Footer = () => {
 							"aria-label": "sBLOOM Home",
 							className: "footer-logo-link",
 							children: /* @__PURE__ */ jsx("img", {
-								src: "/sbloom-logo-transparent.png",
+								src: "/sbloom-logo-gold-v2.png?v=3",
 								alt: "sBLOOM Logo",
 								className: "footer-logo"
 							})
@@ -2755,7 +2755,7 @@ var ClientLogoMarquee = ({ logos = CLIENT_LOGOS }) => {
 		children: /* @__PURE__ */ jsx("img", {
 			src: logo.image,
 			alt: logo.name,
-			className: "logo-img",
+			className: "client-marquee-img",
 			loading: "lazy"
 		})
 	}, `${logo.id}-${keySuffix}`);
@@ -8141,7 +8141,7 @@ var server_manifest_default = {
 			"hasClientMiddleware": false,
 			"hasDefaultExport": true,
 			"hasErrorBoundary": false,
-			"module": "/assets/root-C_HI4BcU.js",
+			"module": "/assets/root-B3Rs4Ljv.js",
 			"imports": [
 				"/assets/jsx-runtime-Cvr-326h.js",
 				"/assets/createLucideIcon-BbNJcHBT.js",
@@ -8155,7 +8155,7 @@ var server_manifest_default = {
 				"/assets/proxy-zBmQOEAL.js",
 				"/assets/AnimatePresence-Drl4xYzo.js"
 			],
-			"css": ["/assets/root-BiNeSDzu.css"],
+			"css": ["/assets/root-CltBwnAw.css"],
 			"clientActionModule": void 0,
 			"clientLoaderModule": void 0,
 			"clientMiddlewareModule": void 0,
@@ -8174,7 +8174,7 @@ var server_manifest_default = {
 			"hasClientMiddleware": false,
 			"hasDefaultExport": true,
 			"hasErrorBoundary": false,
-			"module": "/assets/home-B-Bn4hbi.js",
+			"module": "/assets/home-alcTfUep.js",
 			"imports": [
 				"/assets/jsx-runtime-Cvr-326h.js",
 				"/assets/createLucideIcon-BbNJcHBT.js",
@@ -8195,7 +8195,7 @@ var server_manifest_default = {
 				"/assets/AnimatePresence-Drl4xYzo.js",
 				"/assets/ScrollReveal-BRMbBkGN.js"
 			],
-			"css": ["/assets/home-FavC3wQ1.css"],
+			"css": ["/assets/home-BQ3O4AIh.css"],
 			"clientActionModule": void 0,
 			"clientLoaderModule": void 0,
 			"clientMiddlewareModule": void 0,
@@ -8665,8 +8665,8 @@ var server_manifest_default = {
 			"hydrateFallbackModule": void 0
 		}
 	},
-	"url": "/assets/manifest-c3ed4987.js",
-	"version": "c3ed4987",
+	"url": "/assets/manifest-42f8ef4e.js",
+	"version": "42f8ef4e",
 	"sri": void 0
 };
 //#endregion

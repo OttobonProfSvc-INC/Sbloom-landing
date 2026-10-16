@@ -220,7 +220,7 @@
   box-shadow: none !important;
 }
 
-.logo-img,
+.client-marquee-img,
 .logo-card-img {
   max-height: 66px;
   max-width: 240px;
@@ -233,9 +233,9 @@
   transition: transform 0.25s ease;
 }
 
-.logo-item:hover .logo-img,
+.logo-item:hover .client-marquee-img,
 .logo-item:hover .logo-card-img,
-.logo-card:hover .logo-img,
+.logo-card:hover .client-marquee-img,
 .logo-card:hover .logo-card-img {
   transform: scale(1.08);
 }
@@ -247,7 +247,7 @@
     height: 54px;
     min-width: 80px;
   }
-  .logo-img,
+  .client-marquee-img,
   .logo-card-img {
     max-height: 48px;
     max-width: 160px;

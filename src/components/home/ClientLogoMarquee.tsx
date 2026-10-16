@@ -36,7 +36,7 @@ export const ClientLogoMarquee: React.FC<ClientLogoMarqueeProps> = ({
       <img
         src={logo.image}
         alt={logo.name}
-        className="logo-img"
+        className="client-marquee-img"
         loading="lazy"
       />
     </div>
