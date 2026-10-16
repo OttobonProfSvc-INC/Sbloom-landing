@@ -8,6 +8,7 @@ import {
   Globe, 
   Play, 
   Volume2, 
+  VolumeX,
   ChevronUp,
   ChevronDown,
   X,

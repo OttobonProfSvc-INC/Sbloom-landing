@@ -1,11 +1,10 @@
 import React, { useState } from 'react';
-import { Link, useNavigate } from 'react-router';
+import { Link } from 'react-router';
 import { ArrowRight } from 'lucide-react';
 import { ScrollReveal } from '../ScrollReveal';
 
 export const DigitalGrowthSystem: React.FC = () => {
   const [hoveredStage, setHoveredStage] = useState<string | null>(null);
-  const navigate = useNavigate();
 
   const stages = [
     {

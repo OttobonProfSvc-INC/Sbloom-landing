@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router';
-import { Gift, ArrowRight, Check, Megaphone, Monitor, Sparkles } from 'lucide-react';
+import { Gift, ArrowRight, Check, Megaphone, Monitor } from 'lucide-react';
 import { ScrollReveal } from '../ScrollReveal';
 import './HomePricingSection.css';
 
@@ -25,39 +25,6 @@ const GbpIcon: React.FC = () => (
       d="M12 11.5C13.3807 11.5 14.5 10.3807 14.5 9C14.5 7.61929 13.3807 6.5 12 6.5C10.6193 6.5 9.5 7.61929 9.5 9C9.5 10.3807 10.6193 11.5 12 11.5Z"
       fill="#BA7C3D"
     />
-  </svg>
-);
-
-const CurvedArrowSvg: React.FC = () => (
-  <svg
-    className="home-pricing-promo-arrow"
-    width="54"
-    height="32"
-    viewBox="0 0 54 32"
-    fill="none"
-    xmlns="http://www.w3.org/2000/svg"
-  >
-    <path
-      d="M4 28C14 28 28 24 46 8"
-      stroke="#BA7C3D"
-      strokeWidth="2.2"
-      strokeLinecap="round"
-    />
-    <path
-      d="M36 6L47 7.5L46 18"
-      stroke="#BA7C3D"
-      strokeWidth="2.2"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-    />
-  </svg>
-);
-
-const SunburstSparks: React.FC = () => (
-  <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-    <line x1="10" y1="2" x2="10" y2="7" stroke="#BA7C3D" strokeWidth="2" strokeLinecap="round" />
-    <line x1="3.5" y1="4.5" x2="7.5" y2="8.5" stroke="#BA7C3D" strokeWidth="2" strokeLinecap="round" />
-    <line x1="16.5" y1="4.5" x2="12.5" y2="8.5" stroke="#BA7C3D" strokeWidth="2" strokeLinecap="round" />
   </svg>
 );
 
