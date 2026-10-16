@@ -1,35 +1,54 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { Link } from 'react-router';
 import { ScrollReveal } from "../components/ScrollReveal";
 import {
-  Film,
-  Camera,
-  PenTool,
-  FileText,
-  MonitorSmartphone,
-  Target,
-  PlayCircle,
-  Rocket,
-  Users,
-  TrendingUp,
-  Sparkles,
-  Laptop,
   ArrowRight,
-  ArrowLeft,
-  ChevronRight,
-  ExternalLink,
-  RotateCw,
   CheckCircle2,
   User,
   Mail,
   Phone,
   Link2,
   Briefcase,
-  Wrench,
-  MessageSquare,
+  Megaphone,
+  Palette,
+  UserPlus,
+  Users,
 } from 'lucide-react';
 import { CreativeOrbit } from '../components/CreativeOrbit';
 import './CreativeWorkspacePage.css';
+
+// Custom / Crisp SVG Icons precisely matching Image 2
+const VideoEditorIcon: React.FC = () => (
+  <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
+    <rect x="2" y="4" width="15" height="12" rx="2" />
+    <polygon points="8,7 13,10 8,13" fill="currentColor" stroke="none" />
+    <path d="M17 9l5-3v12l-5-3v-6z" />
+  </svg>
+);
+
+const ContentWriterIcon: React.FC = () => (
+  <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
+    <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
+    <polyline points="14 2 14 8 20 8" />
+    <line x1="9" y1="13" x2="15" y2="13" />
+    <line x1="9" y1="17" x2="13" y2="17" />
+  </svg>
+);
+
+const WebDevIcon: React.FC = () => (
+  <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
+    <polyline points="16 18 22 12 16 6" />
+    <polyline points="8 6 2 12 8 18" />
+  </svg>
+);
+
+const SeoIcon: React.FC = () => (
+  <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
+    <line x1="18" y1="20" x2="18" y2="10" />
+    <line x1="12" y1="20" x2="12" y2="4" />
+    <line x1="6" y1="20" x2="6" y2="14" />
+    <path d="M4 11l5-5 5 5 6-6" />
+  </svg>
+);
 
 interface CreativeRoleInfo {
   id: string;
@@ -38,74 +57,44 @@ interface CreativeRoleInfo {
   description: string;
 }
 
-// Custom SVG Icons precisely matching uploaded img 2
-const VideoEditorBadgeIcon: React.FC = () => (
-  <svg width="30" height="30" viewBox="0 0 30 30" fill="none" stroke="#3B261D" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-    {/* Video Player Display Screen */}
-    <rect x="3.5" y="3.5" width="19" height="13.5" rx="3" stroke="#3B261D" strokeWidth="2" />
-    {/* Play Triangle */}
-    <polygon points="11,7.5 15.5,10.25 11,13" fill="#3B261D" stroke="none" />
-    {/* Scissors at bottom right */}
-    <circle cx="16.5" cy="23.5" r="2.2" stroke="#3B261D" strokeWidth="1.9" />
-    <circle cx="23.5" cy="23.5" r="2.2" stroke="#3B261D" strokeWidth="1.9" />
-    <line x1="18" y1="22" x2="23" y2="16.5" stroke="#3B261D" strokeWidth="1.9" strokeLinecap="round" />
-    <line x1="22" y1="22" x2="17" y2="16.5" stroke="#3B261D" strokeWidth="1.9" strokeLinecap="round" />
-  </svg>
-);
-
-const ContentWriterBadgeIcon: React.FC = () => (
-  <svg width="30" height="30" viewBox="0 0 30 30" fill="none" stroke="#3B261D" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-    {/* Document page with folded top-right corner */}
-    <path
-      d="M7 4C7 3.45 7.45 3 8 3H18L24 9V26C24 26.55 23.55 27 23 27H8C7.45 27 7 26.55 7 26V4Z"
-      stroke="#3B261D"
-      strokeWidth="2"
-      strokeLinejoin="round"
-    />
-    <path d="M18 3V9H24" stroke="#3B261D" strokeWidth="2" strokeLinejoin="round" />
-    {/* Text lines */}
-    <line x1="11" y1="12" x2="16" y2="12" stroke="#3B261D" strokeWidth="1.9" strokeLinecap="round" />
-    <line x1="11" y1="16" x2="15" y2="16" stroke="#3B261D" strokeWidth="1.9" strokeLinecap="round" />
-    {/* Pen writing at bottom right */}
-    <path
-      d="M20.5 16.5L24 20L22 22L18.5 18.5L20.5 16.5ZM18.5 18.5L17 23.5L22 22L18.5 18.5Z"
-      fill="#FCEFE1"
-      stroke="#3B261D"
-      strokeWidth="1.7"
-      strokeLinejoin="round"
-    />
-  </svg>
-);
-
 const CREATIVE_ROLES: CreativeRoleInfo[] = [
   {
     id: 'video-editors',
     title: 'Video Editors',
-    icon: VideoEditorBadgeIcon,
+    icon: VideoEditorIcon,
     description: 'Edit reels, promotional videos, and short videos for brands. Turn ideas into creative videos with smooth cuts and clear storytelling.'
   },
   {
     id: 'content-writers',
     title: 'Content Writers',
-    icon: ContentWriterBadgeIcon,
+    icon: ContentWriterIcon,
     description: 'Write engaging video scripts, social media captions, articles, and brand stories that are easy to understand and help your business reach more people.'
+  },
+  {
+    id: 'web-developers',
+    title: 'Web Developers',
+    icon: WebDevIcon,
+    description: 'Build and improve websites, landing pages and web applications that are modern, fast, and user-friendly.'
+  },
+  {
+    id: 'seo-specialists',
+    title: 'SEO Specialists',
+    icon: SeoIcon,
+    description: 'Work on search strategy, on-page optimization and local SEO to help businesses get better visibility online.'
+  },
+  {
+    id: 'social-media-managers',
+    title: 'Social Media Managers',
+    icon: () => <Megaphone size={22} strokeWidth={2.2} />,
+    description: 'Plan and create content for social media platforms, manage posting schedules, and improve engagement.'
+  },
+  {
+    id: 'graphic-designers',
+    title: 'Graphic Designers',
+    icon: () => <Palette size={22} strokeWidth={2.2} />,
+    description: 'Create visual content, social media designs, banners, and other brand assets that communicate clearly and look professional.'
   }
 ];
-
-// Card Corner Waves component mirroring the uploaded design
-const CardCornerWaves: React.FC = () => (
-  <div className="cw-card-bg-waves" aria-hidden="true">
-    <svg viewBox="0 0 320 340" preserveAspectRatio="none" fill="none" xmlns="http://www.w3.org/2000/svg">
-      {/* Top right organic curved waves */}
-      <path d="M125 -30C175 35 245 65 345 35" stroke="#EFE2D0" strokeWidth="26" strokeLinecap="round" opacity="0.65" />
-      <path d="M170 -50C230 25 290 75 360 145" stroke="#E6D5C0" strokeWidth="40" opacity="0.4" />
-      <path d="M220 -25C260 45 305 95 350 195" stroke="#FAF2E8" strokeWidth="18" opacity="0.85" />
-      {/* Bottom left organic curved waves */}
-      <path d="-35 175C35 215 55 285 25 375" stroke="#EFE2D0" strokeWidth="26" strokeLinecap="round" opacity="0.55" />
-      <path d="-55 225C25 255 75 305 105 375" stroke="#E6D5C0" strokeWidth="40" opacity="0.38" />
-    </svg>
-  </div>
-);
 
 interface CreativeFormData {
   fullName: string;
@@ -113,13 +102,9 @@ interface CreativeFormData {
   phone: string;
   role: string;
   portfolioUrl: string;
-  experience: string;
-  skills: string;
-  notes: string;
 }
 
 export const CreativeWorkspacePage = () => {
-  const [flippedRoles, setFlippedRoles] = useState<Record<string, boolean>>({});
   const [formHighlight, setFormHighlight] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitted, setSubmitted] = useState(false);
@@ -130,15 +115,11 @@ export const CreativeWorkspacePage = () => {
     phone: '',
     role: '',
     portfolioUrl: '',
-    experience: '',
-    skills: '',
-    notes: '',
   });
 
   const formRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    // If URL contains hash #creative-apply or path /apply
     if (
       window.location.hash === '#creative-apply' ||
       window.location.pathname.includes('/apply')
@@ -151,13 +132,6 @@ export const CreativeWorkspacePage = () => {
     }
   }, []);
 
-  const scrollToRoles = () => {
-    const rolesSection = document.getElementById('roles');
-    if (rolesSection) {
-      rolesSection.scrollIntoView({ behavior: 'smooth' });
-    }
-  };
-
   const scrollToApply = (prefillRole?: string) => {
     if (prefillRole) {
       setFormData(prev => ({ ...prev, role: prefillRole }));
@@ -169,30 +143,8 @@ export const CreativeWorkspacePage = () => {
     }, 1800);
   };
 
-  const handleFlipToBack = (roleId: string, e?: React.MouseEvent) => {
-    if (e) {
-      e.preventDefault();
-      e.stopPropagation();
-    }
-    setFlippedRoles(prev => ({
-      ...prev,
-      [roleId]: true,
-    }));
-  };
-
-  const handleFlipToFront = (roleId: string, e?: React.MouseEvent) => {
-    if (e) {
-      e.preventDefault();
-      e.stopPropagation();
-    }
-    setFlippedRoles(prev => ({
-      ...prev,
-      [roleId]: false,
-    }));
-  };
-
   const handleInputChange = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>
+    e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
   ) => {
     const { name, value } = e.target;
     setFormData(prev => ({
@@ -218,15 +170,14 @@ export const CreativeWorkspacePage = () => {
       phone: '',
       role: '',
       portfolioUrl: '',
-      experience: '',
-      skills: '',
-      notes: '',
     });
   };
 
   return (
     <div className="cw-page">
-      {/* Hero Section */}
+      {/* =================================================================
+         1. HERO SECTION (Matching Image 1)
+         ================================================================= */}
       <section className="cw-hero">
         <div className="container cw-hero-grid">
           <div>
@@ -237,25 +188,19 @@ export const CreativeWorkspacePage = () => {
               </div>
 
               <h1 className="cw-hero-title">
-                Create with S-Bloom.<br />
-                <span className="cw-gold-text">Grow with us.</span>
+                Your skills.<br />
+                Our network.<br />
+                <span className="cw-gold-italic">Better work, together.</span>
               </h1>
 
-              <p className="cw-hero-lead">
-                Join our creative network.
-              </p>
-
               <p className="cw-hero-desc">
-                Work with S-Bloom on creative projects, digital content, and ideas that help businesses grow. We're looking to connect with talented people who want to create meaningful work together.
+                An AI-supported creative partner platform connecting skilled professionals with businesses that need their expertise. Find collaboration opportunities across web design, SEO, content, social media, video, digital marketing, and more.
               </p>
 
               <div className="cw-hero-actions">
-                <button onClick={scrollToRoles} className="cw-btn-primary">
-                  <span>Explore Opportunities</span>
-                  <ArrowRight size={18} strokeWidth={2.2} className="cw-btn-arrow" />
-                </button>
-                <button onClick={() => scrollToApply()} className="cw-btn-secondary">
-                  Apply Now
+                <button onClick={() => scrollToApply()} className="cw-btn-hero">
+                  <span>Join the Creative Network</span>
+                  <ArrowRight size={18} strokeWidth={2.4} className="cw-btn-arrow" />
                 </button>
               </div>
             </ScrollReveal>
@@ -269,75 +214,34 @@ export const CreativeWorkspacePage = () => {
         </div>
       </section>
 
-      {/* Collaboration Process */}
-      <section id="collaboration-process" className="cw-process-section">
-        <div className="cw-radial-highlight"></div>
-        <div className="container">
-          <div className="cw-section-header">
-            <ScrollReveal delay={100}>
-              <h2>How We Work Together</h2>
-              <p>A clear process from project brief to final delivery.</p>
-            </ScrollReveal>
-          </div>
-          
-          <div className="cw-process-grid">
-            <div className="cw-process-line"></div>
-            
-            <ScrollReveal delay={200} className="h-full">
-              <div className="cw-process-card">
-                <span className="cw-process-bg-num">01</span>
-                <div className="cw-process-header">
-                  <Target className="cw-process-icon" size={28} />
-                  <h3>S-Bloom Strategy</h3>
-                </div>
-                <p>We secure the client and prepare the brief, script, or technical requirements.</p>
-              </div>
-            </ScrollReveal>
-            
-            <ScrollReveal delay={300} className="h-full">
-              <div className="cw-process-card">
-                <span className="cw-process-bg-num">02</span>
-                <div className="cw-process-header">
-                  <PlayCircle className="cw-process-icon" size={28} />
-                  <h3>Partner Execution</h3>
-                </div>
-                <p>You take on the assigned project and deliver your specialized work.</p>
-              </div>
-            </ScrollReveal>
-            
-            <ScrollReveal delay={400} className="h-full">
-              <div className="cw-process-card">
-                <span className="cw-process-bg-num">03</span>
-                <div className="cw-process-header">
-                  <Rocket className="cw-process-icon" size={28} />
-                  <h3>S-Bloom Deployment</h3>
-                </div>
-                <p>We coordinate final deployment, campaign management, and client feedback.</p>
-              </div>
-            </ScrollReveal>
-          </div>
-        </div>
-      </section>
-
-      {/* Roles Section with 4 Equal-Width Cards matching Image 2 */}
+      {/* =================================================================
+         2. OPPORTUNITIES / 6 ROLES SECTION (Matching Image 2 Top)
+         ================================================================= */}
       <section id="roles" className="cw-roles-section">
         <div className="container">
           <div className="cw-section-header">
             <ScrollReveal delay={100}>
-              <h2>Your Expertise Has a Place Here</h2>
-              <p>Explore opportunities to collaborate with S-Bloom on impactful client projects.</p>
+              <div className="cw-section-eyebrow">
+                <span className="cw-section-rule" />
+                <span className="cw-section-label">CREATIVE WORKSPACE</span>
+                <span className="cw-section-rule" />
+              </div>
+              <h2 className="cw-section-title">Your Expertise Has a Place Here</h2>
+              <p className="cw-section-subtitle">
+                Explore opportunities to collaborate with S-Bloom on impactful client projects.
+              </p>
             </ScrollReveal>
           </div>
           
-          <div className="cw-roles-grid">
+          <div className="cw-roles-grid-6">
             {CREATIVE_ROLES.map((role, idx) => {
               const IconComponent = role.icon;
 
               return (
-                <ScrollReveal key={role.id} delay={100 + idx * 80} className="h-full">
+                <ScrollReveal key={role.id} delay={100 + idx * 60} className="h-full">
                   <div className="cw-role-card">
                     <div className="cw-role-icon-box">
-                      <IconComponent size={28} strokeWidth={1.9} className="cw-role-icon" />
+                      <IconComponent />
                     </div>
                     
                     <h3 className="cw-role-title">{role.title}</h3>
@@ -359,24 +263,95 @@ export const CreativeWorkspacePage = () => {
         </div>
       </section>
 
-      {/* SEPARATE CREATIVE APPLICATION FORM SECTION */}
+      {/* =================================================================
+         3. HOW IT WORKS SECTION (Matching Image 3 - Before the Form)
+         ================================================================= */}
+      <section id="how-it-works" className="cw-how-it-works-section">
+        <div className="container">
+          <div className="cw-section-header">
+            <ScrollReveal delay={100}>
+              <div className="cw-section-eyebrow">
+                <span className="cw-section-rule" />
+                <span className="cw-section-label">HOW IT WORKS</span>
+                <span className="cw-section-rule" />
+              </div>
+              <h2 className="cw-section-title">A simple way to collaborate.</h2>
+              <p className="cw-section-subtitle">
+                Join our creative network and work on projects that match your skills and interests.
+              </p>
+            </ScrollReveal>
+          </div>
+
+          <div className="cw-hiw-flow-wrap">
+            {/* Horizontal Dashed Connecting Line */}
+            <div className="cw-hiw-connecting-line" aria-hidden="true" />
+
+            <div className="cw-hiw-steps-grid">
+              {/* Step 01 */}
+              <ScrollReveal delay={150} className="h-full">
+                <div className="cw-hiw-step-item">
+                  <div className="cw-hiw-icon-bubble">
+                    <UserPlus size={30} strokeWidth={2} />
+                  </div>
+                  <span className="cw-hiw-step-num">01</span>
+                  <h3 className="cw-hiw-step-title">Apply to join</h3>
+                  <p className="cw-hiw-step-desc">
+                    Tell us about your skills, experience and the type of work you want to do.
+                  </p>
+                </div>
+              </ScrollReveal>
+
+              {/* Step 02 */}
+              <ScrollReveal delay={250} className="h-full">
+                <div className="cw-hiw-step-item">
+                  <div className="cw-hiw-icon-bubble">
+                    <Briefcase size={28} strokeWidth={2} />
+                  </div>
+                  <span className="cw-hiw-step-num">02</span>
+                  <h3 className="cw-hiw-step-title">Get matched</h3>
+                  <p className="cw-hiw-step-desc">
+                    We connect you with relevant project opportunities from businesses in our network.
+                  </p>
+                </div>
+              </ScrollReveal>
+
+              {/* Step 03 */}
+              <ScrollReveal delay={350} className="h-full">
+                <div className="cw-hiw-step-item">
+                  <div className="cw-hiw-icon-bubble">
+                    <Users size={30} strokeWidth={2} />
+                  </div>
+                  <span className="cw-hiw-step-num">03</span>
+                  <h3 className="cw-hiw-step-title">Work together</h3>
+                  <p className="cw-hiw-step-desc">
+                    Collaborate, create and contribute your expertise to meaningful projects.
+                  </p>
+                </div>
+              </ScrollReveal>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* =================================================================
+         4. QUICK APPLICATION FORM SECTION (Matching Image 2 Bottom)
+         ================================================================= */}
       <section id="creative-apply" ref={formRef} className="cw-apply-section">
         <div className="cw-apply-container">
           <ScrollReveal delay={100}>
-            <div className="cw-apply-header">
-              <div className="cw-apply-eyebrow">
-                <span className="cw-apply-eyebrow-text">QUICK APPLICATION</span>
-                <span className="cw-apply-eyebrow-line" />
-              </div>
-              <h2 className="cw-apply-title">Join the S-Bloom Creative Network</h2>
-              <p className="cw-apply-subtitle">
-                Submit your portfolio and contact details below. We'll reach out with matching projects.
-              </p>
-            </div>
-          </ScrollReveal>
-
-          <ScrollReveal delay={200}>
             <div className={`cw-apply-card ${formHighlight ? 'highlight-focus' : ''}`}>
+              <div className="cw-apply-header">
+                <div className="cw-apply-eyebrow">
+                  <span className="cw-section-rule" />
+                  <span className="cw-apply-eyebrow-text">QUICK APPLICATION</span>
+                  <span className="cw-section-rule" />
+                </div>
+                <h2 className="cw-apply-title">Join the S-Bloom Creative Network</h2>
+                <p className="cw-apply-subtitle">
+                  Submit your portfolio and contact details below. We'll reach out with matching projects.
+                </p>
+              </div>
+
               {submitted ? (
                 <div className="cw-apply-success">
                   <div className="cw-success-icon-wrap">
@@ -471,6 +446,10 @@ export const CreativeWorkspacePage = () => {
                           <option value="">Select your discipline...</option>
                           <option value="Video Editors">Video Editors</option>
                           <option value="Content Writers">Content Writers</option>
+                          <option value="Web Developers">Web Developers</option>
+                          <option value="SEO Specialists">SEO Specialists</option>
+                          <option value="Social Media Managers">Social Media Managers</option>
+                          <option value="Graphic Designers">Graphic Designers</option>
                           <option value="Other Creative Role">Other Creative Role</option>
                         </select>
                       </div>
@@ -512,35 +491,8 @@ export const CreativeWorkspacePage = () => {
           </ScrollReveal>
         </div>
       </section>
-
-      {/* Final CTA Section */}
-      <section className="cw-cta-section">
-        <div className="container">
-          <ScrollReveal delay={100}>
-            <h2>Ready to Collaborate with S-Bloom?</h2>
-            <p>Bring your skills, experience, and ideas to projects that need your expertise.</p>
-            <button
-              onClick={() => scrollToApply()}
-              className="cw-btn"
-              style={{
-                padding: '16px 40px',
-                fontSize: '1.1rem',
-                border: 'none',
-                cursor: 'pointer',
-                borderRadius: '8px',
-                background: '#FFFFFF',
-                color: '#1C1917',
-                fontWeight: 650,
-              }}
-            >
-              Apply to S-Bloom Creative Network →
-            </button>
-          </ScrollReveal>
-        </div>
-      </section>
     </div>
   );
 };
 
 export default CreativeWorkspacePage;
-

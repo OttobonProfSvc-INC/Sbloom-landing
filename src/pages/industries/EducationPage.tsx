@@ -14,7 +14,6 @@ import "./IndustryPage.css";
 interface ServiceCardInfo {
   id: string;
   title: string;
-  description: string;
   icon: React.ComponentType<{ size?: number; strokeWidth?: number; className?: string }>;
 }
 
@@ -22,31 +21,26 @@ const EDUCATION_SERVICES: ServiceCardInfo[] = [
   {
     id: "web-dev",
     title: "Website Development",
-    description: "Showcase your courses, facilities, achievements, and admission details clearly.",
     icon: Monitor,
   },
   {
     id: "gbp",
     title: "Google Business Profile",
-    description: "Help students and parents find your institution on Google Search and Maps.",
     icon: MapPin,
   },
   {
     id: "seo",
     title: "SEO",
-    description: "Improve your visibility when people search for educational institutions and courses.",
     icon: TrendingUp,
   },
   {
     id: "smm",
     title: "Social Media Management",
-    description: "Share campus activities, achievements, events, and educational content.",
     icon: Users,
   },
   {
     id: "ads",
     title: "Digital Advertising",
-    description: "Promote courses and admissions to relevant students and parents.",
     icon: Megaphone,
   },
 ];
@@ -75,91 +69,34 @@ export const EducationPage: React.FC = () => {
 
       <div className="industry-container">
         {/* ====================================================
-            HERO SECTION: Headline, Copy, CTA & Image
+            HERO BANNER: AI-Powered Growth (from Image 2)
             ==================================================== */}
-        <section className="industry-hero-section">
-          <div className="industry-hero-grid">
-            {/* Left Column */}
-            <div className="industry-hero-left">
-              <ScrollReveal delay={0}>
-                <span className="industry-eyebrow">S-BLOOM — EDUCATION</span>
-                
-                <h1 className="industry-hero-title">
-                  Help More Students<br />
-                  <span className="industry-gold-title">Discover Your</span><br />
-                  Institution.
-                </h1>
-
-                <p className="industry-hero-desc">
-                  We help schools, colleges, coaching centres, and training institutes improve their online presence, reach students and parents, and generate more admission enquiries.
-                </p>
-
-                <Link to="/contact" className="industry-hero-cta-btn">
-                  <span>Talk to S-BLOOM</span>
-                  <ArrowRight size={17} strokeWidth={2.4} />
-                </Link>
-              </ScrollReveal>
+        <section className="industry-hero-banner-section">
+          <ScrollReveal delay={0}>
+            <div className="industry-hero-banner-wrap">
+              <img
+                src="/edu-hero-ai.png"
+                alt="Help More Students Discover Your Institution with AI-Powered Growth"
+                className="industry-hero-banner-img"
+              />
+              <Link
+                to="/contact"
+                className="industry-hero-banner-cta-overlay"
+                aria-label="Talk to S-BLOOM"
+              />
             </div>
-
-            {/* Right Column: Hero Photo & Handwritten Note */}
-            <div className="industry-hero-right">
-              <ScrollReveal delay={150} style={{ position: "relative", width: "100%", maxWidth: "610px" }}>
-                {/* Handwritten script note on top-right */}
-                <div className="industry-floating-script" aria-hidden="true">
-                  <span className="script-text">More Students.</span>
-                  <span className="script-subtext">Brighter Futures.</span>
-                  <svg className="script-accent-arc" viewBox="0 0 100 20" fill="none">
-                    <path d="M 5,14 Q 50,4 95,16" stroke="#B87B2E" strokeWidth="2.5" strokeLinecap="round" />
-                  </svg>
-                </div>
-
-                <div className="industry-photo-wrapper">
-                  <img
-                    src="/edu-hero-students.jpg"
-                    alt="Students collaborating on campus with laptop"
-                    className="industry-photo-img"
-                  />
-                </div>
-              </ScrollReveal>
-            </div>
-          </div>
-        </section>
-
-        {/* ====================================================
-            CORE PROBLEM & AI SOLUTION
-            ==================================================== */}
-        <section className="industry-problem-solution-section">
-          <ScrollReveal delay={50}>
-            <div className="industry-prob-sol-card">
-              <div className="industry-prob-col">
-                <span className="industry-prob-tag">THE PROBLEM YOU FACE</span>
-                <h3 className="industry-prob-title">Declining Student Admission Enquiries</h3>
-                <p className="industry-prob-desc">
-                  Schools and colleges face intense competition every academic cycle. When parents and students cannot discover 
-                  your campus, courses, and fee structure quickly on mobile, they enroll with competitors.
-                </p>
-              </div>
-
-              <div className="industry-prob-divider" />
-
-              <div className="industry-sol-col">
-                <span className="industry-sol-tag">✦ THE S-BLOOM AI SOLUTION</span>
-                <h3 className="industry-sol-title">AI-Optimized Portals & Meta Reels Campaigns</h3>
-                <p className="industry-sol-desc">
-                  Sub-1s mobile admission pages, high-retention student showcase Reels via Meta Business Suite, and local SEO dominance. 
-                  Result: 3.4x surge in admission inquiries without expensive agency retainers.
-                </p>
-                <Link to="/proof-of-work?service=website" className="industry-sol-proof-btn">
-                  <span>See Education Proof of Work</span>
-                  <ArrowRight size={15} />
-                </Link>
-              </div>
+            {/* Mobile Fallback CTA Button if banner scales down */}
+            <div className="industry-hero-banner-mobile-cta">
+              <Link to="/contact" className="industry-hero-cta-btn">
+                <span>Talk to S-BLOOM</span>
+                <ArrowRight size={17} strokeWidth={2.4} />
+              </Link>
             </div>
           </ScrollReveal>
         </section>
 
         {/* ====================================================
-            FIVE SERVICE CARDS SECTION
+            FIVE SERVICE CARDS SECTION (WITHOUT DESCRIPTION MATTER)
             ==================================================== */}
         <section className="industry-services-section">
           <div className="industry-services-grid">
@@ -173,7 +110,6 @@ export const EducationPage: React.FC = () => {
                         <IconComp size={24} strokeWidth={1.9} />
                       </div>
                       <h3 className="service-card-title">{service.title}</h3>
-                      <p className="service-card-desc">{service.description}</p>
                     </div>
 
                     <div className="service-card-bottom">

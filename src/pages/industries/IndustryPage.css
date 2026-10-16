@@ -205,27 +205,111 @@
 }
 
 /* ==========================================================================
+   INDUSTRY HERO BANNER (EDUCATION & HEALTHCARE)
+   ========================================================================== */
+.industry-hero-banner-section {
+  padding-top: 6px;
+  padding-bottom: 8px;
+}
+
+.industry-hero-banner-wrap {
+  position: relative;
+  width: 100%;
+  border-radius: 20px;
+  overflow: hidden;
+  box-shadow: 0 10px 30px rgba(80, 50, 30, 0.06);
+  border: 1.5px solid #F0E6D8;
+  background: #FAF6EE;
+}
+
+.industry-hero-banner-img {
+  width: 100%;
+  height: auto;
+  display: block;
+  image-rendering: auto;
+}
+
+.industry-hero-banner-cta-overlay {
+  position: absolute;
+  left: 4.3%;
+  top: 66.8%;
+  width: 15.5%;
+  height: 9.8%;
+  border-radius: 10px;
+  cursor: pointer;
+  z-index: 10;
+  transition: all 0.2s ease;
+  background: rgba(255, 255, 255, 0.001);
+}
+
+.health-page-container .industry-hero-banner-cta-overlay {
+  left: 4.3%;
+  top: 66.8%;
+  width: 15.5%;
+  height: 9.8%;
+}
+
+.edu-page-container .industry-hero-banner-cta-overlay {
+  left: 4.8%;
+  top: 64.4%;
+  width: 14.2%;
+  height: 9.2%;
+}
+
+.industry-hero-banner-cta-overlay:hover {
+  box-shadow: 0 0 18px rgba(53, 32, 22, 0.35);
+  transform: translateY(-2px);
+}
+
+.industry-hero-banner-mobile-cta {
+  display: none;
+  margin-top: 14px;
+  justify-content: center;
+}
+
+@media (max-width: 768px) {
+  .industry-hero-banner-cta-overlay {
+    display: none;
+  }
+  .industry-hero-banner-mobile-cta {
+    display: flex;
+  }
+}
+
+/* ==========================================================================
    5 SERVICE CARDS SECTION (BOTTOM ROW)
    ========================================================================== */
 .industry-services-section {
-  margin-top: 36px;
+  margin-top: 24px;
 }
 
 .industry-services-grid {
   display: grid;
   grid-template-columns: repeat(5, 1fr);
-  gap: 18px;
+  gap: 20px;
   width: 100%;
+  align-items: stretch;
 }
 
+.industry-services-grid > .reveal-wrapper {
+  display: flex !important;
+  flex-direction: column !important;
+  height: 100% !important;
+  width: 100% !important;
+}
+
+.industry-services-grid > .reveal-wrapper > .industry-service-card,
 .industry-service-card {
   background: #FFFFFF;
   border: 1.5px solid #F0E6D8;
   border-radius: 20px;
-  padding: 26px 20px 22px 20px;
+  padding: 24px 20px 20px 20px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  flex: 1;
+  height: 100%;
+  min-height: 200px;
   box-shadow: 0 8px 24px rgba(120, 90, 60, 0.05);
   transition: all 0.25s ease;
   box-sizing: border-box;
@@ -243,8 +327,8 @@
 }
 
 .service-card-badge {
-  width: 56px;
-  height: 56px;
+  width: 54px;
+  height: 54px;
   border-radius: 50%;
   background: #FCEFE1;
   display: flex;
@@ -263,11 +347,14 @@
 
 .service-card-title {
   font-family: var(--font-heading, "Playfair Display", Georgia, serif);
-  font-size: 1.12rem;
+  font-size: 1.15rem;
   font-weight: 700;
   color: #1C1512;
-  margin: 0 0 10px 0;
-  line-height: 1.25;
+  margin: 0 0 14px 0;
+  line-height: 1.35;
+  min-height: 2.7em;
+  display: flex;
+  align-items: flex-start;
 }
 
 .service-card-desc {
@@ -280,6 +367,8 @@
 
 .service-card-bottom {
   margin-top: auto;
+  display: flex;
+  align-items: center;
 }
 
 .service-card-btn {

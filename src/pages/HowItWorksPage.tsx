@@ -1,263 +1,451 @@
-import React from 'react';
-import { ScrollReveal } from '../components/ScrollReveal';
+import React, { useState, useEffect, useCallback, useRef } from 'react';
+import { motion, useReducedMotion } from 'framer-motion';
 import {
+  ArrowLeft,
+  ArrowRight,
   Search,
-  FileEdit,
+  BarChart3,
   Lightbulb,
   Rocket,
-  BarChart3,
   TrendingUp,
 } from 'lucide-react';
 import './HowItWorksPage.css';
 
-const STEPS_DATA = [
+interface StepItem {
+  id: string;
+  badge: string;
+  title: string;
+  desc: string;
+  image: string;
+  alt: string;
+  icon: React.ComponentType<{ size?: number; strokeWidth?: number; className?: string }>;
+  tintBg: string;
+  iconColor: string;
+}
+
+const STEPS: StepItem[] = [
   {
-    num: '01',
-    icon: Search,
-    tint: 'lavender',
+    id: 'understand',
+    badge: '01 / 05',
     title: 'Understand your business',
-    desc: 'We learn about your services, audience, goals and current online presence to understand where you stand today.',
+    desc: 'We learn about your services, audience, goals, and current online presence to understand where you stand today.',
+    image: '/hiw/step1.jpg',
+    alt: 'Laptop displaying business analytics on a warm professional desk',
+    icon: Search,
+    tintBg: '#F7EFE5',
+    iconColor: '#935F2D',
   },
   {
-    num: '02',
-    icon: FileEdit,
-    tint: 'peach',
+    id: 'opportunities',
+    badge: '02 / 05',
     title: 'Find opportunities',
-    desc: "We analyze what's working, identify gaps, and find opportunities to help more people discover and choose you.",
-  },
-  {
-    num: '03',
-    icon: Lightbulb,
-    tint: 'lavender',
-    title: 'Create the right plan',
-    desc: 'We build a clear, customized strategy with the right messaging, content and channels based on your goals.',
-  },
-  {
-    num: '04',
-    icon: Rocket,
-    tint: 'peach',
-    title: 'Put the plan into action',
-    desc: 'We create content, improve your online presence and run targeted campaigns across the right platforms.',
-  },
-  {
-    num: '05',
+    desc: 'We identify what is working, find gaps, and discover opportunities to help more people find and choose your business.',
+    image: '/hiw/step2.jpg',
+    alt: 'Spiral notebook with planning notes, ideas and lightbulb sketch',
     icon: BarChart3,
-    tint: 'lavender',
+    tintBg: '#F3EAE0',
+    iconColor: '#785A46',
+  },
+  {
+    id: 'plan',
+    badge: '03 / 05',
+    title: 'Create the right plan',
+    desc: 'We combine business insights and AI-assisted research to plan the right messaging, content, and marketing activities for your goals.',
+    image: '/hiw/step3.jpg',
+    alt: 'Laptop, planning notes, and a clear strategy workspace',
+    icon: Lightbulb,
+    tintBg: '#FBF2E0',
+    iconColor: '#B07B28',
+  },
+  {
+    id: 'action',
+    badge: '04 / 05',
+    title: 'Put the plan into action',
+    desc: 'We improve your online presence, create useful content, and run relevant campaigns across the right platforms.',
+    image: '/hiw/step4.jpg',
+    alt: 'Professional studio camera setup for marketing content creation',
+    icon: Rocket,
+    tintBg: '#FCEFE7',
+    iconColor: '#A1592A',
+  },
+  {
+    id: 'growth',
+    badge: '05 / 05',
     title: 'Track and grow',
-    desc: "We monitor performance, see what's working, and keep improving to bring you better visibility, enquiries and long-term growth.",
+    desc: 'We review performance, understand what is working, and improve our approach to support long-term business growth.',
+    image: '/hiw/step5.jpg',
+    alt: 'Tablet displaying business growth analytics dashboard',
+    icon: TrendingUp,
+    tintBg: '#EFF2E7',
+    iconColor: '#5C7449',
   },
 ];
 
 export const HowItWorksPage: React.FC = () => {
-  return (
-    <div className="hiw-page">
-      {/* Background ambient radial gradients */}
-      <div className="hiw-bg-glow hiw-glow-top" aria-hidden="true" />
-      <div className="hiw-bg-glow hiw-glow-bottom" aria-hidden="true" />
+  const [activeIndex, setActiveIndex] = useState(0);
+  const [windowWidth, setWindowWidth] = useState(
+    typeof window !== 'undefined' ? window.innerWidth : 1200
+  );
+  const prefersReducedMotion = useReducedMotion();
 
-      {/* Decorative Wave Curves in Background */}
-      <div className="hiw-bg-waves" aria-hidden="true">
+  // Track previous offsets per step index to detect wrap-arounds
+  const prevOffsetsRef = useRef<{ [key: number]: number }>({
+    0: 0,
+    1: 1,
+    2: 2,
+    3: -2,
+    4: -1,
+  });
+
+  // Keep track of window resize
+  useEffect(() => {
+    const handleResize = () => setWindowWidth(window.innerWidth);
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
+
+  const total = STEPS.length;
+
+  const handleNext = useCallback(() => {
+    setActiveIndex((prev) => (prev + 1) % total);
+  }, [total]);
+
+  const handlePrev = useCallback(() => {
+    setActiveIndex((prev) => (prev - 1 + total) % total);
+  }, [total]);
+
+  const handleGoTo = useCallback(
+    (index: number) => {
+      setActiveIndex(index);
+    },
+    []
+  );
+
+  // Keyboard navigation
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'ArrowLeft') {
+        handlePrev();
+      } else if (e.key === 'ArrowRight') {
+        handleNext();
+      }
+    };
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [handleNext, handlePrev]);
+
+  // Touch Swipe Support for Mobile/Tablet
+  const touchStartXRef = useRef<number | null>(null);
+  const touchEndXRef = useRef<number | null>(null);
+
+  const handleTouchStart = (e: React.TouchEvent) => {
+    touchStartXRef.current = e.targetTouches[0].clientX;
+    touchEndXRef.current = null;
+  };
+
+  const handleTouchMove = (e: React.TouchEvent) => {
+    touchEndXRef.current = e.targetTouches[0].clientX;
+  };
+
+  const handleTouchEnd = () => {
+    if (touchStartXRef.current === null || touchEndXRef.current === null) return;
+    const distance = touchStartXRef.current - touchEndXRef.current;
+    const minSwipe = 45;
+    if (distance > minSwipe) {
+      handleNext();
+    } else if (distance < -minSwipe) {
+      handlePrev();
+    }
+    touchStartXRef.current = null;
+    touchEndXRef.current = null;
+  };
+
+  // Helper to compute cyclic offset (-2 to +2)
+  const getOffset = (index: number) => {
+    let diff = index - activeIndex;
+    if (diff > total / 2) diff -= total;
+    if (diff < -total / 2) diff += total;
+    return diff;
+  };
+
+  return (
+    <div className="hiw-carousel-page">
+      {/* Crisp background vector curves (zero foggy/white gas glow) */}
+      <div className="hiw-vector-curves" aria-hidden="true">
         <svg viewBox="0 0 1440 900" fill="none" xmlns="http://www.w3.org/2000/svg">
           <path
-            d="M-80 200C180 120 400 280 580 440C760 600 1020 680 1280 620C1380 600 1480 540 1560 480"
-            stroke="#EDE1D1"
-            strokeWidth="32"
-            opacity="0.38"
+            d="M-60 180 C240 80, 520 280, 780 440 C1040 600, 1260 580, 1500 480"
+            stroke="#EADBCC"
+            strokeWidth="20"
+            opacity="0.32"
           />
           <path
-            d="M-40 120C220 80 440 220 620 380C800 540 1060 620 1340 560"
-            stroke="#F5ECE0"
-            strokeWidth="22"
-            opacity="0.55"
+            d="M-20 100 C320 60, 580 220, 840 380 C1100 540, 1320 500, 1540 420"
+            stroke="#F0E3D3"
+            strokeWidth="14"
+            opacity="0.45"
           />
         </svg>
       </div>
 
-      <div className="container hiw-container">
+      <div className="hiw-carousel-container">
         {/* =================================================================
-           HERO SECTION: Title & Description + 4 Arched Visuals & Desk Scene
+           HERO HEADER: Eyebrow + Prominent Centered Headline
+           (No matter/description below the heading)
            ================================================================= */}
-        <section className="hiw-hero-grid">
-          {/* Left Column: Heading & Lead */}
-          <div className="hiw-hero-text">
-            <ScrollReveal delay={0}>
-              <span className="hiw-eyebrow">HOW IT WORKS</span>
-              
-              <h1 className="hiw-hero-title">
-                From understanding<br />
-                to <span className="hiw-gold-italic">real growth.</span>
-              </h1>
-              
-              <div className="hiw-title-underline" aria-hidden="true" />
-
-              <p className="hiw-hero-desc">
-                We follow a simple, structured process to understand your business, create the right strategy, and help you reach the right people with consistent execution.
-              </p>
-            </ScrollReveal>
+        <header className="hiw-header-centered">
+          <div className="hiw-eyebrow-container">
+            <span className="hiw-eyebrow-rule" />
+            <span className="hiw-eyebrow-text">HOW IT WORKS</span>
+            <span className="hiw-eyebrow-rule" />
           </div>
 
-          {/* Right Column: 4 Arched Cards Cluster + Laptop & Books Scene */}
-          <div className="hiw-hero-visual-wrap">
-            <ScrollReveal delay={150}>
-              <div className="hiw-visual-scene">
-                {/* 4 Arches Cluster */}
-                <div className="hiw-arches-cluster">
-                  {/* Arch 1: Understand */}
-                  <div className="hiw-arch-card hiw-arch-1">
-                    <img
-                      src="/hiw-understand.jpg"
-                      alt="Understand your business"
-                      className="hiw-arch-img"
-                    />
-                    <div className="hiw-arch-badge">
-                      <div className="hiw-badge-icon-box">
-                        <Search size={13} strokeWidth={2.4} />
-                      </div>
-                      <span className="hiw-badge-text">Understand</span>
-                    </div>
-                  </div>
-
-                  {/* Arch 2: Plan */}
-                  <div className="hiw-arch-card hiw-arch-2">
-                    <img
-                      src="/hiw-plan.jpg"
-                      alt="Plan strategy"
-                      className="hiw-arch-img"
-                    />
-                    <div className="hiw-arch-badge">
-                      <div className="hiw-badge-icon-box">
-                        <FileEdit size={13} strokeWidth={2.4} />
-                      </div>
-                      <span className="hiw-badge-text">Plan</span>
-                    </div>
-                  </div>
-
-                  {/* Arch 3: Create & Promote */}
-                  <div className="hiw-arch-card hiw-arch-3">
-                    <img
-                      src="/hiw-create-promote.jpg"
-                      alt="Create and promote"
-                      className="hiw-arch-img"
-                    />
-                    <div className="hiw-arch-badge">
-                      <div className="hiw-badge-icon-box">
-                        <Rocket size={13} strokeWidth={2.4} />
-                      </div>
-                      <span className="hiw-badge-text">Create & Promote</span>
-                    </div>
-                  </div>
-
-                  {/* Arch 4: Track & Grow */}
-                  <div className="hiw-arch-card hiw-arch-4">
-                    <img
-                      src="/hiw-track-grow.jpg"
-                      alt="Track and grow analytics"
-                      className="hiw-arch-img"
-                    />
-                    <div className="hiw-arch-badge">
-                      <div className="hiw-badge-icon-box">
-                        <BarChart3 size={13} strokeWidth={2.4} />
-                      </div>
-                      <span className="hiw-badge-text">Track & Grow</span>
-                    </div>
-                  </div>
-                </div>
-
-                {/* Desk Foreground Scene: Laptop & Book Stack */}
-                <div className="hiw-desk-scene">
-                  {/* Laptop Mockup */}
-                  <div className="hiw-laptop-mockup">
-                    <div className="hiw-laptop-lid">
-                      <div className="hiw-laptop-screen">
-                        <div className="hiw-screen-content">
-                          <span className="hiw-screen-heading">Your Growth Journey</span>
-                          <div className="hiw-screen-underline" />
-                          <div className="hiw-chart-wrap">
-                            <TrendingUp size={16} className="hiw-chart-arrow" strokeWidth={2.5} />
-                            <div className="hiw-chart-bars">
-                              <span className="hiw-bar" style={{ height: '30%' }} />
-                              <span className="hiw-bar" style={{ height: '50%' }} />
-                              <span className="hiw-bar" style={{ height: '70%' }} />
-                              <span className="hiw-bar" style={{ height: '88%' }} />
-                              <span className="hiw-bar is-top" style={{ height: '100%' }} />
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                    <div className="hiw-laptop-base" />
-                  </div>
-
-                  {/* Stack of 4 Books */}
-                  <div className="hiw-book-stack">
-                    <div className="hiw-book hiw-book-1">
-                      <span className="hiw-book-spine">Strategy</span>
-                    </div>
-                    <div className="hiw-book hiw-book-2">
-                      <span className="hiw-book-spine">Content</span>
-                    </div>
-                    <div className="hiw-book hiw-book-3">
-                      <span className="hiw-book-spine">Visibility</span>
-                    </div>
-                    <div className="hiw-book hiw-book-4">
-                      <span className="hiw-book-spine">Growth</span>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </ScrollReveal>
-          </div>
-        </section>
+          <h1 className="hiw-headline-main">
+            AI-powered process.<br />
+            <span className="hiw-headline-highlight">Real growth for your business.</span>
+          </h1>
+        </header>
 
         {/* =================================================================
-           5 STEPS PROCESS SECTION WITH CONNECTING FLOW LINE
+           MAIN CAROUSEL: One Centered Active Card + Blurred Side Previews
            ================================================================= */}
-        <section className="hiw-steps-section">
-          {/* Continuous Undulating Connecting Line SVG */}
-          <div className="hiw-connecting-wave" aria-hidden="true">
-            <svg viewBox="0 0 1200 120" preserveAspectRatio="none" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <path
-                d="M30 60 C 130 20, 170 100, 270 60 C 370 20, 410 100, 510 60 C 610 20, 650 100, 750 60 C 850 20, 890 100, 990 60 C 1090 20, 1130 90, 1180 60"
-                stroke="#DECDB8"
-                strokeWidth="2.5"
-                strokeDasharray="4 4"
-              />
-            </svg>
-          </div>
+        <section
+          className="hiw-carousel-section"
+          aria-label="How It Works Steps Carousel"
+          onTouchStart={handleTouchStart}
+          onTouchMove={handleTouchMove}
+          onTouchEnd={handleTouchEnd}
+        >
+          {/* Circular Previous Arrow Button */}
+          <button
+            type="button"
+            className="hiw-nav-arrow hiw-nav-prev"
+            onClick={handlePrev}
+            aria-label="Previous step"
+          >
+            <ArrowLeft size={18} strokeWidth={2.4} />
+          </button>
 
-          <div className="hiw-steps-grid">
-            {STEPS_DATA.map((step, idx) => {
-              const IconComp = step.icon;
+          {/* Cards Track */}
+          <div className="hiw-cards-track">
+            {STEPS.map((step, idx) => {
+              const offset = getOffset(idx);
+              const prevOffset = prevOffsetsRef.current[idx] ?? offset;
+              const isWrapping = Math.abs(prevOffset - offset) > 2;
+              prevOffsetsRef.current[idx] = offset;
+
+              const isActive = offset === 0;
+              const IconComponent = step.icon;
+
+              // Responsive positioning math
+              const isMobile = windowWidth < 680;
+              const isTablet = windowWidth >= 680 && windowWidth < 1080;
+
+              let targetX = 0;
+              let targetScale = 1;
+              let targetOpacity = 1;
+              let targetBlur = 'blur(0px)';
+              let targetZIndex = 10;
+              let isVisible = true;
+
+              if (isMobile) {
+                if (offset === 0) {
+                  targetX = 0;
+                  targetScale = 1;
+                  targetOpacity = 1;
+                  targetBlur = 'blur(0px)';
+                  targetZIndex = 10;
+                } else if (offset === 1) {
+                  targetX = 320;
+                  targetScale = 0.85;
+                  targetOpacity = 0;
+                  targetBlur = 'blur(0px)';
+                  targetZIndex = 5;
+                  isVisible = false;
+                } else if (offset === -1) {
+                  targetX = -320;
+                  targetScale = 0.85;
+                  targetOpacity = 0;
+                  targetBlur = 'blur(0px)';
+                  targetZIndex = 5;
+                  isVisible = false;
+                } else {
+                  targetX = offset > 0 ? 450 : -450;
+                  targetScale = 0.75;
+                  targetOpacity = 0;
+                  targetBlur = 'blur(0px)';
+                  targetZIndex = 1;
+                  isVisible = false;
+                }
+              } else if (isTablet) {
+                if (offset === 0) {
+                  targetX = 0;
+                  targetScale = 1;
+                  targetOpacity = 1;
+                  targetBlur = 'blur(0px)';
+                  targetZIndex = 10;
+                } else if (offset === 1) {
+                  targetX = 245;
+                  targetScale = 0.86;
+                  targetOpacity = 0.65;
+                  targetBlur = 'blur(0px)';
+                  targetZIndex = 6;
+                } else if (offset === -1) {
+                  targetX = -245;
+                  targetScale = 0.86;
+                  targetOpacity = 0.65;
+                  targetBlur = 'blur(0px)';
+                  targetZIndex = 6;
+                } else {
+                  targetX = offset > 0 ? 420 : -420;
+                  targetScale = 0.72;
+                  targetOpacity = 0;
+                  targetBlur = 'blur(0px)';
+                  targetZIndex = 2;
+                  isVisible = false;
+                }
+              } else {
+                // Desktop
+                if (offset === 0) {
+                  targetX = 0;
+                  targetScale = 1;
+                  targetOpacity = 1;
+                  targetBlur = 'blur(0px)';
+                  targetZIndex = 10;
+                } else if (offset === 1) {
+                  targetX = 285;
+                  targetScale = 0.86;
+                  targetOpacity = 0.68;
+                  targetBlur = 'blur(0px)';
+                  targetZIndex = 6;
+                } else if (offset === -1) {
+                  targetX = -285;
+                  targetScale = 0.86;
+                  targetOpacity = 0.68;
+                  targetBlur = 'blur(0px)';
+                  targetZIndex = 6;
+                } else if (offset === 2) {
+                  targetX = 520;
+                  targetScale = 0.72;
+                  targetOpacity = 0.28;
+                  targetBlur = 'blur(0px)';
+                  targetZIndex = 3;
+                } else if (offset === -2) {
+                  targetX = -520;
+                  targetScale = 0.72;
+                  targetOpacity = 0.28;
+                  targetBlur = 'blur(0px)';
+                  targetZIndex = 3;
+                }
+              }
+
+              // Smooth transition config with zero duration on cyclic wrap-around
+              const transitionConfig = prefersReducedMotion
+                ? { duration: 0.1 }
+                : isWrapping
+                ? { duration: 0 }
+                : {
+                    type: 'spring' as const,
+                    stiffness: 240,
+                    damping: 27,
+                    mass: 0.85,
+                  };
+
               return (
-                <ScrollReveal key={step.num} delay={120 + idx * 80} className="h-full">
-                  <div className="hiw-step-card-wrap">
-                    {/* Floating Step Number Pill on Wave */}
-                    <div className="hiw-step-num-badge">
-                      <span>{step.num}</span>
-                    </div>
-
-                    {/* Step Card Body */}
-                    <div className="hiw-step-card">
-                      {/* Circular Icon */}
-                      <div className={`hiw-step-icon-circle hiw-tint-${step.tint}`}>
-                        <IconComp size={20} strokeWidth={1.9} />
-                      </div>
-
-                      {/* Title */}
-                      <h3 className="hiw-step-title">{step.title}</h3>
-
-                      {/* Delicate Gold Accent Line */}
-                      <div className="hiw-step-underline" aria-hidden="true" />
-
-                      {/* Description */}
-                      <p className="hiw-step-desc">{step.desc}</p>
+                <motion.article
+                  key={step.id}
+                  className={`hiw-card-item ${isActive ? 'is-active' : 'is-preview'}`}
+                  initial={false}
+                  animate={{
+                    x: targetX,
+                    scale: targetScale,
+                    opacity: targetOpacity,
+                    filter: targetBlur,
+                    zIndex: targetZIndex,
+                  }}
+                  transition={transitionConfig}
+                  style={{
+                    visibility: isVisible ? 'visible' : 'hidden',
+                    pointerEvents: isVisible ? 'auto' : 'none',
+                    cursor: isActive ? 'default' : 'pointer',
+                  }}
+                  onClick={() => {
+                    if (!isActive) {
+                      handleGoTo(idx);
+                    }
+                  }}
+                  tabIndex={isActive ? 0 : -1}
+                  aria-current={isActive ? 'true' : undefined}
+                >
+                  {/* Top Image Container */}
+                  <div className="hiw-card-media">
+                    <img
+                      src={step.image}
+                      alt={step.alt}
+                      className="hiw-card-img"
+                      loading="eager"
+                    />
+                    {/* Step Indicator Badge */}
+                    <div className="hiw-step-pill" aria-label={`Step ${step.badge}`}>
+                      <span>{step.badge}</span>
                     </div>
                   </div>
-                </ScrollReveal>
+
+                  {/* Bottom Content Body */}
+                  <div className="hiw-card-content">
+                    {/* Header Row: Circular Tinted Icon + Step Heading */}
+                    <div className="hiw-card-title-row">
+                      <div
+                        className="hiw-card-icon-bubble"
+                        style={{
+                          backgroundColor: step.tintBg,
+                          color: step.iconColor,
+                        }}
+                      >
+                        <IconComponent size={17} strokeWidth={2.2} />
+                      </div>
+                      <h3 className="hiw-card-title">{step.title}</h3>
+                    </div>
+
+                    {/* Short Description */}
+                    <p className={`hiw-card-desc ${isActive ? 'is-desc-active' : 'is-desc-faint'}`}>
+                      {step.desc}
+                    </p>
+                  </div>
+                </motion.article>
               );
             })}
           </div>
+
+          {/* Circular Next Arrow Button */}
+          <button
+            type="button"
+            className="hiw-nav-arrow hiw-nav-next"
+            onClick={handleNext}
+            aria-label="Next step"
+          >
+            <ArrowRight size={18} strokeWidth={2.4} />
+          </button>
         </section>
+
+        {/* =================================================================
+           PROGRESS DOTS NAVIGATION
+           ================================================================= */}
+        <nav className="hiw-dots-nav" aria-label="Step selection">
+          {STEPS.map((s, dotIndex) => {
+            const isDotActive = dotIndex === activeIndex;
+            return (
+              <button
+                key={s.id}
+                type="button"
+                className={`hiw-dot-btn ${isDotActive ? 'is-active' : ''}`}
+                onClick={() => handleGoTo(dotIndex)}
+                aria-label={`Go to step ${dotIndex + 1}: ${s.title}`}
+                aria-current={isDotActive ? 'step' : undefined}
+              />
+            );
+          })}
+        </nav>
       </div>
     </div>
   );
