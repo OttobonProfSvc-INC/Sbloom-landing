@@ -8174,7 +8174,7 @@ var server_manifest_default = {
 			"hasClientMiddleware": false,
 			"hasDefaultExport": true,
 			"hasErrorBoundary": false,
-			"module": "/assets/home-alcTfUep.js",
+			"module": "/assets/home-B1CuXGxY.js",
 			"imports": [
 				"/assets/jsx-runtime-Cvr-326h.js",
 				"/assets/createLucideIcon-BbNJcHBT.js",
@@ -8195,7 +8195,7 @@ var server_manifest_default = {
 				"/assets/AnimatePresence-Drl4xYzo.js",
 				"/assets/ScrollReveal-BRMbBkGN.js"
 			],
-			"css": ["/assets/home-BQ3O4AIh.css"],
+			"css": ["/assets/home-DZTTzo14.css"],
 			"clientActionModule": void 0,
 			"clientLoaderModule": void 0,
 			"clientMiddlewareModule": void 0,
@@ -8665,8 +8665,8 @@ var server_manifest_default = {
 			"hydrateFallbackModule": void 0
 		}
 	},
-	"url": "/assets/manifest-42f8ef4e.js",
-	"version": "42f8ef4e",
+	"url": "/assets/manifest-bb1f96bd.js",
+	"version": "bb1f96bd",
 	"sri": void 0
 };
 //#endregion
